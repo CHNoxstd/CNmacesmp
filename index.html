@@ -1,14 +1,383 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>我的小站</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MaceSMP</title>
 <style>
-body{background:#111;color:#eee;font-family:system-ui;padding:2rem;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+:root{
+  --bg:#0c0c0f;
+  --text:#f5f5f7;
+  --text-sec:#b4b8c3;
+  --accent:#50dd92;
+  --radius:24px;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.62;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+.wrap{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:40px 0;
+}
+.logo{
+  font-size:22px;
+  font-weight:650;
+  letter-spacing:.3px;
+}
+.btn-nav{
+  background:#17171d;
+  color:var(--text);
+  border:0;
+  padding:10px 18px;
+  border-radius:16px;
+  font-size:14px;
+  cursor:pointer;
+  transition:.2s;
+}
+.btn-nav:hover{background:#22222b;}
+
+.hero{
+  margin-top:16px;
+  margin-bottom:64px;
+}
+.hero h1{
+  font-size:48px;
+  font-weight:700;
+  margin-bottom:18px;
+  letter-spacing:-1px;
+}
+.hero p.desc{
+  font-size:18px;
+  color:var(--text-sec);
+  max-width:700px;
+  margin-bottom:28px;
+}
+.action-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:32px;
+}
+a.btn-main, a.btn-ghost{
+  text-decoration:none;
+  display:inline-block;
+}
+.btn-main{
+  border:none;
+  background:var(--accent);
+  color:#09140e;
+  font-weight:600;
+  padding:13px 22px;
+  border-radius:16px;
+  font-size:15px;
+  transition:.2s ease;
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(80,221,146,.25);}
+.btn-ghost{
+  background:#181820;
+  color:var(--text);
+  border:0;
+  padding:13px 22px;
+  border-radius:16px;
+  font-size:15px;
+  transition:.2s;
+}
+.btn-ghost:hover{background:#24242f;}
+
+.meta-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.meta-card{
+  padding:24px;
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,#1a1b24,#121318);
+  box-shadow:0 8px 30px rgba(0,0,0,.35);
+}
+.meta-card strong{
+  display:block;
+  font-size:12px;
+  text-transform:uppercase;
+  color:var(--accent);
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+.meta-card span{
+  font-size:15px;
+  font-family:JetBrains Mono,monospace;
+}
+
+.block{
+  padding:36px;
+  border-radius:var(--radius);
+  margin-bottom:28px;
+  background:linear-gradient(135deg,#191a23,#111217);
+  box-shadow:0 10px 32px rgba(0,0,0,.32);
+  position:relative;
+  overflow:hidden;
+}
+.block::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+.block h2{
+  font-size:26px;
+  font-weight:650;
+  margin-bottom:20px;
+  position:relative;
+  z-index:2;
+}
+.block p, .block li{
+  color:var(--text-sec);
+  font-size:16px;
+  margin-bottom:12px;
+  position:relative;
+  z-index:2;
+}
+.block ul{
+  padding-left:22px;
+  margin:10px 0 16px;
+}
+.hl{color:var(--accent);font-weight:500;}
+.code-line{
+  font-family:JetBrains Mono,Consolas,monospace;
+  color:var(--accent);
+  font-size:16px;
+  margin:12px 0;
+}
+
+.news-item{
+  padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.news-item:last-child{border-bottom:none;}
+.tag{
+  display:inline-block;
+  font-size:12px;
+  background:rgba(80,221,146,.12);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:8px;
+  margin-right:8px;
+}
+.time{
+  font-size:13px;
+  color:#888b97;
+}
+.news-title{
+  font-size:17px;
+  font-weight:550;
+  margin:8px 0 6px;
+}
+
+.feat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:22px;
+}
+.feat{
+  padding:24px;
+  border-radius:20px;
+  background:linear-gradient(150deg,#20212c,#171820);
+}
+.feat h3{
+  color:var(--accent);
+  font-size:19px;
+  margin-bottom:8px;
+}
+.feat p{font-size:15px;}
+
+footer{
+  padding:60px 0 30px;
+  text-align:center;
+  color:#8a8d99;
+  font-size:14px;
+}
+
+@media(max-width:720px){
+  .hero h1{font-size:36px;}
+  .meta-grid, .feat-grid{grid-template-columns:1fr;}
+  .block{padding:26px 20px;}
+}
 </style>
 </head>
 <body>
-<h1>你好👋</h1>
-<p>这是部署在 Render 的静态网页</p>
+<div class="wrap">
+  <nav>
+    <div class="logo">MaceSMP</div>
+    <button class="btn-nav">明暗模式</button>
+  </nav>
+
+  <div class="hero">
+    <h1>MaceSMP</h1>
+    <p class="desc">
+Fabric 内测生存混乱服务器，1.7.X‑1.21.x 跨版本互通，强调透明权限与公益运营，为玩家提供长期稳定的 Minecraft 工业生存体验。
+    </p>
+    <div class="action-row">
+      <a class="btn-main" href="tencent://message/?uin=1013760045&Site=&Menu=yes">立即加入</a>
+      <a class="btn-ghost" href="#rules">查看规则</a>
+      <a class="btn-ghost" href="tencent://message/?uin=1013760045&Site=&Menu=yes">进入社群</a>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <strong>Server IP</strong>
+        <span class="code-line">MaceSMP.9666.fun:43941</span>
+      </div>
+      <div class="meta-card">
+        <strong>QQ Group</strong>
+        <span>1013760045</span>
+      </div>
+      <div class="meta-card">
+        <strong>Version</strong>
+        <span>1.7.X ~ 1.21.x</span>
+      </div>
+      <div class="meta-card">
+        <strong>Status</strong>
+        <span>Fabric 内测中</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>我们是谁</h2>
+    <p>MaceSMP 是由 QiuZ 及 resolve 创建的公益服务器，由 QiuZ 运营，接受 <span class="hl">URAOULP</span> 赞助。</p>
+    <p>在阅读、同意隐私与服务条款前，请认准官方群组账号：<span class="hl">zhMacesmp</span>。</p>
+    <p style="margin-top:18px;">© _LoveYuTT_ QiuZ 2026</p>
+  </div>
+
+  <div class="block">
+    <h2>服务器信息</h2>
+    <p><span class="hl">MaceSMP</span> 是面向 Minecraft 玩家的工业生存混乱服务器，当前处于 Fabric 内测阶段。</p>
+    <p>服务器支持 <span class="hl">1.7.X ~ 1.21.x 全版本兼容互通</span>，新旧客户端都可以直接连接。</p>
+    <p>服务器地址：</p>
+    <div class="code-line">MaceSMP.9666.fun:43941</div>
+    <p>官方交流群：<span class="hl">1013760045</span></p>
+    <p>举报与意见邮箱：</p>
+    <div class="code-line">macesmp_cnzh_v_LoveYuTT_@outlook.com</div>
+  </div>
+
+  <div class="block">
+    <h2>新闻动态</h2>
+    <div class="news-item">
+      <span class="tag">功能更新</span><span class="time">2026.09.07</span>
+      <div class="news-title">新增一键加入服务器指引</div>
+      <p>官网整合服务器 IP、版本、社群与举报渠道，降低新玩家加入门槛。</p>
+    </div>
+    <div class="news-item">
+      <span class="tag">版本更新</span><span class="time">2026.09.07</span>
+      <div class="news-title">服务器迁移 Fabric 高版本生态</div>
+      <p>全面更换 Fabric 服务端，正在进行数据整理、插件适配与玩法反馈收集。</p>
+    </div>
+    <div class="news-item">
+      <span class="tag">制度更新</span><span class="time">2026.09.07</span>
+      <div class="news-title">严格执行「无 OP 神权」机制</div>
+      <p>禁止管理员私自补发物资或滥用权限，开放可追溯举报渠道。</p>
+    </div>
+    <div class="news-item">
+      <span class="tag">招募公告</span><span class="time">2026.09.07</span>
+      <div class="news-title">长期开放管理岗位招募</div>
+      <p>招募宣传管理与审核管理，责任心强、能长期在线者优先。</p>
+    </div>
+    <div class="news-item">
+      <span class="tag">开源计划</span><span class="time">2026.09.07</span>
+      <div class="news-title">项目后续开源公示</div>
+      <p>服务端配置与插件资料整理完成后，将对外开源。</p>
+    </div>
+  </div>
+
+  <div id="rules" class="block">
+    <h2>服务与隐私条款</h2>
+    <ol>
+      <li><span class="hl">ZhMacesmp</span> 与域名 <code>macesmp.net</code> 的 MaceSMP 没有任何关系，二者相互独立。</li>
+      <li>本条款由 MaceSMP 相关成员代表发布；遵守、执行本条款的使用者下文称为「您」。</li>
+      <li>我们不接受任何开挂、利用游戏漏洞的行为。如果负责执行条款的管理人员违反公约，我们将采取相应处置；情节严重的，保留采取法律措施的权利。</li>
+      <li>服务器财产归条款制定方所有，不属于任何赞助者。赞助者仅提供资金赞助；我们会在合理范围内按赞助者的合理诉求执行，但赞助者不拥有服务器所有权。</li>
+      <li>本服务器是 <span class="hl">URAOULP</span> 的受赞助服务器。赞助仅提供资金，初始情况下 URAOULP 不负责服务器日常维护。仅出现以下情形时 URAOULP 会介入处置：
+        <ul>
+          <li>服务器遭遇大规模恶意攻击，或攻击 URAOULP 及赞助方；</li>
+          <li>存在有效、已规划好的协同调整计划。</li>
+        </ul>
+      </li>
+      <li>严禁发送恶意载荷、数据包注入、缓冲区溢出、模糊测试、端口扫描、流量洪水攻击，以及任何旨在使本服务崩溃、越权访问、泄露内部信息的行为。</li>
+      <li>未经项目作者书面许可，禁止任何人对本服务进行任何形式的渗透测试、漏洞利用尝试。</li>
+      <li>任何违反上述约定的行为，我方有权立即断开连接、永久封禁接入地址；同时保留留存访问日志、向有关部门上报的权利。</li>
+      <li>本服务属于实验性开源项目，<strong>不提供任何可用性、稳定性担保</strong>。接入服务器的所有风险由使用者自愿承担。</li>
+      <li>玩家游戏数据保存在服务器内，请不要实施任何会非法损坏服务器、破坏他人存档的行为。</li>
+      <li>本服务器目前为测试服务器，欢迎提交漏洞与改进建议。提交有效漏洞可获得奖励，奖励等级根据漏洞危害大小评估发放。</li>
+      <li>本服务器处于内部测试阶段，正在修复漏洞、征集玩法；计划不稳定。在提前告知的前提下，因关服、删档造成的数据损失，不提供数据赔偿。如果 URAOULP 赞助计划终止，同样不作任何赔偿。</li>
+      <li>服务器数据由 QiuZ 在合理范围内管控，不会恶意搜集个人隐私信息。如遭遇勒索、锁服等重大安全事件，可采取：临时关服、暂停运营、更换IP、重装数据库等应急措施。</li>
+      <li>当前为内测；正式版计划于寒暑假发布，发布时间可能提前或延后，对此不作承诺担保。</li>
+      <li>内测服务器存在无通知临时关服的可能，请知悉。</li>
+      <li>本服为死亡掉落混乱生存服。玩家之间的抄家属于玩法设定，该类冲突一般不受理；如有重大争议，可以联系 _LoveYuTT_ 提交反馈，我们酌情受理。</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h2>插件运维与问题反馈</h2>
+    <p><span class="hl">插件新增 / 修改申请：</span>如需添加、删除或调整服务器插件，统一私信 秋z 提交申请审核。</p>
+    <p><span class="hl">违规处罚条例：</span>本服为混乱生存服，严格禁止任何作弊行为，一经发现永久封禁。</p>
+    <p><span class="hl">赞助渠道：</span>服务器公益运营，赞助可联系秋z或在线 OP，资金全部用于服务器维护、带宽升级与插件付费。</p>
+  </div>
+
+  <div class="block">
+    <h2>核心特性</h2>
+    <div class="feat-grid">
+      <div class="feat">
+        <h3>全版本互通</h3>
+        <p>1.7 ~ 1.21.x 跨版本兼容，新旧客户端均可直连，无需频繁切换版本。</p>
+      </div>
+      <div class="feat">
+        <h3>工业级公平机制</h3>
+        <p>权限透明化，禁止管理员特权操作，制度标准化，减少私服乱象。</p>
+      </div>
+      <div class="feat">
+        <h3>持续迭代更新</h3>
+        <p>Fabric 生态持续适配，定期收集玩家建议，优化服务器体验。</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 MaceSMP · URAOULP Project<br>
+    Craftwork 讲述风风格参考 · Powered by GitHub Pages
+  </footer>
+</div>
 </body>
 </html>
