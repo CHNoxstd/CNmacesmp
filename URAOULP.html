@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>URAOULP Project</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#50dd92',
+        darkBg: '#040610',
+        lightBg: '#eef2ee',
+        lightText: '#111111',
+        lightMuted: '#5c5c5c',
+      },
+      fontFamily: {
+        inter: ['Inter', 'system-ui', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+
+<style type="text/tailwindcss">
+@layer utilities {
+  .glass-nav {
+    @apply fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full bg-white/5 backdrop-blur-md border border-white/10 px-6 py-3 flex items-center gap-6;
+  }
+  .glass-nav-light {
+    @apply fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full bg-white/60 backdrop-blur-md border border-black/8 px-6 py-3 flex items-center gap-6;
+  }
+  .liquid-glass-dark {
+    @apply rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+  .liquid-glass-light {
+    @apply rounded-2xl bg-white/70 backdrop-blur-xl border border-black/8 shadow-lg shadow-black/12 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+}
+</style>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x:hidden;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+body.dark{
+  color:#f5f5f7;
+  background-color:#040610;
+}
+body.light{
+  color:#111111;
+  background-color:#eef2ee;
+}
+
+.wrap{
+  position:relative;
+  z-index:4;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.block{
+  margin-bottom:28px;
+  padding:36px;
+  border-radius:24px;
+}
+
+.block h2{
+  font-size:26px;
+  font-weight:650;
+  margin-bottom:20px;
+}
+
+.dark .block p, .dark .block li{
+  color:#b4b8c3;
+}
+.light .block p, .light .block li{
+  color:#5c5c5c;
+}
+
+.block p, .block li{
+  font-size:16px;
+  margin-bottom:12px;
+  transition: color 0.35s ease;
+}
+
+.block ul{
+  padding-left:22px;
+  margin:10px 0 16px;
+}
+
+.hl{color:#50dd92;font-weight:500;}
+.code-line{
+  font-family:JetBrains Mono,Consolas,monospace;
+  color:#50dd92;
+  font-size:16px;
+  margin:12px 0;
+}
+
+footer{
+  max-width:1100px;
+  margin:60px auto 30px;
+  padding:0 24px;
+  text-align:center;
+  font-size:14px;
+  transition: color 0.35s ease;
+}
+.dark footer{color:#8a8d99;}
+.light footer{color:#6e6e6e;}
+
+.theme-toggle{
+  width:42px;
+  height:42px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: background 0.35s ease;
+}
+.dark .theme-toggle{background:rgba(255,255,255,.08);}
+.light .theme-toggle{background:rgba(0,0,0,.06);}
+
+.theme-toggle svg{
+  width:20px;
+  height:20px;
+  transition: stroke 0.35s ease;
+}
+.dark .theme-toggle svg{stroke:#f5f5f7;}
+.light .theme-toggle svg{stroke:#111111;}
+
+@media(max-width:720px){
+  .block{padding:26px 20px;}
+}
+</style>
+</head>
+<body class="dark">
+
+<div class="glass-nav" id="main-nav">
+  <div class="text-white font-semibold text-sm">URAOULP Project</div>
+  <div class="hidden md:flex gap-5 text-xs text-white/60">
+    <a href="./index.html" class="hover:text-white transition-colors">返回主页</a>
+  </div>
+  <button class="theme-toggle" id="theme-btn" aria-label="切换明暗模式">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+    </svg>
+  </button>
+</div>
+
+<div class="wrap" style="padding-top:120px;">
+
+<div class="block liquid-glass-dark">
+  <h2>URAOULP 项目介绍</h2>
+  <p>URAOULP 是一套面向 Minecraft 服务器的自研安全架构项目，提供服务器防护、协议安全、权限管控、日志审计能力。</p>
+  <p>本项目为公益开源方向，为 MaceSMP / Anarchy SMP 提供<strong>资金赞助与底层安全支持</strong>。</p>
+</div>
+
+<div class="block liquid-glass-dark">
+  <h2>项目核心能力</h2>
+  <ul>
+    <li>GPv2 私有通信协议，防护数据包注入、恶意载荷攻击</li>
+    <li>服务器访问日志审计，可追溯违规连接行为</li>
+    <li>权限隔离体系，防止管理员越权操作</li>
+    <li>攻击检测模块，抵御流量洪水、扫描探测行为</li>
+    <li>支持多服统一管控，可对接多个 Minecraft 服务端</li>
+  </ul>
+</div>
+
+<div class="block liquid-glass-dark">
+  <h2>服务器赞助合作模式</h2>
+  <p>URAOULP 可以为独立 Minecraft 服务器提供赞助支持：包含安全架构、技术维护、资金扶持。</p>
+  <p>合作服务器需要遵守项目协议，当服务器产生收益后，执行收益分成规则：</p>
+  <ul>
+    <li>普通中小型服务器：收益分成 <span class="hl">8%</span></li>
+    <li>大型高流量服务器：收益分成 <span class="hl">25%</span></li>
+  </ul>
+  <p>⚠️ 注意：赞助不等于拥有服务器所有权。服务器日常运维依旧由服主本人负责。</p>
+  <p>仅在发生大规模DDoS攻击、重大安全事件时，URAOULP才会介入处理。</p>
+</div>
+
+<div class="block liquid-glass-dark">
+  <h2>项目开源计划</h2>
+  <p>项目部分模块会逐步开源，包含协议文档、防护规则模板。</p>
+  <p>开源仓库地址后续公布。</p>
+</div>
+
+</div>
+
+<footer>
+  © 2026 URAOULP Project<br>
+  站点地址：https://CHNoxstd.github.io/CNmacesmp/
+</footer>
+
+<script>
+const themeBtn = document.getElementById('theme-btn');
+const mainNav = document.getElementById('main-nav');
+const body = document.body;
+
+function setTheme(mode){
+  if(mode === 'dark'){
+    body.classList.remove('light');
+    body.classList.add('dark');
+    mainNav.classList.remove('glass-nav-light');
+    mainNav.classList.add('glass-nav');
+    document.querySelectorAll('.block').forEach(b=>{
+      b.classList.remove('liquid-glass-light');
+      b.classList.add('liquid-glass-dark');
+    })
+  }else{
+    body.classList.remove('dark');
+    body.classList.add('light');
+    mainNav.classList.remove('glass-nav');
+    mainNav.classList.add('glass-nav-light');
+    document.querySelectorAll('.block').forEach(b=>{
+      b.classList.remove('liquid-glass-dark');
+      b.classList.add('liquid-glass-light');
+    })
+  }
+}
+
+themeBtn.addEventListener('click',()=>{
+  if(body.classList.contains('dark')){
+    setTheme('light');
+  }else{
+    setTheme('dark');
+  }
+});
+
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+  setTheme('light');
+}
+</script>
+
+</body>
+</html>
