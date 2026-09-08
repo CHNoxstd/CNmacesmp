@@ -12,11 +12,15 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         primary: '#50dd92',
-        dark: '#040610',
+        darkBg: '#040610',
+        lightBg: '#eef2ee',
+        lightText: '#111111',
+        lightMuted: '#5c5c5c',
       },
       fontFamily: {
         inter: ['Inter', 'system-ui', 'sans-serif'],
@@ -31,14 +35,33 @@ tailwind.config = {
   .glass-nav {
     @apply fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full bg-white/5 backdrop-blur-md border border-white/10 px-6 py-3 flex items-center gap-6;
   }
-  .glass-card {
-    @apply rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+
+  .glass-nav-light {
+    @apply fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full bg-white/60 backdrop-blur-md border border-black/8 px-6 py-3 flex items-center gap-6;
   }
-  .btn-primary {
+
+  .liquid-glass-dark {
+    @apply rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl shadow-black/40 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+
+  .liquid-glass-light {
+    @apply rounded-2xl bg-white/70 backdrop-blur-xl border border-black/8 shadow-lg shadow-black/12 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .btn-primary-dark {
     @apply bg-primary text-black font-semibold px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-primary/30 transition-all;
   }
-  .btn-outline {
+
+  .btn-primary-light {
+    @apply bg-black text-white font-semibold px-5 py-2.5 rounded-full hover:bg-black/80 transition-all;
+  }
+
+  .btn-outline-dark {
     @apply border border-white/20 text-white px-5 py-2.5 rounded-full hover:bg-white/5 transition-all;
+  }
+
+  .btn-outline-light {
+    @apply border border-black/16 text-black px-5 py-2.5 rounded-full hover:bg-black/6 transition-all;
   }
 }
 </style>
@@ -53,9 +76,18 @@ html{scroll-behavior:smooth;}
 
 body{
   font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color:#f5f5f7;
   overflow-x:hidden;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+body.dark{
+  color:#f5f5f7;
   background-color:#040610;
+}
+
+body.light{
+  color:#111111;
+  background-color:#eef2ee;
 }
 
 .hero-section{
@@ -63,9 +95,10 @@ body{
   width:100%;
   min-height:1080px;
   overflow:hidden;
+  transition: background 0.35s ease;
 }
 
-.hero-section::before{
+.dark .hero-section::before{
   content:"";
   position:absolute;
   inset:0;
@@ -73,6 +106,17 @@ body{
     radial-gradient(circle at 12% 15%, rgba(80,221,146,.16), transparent 30%),
     radial-gradient(circle at 88% 22%, rgba(56,189,248,.11), transparent 34%),
     linear-gradient(175deg, #040610 0%, #071228 55%, #040610 100%);
+  z-index:1;
+}
+
+.light .hero-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(80,221,146,.12), transparent 28%),
+    radial-gradient(circle at 88% 22%, rgba(56,189,248,.08), transparent 30%),
+    linear-gradient(175deg, #eef2ee 0%, #dfe8dc 55%, #eef2ee 100%);
   z-index:1;
 }
 
@@ -94,6 +138,11 @@ body{
   width:640px;
   height:640px;
   border-radius:50%;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index:3;
+}
+
+.dark .earth-sphere{
   background:
     radial-gradient(circle at 32% 22%, rgba(255,255,255,.75), transparent 36%),
     radial-gradient(circle at 62% 48%, rgba(80,221,146,.42), transparent 44%),
@@ -102,7 +151,18 @@ body{
     0 0 24px rgba(80,221,146,.22),
     0 0 44px rgba(80,221,146,.14),
     inset -14px -14px 40px rgba(0,0,0,.55);
-  z-index:3;
+}
+
+.light .earth-sphere{
+  opacity:0.55;
+  background:
+    radial-gradient(circle at 32% 22%, rgba(255,255,255,.9), transparent 38%),
+    radial-gradient(circle at 62% 48%, rgba(80,221,146,.35), transparent 42%),
+    linear-gradient(132deg, #7cfc00, #32cd32, #228b22, #eef2ee);
+  box-shadow:
+    0 0 22px rgba(80,221,146,.18),
+    0 0 40px rgba(0,0,0,.08),
+    inset -14px -14px 40px rgba(0,0,0,.12);
 }
 
 .earth-sphere::before{
@@ -124,8 +184,16 @@ body{
 .content-area{
   position:relative;
   z-index:4;
-  background:#040610;
   padding:80px 0;
+  transition: background 0.35s ease;
+}
+
+.dark .content-area{
+  background:#040610;
+}
+
+.light .content-area{
+  background:#eef2ee;
 }
 
 .block{
@@ -140,10 +208,18 @@ body{
   margin-bottom:20px;
 }
 
-.block p, .block li{
+.dark .block p, .dark .block li{
   color:#b4b8c3;
+}
+
+.light .block p, .light .block li{
+  color:#5c5c5c;
+}
+
+.block p, .block li{
   font-size:16px;
   margin-bottom:12px;
+  transition: color 0.35s ease;
 }
 
 .block ul{
@@ -162,7 +238,13 @@ body{
 .news-item{
   padding:20px 0;
   border-bottom:1px solid rgba(255,255,255,.07);
+  transition: border-color 0.35s ease;
 }
+
+.light .news-item{
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+
 .news-item:last-child{border-bottom:none;}
 .tag{
   display:inline-block;
@@ -177,6 +259,11 @@ body{
   font-size:13px;
   color:#888b97;
 }
+
+.light .time{
+  color:#777;
+}
+
 .news-title{
   font-size:17px;
   font-weight:550;
@@ -205,53 +292,102 @@ footer{
   margin:60px auto 30px;
   padding:0 24px;
   text-align:center;
-  color:#8a8d99;
   font-size:14px;
+  transition: color 0.35s ease;
+}
+
+.dark footer{
+  color:#8a8d99;
+}
+
+.light footer{
+  color:#6e6e6e;
 }
 
 .search-input{
   width:100%;
   padding:14px 18px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
   border-radius:16px;
-  color:#f5f5f7;
   font-size:16px;
   outline:none;
-  transition:.2s;
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
+
+.dark .search-input{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  color:#f5f5f7;
+}
+
+.light .search-input{
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
+  color:#111;
+}
+
 .search-input:focus{
   border-color:#50dd92;
   box-shadow:0 0 0 2px rgba(80,221,146,.15);
 }
+
 .search-result-box{
-  background:rgba(20,20,30,.92);
-  border:1px solid rgba(255,255,255,.08);
   border-radius:14px;
   margin-top:8px;
   padding:12px;
   max-height:320px;
   overflow-y:auto;
   display:none;
+  transition: background 0.35s ease, border-color 0.35s ease;
 }
+
+.dark .search-result-box{
+  background:rgba(20,20,30,.92);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.light .search-result-box{
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(0,0,0,.08);
+}
+
 .search-result-item{
   padding:10px;
   border-radius:8px;
   cursor:pointer;
+  transition: background 0.35s ease;
 }
-.search-result-item:hover{
+
+.dark .search-result-item:hover{
   background:rgba(255,255,255,.08);
 }
-.search-result-item a{
-  color:#f5f5f7;
-  text-decoration:none;
+
+.light .search-result-item:hover{
+  background:rgba(0,0,0,.04);
 }
+
+.search-result-item a{
+  text-decoration:none;
+  transition: color 0.35s ease;
+}
+
+.dark .search-result-item a{
+  color:#f5f5f7;
+}
+
+.light .search-result-item a{
+  color:#111;
+}
+
 .search-result-title{
   font-weight:550;
 }
 .search-result-desc{
   font-size:13px;
   color:#aaa;
+}
+
+.light .search-result-desc{
+  color:#666;
 }
 
 .nav-glass-row{
@@ -266,19 +402,38 @@ footer{
   padding:26px 16px;
   text-align:center;
   text-decoration:none;
-  color:#f5f5f7;
   font-size:18px;
   font-weight:600;
   border-radius:20px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
   transition:0.25s ease;
 }
+
+.dark .glass-btn{
+  color:#f5f5f7;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.light .glass-btn{
+  color:#111;
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
+}
+
 .glass-btn:hover{
-  background:rgba(255,255,255,.08);
   transform:translateY(-3px);
+}
+
+.dark .glass-btn:hover{
+  background:rgba(255,255,255,.08);
   box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
+
+.light .glass-btn:hover{
+  background:rgba(255,255,255,.85);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
 .meta-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -288,9 +443,19 @@ footer{
 .meta-card{
   padding:24px;
   border-radius:20px;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.dark .meta-card{
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.08);
 }
+
+.light .meta-card{
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
+}
+
 .meta-card strong{
   display:block;
   font-size:12px;
@@ -307,16 +472,58 @@ footer{
 .brand-bar{
   margin-top:120px;
   padding:24px 0;
-  border-top:1px solid rgba(255,255,255,.07);
   display:flex;
   flex-wrap:wrap;
   gap:32px;
   justify-content:center;
   align-items:center;
   opacity:0.55;
+  transition: border-color 0.35s ease;
 }
+
+.dark .brand-bar{
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.light .brand-bar{
+  border-top:1px solid rgba(0,0,0,.06);
+}
+
 .brand-bar span{
   font-size:14px;
+}
+
+.theme-toggle{
+  width:42px;
+  height:42px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: background 0.35s ease;
+}
+
+.dark .theme-toggle{
+  background:rgba(255,255,255,.08);
+}
+
+.light .theme-toggle{
+  background:rgba(0,0,0,.06);
+}
+
+.theme-toggle svg{
+  width:20px;
+  height:20px;
+  transition: stroke 0.35s ease;
+}
+
+.dark .theme-toggle svg{
+  stroke:#f5f5f7;
+}
+
+.light .theme-toggle svg{
+  stroke:#111;
 }
 
 @media(max-width:720px){
@@ -328,9 +535,9 @@ footer{
 }
 </style>
 </head>
-<body>
+<body class="dark">
 
-<div class="glass-nav">
+<div class="glass-nav" id="main-nav">
   <div class="text-white font-semibold text-sm">Anarchy SMP</div>
   <div class="hidden md:flex gap-5 text-xs text-white/60">
     <a href="#info" class="hover:text-white transition-colors">Info</a>
@@ -338,6 +545,11 @@ footer{
     <a href="#rules" class="hover:text-white transition-colors">Rules</a>
   </div>
   <a href="tencent://message/?uin=1013760045&Site=&Menu=yes" class="btn-primary text-xs px-4 py-1.5 hidden md:block">Join Now</a>
+  <button class="theme-toggle" id="theme-btn" aria-label="切换明暗模式">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+    </svg>
+  </button>
 </div>
 
 <div class="hero-section">
@@ -378,19 +590,19 @@ footer{
       </div>
 
       <div class="meta-grid max-w-3xl mx-auto">
-        <div class="meta-card glass-card">
+        <div class="meta-card liquid-glass-dark">
           <strong>Server IP</strong>
           <span class="code-line">MaceSMP.9666.fun:43941</span>
         </div>
-        <div class="meta-card glass-card">
+        <div class="meta-card liquid-glass-dark">
           <strong>QQ Group</strong>
           <span>1013760045</span>
         </div>
-        <div class="meta-card glass-card">
+        <div class="meta-card liquid-glass-dark">
           <strong>Version</strong>
           <span>1.7.X ~ 1.21.x</span>
         </div>
-        <div class="meta-card glass-card">
+        <div class="meta-card liquid-glass-dark">
           <strong>Status</strong>
           <span>Fabric 内测中</span>
         </div>
@@ -408,14 +620,14 @@ footer{
 
 <div class="content-area">
   <div class="wrap">
-    <div id="info" class="block glass-card">
+    <div id="info" class="block liquid-glass-dark">
       <h2>我们是谁</h2>
       <p>Anarchy SMP 是由 QiuZ 及 resolve 创建的公益服务器，由 QiuZ 运营，接受 <span class="hl">URAOULP</span> 赞助。</p>
       <p>在阅读、同意隐私与服务条款前，请认准官方群组账号：<span class="hl">zhAnarchysmp</span>。</p>
       <p style="margin-top:18px;">© _LoveYuTT_ QiuZ 2026</p>
     </div>
 
-    <div class="block glass-card">
+    <div class="block liquid-glass-dark">
       <h2>服务器信息</h2>
       <p><span class="hl">Anarchy SMP</span> 是面向 Minecraft 玩家的工业生存混乱服务器，当前处于 Fabric 内测阶段。</p>
       <p>服务器支持 <span class="hl">1.7.X ~ 1.21.x 全版本兼容互通</span>，新旧客户端都可以直接连接。</p>
@@ -426,7 +638,7 @@ footer{
       <div class="code-line">anarchysmp_cnzh_v_LoveYuTT_@outlook.com</div>
     </div>
 
-    <div id="news" class="block glass-card">
+    <div id="news" class="block liquid-glass-dark">
       <h2>新闻动态</h2>
       <div class="news-item">
         <span class="tag">功能更新</span><span class="time">2026.09.07</span>
@@ -449,13 +661,11 @@ footer{
         <p>招募宣传管理与审核管理，责任心强、能长期在线者优先。</p>
       </div>
       <div class="news-item">
-        <span class="tag">开源计划</span><span class="time">2026.09.07</span>
-        <div class="news-title">项目后续开源公示</div>
-        <p>服务端配置与插件资料整理完成后，将对外开源。</p>
+        <span class="tag">开源计划</span><span class="time">2026.09.07</point>
       </div>
     </div>
 
-    <div id="rules" class="block glass-card">
+    <div id="rules" class="block liquid-glass-dark">
       <h2>服务与隐私条款</h2>
       <ol>
         <li><span class="hl">ZhAnarchysmp</span> 与域名 <code>anarchysmp.net</code> 的 Anarchy SMP 没有任何关系，二者相互独立。</li>
@@ -482,25 +692,25 @@ footer{
       </ol>
     </div>
 
-    <div class="block glass-card">
+    <div class="block liquid-glass-dark">
       <h2>插件运维与问题反馈</h2>
       <p><span class="hl">插件新增 / 修改申请：</span>如需添加、删除或调整服务器插件，统一私信 秋z 提交申请审核。</p>
       <p><span class="hl">违规处罚条例：</span>本服为混乱生存服，严格禁止任何作弊行为，一经发现永久封禁。</p>
       <p><span class="hl">赞助渠道：</span>服务器公益运营，赞助可联系秋z或在线 OP，资金全部用于服务器维护、带宽升级与插件付费。</p>
     </div>
 
-    <div class="block glass-card">
+    <div class="block liquid-glass-dark">
       <h2>核心特性</h2>
       <div class="feat-grid">
-        <div class="feat glass-card">
+        <div class="feat liquid-glass-dark">
           <h3>全版本互通</h3>
           <p>1.7 ~ 1.21.x 跨版本兼容，新旧客户端均可直连，无需频繁切换版本。</p>
         </div>
-        <div class="feat glass-card">
+        <div class="feat liquid-glass-dark">
           <h3>工业级公平机制</h3>
           <p>权限透明化，禁止管理员特权操作，制度标准化，减少私服乱象。</p>
         </div>
-        <div class="feat glass-card">
+        <div class="feat liquid-glass-dark">
           <h3>持续迭代更新</h3>
           <p>Fabric 生态持续适配，定期收集玩家建议，优化服务器体验。</p>
         </div>
@@ -589,6 +799,46 @@ function renderResult(list){
   resultBox.innerHTML = html;
   resultBox.style.display="block";
 }
+
+const themeBtn = document.getElementById('theme-btn');
+const mainNav = document.getElementById('main-nav');
+const cards = document.querySelectorAll('.liquid-glass-dark, .meta-card, .glass-btn, .feat, .block');
+
+function setTheme(mode){
+  if(mode === 'dark'){
+    document.body.classList.add('dark');
+    document.body.classList.remove('light');
+    mainNav.classList.add('glass-nav');
+    mainNav.classList.remove('glass-nav-light');
+
+    document.querySelectorAll('h1, .meta-card span, .news-title').forEach(el=>{
+      el.style.color = '';
+    });
+
+  }else{
+    document.body.classList.add('light');
+    document.body.classList.remove('dark');
+    mainNav.classList.add('glass-nav-light');
+    mainNav.classList.remove('glass-nav');
+
+    document.querySelectorAll('h1, .meta-card span, .news-title').forEach(el=>{
+      el.style.color = '#111';
+    });
+  }
+}
+
+themeBtn.addEventListener('click',()=>{
+  if(document.body.classList.contains('dark')){
+    setTheme('light');
+  }else{
+    setTheme('dark');
+  }
+});
+
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+  setTheme('light');
+}
 </script>
+
 </body>
 </html>
