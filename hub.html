@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hub - MaceSMP 玩家论坛</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0c0c0f;--text:#f5f5f7;--text-sec:#b4b8c3;--accent:#50dd92;--radius:24px;}
+body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.62;padding:24px;}
+a{color:var(--accent);text-decoration:none;}
+.block{background:linear-gradient(135deg,#191a23,#111217);padding:32px;border-radius:var(--radius);margin:20px 0;}
+input,textarea{width:100%;padding:12px;background:#14141b;border:1px solid #2a2a38;border-radius:12px;color:#fff;margin:8px 0;}
+button{padding:10px 18px;background:var(--accent);color:#09140e;border:none;border-radius:12px;font-weight:600;cursor:pointer;}
+.post-item{padding:16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.post-author{color:var(--accent);font-size:14px;}
+.post-time{font-size:12px;color:#888;}
+.post-content{margin-top:6px;color:var(--text-sec);}
+</style>
+</head>
+<body>
+<h1>🏠 Hub 玩家论坛</h1>
+<p><a href="./">← 返回首页</a></p>
+<div class="block">
+<h3>发布新帖子</h3>
+<input id="author" placeholder="你的昵称">
+<textarea id="content" rows="4" placeholder="输入你的帖子内容..."></textarea>
+<button onclick="postNew()">发布帖子</button>
+</div>
+<div class="block" id="postList">
+<h3>全部帖子</h3>
+</div>
+
+<script>
+// 本地存储论坛帖子
+let posts = JSON.parse(localStorage.getItem('maceHubPosts') || '[]');
+
+function renderPosts(){
+  const dom = document.getElementById('postList');
+  dom.innerHTML = '<h3>全部帖子</h3>';
+  posts.forEach((p,i)=>{
+    dom.innerHTML += `
+    <div class="post-item">
+      <div class="post-author">${p.author}</div>
+      <div class="post-time">${p.time}</div>
+      <div class="post-content">${p.content}</div>
+    </div>
+    `
+  })
+}
+
+function postNew(){
+  const author = document.getElementById('author').value.trim();
+  const content = document.getElementById('content').value.trim();
+  if(!author||!content){alert("昵称和内容不能为空");return;}
+  posts.unshift({
+    author:author,
+    content:content,
+    time:new Date().toLocaleString()
+  })
+  localStorage.setItem('maceHubPosts',JSON.stringify(posts));
+  document.getElementById('content').value='';
+  renderPosts();
+}
+renderPosts();
+</script>
+</body>
+</html>
