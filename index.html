@@ -251,6 +251,36 @@ footer{
   box-shadow:0 0 0 2px rgba(80,221,146,0.15);
 }
 
+/* 搜索结果弹窗 */
+.search-result-box{
+  background:#171822;
+  border-radius:14px;
+  margin-top:8px;
+  padding:12px;
+  max-height:320px;
+  overflow-y:auto;
+  display:none;
+}
+.search-result-item{
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.search-result-item:hover{
+  background:#24252f;
+}
+.search-result-item a{
+  color:#f5f5f7;
+  text-decoration:none;
+}
+.search-result-title{
+  font-weight:550;
+}
+.search-result-desc{
+  font-size:13px;
+  color:#aaa;
+}
+
 .nav-glass-row{
   display:flex;
   gap:16px;
@@ -305,9 +335,10 @@ Fabric 内测生存混乱服务器，1.7.X‑1.21.x 跨版本互通，强调透�
       <a class="btn-ghost" href="tencent://message/?uin=1013760045&Site=&Menu=yes">进入社群</a>
     </div>
 
-    <!-- 搜索框 -->
+    <!-- 搜索框 + 搜索结果容器 -->
     <div class="search-wrap">
-      <input class="search-input" placeholder="搜索新闻、公告...">
+      <input id="searchInput" class="search-input" placeholder="搜索新闻、公告...">
+      <div id="searchResultBox" class="search-result-box"></div>
     </div>
 
     <!-- 液晶毛玻璃三个按钮 News / About / Hub 【这里已经改成 .html】 -->
@@ -442,5 +473,84 @@ Fabric 内测生存混乱服务器，1.7.X‑1.21.x 跨版本互通，强调透�
     站点地址：https://CHNoxstd.github.io/CNmacesmp/
   </footer>
 </div>
+
+<script>
+// 新闻库，和 news.html 保持同步
+const newsList = [
+  {
+    tag:"功能更新",
+    time:"2026.09.07",
+    title:"新增一键加入服务器指引",
+    desc:"官网整合服务器 IP、版本、社群与举报渠道，降低新玩家加入门槛。"
+  },
+  {
+    tag:"版本更新",
+    time:"2026.09.07",
+    title:"服务器迁移 Fabric 高版本生态",
+    desc:"全面更换 Fabric 服务端，正在进行数据整理、插件适配与玩法反馈收集。"
+  },
+  {
+    tag:"制度更新",
+    time:"2026.09.07",
+    title:"严格执行「无 OP 神权」机制",
+    desc:"禁止管理员私自补发物资或滥用权限，开放可追溯举报渠道。"
+  },
+  {
+    tag:"招募公告",
+    time:"2026.09.07",
+    title:"长期开放管理岗位招募",
+    desc:"招募宣传管理与审核管理，责任心强、能长期在线者优先。"
+  },
+  {
+    tag:"开源计划",
+    time:"2026.09.07",
+    title:"项目后续开源公示",
+    desc:"服务端配置与插件资料整理完成后，将对外开源。"
+  }
+];
+
+const searchInput = document.getElementById('searchInput');
+const resultBox = document.getElementById('searchResultBox');
+
+// 搜索逻辑
+searchInput.addEventListener('input',()=>{
+  const kw = searchInput.value.trim().toLowerCase();
+  if(!kw){
+    resultBox.style.display="none";
+    return;
+  }
+  const match = newsList.filter(item=>{
+    const txt = (item.title+" "+item.desc).toLowerCase();
+    return txt.includes(kw);
+  });
+  renderResult(match);
+});
+
+// 点击页面其他地方关闭搜索框
+document.addEventListener('click',(e)=>{
+  if(!searchInput.contains(e.target) && !resultBox.contains(e.target)){
+    resultBox.style.display="none";
+  }
+});
+
+function renderResult(list){
+  if(list.length===0){
+    resultBox.innerHTML = `<div style="padding:10px;color:#aaa">没有匹配的新闻</div>`;
+    resultBox.style.display="block";
+    return;
+  }
+  let html = "";
+  list.forEach(item=>{
+    html+=`
+    <div class="search-result-item" onclick="window.location.href='./news.html'">
+      <div class="search-result-title">${item.title}</div>
+      <div class="search-result-desc">${item.desc}</div>
+    </div>
+    `;
+  });
+  resultBox.innerHTML = html;
+  resultBox.style.display="block";
+}
+</script>
 </body>
 </html>
