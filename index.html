@@ -51,7 +51,6 @@ tailwind.config = {
 }
 html{scroll-behavior:smooth;}
 
-/* 【模拟截图太空地球背景，无图片】 */
 body{
   font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color:#f5f5f7;
@@ -59,14 +58,13 @@ body{
   background-color:#040610;
 }
 
-/* 英雄区全屏背景 */
 .hero-section{
   position:relative;
   width:100%;
-  min-height:100vh;
+  min-height:1080px;
   overflow:hidden;
 }
-/* 太空渐变底色 */
+
 .hero-section::before{
   content:"";
   position:absolute;
@@ -77,7 +75,7 @@ body{
     linear-gradient(175deg, #040610 0%, #071228 55%, #040610 100%);
   z-index:1;
 }
-/* 星空噪点 */
+
 .hero-section::after{
   content:"";
   position:absolute;
@@ -87,14 +85,14 @@ body{
   z-index:2;
   pointer-events:none;
 }
-/* CSS模拟地球球体（不用图片） */
+
 .earth-sphere{
   position:absolute;
-  bottom:-120px;
+  bottom:-180px;
   left:50%;
   transform:translateX(-50%);
-  width:520px;
-  height:520px;
+  width:640px;
+  height:640px;
   border-radius:50%;
   background:
     radial-gradient(circle at 32% 22%, rgba(255,255,255,.75), transparent 36%),
@@ -106,6 +104,7 @@ body{
     inset -14px -14px 40px rgba(0,0,0,.55);
   z-index:3;
 }
+
 .earth-sphere::before{
   content:"";
   position:absolute;
@@ -114,7 +113,6 @@ body{
   background:radial-gradient(circle at 28% 18%, rgba(255,255,255,.11), transparent 26%);
 }
 
-/* 内容容器 */
 .wrap{
   position:relative;
   z-index:4;
@@ -123,32 +121,36 @@ body{
   padding:0 24px;
 }
 
-/* 下方页面区块 */
 .content-area{
   position:relative;
   z-index:4;
   background:#040610;
   padding:80px 0;
 }
+
 .block{
   margin-bottom:28px;
   padding:36px;
   border-radius:24px;
 }
+
 .block h2{
   font-size:26px;
   font-weight:650;
   margin-bottom:20px;
 }
+
 .block p, .block li{
   color:#b4b8c3;
   font-size:16px;
   margin-bottom:12px;
 }
+
 .block ul{
   padding-left:22px;
   margin:10px 0 16px;
 }
+
 .hl{color:#50dd92;font-weight:500;}
 .code-line{
   font-family:JetBrains Mono,Consolas,monospace;
@@ -302,7 +304,6 @@ footer{
   font-family:JetBrains Mono,monospace;
 }
 
-/* 底部品牌logo栏（模仿截图底部客户logo） */
 .brand-bar{
   margin-top:120px;
   padding:24px 0;
@@ -320,7 +321,7 @@ footer{
 
 @media(max-width:720px){
   .hero-section{min-height:100vh;}
-  .earth-sphere{width:320px;height:320px;bottom:-80px;}
+  .earth-sphere{width:360px;height:360px;bottom:-100px;}
   .meta-grid, .feat-grid{grid-template-columns:1fr;}
   .block{padding:26px 20px;}
   .nav-glass-row{flex-direction:column;}
@@ -329,7 +330,6 @@ footer{
 </head>
 <body>
 
-<!-- 顶部悬浮玻璃导航，复刻截图APEX -->
 <div class="glass-nav">
   <div class="text-white font-semibold text-sm">Anarchy SMP</div>
   <div class="hidden md:flex gap-5 text-xs text-white/60">
@@ -340,12 +340,11 @@ footer{
   <a href="tencent://message/?uin=1013760045&Site=&Menu=yes" class="btn-primary text-xs px-4 py-1.5 hidden md:block">Join Now</a>
 </div>
 
-<!-- 全屏Hero区域，CSS模拟太空+地球 -->
 <div class="hero-section">
   <div class="earth-sphere"></div>
+
   <div class="wrap">
     <div class="text-center pt-32 pb-20 relative z-40">
-      <!-- 顶部小标签，模仿截图的Nova+ Launched! -->
       <div class="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs text-white/60 mb-6">
         <span>Fabric内测</span>
         <span class="w-1 h-1 rounded-full bg-primary"></span>
@@ -397,7 +396,6 @@ footer{
         </div>
       </div>
 
-      <!-- 模仿截图底部品牌栏 -->
       <div class="brand-bar">
         <span>Relied on by players across the globe</span>
         <span>URAOULP</span>
@@ -408,7 +406,6 @@ footer{
   </div>
 </div>
 
-<!-- 下方全部正文内容 -->
 <div class="content-area">
   <div class="wrap">
     <div id="info" class="block glass-card">
