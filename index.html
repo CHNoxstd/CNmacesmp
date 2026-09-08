@@ -33,7 +33,7 @@ body::before{
   pointer-events:none;
   z-index:1;
   opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
   mix-blend-mode:overlay;
 }
 .wrap{
@@ -231,10 +231,59 @@ footer{
   font-size:14px;
 }
 
+/* ========== 新增：搜索框 + 毛玻璃导航按钮 ========== */
+.search-wrap{
+  margin:40px 0;
+}
+.search-input{
+  width:100%;
+  padding:14px 18px;
+  background:#14141b;
+  border:1px solid #2a2a38;
+  border-radius:16px;
+  color:#f5f5f7;
+  font-size:16px;
+  outline:none;
+  transition:.2s;
+}
+.search-input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(80,221,146,0.15);
+}
+
+.nav-glass-row{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:48px;
+}
+.glass-btn{
+  flex:1;
+  min-width:140px;
+  padding:26px 16px;
+  text-align:center;
+  text-decoration:none;
+  color:#f5f5f7;
+  font-size:18px;
+  font-weight:600;
+  border-radius:20px;
+  /* 毛玻璃液晶效果 */
+  background:rgba(26,28,36,0.45);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.25s ease;
+}
+.glass-btn:hover{
+  background:rgba(36,38,48,0.55);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+}
+
 @media(max-width:720px){
   .hero h1{font-size:36px;}
   .meta-grid, .feat-grid{grid-template-columns:1fr;}
   .block{padding:26px 20px;}
+  .nav-glass-row{flex-direction:column;}
 }
 </style>
 </head>
@@ -255,6 +304,19 @@ Fabric 内测生存混乱服务器，1.7.X‑1.21.x 跨版本互通，强调透�
       <a class="btn-ghost" href="#rules">查看规则</a>
       <a class="btn-ghost" href="tencent://message/?uin=1013760045&Site=&Menu=yes">进入社群</a>
     </div>
+
+    <!-- 搜索框 -->
+    <div class="search-wrap">
+      <input class="search-input" placeholder="搜索新闻、公告...">
+    </div>
+
+    <!-- 液晶毛玻璃三个按钮 News / About / Hub -->
+    <div class="nav-glass-row">
+      <a class="glass-btn" href="./news">News</a>
+      <a class="glass-btn" href="./about">About</a>
+      <a class="glass-btn" href="./hub">Hub</a>
+    </div>
+
     <div class="meta-grid">
       <div class="meta-card">
         <strong>Server IP</strong>
@@ -376,7 +438,8 @@ Fabric 内测生存混乱服务器，1.7.X‑1.21.x 跨版本互通，强调透�
 
   <footer>
     © 2026 MaceSMP · URAOULP Project<br>
-    Craftwork 讲述风风格参考 · Powered by GitHub Pages
+    Craftwork 讲述风风格参考 · Powered by GitHub Pages<br>
+    站点地址：https://CHNoxstd.github.io/CNmacesmp/
   </footer>
 </div>
 </body>
