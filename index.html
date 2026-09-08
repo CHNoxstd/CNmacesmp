@@ -11,6 +11,10 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+// 登录校验：未登录强制跳转到 login.html
+if(localStorage.getItem("isLogin") !== "true"){
+  window.location.href = "./login.html";
+}
 tailwind.config = {
   darkMode: 'class',
   theme: {
