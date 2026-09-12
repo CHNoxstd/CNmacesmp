@@ -4,9 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>蓝色守护者 · 海洋观测档案</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&family=Sora:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -30,6 +32,7 @@ tailwind.config = {
   }
 }
 </script>
+
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -39,7 +42,7 @@ tailwind.config = {
     background-color: #041724;
     font-feature-settings: "tnum" 1;
   }
-  body.modal-open { overflow: hidden; }
+  body.join-open { overflow: hidden; }
   .tnum { font-variant-numeric: tabular-nums; }
 
   @keyframes rise {
@@ -115,210 +118,457 @@ tailwind.config = {
 
   ::selection { background: #67C1E8; color: #041724; }
 
-  /* ═══════════ 注册弹层（ECHOID 风格） ═══════════ */
-  .signup-overlay {
+  /* ══════════════════════════════════════════════════
+     ECHOID 加入计划整页（作用域限定在 #joinPage 内）
+     ══════════════════════════════════════════════════ */
+  #joinPage {
+    --text-dim: rgba(255,255,255,0.62);
+    --text-dimmer: rgba(255,255,255,0.42);
+    --line: rgba(255,255,255,0.14);
+    --line-strong: rgba(255,255,255,0.26);
+    --fill-ghost: rgba(255,255,255,0.05);
+    --fill-solid: rgba(255,255,255,0.10);
+    --gutter: clamp(20px, 5vw, 100px);
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    --font-display: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
     position: fixed;
     inset: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 200;
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-display);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .45s cubic-bezier(.2,.8,.2,1);
+    transition: opacity .5s var(--ease-premium);
   }
-  .signup-overlay.open {
+  #joinPage.active {
     opacity: 1;
     pointer-events: auto;
   }
+  #joinPage *,
+  #joinPage *::before,
+  #joinPage *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-  .signup-backdrop {
+  #joinPage .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    min-height: 640px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    isolation: isolate;
+  }
+
+  #joinPage .hero__media {
     position: absolute;
     inset: 0;
-    background: rgba(4,23,36,.92);
-    backdrop-filter: blur(28px) saturate(140%);
-    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    z-index: -1;
+    background-color: #000;
   }
-
-  .signup-panel {
-    position: relative;
-    z-index: 1;
+  #joinPage .hero__media video {
     width: 100%;
-    max-width: 420px;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    opacity: 0;
-    transform: translateY(20px) scale(.985);
-    transition: opacity .55s cubic-bezier(.2,.8,.2,1) .08s,
-                transform .55s cubic-bezier(.2,.8,.2,1) .08s;
-  }
-  .signup-overlay.open .signup-panel {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
-  .signup-close {
+  #joinPage .hero__scrim {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    z-index: 2;
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.5);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: color .25s ease, transform .25s ease;
+    inset: 0;
+    z-index: 0;
   }
-  .signup-close:hover { color: #fff; transform: rotate(90deg); }
-  @media (min-width: 768px) {
-    .signup-close { top: 32px; right: 40px; }
+  @media (min-width:721px) {
+    #joinPage .hero__scrim {
+      background:
+        linear-gradient(to right, transparent 0%, transparent 45%, rgba(0,0,0,0.45) 72%, rgba(0,0,0,0.72) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 78%, rgba(0,0,0,0.65) 100%);
+    }
+  }
+  @media (max-width:720px) {
+    #joinPage .hero__scrim {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.75) 100%);
+    }
   }
 
-  .signup-chip {
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.62);
-    background: rgba(255,255,255,.07);
-    padding: 9px 14px;
+  /* 导航 */
+  #joinPage .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    padding: clamp(20px, 2.4vw, 34px) var(--gutter);
+    z-index: 60;
+    position: relative;
+  }
+  #joinPage .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2vw, 30px);
+  }
+  #joinPage .logo {
+    font-family: var(--font-display);
+    font-weight: 200;
+    font-size: clamp(20px, 1.75vw, 30px);
+    letter-spacing: 0.16em;
+    color: #fff;
+    text-decoration: none;
     line-height: 1;
   }
-
-  .signup-title {
-    font-family: 'Geist', sans-serif;
-    font-weight: 200;
-    font-size: clamp(40px, 8vw, 56px);
-    letter-spacing: .03em;
-    line-height: .95;
-    color: #fff;
-    margin-top: 28px;
-  }
-
-  .signup-tagline {
-    font-family: 'Geist Mono', monospace;
-    font-weight: 300;
-    font-size: 11px;
-    letter-spacing: .16em;
+  #joinPage .nav-back {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: clamp(10px, 0.72vw, 12px);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.55);
-    margin-top: 16px;
-    line-height: 1.5;
-  }
-
-  .signup-form {
-    margin-top: 44px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-  }
-
-  .signup-input {
-    width: 100%;
+    color: rgba(255,255,255,0.55);
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255,255,255,.26);
-    border-radius: 0;
-    padding: 0 2px 15px;
-    font-family: 'Geist', sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: #fff;
-    transition: border-color .25s ease;
-  }
-  .signup-input::placeholder { color: rgba(255,255,255,.42); }
-  .signup-input:focus {
-    outline: none;
-    border-color: rgba(255,255,255,.85);
-  }
-  .signup-input:focus::placeholder { color: rgba(255,255,255,.28); }
-
-  .btn-signup-ghost,
-  .btn-signup-solid {
-    width: 100%;
-    border: none;
-    border-radius: 0;
-    padding: 19px 20px;
-    font-family: 'Geist Mono', monospace;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: .22em;
-    font-size: 11px;
     cursor: pointer;
-    transition: background .25s ease, color .25s ease;
+    padding: 6px 0;
+    transition: color 0.25s ease;
+    white-space: nowrap;
   }
-  .btn-signup-ghost {
-    background: rgba(255,255,255,.05);
-    color: rgba(255,255,255,.42);
-  }
-  .btn-signup-ghost:hover {
-    background: rgba(255,255,255,.09);
-    color: #fff;
-  }
-  .btn-signup-solid {
-    background: rgba(255,255,255,.10);
-    color: #fff;
-  }
-  .btn-signup-solid:hover {
-    background: rgba(255,255,255,.18);
-  }
+  #joinPage .nav-back:hover { color: #fff; }
 
-  .signup-invite {
-    align-self: center;
-    margin-top: 34px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .18em;
+  #joinPage .nav__cluster {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 3.2vw, 62px);
+  }
+  #joinPage .nav__links {
+    display: flex;
+    gap: clamp(20px, 2.8vw, 56px);
+  }
+  #joinPage .nav__links a {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: clamp(11px, 0.78vw, 14px);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #fff;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
-    transition: color .25s ease;
+    text-decoration: none;
+    transition: color 0.25s ease;
   }
-  .signup-invite:hover { color: rgba(255,255,255,.55); }
+  #joinPage .nav__links a:hover { color: var(--text-dim); }
 
-  .signup-legal {
+  #joinPage .nav__cta {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: clamp(11px, 0.78vw, 14px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    padding: clamp(12px,1vw,17px) clamp(20px,1.8vw,32px);
+    border: 1px solid var(--line-strong);
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  #joinPage .nav__cta:hover {
+    background-color: var(--fill-ghost);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  #joinPage .hamburger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+  #joinPage .hamburger__bar {
     position: absolute;
-    bottom: 28px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 0 24px;
-    font-family: 'Geist', sans-serif;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 1.6;
-    color: rgba(255,255,255,.38);
-    z-index: 2;
-    opacity: 0;
-    transition: opacity .5s ease .22s;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 1px;
+    background-color: #fff;
+    transition: transform 0.45s var(--ease-premium), opacity 0.25s ease;
   }
-  .signup-overlay.open .signup-legal { opacity: 1; }
-  .signup-legal a {
-    color: rgba(255,255,255,.75);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color .25s ease;
-  }
-  .signup-legal a:hover { color: #fff; }
+  #joinPage .hamburger__bar:nth-child(1) { top:16px; }
+  #joinPage .hamburger__bar:nth-child(2) { top:22px; }
+  #joinPage .hamburger__bar:nth-child(3) { top:28px; }
 
-  :focus-visible {
-    outline: 1px solid rgba(103,193,232,.75);
-    outline-offset: 3px;
+  #joinPage .hamburger.active .hamburger__bar:nth-child(1) {
+    transform: translateX(-50%) rotate(45deg); top:22px;
+  }
+  #joinPage .hamburger.active .hamburger__bar:nth-child(2) {
+    opacity:0; transform: translateX(-50%) scaleX(0);
+  }
+  #joinPage .hamburger.active .hamburger__bar:nth-child(3) {
+    transform: translateX(-50%) rotate(-45deg); top:22px;
+  }
+
+  @media (max-width:900px) {
+    #joinPage .nav__cluster { display:none; }
+    #joinPage .hamburger { display:block; }
+  }
+
+  /* 移动端菜单 */
+  #joinPage .mobile-menu {
+    position: fixed;
+    inset:0;
+    z-index:50;
+    background: rgba(4,4,6,0.94);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:32px;
+    clip-path: circle(3% at calc(100% - 42px) 42px);
+    opacity:0;
+    pointer-events:none;
+    transition: clip-path 0.7s var(--ease-premium), opacity 0.45s ease;
+  }
+  #joinPage .mobile-menu.open {
+    clip-path: circle(150% at calc(100% - 42px) 42px);
+    opacity:1;
+    pointer-events:auto;
+  }
+  #joinPage .mobile-menu__item {
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:clamp(20px,5.5vw,28px);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#fff;
+    text-decoration:none;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.4s ease, transform 0.5s var(--ease-premium);
+  }
+  #joinPage .mobile-menu.open .mobile-menu__item {
+    opacity:1; transform:translateY(0);
+  }
+  #joinPage .mobile-menu__cta {
+    font-family:var(--font-mono);
+    font-weight:400;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:#fff;
+    text-decoration:none;
+    padding:16px 40px;
+    border:1px solid var(--line-strong);
+    background: transparent;
+    cursor: pointer;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.4s ease, transform 0.5s var(--ease-premium), background .25s ease;
+  }
+  #joinPage .mobile-menu__cta:hover { background: var(--fill-ghost); }
+  #joinPage .mobile-menu.open .mobile-menu__cta {
+    opacity:1; transform:translateY(0);
+  }
+
+  /* 右侧注册面板 */
+  #joinPage .hero__body {
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding-inline:var(--gutter);
+    min-height:0;
+    overflow-y:auto;
+  }
+  @media (max-width:720px) {
+    #joinPage .hero__body { justify-content:center; }
+  }
+
+  #joinPage .panel {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    width: min(34vw,620px);
+    min-width:380px;
+  }
+  @media (max-width:1100px) {
+    #joinPage .panel { width: min(70vw,520px); min-width:0; }
+  }
+  @media (max-width:720px) {
+    #joinPage .panel { width:100%; }
+  }
+
+  #joinPage .chip {
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:clamp(11px,0.72vw,14px);
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,0.09);
+    padding:clamp(9px,0.8vw,14px) clamp(14px,1.1vw,20px);
+    line-height:1;
+  }
+
+  #joinPage .panel h1 {
+    font-family:var(--font-display);
+    font-weight:200;
+    font-size:clamp(54px,6.2vw,118px);
+    letter-spacing:0.03em;
+    line-height:0.95;
+    margin-top:clamp(28px,3vw,52px);
+  }
+  @media (max-width:380px) {
+    #joinPage .panel h1 { font-size:clamp(44px,15vw,64px); }
+  }
+
+  #joinPage .tagline {
+    font-family:var(--font-mono);
+    font-weight:300;
+    text-transform:uppercase;
+    font-size:clamp(11px,0.94vw,17px);
+    letter-spacing:0.14em;
+    color:var(--text-dim);
+    margin-top:clamp(14px,1.4vw,24px);
+    line-height:1.4;
+  }
+
+  #joinPage .signup-form {
+    margin-top:clamp(38px,4.6vw,82px);
+    display:flex;
+    flex-direction:column;
+    gap:clamp(14px,1.3vw,22px);
+    width:100%;
+  }
+
+  #joinPage .visually-hidden {
+    position:absolute;
+    width:1px; height:1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+  }
+
+  #joinPage .email-input {
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line-strong);
+    border-radius:0;
+    padding:0 2px clamp(12px,1.1vw,18px);
+    font-family:var(--font-display);
+    font-weight:300;
+    font-size:clamp(16px,0.95vw,18px);
+    color:#fff;
+    transition:border-color 0.25s ease;
+  }
+  #joinPage .email-input::placeholder { color:var(--text-dim); }
+  #joinPage .email-input:focus {
+    outline:none;
+    border-color:rgba(255,255,255,0.85);
+  }
+  #joinPage .email-input:focus::placeholder { color:var(--text-dimmer); }
+
+  #joinPage .btn--ghost,
+  #joinPage .btn--solid {
+    width:100%;
+    border-radius:0;
+    border:none;
+    padding:clamp(17px,1.6vw,27px) 20px;
+    font-family:var(--font-mono);
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:clamp(11px,0.78vw,14px);
+    cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+  #joinPage .btn--ghost {
+    background:var(--fill-ghost);
+    color:var(--text-dimmer);
+  }
+  #joinPage .btn--ghost:hover {
+    background:rgba(255,255,255,0.09);
+    color:#fff;
+  }
+  #joinPage .btn--solid {
+    background:var(--fill-solid);
+    color:#fff;
+  }
+  #joinPage .btn--solid:hover { background:rgba(255,255,255,0.17); }
+
+  #joinPage .referral-link {
+    align-self:center;
+    margin-top:clamp(26px,2.6vw,46px);
+    font-family:var(--font-mono);
+    font-weight:400;
+    text-transform:uppercase;
+    font-size:clamp(11px,0.74vw,14px);
+    letter-spacing:0.18em;
+    color:#fff;
+    text-decoration:underline;
+    text-underline-offset:4px;
+    transition:color 0.25s ease;
+  }
+  #joinPage .referral-link:hover { color:var(--text-dim); }
+
+  #joinPage .legal-footer {
+    border-top:1px solid var(--line);
+    padding:clamp(18px,1.7vw,30px) var(--gutter);
+    text-align:center;
+  }
+  #joinPage .legal-footer p {
+    font-family:var(--font-display);
+    font-weight:300;
+    font-size:clamp(12px,0.82vw,16px);
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+  #joinPage .legal-footer a {
+    color:#fff;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-thickness:1px;
+    transition:color 0.25s ease;
+  }
+  #joinPage .legal-footer a:hover { color:var(--text-dim); }
+
+  #joinPage :focus-visible {
+    outline:1px solid rgba(255,255,255,0.7);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #joinPage .hero__media video { display:none; }
+    #joinPage .hero__media {
+      background-image:url("https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png");
+      background-size:cover;
+      background-position:center;
+    }
+    #joinPage *, #joinPage *::before, #joinPage *::after {
+      animation-duration:0.01ms !important;
+      transition-duration:0.01ms !important;
+    }
+  }
+
+  @media (max-height:640px) {
+    #joinPage .navbar { padding:12px var(--gutter); }
+    #joinPage .panel h1 { font-size:clamp(36px,7vw,64px); }
+    #joinPage .signup-form { margin-top:24px; gap:10px; }
+    #joinPage .btn--ghost,
+    #joinPage .btn--solid { padding:12px 20px; }
+    #joinPage .legal-footer p { font-size:11px; }
+    #joinPage .mobile-menu { gap:20px; }
   }
 </style>
 </head>
 
 <body class="text-white font-sans antialiased">
 
-<!-- ══════════════════════ 首屏 ══════════════════════ -->
-<section id="home" class="relative min-h-screen w-full overflow-hidden">
+<!-- ══════════════════════ 主页面：海洋观测档案 ══════════════════════ -->
 
+<section id="home" class="relative min-h-screen w-full overflow-hidden">
   <video
     autoplay muted loop playsinline
     class="absolute inset-0 w-full h-full object-cover"
@@ -327,7 +577,6 @@ tailwind.config = {
   ></video>
   <div class="hero-scrim"></div>
 
-  <!-- 导航 -->
   <nav class="relative z-30 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
     <div class="flex items-center gap-10">
       <a href="#home" class="flex items-baseline gap-2.5">
@@ -346,7 +595,7 @@ tailwind.config = {
         <button class="lang-btn active px-2.5 py-1 text-[11px] font-mono tracking-wider rounded" data-lang="zh">中</button>
         <button class="lang-btn px-2.5 py-1 text-[11px] font-mono tracking-wider rounded text-white/60" data-lang="en">EN</button>
       </div>
-      <button data-open-signup
+      <button data-open-join
               class="rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
               data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
@@ -361,7 +610,6 @@ tailwind.config = {
     </button>
   </nav>
 
-  <!-- 移动端菜单 -->
   <div id="mobilePanel" class="mobile-panel absolute inset-x-0 top-0 z-20 h-0 opacity-0 bg-ink-950/97 backdrop-blur-xl">
     <div class="flex h-full flex-col justify-center px-8 pt-20">
       <a href="#data"   class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a>
@@ -371,16 +619,14 @@ tailwind.config = {
         <button class="lang-btn active px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono" data-lang="zh">中文</button>
         <button class="lang-btn px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono text-white/60" data-lang="en">EN</button>
       </div>
-      <button data-open-signup
+      <button data-open-join
               class="mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium"
               data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
   </div>
 
-  <!-- 首屏正文 -->
   <div class="relative z-10 min-h-[calc(100vh-92px)] flex flex-col justify-end px-6 pb-14 sm:pb-20 md:px-12 lg:px-20 md:pb-24">
     <div class="max-w-4xl">
-
       <div class="rise-1 flex items-center gap-3 mb-8">
         <span class="w-6 h-px bg-ink-500"></span>
         <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase">Marine Observation File · 2026</span>
@@ -405,7 +651,7 @@ tailwind.config = {
           查阅观测数据
           <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <button data-open-signup
+        <button data-open-join
                 class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
                 data-zh="直接参与" data-en="Take part">直接参与</button>
       </div>
@@ -423,10 +669,8 @@ tailwind.config = {
 </section>
 
 
-<!-- ══════════════════════ 观测数据 ══════════════════════ -->
 <section id="data" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="reveal max-w-2xl mb-16 md:mb-20">
       <div class="flex items-center gap-3 mb-6">
         <span class="w-6 h-px bg-ink-500"></span>
@@ -445,7 +689,6 @@ tailwind.config = {
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0">
-
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">01</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -523,16 +766,13 @@ tailwind.config = {
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">GCRMN · Status of Coral Reefs, 2021</p>
       </div>
-
     </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════ 行动路径 ══════════════════════ -->
 <section id="action" class="relative bg-ink-900 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="reveal max-w-2xl mb-16 md:mb-20">
       <div class="flex items-center gap-3 mb-6">
         <span class="w-6 h-px bg-ink-500"></span>
@@ -551,7 +791,6 @@ tailwind.config = {
     </div>
 
     <div class="grid md:grid-cols-2 gap-x-14 gap-y-0">
-
       <div class="reveal border-t hairline py-9">
         <div class="flex items-baseline gap-4 mb-3">
           <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.01</span>
@@ -611,16 +850,13 @@ tailwind.config = {
           海洋议题常被大量未经核实的预测性说法包裹，其中不少后来被证伪。在传播时，引用具体的机构、年份与文献，比引用「研究表明」这种模糊表述更有价值，也更难被反驳。
         </p>
       </div>
-
     </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════ 参与清单 ══════════════════════ -->
 <section id="pledge" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="reveal mb-12">
       <div class="flex items-center gap-3 mb-6">
         <span class="w-6 h-px bg-ink-500"></span>
@@ -639,7 +875,6 @@ tailwind.config = {
     </div>
 
     <div class="reveal bg-white/[0.02] border hairline rounded-lg px-6 md:px-8 py-2">
-
       <div class="check-row" data-key="p1">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -687,7 +922,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Carbon review</p>
         </div>
       </div>
-
     </div>
 
     <div class="reveal mt-10">
@@ -703,18 +937,20 @@ tailwind.config = {
          data-en="Tick any item to begin tracking.">
         勾选任意一项开始记录。
       </p>
-    </div>
 
+      <button data-open-join
+              class="mt-10 w-full rounded-md bg-white text-ink-950 px-6 py-4 text-[14px] font-medium hover:bg-ink-500 transition-colors"
+              data-zh="加入计划 · 建立你的参与者档案" data-en="Join · Set up your participant record">
+        加入计划 · 建立你的参与者档案
+      </button>
+    </div>
   </div>
 </section>
 
 
-<!-- ══════════════════════ 页脚 ══════════════════════ -->
 <footer class="bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
-
     <div class="grid md:grid-cols-12 gap-10 md:gap-8">
-
       <div class="md:col-span-5">
         <div class="flex items-baseline gap-2.5 mb-5">
           <span class="text-[15px] font-medium text-white" data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</span>
@@ -747,74 +983,98 @@ tailwind.config = {
           <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="隐私说明" data-en="Privacy">隐私说明</a></li>
         </ul>
       </div>
-
     </div>
 
     <div class="mt-14 pt-8 border-t hairline flex flex-wrap items-center justify-between gap-3">
       <p class="font-mono text-[10.5px] tracking-[0.08em] text-white/25">© 2026 Blue Guardian · Marine Observation File</p>
       <p class="font-mono text-[10.5px] tracking-[0.08em] text-white/25">本页不使用追踪脚本 · No trackers</p>
     </div>
-
   </div>
 </footer>
 
 
-<!-- ══════════════════════ 注册弹层 ══════════════════════ -->
-<div id="signupOverlay" class="signup-overlay" role="dialog" aria-modal="true" aria-labelledby="signupTitle" aria-hidden="true">
-  <div class="signup-backdrop" data-close-signup></div>
+<!-- ══════════════════════ 加入计划 · ECHOID 整页 ══════════════════════ -->
 
-  <button class="signup-close" data-close-signup aria-label="Close">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-      <line x1="4" y1="4" x2="16" y2="16"/>
-      <line x1="16" y1="4" x2="4" y2="16"/>
-    </svg>
-  </button>
+<div id="joinPage" aria-hidden="true">
+  <section class="hero">
+    <div class="hero__media">
+      <video
+        id="joinVideo"
+        autoplay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png"
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="hero__scrim"></div>
 
-  <div class="signup-panel">
-    <div class="signup-chip" data-zh="[ 参与者登记 ]" data-en="[ PARTICIPANT ENTRY ]">[ 参与者登记 ]</div>
+    <!-- 导航 -->
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <button class="nav-back" data-close-join aria-label="返回主页面">← 返回</button>
+        <a href="#" class="logo">ECHOID</a>
+      </div>
 
-    <h2 id="signupTitle" class="signup-title"
-        data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</h2>
+      <div class="nav__cluster">
+        <div class="nav__links">
+          <a href="#story">Story</a>
+          <a href="#platforms">Platforms</a>
+          <a href="#identity">Identity</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a href="#join" class="nav__cta">Join up</a>
+      </div>
 
-    <p class="signup-tagline"
-       data-zh="你的声音，进入蓝色守护者网络"
-       data-en="Your voice, into the Blue Guardian network.">
-      你的声音，进入蓝色守护者网络
-    </p>
+      <button class="hamburger" aria-expanded="false" aria-controls="joinMobileMenu" aria-label="Open menu">
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+      </button>
+    </nav>
 
-    <form class="signup-form" id="signupForm" novalidate>
-      <label for="signupEmail" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Email</label>
-      <input
-        id="signupEmail"
-        class="signup-input"
-        type="email"
-        name="email"
-        autocomplete="email"
-        placeholder="邮箱"
-        data-zh-placeholder="邮箱"
-        data-en-placeholder="Email"
-      />
-      <button type="submit" class="btn-signup-ghost"
-              data-zh="使用邮箱继续" data-en="Proceed using email">使用邮箱继续</button>
-      <button type="button" class="btn-signup-solid"
-              data-zh="访问" data-en="Access">访问</button>
-    </form>
+    <!-- 移动端菜单 -->
+    <div id="joinMobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
+      <a href="#story" class="mobile-menu__item">Story</a>
+      <a href="#platforms" class="mobile-menu__item">Platforms</a>
+      <a href="#identity" class="mobile-menu__item">Identity</a>
+      <a href="#contact" class="mobile-menu__item">Contact</a>
+      <a href="#join" class="mobile-menu__cta">Join up</a>
+    </div>
 
-    <a href="#invite" class="signup-invite"
-       data-zh="我已有邀请码" data-en="I've got an invite key">我已有邀请码</a>
-  </div>
+    <!-- 右侧注册面板 -->
+    <div class="hero__body">
+      <div class="panel">
+        <div class="chip">[ VOICE ENTRY ]</div>
+        <h1>ECHOID</h1>
+        <p class="tagline">Your voice ID to the E network.</p>
 
-  <p class="signup-legal">
-    <span data-zh="注册即表示你已阅读并接受我们的" data-en="Registering signals that you accept our">注册即表示你已阅读并接受我们的</span>
-    <a href="#privacy" data-zh="隐私说明" data-en="Privacy Notice">隐私说明</a>
-    <span data-zh="与" data-en="and">与</span>
-    <a href="#contract" data-zh="服务条款" data-en="Service Contract">服务条款</a><span data-zh="。" data-en=".">。</span>
-  </p>
+        <form class="signup-form" id="joinForm" action="#" method="post" novalidate>
+          <label for="joinEmail" class="visually-hidden">Email</label>
+          <input id="joinEmail" class="email-input" type="email" name="email" autocomplete="email" placeholder="Email" />
+          <button type="submit" class="btn--ghost">Proceed using email</button>
+          <button type="button" class="btn--solid">Access</button>
+        </form>
+
+        <a href="#invite" class="referral-link">I've got an invite key</a>
+      </div>
+    </div>
+
+    <!-- 底部条款 -->
+    <footer class="legal-footer">
+      <p>Opening an e.xyz account signals that you accept our <a href="#privacy-notice">Privacy Notice</a> and <a href="#service-contract">Service Contract</a>.</p>
+    </footer>
+  </section>
 </div>
 
 
 <script>
-/* ── 移动端菜单 ── */
+/* ══════════════════════════════════════════════
+   主页面：移动端菜单
+   ══════════════════════════════════════════════ */
 const menuBtn   = document.getElementById('menuBtn');
 const panel     = document.getElementById('mobilePanel');
 const iconMenu  = document.getElementById('iconMenu');
@@ -842,63 +1102,108 @@ panel.style.pointerEvents = 'none';
 menuBtn.addEventListener('click', () => setMenu(!menuOpen));
 mobileLinks.forEach(l => l.addEventListener('click', () => setMenu(false)));
 
-/* ── 注册弹层 ── */
-const overlay = document.getElementById('signupOverlay');
-const openTriggers = document.querySelectorAll('[data-open-signup]');
-const closeTriggers = document.querySelectorAll('[data-close-signup]');
-const signupForm = document.getElementById('signupForm');
-const signupEmail = document.getElementById('signupEmail');
-let lastFocused = null;
+/* ══════════════════════════════════════════════
+   页面切换：主页面 ⇄ ECHOID 加入页
+   ══════════════════════════════════════════════ */
+const joinPage = document.getElementById('joinPage');
+const joinVideo = document.getElementById('joinVideo');
+const joinScrollMemory = { y: 0 };
 
-function openSignup() {
-  lastFocused = document.activeElement;
-  overlay.classList.add('open');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('modal-open');
-  setTimeout(() => signupEmail && signupEmail.focus(), 380);
-}
-
-function closeSignup() {
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('modal-open');
-  if (lastFocused && typeof lastFocused.focus === 'function') {
-    setTimeout(() => lastFocused.focus(), 200);
+function openJoin() {
+  if (menuOpen) setMenu(false);
+  joinScrollMemory.y = window.scrollY || window.pageYOffset || 0;
+  document.body.classList.add('join-open');
+  joinPage.classList.add('active');
+  joinPage.setAttribute('aria-hidden', 'false');
+  joinPage.scrollTop = 0;
+  if (joinVideo) {
+    const p = joinVideo.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
   }
 }
 
-openTriggers.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (menuOpen) setMenu(false);
-    openSignup();
-  });
+function closeJoin() {
+  joinPage.classList.remove('active');
+  joinPage.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('join-open');
+  if (joinVideo) joinVideo.pause();
+  // 关闭 ECHOID 页内的移动菜单
+  if (joinHamburger.classList.contains('active')) toggleJoinMenu();
+  window.scrollTo(0, joinScrollMemory.y);
+}
+
+document.querySelectorAll('[data-open-join]').forEach(btn => {
+  btn.addEventListener('click', (e) => { e.preventDefault(); openJoin(); });
 });
-
-closeTriggers.forEach(btn => btn.addEventListener('click', closeSignup));
-
+document.querySelectorAll('[data-close-join]').forEach(btn => {
+  btn.addEventListener('click', closeJoin);
+});
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && overlay.classList.contains('open')) closeSignup();
+  if (e.key === 'Escape' && joinPage.classList.contains('active')) closeJoin();
 });
 
-signupForm.addEventListener('submit', (e) => {
+/* ══════════════════════════════════════════════
+   ECHOID 页：汉堡菜单
+   ══════════════════════════════════════════════ */
+const joinHamburger = joinPage.querySelector('.hamburger');
+const joinMobileMenu = document.getElementById('joinMobileMenu');
+const joinMenuItems = joinMobileMenu.querySelectorAll('.mobile-menu__item, .mobile-menu__cta');
+
+function toggleJoinMenu() {
+  const isOpen = joinHamburger.classList.contains('active');
+  joinHamburger.classList.toggle('active');
+  joinMobileMenu.classList.toggle('open');
+  joinHamburger.setAttribute('aria-expanded', String(!isOpen));
+  joinMobileMenu.setAttribute('aria-hidden', String(isOpen));
+
+  if (!isOpen) {
+    joinMobileMenu.removeAttribute('inert');
+    joinMenuItems.forEach((el, idx) => {
+      el.style.transitionDelay = `calc(180ms + ${idx} * 70ms)`;
+    });
+  } else {
+    joinMobileMenu.setAttribute('inert', '');
+    joinMenuItems.forEach(el => { el.style.transitionDelay = ''; });
+  }
+}
+joinHamburger.addEventListener('click', toggleJoinMenu);
+joinMobileMenu.addEventListener('click', (e) => {
+  if (e.target === joinMobileMenu) toggleJoinMenu();
+});
+joinMenuItems.forEach(el => el.addEventListener('click', () => {
+  if (joinHamburger.classList.contains('active')) toggleJoinMenu();
+}));
+
+// 视口 ≥901px 时自动收起 ECHOID 移动菜单
+const joinMq = window.matchMedia('(min-width:901px)');
+joinMq.addEventListener('change', () => {
+  if (joinMq.matches && joinHamburger.classList.contains('active')) toggleJoinMenu();
+});
+
+/* ══════════════════════════════════════════════
+   ECHOID 页：注册表单
+   ══════════════════════════════════════════════ */
+const joinForm = document.getElementById('joinForm');
+const joinEmail = document.getElementById('joinEmail');
+
+joinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const val = (signupEmail.value || '').trim();
-  if (!val) {
-    signupEmail.focus();
-    signupEmail.style.borderColor = 'rgba(255,120,120,.85)';
-    setTimeout(() => { signupEmail.style.borderColor = ''; }, 900);
+  const val = (joinEmail.value || '').trim();
+  if (!val || val.indexOf('@') === -1) {
+    joinEmail.focus();
+    joinEmail.style.borderColor = 'rgba(255,120,120,0.85)';
+    setTimeout(() => { joinEmail.style.borderColor = ''; }, 900);
     return;
   }
-  /* 此处接入实际后端接口 */
-  const btn = signupForm.querySelector('.btn-signup-ghost');
-  const zh = '已提交，请查收邮件';
-  const en = 'Submitted — check your inbox';
-  btn.textContent = (currentLang === 'zh') ? zh : en;
+  const btn = joinForm.querySelector('.btn--ghost');
+  btn.textContent = 'Submitted — check your inbox';
   btn.disabled = true;
+  btn.style.color = 'rgba(255,255,255,0.85)';
 });
 
-/* ── 滚动揭示 ── */
+/* ══════════════════════════════════════════════
+   滚动揭示
+   ══════════════════════════════════════════════ */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -909,7 +1214,9 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ── 语言切换 ── */
+/* ══════════════════════════════════════════════
+   语言切换（仅主页面）
+   ══════════════════════════════════════════════ */
 let currentLang = 'zh';
 const langBtns = document.querySelectorAll('.lang-btn');
 const i18nNodes = document.querySelectorAll('[data-zh][data-en]');
@@ -923,15 +1230,13 @@ function applyLang(lang) {
     else b.classList.remove('text-white/60');
   });
   i18nNodes.forEach(el => { el.textContent = el.dataset[lang]; });
-  // 占位符
-  if (signupEmail) {
-    signupEmail.placeholder = (lang === 'zh') ? '邮箱' : 'Email';
-  }
   updateProgress();
 }
 langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
 
-/* ── 承诺清单 ── */
+/* ══════════════════════════════════════════════
+   承诺清单
+   ══════════════════════════════════════════════ */
 const rows = document.querySelectorAll('.check-row');
 const progCount = document.getElementById('progCount');
 const progBar = document.getElementById('progBar');
@@ -943,8 +1248,7 @@ try { state = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) {
 
 function renderRows() {
   rows.forEach(row => {
-    const key = row.dataset.key;
-    row.classList.toggle('done', !!state[key]);
+    row.classList.toggle('done', !!state[row.dataset.key]);
   });
 }
 
