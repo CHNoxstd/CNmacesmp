@@ -6,7 +6,7 @@
 <title>蓝色守护者 · 海洋观测档案</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -37,11 +37,11 @@ tailwind.config = {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #041724;
-    font-feature-settings: "tnum" 1, "ss01" 1;
+    font-feature-settings: "tnum" 1;
   }
+  body.modal-open { overflow: hidden; }
   .tnum { font-variant-numeric: tabular-nums; }
 
-  /* 进入动画：短、低幅度、克制 */
   @keyframes rise {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -67,7 +67,6 @@ tailwind.config = {
 
   .hairline { border-color: rgba(255,255,255,.08); }
 
-  /* 承诺清单 */
   .check-row {
     display: flex; align-items: flex-start; gap: 14px;
     padding: 18px 0;
@@ -88,22 +87,20 @@ tailwind.config = {
     transition: opacity .22s ease;
     stroke: #041724; stroke-width: 3;
   }
-  .check-row.done .check-box {
-    background: #67C1E8;
-    border-color: #67C1E8;
-  }
+  .check-row.done .check-box { background: #67C1E8; border-color: #67C1E8; }
   .check-row.done .check-box svg { opacity: 1; }
-  .check-row.done .check-label { color: rgba(255,255,255,.42); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.25); }
+  .check-row.done .check-label {
+    color: rgba(255,255,255,.42);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,255,255,.25);
+  }
   .check-row:hover .check-box { border-color: rgba(103,193,232,.6); }
 
   .lang-btn { transition: all .2s ease; }
   .lang-btn.active { background: rgba(255,255,255,.9); color: #041724; }
   .lang-btn:not(.active):hover { background: rgba(255,255,255,.08); }
 
-  .nav-a {
-    position: relative;
-    transition: color .25s ease;
-  }
+  .nav-a { position: relative; transition: color .25s ease; }
   .nav-a::after {
     content: ""; position: absolute; left: 0; bottom: -4px;
     width: 0; height: 1px; background: #67C1E8;
@@ -117,6 +114,203 @@ tailwind.config = {
   }
 
   ::selection { background: #67C1E8; color: #041724; }
+
+  /* ═══════════ 注册弹层（ECHOID 风格） ═══════════ */
+  .signup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .signup-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .signup-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4,23,36,.92);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+  }
+
+  .signup-panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(20px) scale(.985);
+    transition: opacity .55s cubic-bezier(.2,.8,.2,1) .08s,
+                transform .55s cubic-bezier(.2,.8,.2,1) .08s;
+  }
+  .signup-overlay.open .signup-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .signup-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 2;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.5);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color .25s ease, transform .25s ease;
+  }
+  .signup-close:hover { color: #fff; transform: rotate(90deg); }
+  @media (min-width: 768px) {
+    .signup-close { top: 32px; right: 40px; }
+  }
+
+  .signup-chip {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.62);
+    background: rgba(255,255,255,.07);
+    padding: 9px 14px;
+    line-height: 1;
+  }
+
+  .signup-title {
+    font-family: 'Geist', sans-serif;
+    font-weight: 200;
+    font-size: clamp(40px, 8vw, 56px);
+    letter-spacing: .03em;
+    line-height: .95;
+    color: #fff;
+    margin-top: 28px;
+  }
+
+  .signup-tagline {
+    font-family: 'Geist Mono', monospace;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .signup-form {
+    margin-top: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .signup-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,.26);
+    border-radius: 0;
+    padding: 0 2px 15px;
+    font-family: 'Geist', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #fff;
+    transition: border-color .25s ease;
+  }
+  .signup-input::placeholder { color: rgba(255,255,255,.42); }
+  .signup-input:focus {
+    outline: none;
+    border-color: rgba(255,255,255,.85);
+  }
+  .signup-input:focus::placeholder { color: rgba(255,255,255,.28); }
+
+  .btn-signup-ghost,
+  .btn-signup-solid {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    padding: 19px 20px;
+    font-family: 'Geist Mono', monospace;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+  .btn-signup-ghost {
+    background: rgba(255,255,255,.05);
+    color: rgba(255,255,255,.42);
+  }
+  .btn-signup-ghost:hover {
+    background: rgba(255,255,255,.09);
+    color: #fff;
+  }
+  .btn-signup-solid {
+    background: rgba(255,255,255,.10);
+    color: #fff;
+  }
+  .btn-signup-solid:hover {
+    background: rgba(255,255,255,.18);
+  }
+
+  .signup-invite {
+    align-self: center;
+    margin-top: 34px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color .25s ease;
+  }
+  .signup-invite:hover { color: rgba(255,255,255,.55); }
+
+  .signup-legal {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0 24px;
+    font-family: 'Geist', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255,255,255,.38);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .5s ease .22s;
+  }
+  .signup-overlay.open .signup-legal { opacity: 1; }
+  .signup-legal a {
+    color: rgba(255,255,255,.75);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color .25s ease;
+  }
+  .signup-legal a:hover { color: #fff; }
+
+  :focus-visible {
+    outline: 1px solid rgba(103,193,232,.75);
+    outline-offset: 3px;
+  }
 </style>
 </head>
 
@@ -141,9 +335,9 @@ tailwind.config = {
         <span class="hidden sm:inline font-mono text-[10px] tracking-[0.18em] text-white/35 uppercase">Est. 2026</span>
       </a>
       <div class="hidden md:flex gap-8">
-        <a href="#data"     class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
-        <a href="#action"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
-        <a href="#pledge"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
+        <a href="#data"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
+        <a href="#action" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
+        <a href="#pledge" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
       </div>
     </div>
 
@@ -152,9 +346,9 @@ tailwind.config = {
         <button class="lang-btn active px-2.5 py-1 text-[11px] font-mono tracking-wider rounded" data-lang="zh">中</button>
         <button class="lang-btn px-2.5 py-1 text-[11px] font-mono tracking-wider rounded text-white/60" data-lang="en">EN</button>
       </div>
-      <a href="#pledge"
-         class="rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
-         data-zh="加入计划" data-en="Join">加入计划</a>
+      <button data-open-signup
+              class="rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
+              data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
 
     <button id="menuBtn" class="md:hidden relative z-50 w-10 h-10 -mr-2 flex items-center justify-center active:scale-90 transition-transform">
@@ -177,7 +371,9 @@ tailwind.config = {
         <button class="lang-btn active px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono" data-lang="zh">中文</button>
         <button class="lang-btn px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono text-white/60" data-lang="en">EN</button>
       </div>
-      <a href="#pledge" class="mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium" data-zh="加入计划" data-en="Join">加入计划</a>
+      <button data-open-signup
+              class="mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium"
+              data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
   </div>
 
@@ -209,9 +405,9 @@ tailwind.config = {
           查阅观测数据
           <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <a href="#pledge"
-           class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
-           data-zh="直接参与" data-en="Take part">直接参与</a>
+        <button data-open-signup
+                class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
+                data-zh="直接参与" data-en="Take part">直接参与</button>
       </div>
     </div>
 
@@ -250,7 +446,6 @@ tailwind.config = {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0">
 
-      <!-- 01 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">01</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -264,7 +459,6 @@ tailwind.config = {
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">Borrelle et al. · Science, 2020</p>
       </div>
 
-      <!-- 02 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">02</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -278,7 +472,6 @@ tailwind.config = {
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">FAO · SOFIA 2022</p>
       </div>
 
-      <!-- 03 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">03</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -292,7 +485,6 @@ tailwind.config = {
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
       </div>
 
-      <!-- 04 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">04</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -306,7 +498,6 @@ tailwind.config = {
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
       </div>
 
-      <!-- 05 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">05</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -320,7 +511,6 @@ tailwind.config = {
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
       </div>
 
-      <!-- 06 -->
       <div class="reveal border-t hairline py-8">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">06</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -500,7 +690,6 @@ tailwind.config = {
 
     </div>
 
-    <!-- 进度 -->
     <div class="reveal mt-10">
       <div class="flex items-baseline justify-between mb-3">
         <span class="font-mono text-[10px] tracking-[0.18em] text-white/30 uppercase" data-zh="完成进度" data-en="Completion">完成进度</span>
@@ -570,6 +759,60 @@ tailwind.config = {
 </footer>
 
 
+<!-- ══════════════════════ 注册弹层 ══════════════════════ -->
+<div id="signupOverlay" class="signup-overlay" role="dialog" aria-modal="true" aria-labelledby="signupTitle" aria-hidden="true">
+  <div class="signup-backdrop" data-close-signup></div>
+
+  <button class="signup-close" data-close-signup aria-label="Close">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <line x1="4" y1="4" x2="16" y2="16"/>
+      <line x1="16" y1="4" x2="4" y2="16"/>
+    </svg>
+  </button>
+
+  <div class="signup-panel">
+    <div class="signup-chip" data-zh="[ 参与者登记 ]" data-en="[ PARTICIPANT ENTRY ]">[ 参与者登记 ]</div>
+
+    <h2 id="signupTitle" class="signup-title"
+        data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</h2>
+
+    <p class="signup-tagline"
+       data-zh="你的声音，进入蓝色守护者网络"
+       data-en="Your voice, into the Blue Guardian network.">
+      你的声音，进入蓝色守护者网络
+    </p>
+
+    <form class="signup-form" id="signupForm" novalidate>
+      <label for="signupEmail" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Email</label>
+      <input
+        id="signupEmail"
+        class="signup-input"
+        type="email"
+        name="email"
+        autocomplete="email"
+        placeholder="邮箱"
+        data-zh-placeholder="邮箱"
+        data-en-placeholder="Email"
+      />
+      <button type="submit" class="btn-signup-ghost"
+              data-zh="使用邮箱继续" data-en="Proceed using email">使用邮箱继续</button>
+      <button type="button" class="btn-signup-solid"
+              data-zh="访问" data-en="Access">访问</button>
+    </form>
+
+    <a href="#invite" class="signup-invite"
+       data-zh="我已有邀请码" data-en="I've got an invite key">我已有邀请码</a>
+  </div>
+
+  <p class="signup-legal">
+    <span data-zh="注册即表示你已阅读并接受我们的" data-en="Registering signals that you accept our">注册即表示你已阅读并接受我们的</span>
+    <a href="#privacy" data-zh="隐私说明" data-en="Privacy Notice">隐私说明</a>
+    <span data-zh="与" data-en="and">与</span>
+    <a href="#contract" data-zh="服务条款" data-en="Service Contract">服务条款</a><span data-zh="。" data-en=".">。</span>
+  </p>
+</div>
+
+
 <script>
 /* ── 移动端菜单 ── */
 const menuBtn   = document.getElementById('menuBtn');
@@ -599,6 +842,62 @@ panel.style.pointerEvents = 'none';
 menuBtn.addEventListener('click', () => setMenu(!menuOpen));
 mobileLinks.forEach(l => l.addEventListener('click', () => setMenu(false)));
 
+/* ── 注册弹层 ── */
+const overlay = document.getElementById('signupOverlay');
+const openTriggers = document.querySelectorAll('[data-open-signup]');
+const closeTriggers = document.querySelectorAll('[data-close-signup]');
+const signupForm = document.getElementById('signupForm');
+const signupEmail = document.getElementById('signupEmail');
+let lastFocused = null;
+
+function openSignup() {
+  lastFocused = document.activeElement;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  setTimeout(() => signupEmail && signupEmail.focus(), 380);
+}
+
+function closeSignup() {
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  if (lastFocused && typeof lastFocused.focus === 'function') {
+    setTimeout(() => lastFocused.focus(), 200);
+  }
+}
+
+openTriggers.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (menuOpen) setMenu(false);
+    openSignup();
+  });
+});
+
+closeTriggers.forEach(btn => btn.addEventListener('click', closeSignup));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && overlay.classList.contains('open')) closeSignup();
+});
+
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const val = (signupEmail.value || '').trim();
+  if (!val) {
+    signupEmail.focus();
+    signupEmail.style.borderColor = 'rgba(255,120,120,.85)';
+    setTimeout(() => { signupEmail.style.borderColor = ''; }, 900);
+    return;
+  }
+  /* 此处接入实际后端接口 */
+  const btn = signupForm.querySelector('.btn-signup-ghost');
+  const zh = '已提交，请查收邮件';
+  const en = 'Submitted — check your inbox';
+  btn.textContent = (currentLang === 'zh') ? zh : en;
+  btn.disabled = true;
+});
+
 /* ── 滚动揭示 ── */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -624,7 +923,11 @@ function applyLang(lang) {
     else b.classList.remove('text-white/60');
   });
   i18nNodes.forEach(el => { el.textContent = el.dataset[lang]; });
-  updateProgress(); // 更新进度文案语言
+  // 占位符
+  if (signupEmail) {
+    signupEmail.placeholder = (lang === 'zh') ? '邮箱' : 'Email';
+  }
+  updateProgress();
 }
 langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
 
