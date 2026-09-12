@@ -7,6 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&family=Sora:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -50,7 +51,6 @@ tailwind.config = {
   .rise-3 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .45s both; }
   .rise-4 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .60s both; }
 
-  /* 主标题未填充前保持占位，避免布局抖动 */
   #heroTitle { min-height: 2.32em; }
   @media (max-width:640px) { #heroTitle { min-height: 3.48em; } }
 
@@ -118,9 +118,271 @@ tailwind.config = {
 
   ::selection { background: #67C1E8; color: #041724; }
 
-  /* ══════════════════════════════════════════════════
-     ECHOID 加入页 · 完整保留原版黑色背景与视频
-     ══════════════════════════════════════════════════ */
+  .join-btn {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 数据卡片：可点击跳转 */
+  .data-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 32px 0;
+    transition: border-color .3s ease, padding-left .3s cubic-bezier(.2,.8,.2,1);
+    position: relative;
+  }
+  .data-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 32px; bottom: 32px;
+    width: 1px;
+    background: #67C1E8;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .data-card:hover {
+    border-color: rgba(103,193,232,.35);
+    padding-left: 16px;
+  }
+  .data-card:hover::before { opacity: 1; }
+  .data-card__ext {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(103,193,232,.7);
+    margin-top: 14px;
+    opacity: .6;
+    transition: opacity .25s ease;
+  }
+  .data-card:hover .data-card__ext { opacity: 1; }
+  .data-card__ext svg {
+    width: 10px; height: 10px;
+    stroke: currentColor; stroke-width: 1.6;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* 社区卡片 */
+  .comm-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px 26px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s ease, background .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .comm-card:hover {
+    border-color: rgba(103,193,232,.4);
+    background: rgba(103,193,232,.05);
+    transform: translateY(-2px);
+  }
+  .comm-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .comm-card__name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .comm-card__arrow {
+    flex: none;
+    width: 18px; height: 18px;
+    stroke: rgba(103,193,232,.7);
+    stroke-width: 1.6;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
+  }
+  .comm-card:hover .comm-card__arrow {
+    transform: translate(2px, -2px);
+    stroke: #67C1E8;
+  }
+  .comm-card__desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.5);
+  }
+  .comm-card__tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(103,193,232,.6);
+  }
+
+  /* ══════════════════════════════════════════════
+     今日行动
+     ══════════════════════════════════════════════ */
+  #daily {
+    display: none;
+    background: #07253B;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  #daily.visible { display: block; }
+
+  .daily-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  @media (min-width: 768px) { .daily-wrap { padding: 0 48px; } }
+  @media (min-width: 1024px) { .daily-wrap { padding: 0 80px; } }
+
+  .daily-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .daily-accent { width: 24px; height: 1px; background: #67C1E8; }
+  .daily-tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: #67C1E8;
+  }
+  .daily-greeting {
+    font-size: 26px; font-weight: 500; letter-spacing: -0.015em;
+    line-height: 1.3; color: #fff; margin-bottom: 12px;
+  }
+  @media (min-width: 768px) { .daily-greeting { font-size: 32px; } }
+  .daily-date {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px; letter-spacing: .08em;
+    color: rgba(255,255,255,.4); margin-bottom: 32px;
+  }
+
+  .daily-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex; align-items: flex-start; gap: 20px;
+    transition: background .3s ease, border-color .3s ease;
+  }
+  .daily-card:hover {
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.16);
+  }
+  .daily-card.done {
+    border-color: rgba(103,193,232,.4);
+    background: rgba(103,193,232,.05);
+  }
+  @media (min-width: 768px) { .daily-card { padding: 36px; } }
+
+  .daily-card__check {
+    flex: none; width: 26px; height: 26px;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all .25s cubic-bezier(.2,.8,.2,1);
+    margin-top: 2px;
+  }
+  .daily-card__check:hover { border-color: rgba(103,193,232,.7); }
+  .daily-card.done .daily-card__check {
+    background: #67C1E8; border-color: #67C1E8;
+  }
+  .daily-card__check svg {
+    width: 14px; height: 14px;
+    stroke: #041724; stroke-width: 3; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    opacity: 0; transition: opacity .22s ease;
+  }
+  .daily-card.done .daily-card__check svg { opacity: 1; }
+
+  .daily-card__body { flex: 1; min-width: 0; }
+  .daily-card__label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.35); margin-bottom: 10px;
+  }
+  .daily-card__action {
+    font-size: 17px; font-weight: 400; line-height: 1.5; color: #fff;
+    transition: color .25s ease;
+  }
+  @media (min-width: 768px) { .daily-card__action { font-size: 19px; } }
+  .daily-card.done .daily-card__action {
+    color: rgba(255,255,255,.45);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,255,255,.25);
+  }
+  .daily-card__note {
+    margin-top: 12px;
+    font-size: 13px; line-height: 1.7;
+    color: rgba(255,255,255,.42);
+  }
+
+  .daily-streak { margin-top: 36px; }
+  .daily-streak__head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .daily-streak__label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.3);
+  }
+  .daily-streak__count {
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px; color: #67C1E8;
+  }
+  .daily-week {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+  }
+  .daily-day {
+    aspect-ratio: 1; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.02);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+    transition: all .25s ease;
+  }
+  .daily-day.filled {
+    background: rgba(103,193,232,.14);
+    border-color: rgba(103,193,232,.35);
+  }
+  .daily-day.today {
+    border-color: rgba(103,193,232,.6);
+    box-shadow: 0 0 0 1px rgba(103,193,232,.2);
+  }
+  .daily-day__dow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px; letter-spacing: .08em;
+    color: rgba(255,255,255,.35); text-transform: uppercase;
+  }
+  .daily-day__dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,.14);
+    transition: background .25s ease;
+  }
+  .daily-day.filled .daily-day__dot { background: #67C1E8; }
+
+  .daily-logout {
+    display: inline-block; margin-top: 32px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    background: transparent; border: none; cursor: pointer;
+    padding: 6px 0; transition: color .25s ease;
+  }
+  .daily-logout:hover { color: rgba(255,255,255,.7); }
+
+  /* ══════════════════════════════════════════════
+     ECHOID 加入页
+     ══════════════════════════════════════════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
     --text-dimmer: rgba(255,255,255,0.42);
@@ -133,58 +395,39 @@ tailwind.config = {
     --font-display: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background-color: #000;
-    color: #fff;
+    position: fixed; inset: 0; z-index: 200;
+    background-color: #000; color: #fff;
     font-family: var(--font-display);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    opacity: 0;
-    pointer-events: none;
+    overflow-y: auto; overscroll-behavior: contain;
+    opacity: 0; pointer-events: none;
     transition: opacity .5s var(--ease-premium);
   }
   #joinPage.active { opacity: 1; pointer-events: auto; }
 
-  #joinPage *,
-  #joinPage *::before,
-  #joinPage *::after {
+  #joinPage *, #joinPage *::before, #joinPage *::after {
     margin: 0; padding: 0; box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   #joinPage .hero {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    height: 100svh;
-    min-height: 640px;
+    position: relative; width: 100%;
+    height: 100vh; height: 100svh; min-height: 640px;
     overflow: hidden;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: grid; grid-template-rows: auto 1fr auto;
     isolation: isolate;
   }
-
   #joinPage .hero__media {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
+    position: absolute; inset: 0; z-index: -1;
     background-color: #000;
+    background-image: url("https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png");
+    background-size: cover; background-position: center;
   }
   #joinPage .hero__media video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
   }
-
-  #joinPage .hero__scrim {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
+  #joinPage .hero__scrim { position: absolute; inset: 0; z-index: 0; }
   @media (min-width:721px) {
     #joinPage .hero__scrim {
       background:
@@ -199,53 +442,40 @@ tailwind.config = {
   }
 
   #joinPage .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     gap: 32px;
     padding: clamp(20px, 2.4vw, 34px) var(--gutter);
-    z-index: 60;
-    position: relative;
+    z-index: 60; position: relative;
   }
   #joinPage .logo {
     font-family: var(--font-display);
     font-weight: 200;
     font-size: clamp(20px, 1.75vw, 30px);
-    letter-spacing: 0.16em;
-    color: #fff;
-    text-decoration: none;
-    line-height: 1;
+    letter-spacing: 0.16em; color: #fff;
+    text-decoration: none; line-height: 1;
   }
-
   #joinPage .nav__cluster {
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     gap: clamp(24px, 3.2vw, 62px);
   }
   #joinPage .nav__links {
-    display: flex;
-    gap: clamp(20px, 2.8vw, 56px);
+    display: flex; gap: clamp(20px, 2.8vw, 56px);
   }
   #joinPage .nav__links a {
     font-family: var(--font-mono);
     font-weight: 400;
     font-size: clamp(11px, 0.78vw, 14px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #fff;
-    text-decoration: none;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #fff; text-decoration: none;
     transition: color 0.25s ease;
   }
   #joinPage .nav__links a:hover { color: var(--text-dim); }
-
   #joinPage .nav__cta {
     font-family: var(--font-mono);
     font-weight: 400;
     font-size: clamp(11px, 0.78vw, 14px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #fff;
-    text-decoration: none;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #fff; text-decoration: none;
     padding: clamp(12px,1vw,17px) clamp(20px,1.8vw,32px);
     border: 1px solid var(--line-strong);
     transition: background 0.25s ease, border-color 0.25s ease;
@@ -256,19 +486,14 @@ tailwind.config = {
   }
 
   #joinPage .hamburger {
-    display: none;
-    width: 44px; height: 44px;
-    position: relative;
-    cursor: pointer;
-    background: transparent;
-    border: none;
+    display: none; width: 44px; height: 44px;
+    position: relative; cursor: pointer;
+    background: transparent; border: none;
   }
   #joinPage .hamburger__bar {
-    position: absolute;
-    left: 50%;
+    position: absolute; left: 50%;
     transform: translateX(-50%);
-    width: 22px; height: 1px;
-    background-color: #fff;
+    width: 22px; height: 1px; background-color: #fff;
     transition: transform 0.45s var(--ease-premium), opacity 0.25s ease;
   }
   #joinPage .hamburger__bar:nth-child(1) { top:16px; }
@@ -283,44 +508,34 @@ tailwind.config = {
   #joinPage .hamburger.active .hamburger__bar:nth-child(3) {
     transform: translateX(-50%) rotate(-45deg); top:22px;
   }
-
   @media (max-width:900px) {
     #joinPage .nav__cluster { display:none; }
     #joinPage .hamburger { display:block; }
   }
 
   #joinPage .mobile-menu {
-    position: fixed;
-    inset:0;
-    z-index:50;
+    position: fixed; inset:0; z-index:50;
     background: rgba(4,4,6,0.94);
     backdrop-filter: blur(28px) saturate(140%);
     -webkit-backdrop-filter: blur(28px) saturate(140%);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
     gap:32px;
     clip-path: circle(3% at calc(100% - 42px) 42px);
-    opacity:0;
-    pointer-events:none;
+    opacity:0; pointer-events:none;
     transition: clip-path 0.7s var(--ease-premium), opacity 0.45s ease;
   }
   #joinPage .mobile-menu.open {
     clip-path: circle(150% at calc(100% - 42px) 42px);
-    opacity:1;
-    pointer-events:auto;
+    opacity:1; pointer-events:auto;
   }
   #joinPage .mobile-menu__item {
     font-family:var(--font-mono);
     font-weight:400;
     font-size:clamp(20px,5.5vw,28px);
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:#fff;
-    text-decoration:none;
-    opacity:0;
-    transform:translateY(16px);
+    letter-spacing:0.14em; text-transform:uppercase;
+    color:#fff; text-decoration:none;
+    opacity:0; transform:translateY(16px);
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium);
   }
   #joinPage .mobile-menu.open .mobile-menu__item {
@@ -329,16 +544,12 @@ tailwind.config = {
   #joinPage .mobile-menu__cta {
     font-family:var(--font-mono);
     font-weight:400;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:#fff;
-    text-decoration:none;
+    letter-spacing:0.22em; text-transform:uppercase;
+    color:#fff; text-decoration:none;
     padding:16px 40px;
     border:1px solid var(--line-strong);
-    background: transparent;
-    cursor: pointer;
-    opacity:0;
-    transform:translateY(16px);
+    background: transparent; cursor: pointer;
+    opacity:0; transform:translateY(16px);
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium), background .25s ease;
   }
   #joinPage .mobile-menu__cta:hover { background: var(--fill-ghost); }
@@ -347,90 +558,60 @@ tailwind.config = {
   }
 
   #joinPage .hero__body {
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    padding-inline:var(--gutter);
-    min-height:0;
-    overflow-y:auto;
+    display:flex; align-items:center; justify-content:flex-end;
+    padding-inline:var(--gutter); min-height:0; overflow-y:auto;
   }
-  @media (max-width:720px) {
-    #joinPage .hero__body { justify-content:center; }
-  }
+  @media (max-width:720px) { #joinPage .hero__body { justify-content:center; } }
 
   #joinPage .panel {
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    width: min(34vw,620px);
-    min-width:380px;
+    display:flex; flex-direction:column; align-items:flex-start;
+    width: min(34vw,620px); min-width:380px;
   }
-  @media (max-width:1100px) {
-    #joinPage .panel { width: min(70vw,520px); min-width:0; }
-  }
-  @media (max-width:720px) {
-    #joinPage .panel { width:100%; }
-  }
+  @media (max-width:1100px) { #joinPage .panel { width: min(70vw,520px); min-width:0; } }
+  @media (max-width:720px) { #joinPage .panel { width:100%; } }
 
   #joinPage .chip {
-    font-family:var(--font-mono);
-    font-weight:400;
+    font-family:var(--font-mono); font-weight:400;
     font-size:clamp(11px,0.72vw,14px);
-    letter-spacing:0.2em;
-    text-transform:uppercase;
+    letter-spacing:0.2em; text-transform:uppercase;
     background:rgba(255,255,255,0.09);
     padding:clamp(9px,0.8vw,14px) clamp(14px,1.1vw,20px);
     line-height:1;
   }
-
   #joinPage .panel h1 {
     font-family:var(--font-display);
     font-weight:200;
     font-size:clamp(54px,6.2vw,118px);
-    letter-spacing:0.03em;
-    line-height:0.95;
+    letter-spacing:0.03em; line-height:0.95;
     margin-top:clamp(28px,3vw,52px);
   }
   @media (max-width:380px) {
     #joinPage .panel h1 { font-size:clamp(44px,15vw,64px); }
   }
-
   #joinPage .tagline {
-    font-family:var(--font-mono);
-    font-weight:300;
+    font-family:var(--font-mono); font-weight:300;
     text-transform:uppercase;
     font-size:clamp(11px,0.94vw,17px);
-    letter-spacing:0.14em;
-    color:var(--text-dim);
+    letter-spacing:0.14em; color:var(--text-dim);
     margin-top:clamp(14px,1.4vw,24px);
     line-height:1.4;
   }
-
   #joinPage .signup-form {
     margin-top:clamp(38px,4.6vw,82px);
-    display:flex;
-    flex-direction:column;
-    gap:clamp(14px,1.3vw,22px);
-    width:100%;
+    display:flex; flex-direction:column;
+    gap:clamp(14px,1.3vw,22px); width:100%;
   }
-
   #joinPage .visually-hidden {
-    position:absolute;
-    width:1px; height:1px;
-    overflow:hidden;
-    clip:rect(0,0,0,0);
+    position:absolute; width:1px; height:1px;
+    overflow:hidden; clip:rect(0,0,0,0);
   }
-
   #joinPage .email-input {
-    background:transparent;
-    border:none;
+    background:transparent; border:none;
     border-bottom:1px solid var(--line-strong);
     border-radius:0;
     padding:0 2px clamp(12px,1.1vw,18px);
-    font-family:var(--font-display);
-    font-weight:300;
-    font-size:clamp(16px,0.95vw,18px);
-    color:#fff;
+    font-family:var(--font-display); font-weight:300;
+    font-size:clamp(16px,0.95vw,18px); color:#fff;
     transition:border-color 0.25s ease;
   }
   #joinPage .email-input::placeholder { color:var(--text-dim); }
@@ -442,12 +623,9 @@ tailwind.config = {
 
   #joinPage .btn--ghost,
   #joinPage .btn--solid {
-    width:100%;
-    border-radius:0;
-    border:none;
+    width:100%; border-radius:0; border:none;
     padding:clamp(17px,1.6vw,27px) 20px;
-    font-family:var(--font-mono);
-    font-weight:400;
+    font-family:var(--font-mono); font-weight:400;
     text-transform:uppercase;
     letter-spacing:0.22em;
     font-size:clamp(11px,0.78vw,14px);
@@ -455,28 +633,21 @@ tailwind.config = {
     transition:background 0.25s ease, color 0.25s ease;
   }
   #joinPage .btn--ghost {
-    background:var(--fill-ghost);
-    color:var(--text-dimmer);
+    background:var(--fill-ghost); color:var(--text-dimmer);
   }
   #joinPage .btn--ghost:hover {
-    background:rgba(255,255,255,0.09);
-    color:#fff;
+    background:rgba(255,255,255,0.09); color:#fff;
   }
-  #joinPage .btn--solid {
-    background:var(--fill-solid);
-    color:#fff;
-  }
+  #joinPage .btn--solid { background:var(--fill-solid); color:#fff; }
   #joinPage .btn--solid:hover { background:rgba(255,255,255,0.17); }
 
   #joinPage .referral-link {
     align-self:center;
     margin-top:clamp(26px,2.6vw,46px);
-    font-family:var(--font-mono);
-    font-weight:400;
+    font-family:var(--font-mono); font-weight:400;
     text-transform:uppercase;
     font-size:clamp(11px,0.74vw,14px);
-    letter-spacing:0.18em;
-    color:#fff;
+    letter-spacing:0.18em; color:#fff;
     text-decoration:underline;
     text-underline-offset:4px;
     transition:color 0.25s ease;
@@ -489,15 +660,12 @@ tailwind.config = {
     text-align:center;
   }
   #joinPage .legal-footer p {
-    font-family:var(--font-display);
-    font-weight:300;
+    font-family:var(--font-display); font-weight:300;
     font-size:clamp(12px,0.82vw,16px);
-    color:var(--text-dim);
-    line-height:1.5;
+    color:var(--text-dim); line-height:1.5;
   }
   #joinPage .legal-footer a {
-    color:#fff;
-    text-decoration:underline;
+    color:#fff; text-decoration:underline;
     text-underline-offset:3px;
     text-decoration-thickness:1px;
     transition:color 0.25s ease;
@@ -514,9 +682,7 @@ tailwind.config = {
     left: clamp(16px, 2.4vw, 34px);
     bottom: clamp(16px, 2.4vw, 34px);
     z-index: 70;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 10px 14px;
     background: rgba(0,0,0,0.35);
     border: 1px solid rgba(255,255,255,0.18);
@@ -524,20 +690,15 @@ tailwind.config = {
     -webkit-backdrop-filter: blur(10px);
     font-family: var(--font-mono);
     font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.7);
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(8px);
+    opacity: 0; transform: translateY(8px);
     transition: opacity .4s ease .25s, transform .5s var(--ease-premium) .25s,
                 color .25s ease, border-color .25s ease, background .25s ease;
   }
-  #joinPage.active .join-back {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  #joinPage.active .join-back { opacity: 1; transform: translateY(0); }
   #joinPage .join-back:hover {
     color: #fff;
     border-color: rgba(255,255,255,0.5);
@@ -545,24 +706,17 @@ tailwind.config = {
   }
   #joinPage .join-back svg {
     width: 12px; height: 12px;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    stroke: currentColor; stroke-width: 1.8;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
   @media (prefers-reduced-motion: reduce) {
     #joinPage .hero__media video { display:none; }
-    #joinPage .hero__media {
-      background-image:url("https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png");
-      background-size:cover;
-      background-position:center;
-    }
     #joinPage *, #joinPage *::before, #joinPage *::after {
       animation-duration:0.01ms !important;
       transition-duration:0.01ms !important;
     }
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
 
   @media (max-height:640px) {
@@ -579,11 +733,12 @@ tailwind.config = {
 
 <body class="text-white font-sans antialiased">
 
-<!-- ══════════════════════ 主页面：海洋观测档案 ══════════════════════ -->
+<!-- ══════════════════════ 主页面 ══════════════════════ -->
 
 <section id="home" class="relative min-h-screen w-full overflow-hidden">
   <video
-    autoplay muted loop playsinline
+    id="heroVideo"
+    autoplay muted loop playsinline preload="auto"
     class="absolute inset-0 w-full h-full object-cover"
     style="object-position:center 58%"
     src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"
@@ -596,10 +751,11 @@ tailwind.config = {
         <span class="text-[15px] font-medium tracking-tight text-white" data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</span>
         <span class="hidden sm:inline font-mono text-[10px] tracking-[0.18em] text-white/35 uppercase">Est. 2026</span>
       </a>
-      <div class="hidden md:flex gap-8">
-        <a href="#data"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
-        <a href="#action" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
-        <a href="#pledge" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
+      <div class="hidden md:flex gap-7">
+        <a href="#data"      class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
+        <a href="#community" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="社区" data-en="Community">社区</a>
+        <a href="#action"    class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
+        <a href="#pledge"    class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
       </div>
     </div>
 
@@ -609,7 +765,7 @@ tailwind.config = {
         <button class="lang-btn px-2.5 py-1 text-[11px] font-mono tracking-wider rounded text-white/60" data-lang="en">EN</button>
       </div>
       <button data-open-join
-              class="rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
+              class="join-btn rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
               data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
 
@@ -625,15 +781,16 @@ tailwind.config = {
 
   <div id="mobilePanel" class="mobile-panel absolute inset-x-0 top-0 z-20 h-0 opacity-0 bg-ink-950/97 backdrop-blur-xl">
     <div class="flex h-full flex-col justify-center px-8 pt-20">
-      <a href="#data"   class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a>
-      <a href="#action" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a>
-      <a href="#pledge" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a>
+      <a href="#data"      class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a>
+      <a href="#community" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="社区" data-en="Community">社区</a>
+      <a href="#action"    class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a>
+      <a href="#pledge"    class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a>
       <div class="flex gap-2 mt-4 mb-8">
         <button class="lang-btn active px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono" data-lang="zh">中文</button>
         <button class="lang-btn px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono text-white/60" data-lang="en">EN</button>
       </div>
       <button data-open-join
-              class="mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium"
+              class="join-btn mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium"
               data-zh="加入计划" data-en="Join">加入计划</button>
     </div>
   </div>
@@ -651,11 +808,6 @@ tailwind.config = {
 
       <script>
       (function () {
-        /* ══════════════════════════════════════════════════════
-           主标题文案池 · 100 条
-           全部基于 IPCC / FAO / UNEP / GCRMN 等公开文献打磨
-           每次页面加载随机选取一条
-           ══════════════════════════════════════════════════════ */
         var HERO_LINES = [
           ["海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。","The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited."],
           ["海洋的比热容约为大气的四倍，这是它调节地球气候的物理基础。","The ocean's heat capacity is roughly four times that of the atmosphere — the physical basis of its role in regulating climate."],
@@ -758,15 +910,12 @@ tailwind.config = {
           ["海洋不属于任何一代人，但它承受着每一代人的影响。","The ocean belongs to no single generation, yet bears the impact of every one."],
           ["海洋已经给出了足够多的信号。剩下的问题是：我们是否在听。","The ocean has given enough signals. The remaining question is whether we are listening."]
         ];
-
         var idx = Math.floor(Math.random() * HERO_LINES.length);
         var chosen = HERO_LINES[idx];
         var h1 = document.getElementById('heroTitle');
         h1.dataset.zh = chosen[0];
         h1.dataset.en = chosen[1];
         h1.textContent = chosen[0];
-
-        window.__heroLineIndex = idx;
       })();
       </script>
 
@@ -783,8 +932,11 @@ tailwind.config = {
           查阅观测数据
           <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
+        <a href="#community"
+           class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
+           data-zh="进入社区" data-en="Enter community">进入社区</a>
         <button data-open-join
-                class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
+                class="join-btn inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
                 data-zh="直接参与" data-en="Take part">直接参与</button>
       </div>
     </div>
@@ -801,6 +953,7 @@ tailwind.config = {
 </section>
 
 
+<!-- ══════════════════════ 观测数据 ══════════════════════ -->
 <section id="data" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
     <div class="reveal max-w-2xl mb-16 md:mb-20">
@@ -814,14 +967,15 @@ tailwind.config = {
         六项已被广泛记录的系统性指标
       </h2>
       <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
-         data-zh="这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。每项数据均标注原始来源。"
-         data-en="These figures are not the whole picture, but they represent the most consistent quantified account of pressure on marine systems. Every figure is attributed.">
-        这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。每项数据均标注原始来源。
+         data-zh="每一张卡片都可以点击，跳转到原始文献或权威机构官网核查。这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。"
+         data-en="Each card is clickable and links to the original paper or authoritative institution. These figures are not the whole picture, but they represent the most consistent quantified account of pressure on marine systems.">
+        每一张卡片都可以点击，跳转到原始文献或权威机构官网核查。这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0">
-      <div class="reveal border-t hairline py-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
+
+      <a class="reveal data-card" href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">01</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           1,100<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-1.5">万吨</span>
@@ -832,9 +986,13 @@ tailwind.config = {
           每年流入海洋的塑料总量估值。其中约 80% 来自陆源。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">Borrelle et al. · Science, 2020</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 Science 阅读原文" data-en="Read on Science">在 Science 阅读原文</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
 
-      <div class="reveal border-t hairline py-8">
+      <a class="reveal data-card" href="https://www.fao.org/sofia/en" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">02</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           35.4<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
@@ -845,9 +1003,13 @@ tailwind.config = {
           全球商业鱼类种群中，处于生物学不可持续捕捞水平的比例。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">FAO · SOFIA 2022</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 FAO 查阅 SOFIA" data-en="View on FAO">在 FAO 查阅 SOFIA</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
 
-      <div class="reveal border-t hairline py-8">
+      <a class="reveal data-card" href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">03</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           ~90<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
@@ -858,9 +1020,13 @@ tailwind.config = {
           全球气候系统中，过剩热量被海洋吸收的比例。这是海洋升温的直接驱动因素。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 IPCC 查阅 AR6" data-en="View on IPCC">在 IPCC 查阅 AR6</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
 
-      <div class="reveal border-t hairline py-8">
+      <a class="reveal data-card" href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">04</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           ~25<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
@@ -871,9 +1037,13 @@ tailwind.config = {
           人类活动排放的二氧化碳中，被海洋吸收的比例。吸收过程本身正在改变海水化学组成。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 IPCC 查阅 AR6" data-en="View on IPCC">在 IPCC 查阅 AR6</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
 
-      <div class="reveal border-t hairline py-8">
+      <a class="reveal data-card" href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">05</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           0.1<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-1.5">单位</span>
@@ -884,9 +1054,13 @@ tailwind.config = {
           工业革命以来表层海水 pH 值的下降幅度，相当于氢离子浓度上升约 30%。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 IPCC 查阅 AR6" data-en="View on IPCC">在 IPCC 查阅 AR6</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
 
-      <div class="reveal border-t hairline py-8">
+      <a class="reveal data-card" href="https://gcrmn.net/2021-report/" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">06</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
           14<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
@@ -897,13 +1071,164 @@ tailwind.config = {
           2009 至 2018 年间，全球硬珊瑚覆盖度的下降幅度。珊瑚礁支撑着约四分之一的海洋物种。
         </p>
         <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">GCRMN · Status of Coral Reefs, 2021</p>
-      </div>
+        <span class="data-card__ext">
+          <span data-zh="在 GCRMN 查阅报告" data-en="View on GCRMN">在 GCRMN 查阅报告</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </span>
+      </a>
+
     </div>
   </div>
 </section>
 
 
-<section id="action" class="relative bg-ink-900 border-t hairline">
+<!-- ══════════════════════ 社区 ══════════════════════ -->
+<section id="community" class="relative bg-ink-900 border-t hairline">
+  <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
+
+    <div class="reveal max-w-2xl mb-16 md:mb-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="社区与数据源" data-en="Community & sources">社区与数据源</span>
+      </div>
+      <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
+          data-zh="直接进入海洋科学的一手社区"
+          data-en="Go straight to the primary marine science communities">
+        直接进入海洋科学的一手社区
+      </h2>
+      <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
+         data-zh="以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。"
+         data-en="These institutions are the primary sources behind the IPCC assessment reports, UNEP global outlooks, and FAO fisheries statistics. Each card opens the official site, report or data portal.">
+        以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <a class="reveal comm-card" href="https://www.ipcc.ch/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">IPCC</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="政府间气候变化专门委员会。全球气候科学最权威的评估机构，AR6 报告是海洋升温、酸化数据的核心来源。"
+           data-en="Intergovernmental Panel on Climate Change. The authoritative body for climate science; its AR6 reports are the primary source for ocean warming and acidification data.">
+          政府间气候变化专门委员会。全球气候科学最权威的评估机构，AR6 报告是海洋升温、酸化数据的核心来源。
+        </p>
+        <span class="comm-card__tag">ipcc.ch</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://www.unep.org/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">UNEP</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="联合国环境规划署。负责全球环境评估与海洋塑料污染议题，发布《全球环境展望》系列报告。"
+           data-en="UN Environment Programme. Leads global environmental assessment and the marine plastic pollution agenda; publishes the Global Environment Outlook series.">
+          联合国环境规划署。负责全球环境评估与海洋塑料污染议题，发布《全球环境展望》系列报告。
+        </p>
+        <span class="comm-card__tag">unep.org</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://www.fao.org/sofia/en" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">FAO · SOFIA</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="联合国粮农组织《世界渔业和水产养殖状况》报告。全球渔业种群评估的基准数据来源。"
+           data-en="FAO's State of World Fisheries and Aquaculture report. The benchmark source for global fish-stock assessments.">
+          联合国粮农组织《世界渔业和水产养殖状况》报告。全球渔业种群评估的基准数据来源。
+        </p>
+        <span class="comm-card__tag">fao.org/sofia</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://gcrmn.net/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">GCRMN</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="全球珊瑚礁监测网络。长期追踪全球珊瑚覆盖度变化，发布《世界珊瑚礁状况》系列报告。"
+           data-en="Global Coral Reef Monitoring Network. Tracks long-term coral cover worldwide and publishes the Status of Coral Reefs reports.">
+          全球珊瑚礁监测网络。长期追踪全球珊瑚覆盖度变化，发布《世界珊瑚礁状况》系列报告。
+        </p>
+        <span class="comm-card__tag">gcrmn.net</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://www.noaa.gov/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">NOAA</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="美国国家海洋和大气管理局。提供实时海洋观测数据、气候监测与开放数据门户。"
+           data-en="US National Oceanic and Atmospheric Administration. Provides real-time ocean observations, climate monitoring and open data portals.">
+          美国国家海洋和大气管理局。提供实时海洋观测数据、气候监测与开放数据门户。
+        </p>
+        <span class="comm-card__tag">noaa.gov</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://marine.copernicus.eu/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">Copernicus Marine</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="欧盟哥白尼海洋环境监测服务。提供覆盖全球的海洋温度、盐度、海流与生物地球化学数据集。"
+           data-en="EU Copernicus Marine Service. Provides global datasets on ocean temperature, salinity, currents and biogeochemistry.">
+          欧盟哥白尼海洋环境监测服务。提供覆盖全球的海洋温度、盐度、海流与生物地球化学数据集。
+        </p>
+        <span class="comm-card__tag">marine.copernicus.eu</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://www.msc.org/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">MSC</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="海洋管理委员会。全球可持续渔业认证体系，可查询具体渔场与产品的认证状态。"
+           data-en="Marine Stewardship Council. The global sustainable-fishery certification scheme; searchable by fishery and product.">
+          海洋管理委员会。全球可持续渔业认证体系，可查询具体渔场与产品的认证状态。
+        </p>
+        <span class="comm-card__tag">msc.org</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://oceanconservancy.org/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">Ocean Conservancy</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="国际海岸清理（ICC）的组织方。发布全球净滩数据，提供标准化的垃圾溯源记录卡。"
+           data-en="Organiser of the International Coastal Cleanup. Publishes global clean-up data and provides the standardised debris-tracking card.">
+          国际海岸清理（ICC）的组织方。发布全球净滩数据，提供标准化的垃圾溯源记录卡。
+        </p>
+        <span class="comm-card__tag">oceanconservancy.org</span>
+      </a>
+
+      <a class="reveal comm-card" href="https://www.iucnredlist.org/" target="_blank" rel="noopener noreferrer">
+        <div class="comm-card__head">
+          <span class="comm-card__name">IUCN Red List</span>
+          <svg class="comm-card__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+        </div>
+        <p class="comm-card__desc"
+           data-zh="世界自然保护联盟濒危物种红色名录。查询任意海洋物种的保护等级与种群趋势。"
+           data-en="IUCN Red List of Threatened Species. Look up the conservation status and population trend of any marine species.">
+          世界自然保护联盟濒危物种红色名录。查询任意海洋物种的保护等级与种群趋势。
+        </p>
+        <span class="comm-card__tag">iucnredlist.org</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 行动路径 ══════════════════════ -->
+<section id="action" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
     <div class="reveal max-w-2xl mb-16 md:mb-20">
       <div class="flex items-center gap-3 mb-6">
@@ -933,6 +1258,10 @@ tailwind.config = {
            data-en="Carry reusable containers and bags; decline straws and disposable cutlery. Per the Science 2020 model, reducing land-based plastic is the most direct route to cutting ocean inflow.">
           随身携带可重复使用的容器与购物袋；在餐厅主动拒绝吸管与一次性餐具。依据《科学》期刊 2020 年的模型，陆源塑料减排是降低海洋塑料流入量最直接的路径。
         </p>
+        <a class="data-card__ext" href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer" style="margin-top:18px">
+          <span data-zh="查看支撑文献" data-en="View supporting paper">查看支撑文献</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </a>
       </div>
 
       <div class="reveal border-t hairline py-9">
@@ -945,6 +1274,10 @@ tailwind.config = {
            data-en="Prefer products bearing MSC or ASC certification. Avoid species classified as endangered, or those lacking stock-assessment data — certain bluefin tuna populations among them.">
           优先选择带有 MSC（海洋管理委员会）或 ASC（水产养殖管理委员会）标识的产品。避免食用处于濒危等级或缺乏种群评估数据的物种，例如部分蓝鳍金枪鱼种群。
         </p>
+        <a class="data-card__ext" href="https://www.msc.org/" target="_blank" rel="noopener noreferrer" style="margin-top:18px">
+          <span data-zh="查询 MSC 认证渔场" data-en="Search MSC-certified fisheries">查询 MSC 认证渔场</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </a>
       </div>
 
       <div class="reveal border-t hairline py-9">
@@ -957,6 +1290,10 @@ tailwind.config = {
            data-en="Register through a recognised organisation, follow on-site safety rules, and avoid trampling intertidal habitats. The core value of a clean-up is debris-tracking data, not just collection — use the ICC data card where possible.">
           通过正规公益机构报名，遵循现场安全规范，避免踩踏潮间带生物栖息区。净滩的核心价值在于垃圾溯源记录，而不只是清理本身——因此建议配合使用 ICC 国际海岸清理记录卡。
         </p>
+        <a class="data-card__ext" href="https://oceanconservancy.org/trash-free-seas/international-coastal-cleanup/" target="_blank" rel="noopener noreferrer" style="margin-top:18px">
+          <span data-zh="进入 ICC 官方页面" data-en="Open the ICC page">进入 ICC 官方页面</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </a>
       </div>
 
       <div class="reveal border-t hairline py-9">
@@ -969,6 +1306,10 @@ tailwind.config = {
            data-en="The ocean absorbs ~90% of excess heat and ~25% of CO₂. Every substantive emission reduction directly lowers thermal and acidification pressure on the ocean. Priorities: fewer flights, shorter supply chains, less meat.">
           海洋吸收了约 90% 的过剩热量与约四分之一的二氧化碳。这意味着每一次实质性的减碳行为，都直接对应海洋升温与酸化压力的降低。优先方向：减少航空出行、缩短供应链距离、降低肉类消费频次。
         </p>
+        <a class="data-card__ext" href="https://www.ipcc.ch/report/ar6/wg3/" target="_blank" rel="noopener noreferrer" style="margin-top:18px">
+          <span data-zh="查阅 IPCC 减缓报告" data-en="View IPCC mitigation report">查阅 IPCC 减缓报告</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </a>
       </div>
 
       <div class="reveal border-t hairline py-9 md:col-span-2">
@@ -981,12 +1322,52 @@ tailwind.config = {
            data-en="Marine issues are frequently wrapped in unverified projections, many later disproven. Citing a specific institution, year and paper is more useful — and harder to dismiss — than the vague phrase “studies show”.">
           海洋议题常被大量未经核实的预测性说法包裹，其中不少后来被证伪。在传播时，引用具体的机构、年份与文献，比引用「研究表明」这种模糊表述更有价值，也更难被反驳。
         </p>
+        <a class="data-card__ext" href="#community" style="margin-top:18px">
+          <span data-zh="前往社区获取一手来源" data-en="Go to community for primary sources">前往社区获取一手来源</span>
+          <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 
+<!-- ══════════════════════ 今日行动 ══════════════════════ -->
+<section id="daily" aria-hidden="true">
+  <div class="daily-wrap py-24 md:py-32">
+    <div class="daily-head reveal">
+      <span class="daily-accent"></span>
+      <span class="daily-tag" data-zh="今日行动" data-en="Today's action">今日行动</span>
+    </div>
+
+    <h2 id="dailyGreeting" class="daily-greeting reveal" data-zh="你好。" data-en="Hello.">你好。</h2>
+    <p id="dailyDate" class="daily-date reveal"></p>
+
+    <div id="dailyCard" class="daily-card reveal">
+      <span class="daily-card__check" id="dailyCheck" role="checkbox" aria-checked="false" tabindex="0" aria-label="Mark today's action complete">
+        <svg viewBox="0 0 14 14"><path d="M3 7.2l2.6 2.6L11 4.2"/></svg>
+      </span>
+      <div class="daily-card__body">
+        <p class="daily-card__label" data-zh="今日任务" data-en="Today's task">今日任务</p>
+        <p class="daily-card__action" id="dailyAction"></p>
+        <p class="daily-card__note" id="dailyNote"></p>
+      </div>
+    </div>
+
+    <div class="daily-streak reveal">
+      <div class="daily-streak__head">
+        <span class="daily-streak__label" data-zh="最近 7 天" data-en="Last 7 days">最近 7 天</span>
+        <span class="daily-streak__count"><span id="dailyStreakCount">0</span> / 7</span>
+      </div>
+      <div class="daily-week" id="dailyWeek"></div>
+    </div>
+
+    <button class="daily-logout" id="dailyLogout" data-zh="退出当前账户" data-en="Sign out">退出当前账户</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 参与记录 ══════════════════════ -->
 <section id="pledge" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
     <div class="reveal mb-12">
@@ -1014,7 +1395,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Plastic reduction</p>
         </div>
       </div>
-
       <div class="check-row" data-key="p2">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -1022,7 +1402,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Responsible sourcing</p>
         </div>
       </div>
-
       <div class="check-row" data-key="p3">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -1030,7 +1409,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Direct participation</p>
         </div>
       </div>
-
       <div class="check-row" data-key="p4">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -1038,7 +1416,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Local awareness</p>
         </div>
       </div>
-
       <div class="check-row" data-key="p5">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -1046,7 +1423,6 @@ tailwind.config = {
           <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Evidence-based sharing</p>
         </div>
       </div>
-
       <div class="check-row" data-key="p6">
         <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
         <div>
@@ -1071,7 +1447,7 @@ tailwind.config = {
       </p>
 
       <button data-open-join
-              class="mt-10 w-full rounded-md bg-white text-ink-950 px-6 py-4 text-[14px] font-medium hover:bg-ink-500 transition-colors"
+              class="join-btn mt-10 w-full rounded-md bg-white text-ink-950 px-6 py-4 text-[14px] font-medium hover:bg-ink-500 transition-colors"
               data-zh="加入计划 · 建立你的参与者档案" data-en="Join · Set up your participant record">
         加入计划 · 建立你的参与者档案
       </button>
@@ -1097,22 +1473,23 @@ tailwind.config = {
 
       <div class="md:col-span-3 md:col-start-7">
         <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="数据来源" data-en="Sources">数据来源</p>
-        <ul class="space-y-2.5 font-mono text-[11px] tracking-[0.06em] text-white/40">
-          <li>IPCC · AR6 WGI</li>
-          <li>UNEP · 2021</li>
-          <li>FAO · SOFIA 2022</li>
-          <li>Borrelle et al. · Science, 2020</li>
-          <li>Myers &amp; Worm · Nature, 2003</li>
-          <li>GCRMN · 2021</li>
+        <ul class="space-y-2.5 font-mono text-[11px] tracking-[0.06em]">
+          <li><a href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">IPCC · AR6 WGI</a></li>
+          <li><a href="https://www.unep.org/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">UNEP · 2021</a></li>
+          <li><a href="https://www.fao.org/sofia/en" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">FAO · SOFIA 2022</a></li>
+          <li><a href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">Borrelle et al. · Science, 2020</a></li>
+          <li><a href="https://www.nature.com/articles/nature01610" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">Myers &amp; Worm · Nature, 2003</a></li>
+          <li><a href="https://gcrmn.net/2021-report/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-ink-500 transition-colors">GCRMN · 2021</a></li>
         </ul>
       </div>
 
       <div class="md:col-span-3">
-        <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="联系" data-en="Contact">联系</p>
+        <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="导航" data-en="Navigate">导航</p>
         <ul class="space-y-2.5 text-[13px] text-white/45">
-          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="关于项目" data-en="About">关于项目</a></li>
-          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="数据更正" data-en="Data corrections">数据更正</a></li>
-          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="隐私说明" data-en="Privacy">隐私说明</a></li>
+          <li><a href="#data"      class="hover:text-ink-500 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a></li>
+          <li><a href="#community" class="hover:text-ink-500 transition-colors" data-zh="社区与数据源" data-en="Community & sources">社区与数据源</a></li>
+          <li><a href="#action"    class="hover:text-ink-500 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a></li>
+          <li><a href="#pledge"    class="hover:text-ink-500 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a></li>
         </ul>
       </div>
     </div>
@@ -1125,24 +1502,18 @@ tailwind.config = {
 </footer>
 
 
-<!-- ══════════════════════ 加入计划 · ECHOID 完整界面 ══════════════════════ -->
+<!-- ══════════════════════ ECHOID 加入页 ══════════════════════ -->
 <div id="joinPage" aria-hidden="true">
   <section class="hero">
-
     <div class="hero__media">
-      <video
-        id="joinVideo"
-        autoplay muted loop playsInline preload="auto"
-        poster="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png"
-      >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" type="video/mp4" />
+      <video id="joinVideo" muted loop playsInline preload="none">
+        <source data-src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" type="video/mp4" />
       </video>
     </div>
     <div class="hero__scrim"></div>
 
     <nav class="navbar">
       <a href="#" class="logo">ECHOID</a>
-
       <div class="nav__cluster">
         <div class="nav__links">
           <a href="#story">Story</a>
@@ -1152,7 +1523,6 @@ tailwind.config = {
         </div>
         <a href="#join" class="nav__cta">Join up</a>
       </div>
-
       <button class="hamburger" aria-expanded="false" aria-controls="joinMobileMenu" aria-label="Open menu">
         <span class="hamburger__bar"></span>
         <span class="hamburger__bar"></span>
@@ -1176,17 +1546,19 @@ tailwind.config = {
 
         <form class="signup-form" id="joinForm" action="#" method="post" novalidate>
           <label for="joinEmail" class="visually-hidden">Email</label>
-          <input id="joinEmail" class="email-input" type="email" name="email" autocomplete="email" placeholder="Email" />
-          <button type="submit" class="btn--ghost">Proceed using email</button>
-          <button type="button" class="btn--solid">Access</button>
+          <input id="joinEmail" class="email-input" type="email" name="email"
+                 autocomplete="email" inputmode="email" placeholder="Email" />
+          <button type="submit" class="btn--ghost" id="joinSubmit">Proceed using email</button>
+          <button type="button" class="btn--solid" id="joinAccess">Access</button>
         </form>
 
-        <a href="#invite" class="referral-link">I've got an invite key</a>
+        <a href="mailto:invite@blueguardian.example?subject=Invite%20key%20request"
+           class="referral-link">I've got an invite key</a>
       </div>
     </div>
 
     <footer class="legal-footer">
-      <p>Opening an e.xyz account signals that you accept our <a href="#privacy-notice">Privacy Notice</a> and <a href="#service-contract">Service Contract</a>.</p>
+      <p>Opening an e.xyz account signals that you accept our <a href="#join">Privacy Notice</a> and <a href="#join">Service Contract</a>.</p>
     </footer>
   </section>
 
@@ -1198,212 +1570,464 @@ tailwind.config = {
 
 
 <script>
-/* ══════════════════════════════════════════════
-   主页面：移动端菜单
-   ══════════════════════════════════════════════ */
-const menuBtn   = document.getElementById('menuBtn');
-const panel     = document.getElementById('mobilePanel');
-const iconMenu  = document.getElementById('iconMenu');
-const iconClose = document.getElementById('iconClose');
-const mobileLinks = document.querySelectorAll('.mobile-link');
-let menuOpen = false;
+/* ══════════════════════════════════════════════════════════
+   0. 常量
+   ══════════════════════════════════════════════════════════ */
+var USER_KEY = 'bg_user_v2';
+var DAILY_KEY = 'bg_daily_v2';
+var PLEDGE_KEY = 'bg_pledge_v1';
 
-function setMenu(state) {
-  menuOpen = state;
-  if (state) {
-    panel.style.height = '100vh';
-    panel.style.opacity = '1';
-    panel.style.pointerEvents = 'auto';
-    iconMenu.classList.add('opacity-0', '-rotate-45');
-    iconClose.classList.remove('opacity-0', 'rotate-45');
-  } else {
-    panel.style.height = '0';
-    panel.style.opacity = '0';
-    panel.style.pointerEvents = 'none';
-    iconMenu.classList.remove('opacity-0', '-rotate-45');
-    iconClose.classList.add('opacity-0', 'rotate-45');
-  }
+function safeParse(raw, fb) {
+  try { return raw ? JSON.parse(raw) : fb; } catch (e) { return fb; }
 }
-panel.style.pointerEvents = 'none';
-menuBtn.addEventListener('click', () => setMenu(!menuOpen));
-mobileLinks.forEach(l => l.addEventListener('click', () => setMenu(false)));
+function safeStore(k, v) {
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+}
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+function dateKey(d) {
+  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+}
+function todayKey() { return dateKey(new Date()); }
 
-/* ══════════════════════════════════════════════
-   页面切换：主页面 ⇄ ECHOID 加入页
-   ══════════════════════════════════════════════ */
-const joinPage = document.getElementById('joinPage');
-const joinVideo = document.getElementById('joinVideo');
-const joinScrollMemory = { y: 0 };
+/* ══════════════════════════════════════════════════════════
+   1. 每日任务池
+   ══════════════════════════════════════════════════════════ */
+var DAILY_ACTIONS = [
+  { zh: '自带购物袋和水杯出门。今天拒绝任意一次一次性塑料袋。', en: 'Bring your own bag and bottle. Decline one single-use plastic bag today.', noteZh: '陆源塑料是海洋塑料污染的主要来源，占比约 80%。', noteEn: 'Land-based plastic accounts for roughly 80% of ocean plastic pollution.' },
+  { zh: '今天的一次外卖或外带，主动拒绝一次性吸管与餐具。', en: 'Decline single-use straws and cutlery on one takeaway order today.', noteZh: '一次性吸管几乎无法回收，常进入近海与河流。', noteEn: 'Single-use straws are almost never recycled and often reach rivers and coastal waters.' },
+  { zh: '出门前确认随身携带可重复使用的水杯，并完成一次续水。', en: 'Confirm your reusable bottle before leaving, and refill it once today.', noteZh: '一只不锈钢水杯的碳足迹远低于数百只塑料瓶。', noteEn: 'One stainless bottle carries a far smaller carbon footprint than hundreds of plastic ones.' },
+  { zh: '购买海产品时，查看一次 MSC 或 ASC 认证标识。', en: 'Check for an MSC or ASC label on one seafood purchase.', noteZh: '认证标识代表该渔业或养殖场通过可持续评估。', noteEn: 'The label means the fishery or farm has passed sustainability assessment.' },
+  { zh: '今天一顿饭，选择一种非濒危、种群稳定的海产品。', en: 'For one meal today, choose a non-endangered, stable-stock seafood.', noteZh: '避开蓝鳍金枪鱼、部分鲨鱼与鳗鱼等濒危物种。', noteEn: 'Avoid bluefin tuna, certain sharks and eels — species under severe pressure.' },
+  { zh: '查阅一条与本地水域相关的具体海洋环境信息。', en: 'Look up one specific marine issue connected to your local waters.', noteZh: '本地议题往往比全球议题更易被忽略。', noteEn: 'Local issues are often overlooked in favour of global ones.' },
+  { zh: '向一个人分享一条带有明确来源的海洋数据。', en: 'Share one marine fact with a cited source with another person.', noteZh: '带来源的信息比模糊表述更不易被反驳。', noteEn: 'Sourced information is harder to dismiss than vague claims.' },
+  { zh: '今天减少一次短途驾车，改为步行、骑行或公共交通。', en: 'Replace one short car trip with walking, cycling or public transport.', noteZh: '交通排放是海洋升温的重要驱动因素之一。', noteEn: 'Transport emissions are a significant driver of ocean warming.' },
+  { zh: '今天的一餐，将肉类替换为植物性蛋白。', en: 'Swap meat for plant-based protein in one meal today.', noteZh: '减少肉类消费可显著降低个人碳足迹。', noteEn: 'Reducing meat intake substantially lowers personal carbon footprint.' },
+  { zh: '关掉不用的电器与照明，减少一次不必要的能耗。', en: 'Switch off unused appliances and lights to avoid one unnecessary draw.', noteZh: '海洋吸收了约 90% 的过剩热量，每一次减碳都直接减轻海洋压力。', noteEn: 'The ocean absorbs ~90% of excess heat; every reduction directly lowers pressure on it.' },
+  { zh: '检查一次家里或办公室的塑料回收分类是否正确。', en: 'Check once whether the plastic recycling at home or work is sorted correctly.', noteZh: '分类错误的可回收物最终可能进入填埋场或水体。', noteEn: 'Mis-sorted recyclables may end up in landfill or waterways.' },
+  { zh: '今天洗衣服时使用洗衣袋，减少微塑料进入水体。', en: 'Use a laundry bag today to reduce microplastic release.', noteZh: '合成纤维衣物每次洗涤可释放数十万根微纤维。', noteEn: 'Synthetic fabrics can shed hundreds of thousands of microfibres per wash.' },
+  { zh: '避免使用含微塑料的个人护理品（磨砂、去角质类）。', en: 'Avoid personal-care products containing microbeads today.', noteZh: '微塑料一旦进入水体，几乎无法回收。', noteEn: 'Once microplastics enter water, they are effectively impossible to remove.' },
+  { zh: '今天买咖啡时使用自己的杯子。', en: 'Bring your own cup for coffee today.', noteZh: '一次性咖啡杯的防水内衬多数不可回收。', noteEn: 'Most disposable coffee cups have non-recyclable waterproof linings.' },
+  { zh: '查阅一个本地海岸或河流的清理活动信息。', en: 'Look up one local coastal or river clean-up programme.', noteZh: '有组织的净滩比个人清理更安全也更有效。', noteEn: 'Organised clean-ups are safer and more effective than solo efforts.' },
+  { zh: '今天出门前，检查随身物品中是否有可减少的一次性塑料。', en: 'Before leaving, check whether any single-use plastic can be avoided.', noteZh: '最好的塑料管理，是从源头减少使用。', noteEn: 'The best plastic management starts at the source.' },
+  { zh: '在社交媒体上分享一次与海洋相关的可信来源信息。', en: 'Share one credible marine source on social media today.', noteZh: '信息可溯是海洋议题传播的基本要求。', noteEn: 'Traceable sourcing is the minimum standard for marine discourse.' },
+  { zh: '今天做一次对个人年度用电量的粗略估算。', en: 'Make a rough estimate of your annual electricity use today.', noteZh: '可核查的减碳行动，从量化开始。', noteEn: 'Verifiable carbon action begins with measurement.' },
+  { zh: '今天拒绝一次不必要的纸质或塑料包装。', en: 'Decline one unnecessary paper or plastic package today.', noteZh: '包装材料在海洋垃圾中占相当比例。', noteEn: 'Packaging accounts for a significant share of marine debris.' },
+  { zh: '选择一次本地产食材，缩短食物的运输距离。', en: 'Choose locally sourced food once today to shorten transport distance.', noteZh: '缩短供应链可显著降低碳排放。', noteEn: 'Shorter supply chains substantially cut emissions.' },
+  { zh: '今天关闭待机状态的电器电源。', en: 'Switch off standby power on one appliance today.', noteZh: '待机能耗在家庭总用电中占比不可忽略。', noteEn: 'Standby power is a non-trivial share of household electricity use.' },
+  { zh: '今天选择一次不使用一次性雨伞套或塑料袋。', en: 'Avoid one single-use umbrella cover or plastic bag today.', noteZh: '小雨具塑料多不可降解。', noteEn: 'Most rain-gear plastic does not degrade.' },
+  { zh: '在购买一件合成纤维衣物前，考虑其长期使用频率。', en: 'Before buying a synthetic garment, consider how often you will actually wear it.', noteZh: '每件衣物都对应一段能耗与微塑料排放。', noteEn: 'Every garment carries embedded energy use and microplastic release.' },
+  { zh: '今天做一次简短的户外观察，记录身边的自然变化。', en: 'Spend a few minutes outdoors observing changes in your surroundings.', noteZh: '观察是理解长期变化的第一步。', noteEn: 'Observation is the first step to understanding long-term change.' },
+  { zh: '查阅一份可信的海洋科学报告或数据摘要。', en: 'Read one credible marine science report or data summary today.', noteZh: '信息源越可查，传播越有效。', noteEn: 'The more traceable the source, the more effective the sharing.' },
+  { zh: '今天减少一次不必要的纸张打印。', en: 'Skip one unnecessary paper print today.', noteZh: '造纸过程消耗水、能源并产生排放。', noteEn: 'Paper production consumes water, energy and emits carbon.' },
+  { zh: '向身边的人说明一次海洋酸化与二氧化碳排放的关系。', en: 'Explain once to someone how ocean acidification links to CO₂ emissions.', noteZh: '海洋吸收了人类排放二氧化碳的约四分之一。', noteEn: 'The ocean absorbs roughly a quarter of anthropogenic CO₂ emissions.' },
+  { zh: '今天主动选择一次不打包的外卖或自备餐盒。', en: 'Choose once today to skip takeaway packaging or bring your own container.', noteZh: '外卖包装是城市塑料废弃物的主要来源。', noteEn: 'Takeaway packaging is a major source of urban plastic waste.' },
+  { zh: '今天记录一条自己观察到的环境变化。', en: 'Note one environmental change you observed today.', noteZh: '个体记录是长期监测的补充。', noteEn: 'Individual records supplement long-term monitoring.' },
+  { zh: '完成今天的一次减塑行动，并在心里确认它的意义。', en: 'Complete one plastic-reduction action today, and acknowledge why it matters.', noteZh: '持续的小行动，比一次性的大行动更有价值。', noteEn: 'Sustained small actions matter more than one-off gestures.' }
+];
 
+function getTodayAction() {
+  var idx = Math.floor(new Date().getTime() / 86400000) % DAILY_ACTIONS.length;
+  return DAILY_ACTIONS[idx];
+}
+
+/* ══════════════════════════════════════════════════════════
+   2. DOM 缓存
+   ══════════════════════════════════════════════════════════ */
+var $heroVideo    = document.getElementById('heroVideo');
+var $heroTitle    = document.getElementById('heroTitle');
+var $menuBtn      = document.getElementById('menuBtn');
+var $mobilePanel  = document.getElementById('mobilePanel');
+var $iconMenu     = document.getElementById('iconMenu');
+var $iconClose    = document.getElementById('iconClose');
+var $joinPage     = document.getElementById('joinPage');
+var $joinVideo    = document.getElementById('joinVideo');
+var $joinForm     = document.getElementById('joinForm');
+var $joinEmail    = document.getElementById('joinEmail');
+var $joinSubmit   = document.getElementById('joinSubmit');
+var $joinAccess   = document.getElementById('joinAccess');
+var $daily        = document.getElementById('daily');
+var $dailyGreeting= document.getElementById('dailyGreeting');
+var $dailyDate    = document.getElementById('dailyDate');
+var $dailyCard    = document.getElementById('dailyCard');
+var $dailyCheck   = document.getElementById('dailyCheck');
+var $dailyAction  = document.getElementById('dailyAction');
+var $dailyNote    = document.getElementById('dailyNote');
+var $dailyWeek    = document.getElementById('dailyWeek');
+var $dailyStreakCount = document.getElementById('dailyStreakCount');
+var $dailyLogout  = document.getElementById('dailyLogout');
+var $progCount    = document.getElementById('progCount');
+var $progBar      = document.getElementById('progBar');
+var $progMsg      = document.getElementById('progMsg');
+
+var joinBtns      = Array.prototype.slice.call(document.querySelectorAll('[data-open-join]'));
+var joinCloseBtns = Array.prototype.slice.call(document.querySelectorAll('[data-close-join]'));
+var langBtns      = Array.prototype.slice.call(document.querySelectorAll('.lang-btn'));
+var i18nNodes     = Array.prototype.slice.call(document.querySelectorAll('[data-zh][data-en]'));
+var checkRows     = Array.prototype.slice.call(document.querySelectorAll('.check-row'));
+
+/* ══════════════════════════════════════════════════════════
+   3. 状态
+   ══════════════════════════════════════════════════════════ */
+var currentLang = 'zh';
+var menuOpen = false;
+var joinMenuOpen = false;
+var currentUser = safeParse(localStorage.getItem(USER_KEY), null);
+var dailyState = safeParse(localStorage.getItem(DAILY_KEY), {});
+var pledgeState = safeParse(localStorage.getItem(PLEDGE_KEY), {});
+var joinScrollY = 0;
+
+/* ══════════════════════════════════════════════════════════
+   4. 用户名
+   ══════════════════════════════════════════════════════════ */
+function getUserName(user) {
+  if (!user || !user.email) return '';
+  var p = user.email.split('@')[0];
+  return p.length > 14 ? p.slice(0, 13) + '…' : p;
+}
+function updateJoinButtons() {
+  var name = getUserName(currentUser);
+  joinBtns.forEach(function (btn) {
+    if (name) {
+      btn.textContent = name;
+      btn.setAttribute('title', currentUser.email);
+    } else {
+      btn.textContent = (currentLang === 'zh')
+        ? (btn.dataset.zh || '加入计划')
+        : (btn.dataset.en || 'Join');
+      btn.removeAttribute('title');
+    }
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   5. 今日行动渲染
+   ══════════════════════════════════════════════════════════ */
+function renderDaily() {
+  if (!currentUser) return;
+  var today = todayKey();
+  var action = getTodayAction();
+
+  var d = new Date();
+  $dailyDate.textContent = d.getFullYear() + ' · ' + pad2(d.getMonth() + 1) + ' · ' + pad2(d.getDate());
+
+  $dailyAction.textContent = (currentLang === 'zh') ? action.zh : action.en;
+  $dailyNote.textContent   = (currentLang === 'zh') ? action.noteZh : action.noteEn;
+
+  var done = !!dailyState[today];
+  $dailyCard.classList.toggle('done', done);
+  $dailyCheck.setAttribute('aria-checked', done ? 'true' : 'false');
+
+  var dowZh = ['日','一','二','三','四','五','六'];
+  var dowEn = ['S','M','T','W','T','F','S'];
+  var html = '';
+  var filled = 0;
+  var now = new Date();
+  for (var i = 6; i >= 0; i--) {
+    var dd = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+    var k = dateKey(dd);
+    var isFilled = !!dailyState[k];
+    if (isFilled) filled++;
+    var label = (currentLang === 'zh') ? dowZh[dd.getDay()] : dowEn[dd.getDay()];
+    html += '<div class="daily-day' + (isFilled ? ' filled' : '') + (i === 0 ? ' today' : '') + '">'
+          +   '<span class="daily-day__dow">' + label + '</span>'
+          +   '<span class="daily-day__dot"></span>'
+          + '</div>';
+  }
+  $dailyWeek.innerHTML = html;
+  $dailyStreakCount.textContent = filled;
+
+  var name = getUserName(currentUser);
+  $dailyGreeting.textContent = (currentLang === 'zh')
+    ? '你好，' + name + '。'
+    : 'Hello, ' + name + '.';
+}
+
+function toggleDaily() {
+  if (!currentUser) return;
+  var t = todayKey();
+  dailyState[t] = !dailyState[t];
+  safeStore(DAILY_KEY, dailyState);
+  renderDaily();
+}
+
+/* ══════════════════════════════════════════════════════════
+   6. 登录 / 登出
+   ══════════════════════════════════════════════════════════ */
+function setUser(email) {
+  var t = String(email || '').trim();
+  if (!t || t.indexOf('@') === -1) return false;
+  currentUser = { email: t, joinedAt: Date.now() };
+  safeStore(USER_KEY, currentUser);
+  $daily.classList.add('visible');
+  $daily.setAttribute('aria-hidden', 'false');
+  updateJoinButtons();
+  renderDaily();
+  return true;
+}
+
+function logoutUser() {
+  currentUser = null;
+  try { localStorage.removeItem(USER_KEY); } catch (e) {}
+  $daily.classList.remove('visible');
+  $daily.setAttribute('aria-hidden', 'true');
+  updateJoinButtons();
+}
+
+/* ══════════════════════════════════════════════════════════
+   7. ECHOID 页开关
+   ══════════════════════════════════════════════════════════ */
 function openJoin() {
   if (menuOpen) setMenu(false);
-  joinScrollMemory.y = window.scrollY || window.pageYOffset || 0;
-  document.body.classList.add('join-open');
-  joinPage.classList.add('active');
-  joinPage.setAttribute('aria-hidden', 'false');
-  joinPage.scrollTop = 0;
-  if (joinVideo) {
-    const p = joinVideo.play();
-    if (p && typeof p.catch === 'function') p.catch(() => {});
+  if (currentUser) {
+    var el = document.getElementById('daily');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
   }
+  joinScrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.classList.add('join-open');
+  $joinPage.classList.add('active');
+  $joinPage.setAttribute('aria-hidden', 'false');
+  $joinPage.scrollTop = 0;
+
+  var src = $joinVideo.querySelector('source');
+  if (src && !src.src && src.dataset.src) {
+    src.src = src.dataset.src;
+    $joinVideo.load();
+  }
+  $joinVideo.muted = true;
+  var p = $joinVideo.play();
+  if (p && p.catch) p.catch(function(){});
+  setTimeout(function () { if ($joinEmail) $joinEmail.focus(); }, 320);
 }
 
 function closeJoin() {
-  joinPage.classList.remove('active');
-  joinPage.setAttribute('aria-hidden', 'true');
+  $joinPage.classList.remove('active');
+  $joinPage.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('join-open');
-  if (joinVideo) joinVideo.pause();
-  if (joinHamburger.classList.contains('active')) toggleJoinMenu();
-  window.scrollTo(0, joinScrollMemory.y);
+  try { $joinVideo.pause(); } catch (e) {}
+  if (joinMenuOpen) toggleJoinMenu();
+  window.scrollTo(0, joinScrollY);
 }
 
-document.querySelectorAll('[data-open-join]').forEach(btn => {
-  btn.addEventListener('click', (e) => { e.preventDefault(); openJoin(); });
-});
-document.querySelectorAll('[data-close-join]').forEach(btn => {
-  btn.addEventListener('click', closeJoin);
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && joinPage.classList.contains('active')) closeJoin();
-});
+/* ══════════════════════════════════════════════════════════
+   8. 主页面移动菜单
+   ══════════════════════════════════════════════════════════ */
+function setMenu(state) {
+  menuOpen = state;
+  if (state) {
+    $mobilePanel.style.height = '100vh';
+    $mobilePanel.style.opacity = '1';
+    $mobilePanel.style.pointerEvents = 'auto';
+    $iconMenu.classList.add('opacity-0', '-rotate-45');
+    $iconClose.classList.remove('opacity-0', 'rotate-45');
+  } else {
+    $mobilePanel.style.height = '0';
+    $mobilePanel.style.opacity = '0';
+    $mobilePanel.style.pointerEvents = 'none';
+    $iconMenu.classList.remove('opacity-0', '-rotate-45');
+    $iconClose.classList.add('opacity-0', 'rotate-45');
+  }
+}
+$mobilePanel.style.pointerEvents = 'none';
 
-/* ══════════════════════════════════════════════
-   ECHOID 页：汉堡菜单
-   ══════════════════════════════════════════════ */
-const joinHamburger = joinPage.querySelector('.hamburger');
-const joinMobileMenu = document.getElementById('joinMobileMenu');
-const joinMenuItems = joinMobileMenu.querySelectorAll('.mobile-menu__item, .mobile-menu__cta');
+/* ══════════════════════════════════════════════════════════
+   9. ECHOID 汉堡菜单
+   ══════════════════════════════════════════════════════════ */
+var $joinHamburger = $joinPage.querySelector('.hamburger');
+var $joinMobileMenu = document.getElementById('joinMobileMenu');
+var joinMenuItems = Array.prototype.slice.call($joinMobileMenu.querySelectorAll('.mobile-menu__item, .mobile-menu__cta'));
 
 function toggleJoinMenu() {
-  const isOpen = joinHamburger.classList.contains('active');
-  joinHamburger.classList.toggle('active');
-  joinMobileMenu.classList.toggle('open');
-  joinHamburger.setAttribute('aria-expanded', String(!isOpen));
-  joinMobileMenu.setAttribute('aria-hidden', String(isOpen));
+  var isOpen = $joinHamburger.classList.contains('active');
+  joinMenuOpen = !isOpen;
+  $joinHamburger.classList.toggle('active');
+  $joinMobileMenu.classList.toggle('open');
+  $joinHamburger.setAttribute('aria-expanded', String(!isOpen));
+  $joinMobileMenu.setAttribute('aria-hidden', String(isOpen));
 
   if (!isOpen) {
-    joinMobileMenu.removeAttribute('inert');
-    joinMenuItems.forEach((el, idx) => {
-      el.style.transitionDelay = `calc(180ms + ${idx} * 70ms)`;
+    $joinMobileMenu.removeAttribute('inert');
+    joinMenuItems.forEach(function (el, idx) {
+      el.style.transitionDelay = 'calc(180ms + ' + idx + ' * 70ms)';
     });
   } else {
-    joinMobileMenu.setAttribute('inert', '');
-    joinMenuItems.forEach(el => { el.style.transitionDelay = ''; });
+    $joinMobileMenu.setAttribute('inert', '');
+    joinMenuItems.forEach(function (el) { el.style.transitionDelay = ''; });
   }
 }
-joinHamburger.addEventListener('click', toggleJoinMenu);
-joinMobileMenu.addEventListener('click', (e) => {
-  if (e.target === joinMobileMenu) toggleJoinMenu();
-});
-joinMenuItems.forEach(el => el.addEventListener('click', () => {
-  if (joinHamburger.classList.contains('active')) toggleJoinMenu();
-}));
 
-const joinMq = window.matchMedia('(min-width:901px)');
-joinMq.addEventListener('change', () => {
-  if (joinMq.matches && joinHamburger.classList.contains('active')) toggleJoinMenu();
-});
-
-/* ══════════════════════════════════════════════
-   ECHOID 页：注册表单
-   ══════════════════════════════════════════════ */
-const joinForm = document.getElementById('joinForm');
-const joinEmail = document.getElementById('joinEmail');
-
-joinForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const val = (joinEmail.value || '').trim();
-  if (!val || val.indexOf('@') === -1) {
-    joinEmail.focus();
-    joinEmail.style.borderColor = 'rgba(255,120,120,0.85)';
-    setTimeout(() => { joinEmail.style.borderColor = ''; }, 900);
-    return;
-  }
-  const btn = joinForm.querySelector('.btn--ghost');
-  btn.textContent = 'Submitted — check your inbox';
-  btn.disabled = true;
-  btn.style.color = 'rgba(255,255,255,0.85)';
-});
-
-/* ══════════════════════════════════════════════
-   滚动揭示
-   ══════════════════════════════════════════════ */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('on');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-/* ══════════════════════════════════════════════
-   语言切换
-   主标题由 inline script 预先写入 dataset，
-   这里统一按 data-zh / data-en 重写 textContent
-   ══════════════════════════════════════════════ */
-let currentLang = 'zh';
-const langBtns = document.querySelectorAll('.lang-btn');
-const i18nNodes = document.querySelectorAll('[data-zh][data-en]');
-
+/* ══════════════════════════════════════════════════════════
+   10. 语言切换
+   ══════════════════════════════════════════════════════════ */
 function applyLang(lang) {
   currentLang = lang;
-  langBtns.forEach(b => {
-    const active = b.dataset.lang === lang;
+  langBtns.forEach(function (b) {
+    var active = b.dataset.lang === lang;
     b.classList.toggle('active', active);
     if (!active) b.classList.add('text-white/60');
     else b.classList.remove('text-white/60');
   });
-  i18nNodes.forEach(el => {
-    const txt = el.dataset[lang];
+  i18nNodes.forEach(function (el) {
+    var txt = el.dataset[lang];
     if (typeof txt === 'string' && txt.length) el.textContent = txt;
   });
+  updateJoinButtons();
   updateProgress();
+  if (currentUser) renderDaily();
 }
-langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
 
-/* ══════════════════════════════════════════════
-   承诺清单
-   ══════════════════════════════════════════════ */
-const rows = document.querySelectorAll('.check-row');
-const progCount = document.getElementById('progCount');
-const progBar = document.getElementById('progBar');
-const progMsg = document.getElementById('progMsg');
-const STORE_KEY = 'bg_pledge_v1';
-
-let state = {};
-try { state = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) { state = {}; }
-
-function renderRows() {
-  rows.forEach(row => {
-    row.classList.toggle('done', !!state[row.dataset.key]);
+/* ══════════════════════════════════════════════════════════
+   11. 承诺清单
+   ══════════════════════════════════════════════════════════ */
+function renderPledgeRows() {
+  checkRows.forEach(function (row) {
+    row.classList.toggle('done', !!pledgeState[row.dataset.key]);
   });
 }
-
 function updateProgress() {
-  const done = Object.values(state).filter(Boolean).length;
-  progCount.textContent = done;
-  progBar.style.width = (done / 6 * 100) + '%';
+  var done = Object.keys(pledgeState).filter(function (k) { return pledgeState[k]; }).length;
+  $progCount.textContent = done;
+  $progBar.style.width = (done / 6 * 100) + '%';
 
-  const zh = ['勾选任意一项开始记录。', '已经开始了。保持这个节奏。', '两项。行动正在形成习惯。', '三项。这已经超过大多数人的参与深度。', '四项。你正在产生可被观察的影响。', '五项。距离完整记录只差一步。', '六项全部完成。感谢你的持续投入。'];
-  const en = ['Tick any item to begin tracking.', 'A start. Keep the rhythm.', 'Two. Habits are forming.', 'Three. That already exceeds most participation.', 'Four. Your impact is becoming observable.', 'Five. One step from a complete record.', 'All six complete. Thank you for the sustained effort.'];
-  progMsg.textContent = (currentLang === 'zh' ? zh : en)[done];
-  progMsg.style.opacity = done === 0 ? '.6' : '1';
+  var zh = ['勾选任意一项开始记录。', '已经开始了。保持这个节奏。', '两项。行动正在形成习惯。', '三项。这已经超过大多数人的参与深度。', '四项。你正在产生可被观察的影响。', '五项。距离完整记录只差一步。', '六项全部完成。感谢你的持续投入。'];
+  var en = ['Tick any item to begin tracking.', 'A start. Keep the rhythm.', 'Two. Habits are forming.', 'Three. That already exceeds most participation.', 'Four. Your impact is becoming observable.', 'Five. One step from a complete record.', 'All six complete. Thank you for the sustained effort.'];
+  $progMsg.textContent = (currentLang === 'zh' ? zh : en)[done];
+  $progMsg.style.opacity = done === 0 ? '.6' : '1';
 }
 
-rows.forEach(row => {
-  row.addEventListener('click', () => {
-    const key = row.dataset.key;
-    state[key] = !state[key];
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
-    renderRows();
+/* ══════════════════════════════════════════════════════════
+   12. 滚动揭示
+   ══════════════════════════════════════════════════════════ */
+function initReveal() {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('on'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function (el) { io.observe(el); });
+}
+
+/* ══════════════════════════════════════════════════════════
+   13. 事件绑定
+   ══════════════════════════════════════════════════════════ */
+$menuBtn.addEventListener('click', function () { setMenu(!menuOpen); });
+document.querySelectorAll('.mobile-link').forEach(function (l) {
+  l.addEventListener('click', function () { setMenu(false); });
+});
+
+joinBtns.forEach(function (btn) {
+  btn.addEventListener('click', function (e) { e.preventDefault(); openJoin(); });
+});
+joinCloseBtns.forEach(function (btn) {
+  btn.addEventListener('click', closeJoin);
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && $joinPage.classList.contains('active')) closeJoin();
+});
+
+$joinHamburger.addEventListener('click', toggleJoinMenu);
+$joinMobileMenu.addEventListener('click', function (e) {
+  if (e.target === $joinMobileMenu) toggleJoinMenu();
+});
+joinMenuItems.forEach(function (el) {
+  el.addEventListener('click', function () {
+    if ($joinHamburger.classList.contains('active')) toggleJoinMenu();
+  });
+});
+var joinMq = window.matchMedia('(min-width:901px)');
+joinMq.addEventListener('change', function () {
+  if (joinMq.matches && $joinHamburger.classList.contains('active')) toggleJoinMenu();
+});
+
+function handleJoinSubmit(e) {
+  if (e) e.preventDefault();
+  var val = ($joinEmail.value || '').trim();
+  if (!val || val.indexOf('@') === -1 || val.indexOf('.') === -1) {
+    $joinEmail.focus();
+    $joinEmail.style.borderColor = 'rgba(255,120,120,0.85)';
+    setTimeout(function () { $joinEmail.style.borderColor = ''; }, 900);
+    return;
+  }
+  $joinSubmit.textContent = 'Signed in — welcome';
+  $joinSubmit.disabled = true;
+  $joinSubmit.style.color = 'rgba(255,255,255,0.85)';
+
+  setTimeout(function () {
+    setUser(val);
+    closeJoin();
+    setTimeout(function () {
+      $joinSubmit.textContent = 'Proceed using email';
+      $joinSubmit.disabled = false;
+      $joinSubmit.style.color = '';
+      $joinEmail.value = '';
+    }, 420);
+  }, 480);
+}
+$joinForm.addEventListener('submit', handleJoinSubmit);
+if ($joinAccess) $joinAccess.addEventListener('click', handleJoinSubmit);
+
+$dailyCheck.addEventListener('click', toggleDaily);
+$dailyCheck.addEventListener('keydown', function (e) {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleDaily(); }
+});
+
+$dailyLogout.addEventListener('click', function () {
+  logoutUser();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+langBtns.forEach(function (btn) {
+  btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+});
+
+checkRows.forEach(function (row) {
+  row.addEventListener('click', function () {
+    var k = row.dataset.key;
+    pledgeState[k] = !pledgeState[k];
+    safeStore(PLEDGE_KEY, pledgeState);
+    renderPledgeRows();
     updateProgress();
   });
 });
 
-renderRows();
-updateProgress();
+/* ══════════════════════════════════════════════════════════
+   14. 初始化
+   ══════════════════════════════════════════════════════════ */
+function init() {
+  initReveal();
+  if (currentUser) {
+    $daily.classList.add('visible');
+    $daily.setAttribute('aria-hidden', 'false');
+  }
+  updateJoinButtons();
+  renderDaily();
+  renderPledgeRows();
+  updateProgress();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init, { once: true });
+} else {
+  init();
+}
+
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    try { $heroVideo.pause(); } catch (e) {}
+    try { $joinVideo.pause(); } catch (e) {}
+  } else {
+    if (!$joinPage.classList.contains('active')) {
+      if ($heroVideo) { var pp = $heroVideo.play(); if (pp && pp.catch) pp.catch(function(){}); }
+    }
+  }
+}, { passive: true });
 </script>
 
 </body>
