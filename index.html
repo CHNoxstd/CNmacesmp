@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net">
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&family=Sora:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -120,7 +121,6 @@ tailwind.config = {
     white-space: nowrap;
   }
 
-  /* 数据卡片 */
   .data-card {
     display: block;
     text-decoration: none;
@@ -163,7 +163,6 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  /* 社区卡片 */
   .comm-card {
     display: flex;
     flex-direction: column;
@@ -211,21 +210,235 @@ tailwind.config = {
     color: rgba(103,193,232,.6);
   }
 
-  /* 今日行动 */
+  .comm-head-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 768px) { .comm-head-row { margin-bottom: 80px; } }
+
+  .comm-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 8px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.75);
+    cursor: pointer;
+    transition: border-color .25s ease, background .25s ease, color .25s ease;
+    flex: none;
+  }
+  .comm-toggle:hover {
+    border-color: rgba(103,193,232,.55);
+    background: rgba(103,193,232,.06);
+    color: #fff;
+  }
+  .comm-toggle__icon {
+    width: 12px; height: 12px;
+    stroke: currentColor; stroke-width: 1.8;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    transition: transform .45s cubic-bezier(.16,1,.3,1);
+  }
+  .comm-toggle.open .comm-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  .community-expand {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    margin-top: 0;
+    transition: grid-template-rows .75s cubic-bezier(.16,1,.3,1),
+                opacity .5s ease,
+                margin-top .55s cubic-bezier(.16,1,.3,1);
+    overflow: hidden;
+  }
+  .community-expand.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 72px;
+  }
+  .community-expand__inner { min-height: 0; }
+
+  .expand-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .expand-label__line { width: 24px; height: 1px; background: #67C1E8; }
+  .expand-label__text {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #67C1E8;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 72px;
+  }
+  @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 4 / 3;
+    background: #0B3A57;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .9s cubic-bezier(.16,1,.3,1);
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item__caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 32px 14px 12px;
+    background: linear-gradient(to top, rgba(4,23,36,.92), transparent);
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.72);
+    line-height: 1.5;
+  }
+
+  .stat-table-wrap {
+    margin-bottom: 72px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+  }
+  .stat-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .stat-table thead th {
+    text-align: left;
+    padding: 18px 20px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.02);
+    white-space: nowrap;
+  }
+  .stat-table tbody td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    color: rgba(255,255,255,.75);
+    vertical-align: top;
+  }
+  .stat-table tbody tr:last-child td { border-bottom: none; }
+  .stat-table tbody tr:hover td { background: rgba(103,193,232,.04); }
+  .stat-table .val {
+    font-family: 'Geist Mono', monospace;
+    color: #67C1E8;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-table .src {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .05em;
+    color: rgba(255,255,255,.4);
+    white-space: nowrap;
+  }
+  .stat-table .src a {
+    color: rgba(103,193,232,.75);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(103,193,232,.3);
+    transition: color .25s ease, border-color .25s ease;
+  }
+  .stat-table .src a:hover {
+    color: #67C1E8;
+    border-color: #67C1E8;
+  }
+
+  .portal-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 640px) { .portal-list { grid-template-columns: 1fr; } }
+
+  .portal-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .portal-item:hover {
+    border-color: rgba(103,193,232,.4);
+    background: rgba(103,193,232,.05);
+  }
+  .portal-item__info { min-width: 0; }
+  .portal-item__name {
+    font-size: 13.5px;
+    color: rgba(255,255,255,.88);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .portal-item__url {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.35);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .portal-item__arrow {
+    flex: none;
+    width: 14px; height: 14px;
+    stroke: rgba(103,193,232,.65);
+    stroke-width: 1.6;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
+  }
+  .portal-item:hover .portal-item__arrow {
+    transform: translate(2px, -2px);
+    stroke: #67C1E8;
+  }
+
   #daily {
     display: none;
     background: #07253B;
     border-top: 1px solid rgba(255,255,255,.08);
   }
   #daily.visible { display: block; }
-  .daily-wrap {
-    max-width: 720px; margin: 0 auto; padding: 0 24px;
-  }
+  .daily-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
   @media (min-width: 768px) { .daily-wrap { padding: 0 48px; } }
   @media (min-width: 1024px) { .daily-wrap { padding: 0 80px; } }
-  .daily-head {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-  }
+  .daily-head { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .daily-accent { width: 24px; height: 1px; background: #67C1E8; }
   .daily-tag {
     font-family: 'Geist Mono', monospace;
@@ -354,9 +567,7 @@ tailwind.config = {
   }
   .daily-logout:hover { color: rgba(255,255,255,.7); }
 
-  /* ══════════════════════════════════════════════════
-     ECHOID 加入页
-     ══════════════════════════════════════════════════ */
+  /* ECHOID 页 */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
     --text-dimmer: rgba(255,255,255,0.42);
@@ -377,13 +588,11 @@ tailwind.config = {
     transition: opacity .5s var(--ease-premium);
   }
   #joinPage.active { opacity: 1; pointer-events: auto; }
-
   #joinPage *, #joinPage *::before, #joinPage *::after {
     margin: 0; padding: 0; box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
   #joinPage .hero {
     position: relative; width: 100%;
     height: 100vh; height: 100svh; min-height: 640px;
@@ -414,7 +623,6 @@ tailwind.config = {
       background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.75) 100%);
     }
   }
-
   #joinPage .navbar {
     display: flex; justify-content: space-between; align-items: center;
     gap: 32px;
@@ -427,6 +635,7 @@ tailwind.config = {
     font-size: clamp(20px, 1.75vw, 30px);
     letter-spacing: 0.16em; color: #fff;
     text-decoration: none; line-height: 1;
+    cursor: pointer;
   }
   #joinPage .nav__cluster {
     display: flex; align-items: center;
@@ -487,7 +696,6 @@ tailwind.config = {
     #joinPage .nav__cluster { display:none; }
     #joinPage .hamburger { display:block; }
   }
-
   #joinPage .mobile-menu {
     position: fixed; inset:0; z-index:50;
     background: rgba(4,4,6,0.94);
@@ -530,20 +738,17 @@ tailwind.config = {
   #joinPage .mobile-menu.open .mobile-menu__cta {
     opacity:1; transform:translateY(0);
   }
-
   #joinPage .hero__body {
     display:flex; align-items:center; justify-content:flex-end;
     padding-inline:var(--gutter); min-height:0; overflow-y:auto;
   }
   @media (max-width:720px) { #joinPage .hero__body { justify-content:center; } }
-
   #joinPage .panel {
     display:flex; flex-direction:column; align-items:flex-start;
     width: min(34vw,620px); min-width:380px;
   }
   @media (max-width:1100px) { #joinPage .panel { width: min(70vw,520px); min-width:0; } }
   @media (max-width:720px) { #joinPage .panel { width:100%; } }
-
   #joinPage .chip {
     font-family:var(--font-mono); font-weight:400;
     font-size:clamp(11px,0.72vw,14px);
@@ -594,10 +799,7 @@ tailwind.config = {
     border-color:rgba(255,255,255,0.85);
   }
   #joinPage .email-input:focus::placeholder { color:var(--text-dimmer); }
-  #joinPage .email-input.is-error {
-    border-color: rgba(255,120,120,0.85);
-  }
-
+  #joinPage .email-input.is-error { border-color: rgba(255,120,120,0.85); }
   #joinPage .join-error {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -614,7 +816,6 @@ tailwind.config = {
     opacity: 1;
     margin-top: 4px;
   }
-
   #joinPage .btn--ghost,
   #joinPage .btn--solid {
     width:100%; border-radius:0; border:none;
@@ -635,11 +836,7 @@ tailwind.config = {
   #joinPage .btn--solid { background:var(--fill-solid); color:#fff; }
   #joinPage .btn--solid:hover { background:rgba(255,255,255,0.17); }
   #joinPage .btn--ghost:disabled,
-  #joinPage .btn--solid:disabled {
-    cursor: default;
-    opacity: 0.7;
-  }
-
+  #joinPage .btn--solid:disabled { cursor: default; opacity: 0.7; }
   #joinPage .referral-link {
     align-self:center;
     margin-top:clamp(26px,2.6vw,46px);
@@ -655,8 +852,6 @@ tailwind.config = {
     transition:color 0.25s ease;
   }
   #joinPage .referral-link:hover { color:var(--text-dim); }
-
-  /* 邀请码面板 */
   #joinPage .invite-panel {
     width: 100%;
     max-height: 0;
@@ -670,9 +865,7 @@ tailwind.config = {
     opacity: 1;
     margin-top: 18px;
   }
-  #joinPage .invite-row {
-    display: flex; gap: 10px;
-  }
+  #joinPage .invite-row { display: flex; gap: 10px; }
   #joinPage .invite-input {
     flex: 1;
     background: transparent;
@@ -706,7 +899,6 @@ tailwind.config = {
     background: rgba(255,255,255,0.08);
     border-color: rgba(255,255,255,0.5);
   }
-
   #joinPage .legal-footer {
     border-top:1px solid var(--line);
     padding:clamp(18px,1.7vw,30px) var(--gutter);
@@ -725,12 +917,10 @@ tailwind.config = {
     cursor: pointer;
   }
   #joinPage .legal-footer a:hover { color:var(--text-dim); }
-
   #joinPage :focus-visible {
     outline:1px solid rgba(255,255,255,0.7);
     outline-offset:3px;
   }
-
   #joinPage .join-back {
     position: fixed;
     left: clamp(16px, 2.4vw, 34px);
@@ -763,8 +953,6 @@ tailwind.config = {
     stroke: currentColor; stroke-width: 1.8;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
-
-  /* 信息层 */
   #joinPage .join-info {
     position: absolute;
     inset: 0;
@@ -856,7 +1044,6 @@ tailwind.config = {
     }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
-
   @media (max-height:640px) {
     #joinPage .navbar { padding:12px var(--gutter); }
     #joinPage .panel h1 { font-size:clamp(36px,7vw,64px); }
@@ -1220,21 +1407,29 @@ tailwind.config = {
 <!-- ══════════════════════ 社区 ══════════════════════ -->
 <section id="community" class="relative bg-ink-900 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-    <div class="reveal max-w-2xl mb-16 md:mb-20">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="w-6 h-px bg-ink-500"></span>
-        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="社区与数据源" data-en="Community & sources">社区与数据源</span>
+
+    <div class="comm-head-row">
+      <div class="reveal max-w-2xl">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="w-6 h-px bg-ink-500"></span>
+          <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="社区与数据源" data-en="Community & sources">社区与数据源</span>
+        </div>
+        <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
+            data-zh="直接进入海洋科学的一手社区"
+            data-en="Go straight to the primary marine science communities">
+          直接进入海洋科学的一手社区
+        </h2>
+        <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
+           data-zh="以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。"
+           data-en="These institutions are the primary sources behind the IPCC assessment reports, UNEP global outlooks, and FAO fisheries statistics. Each card opens the official site, report or data portal.">
+          以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。
+        </p>
       </div>
-      <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
-          data-zh="直接进入海洋科学的一手社区"
-          data-en="Go straight to the primary marine science communities">
-        直接进入海洋科学的一手社区
-      </h2>
-      <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
-         data-zh="以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。"
-         data-en="These institutions are the primary sources behind the IPCC assessment reports, UNEP global outlooks, and FAO fisheries statistics. Each card opens the official site, report or data portal.">
-        以下机构是 IPCC 评估报告、UNEP 全球环境展望以及 FAO 渔业统计的核心数据来源。点击任意入口可直接访问其官网、报告与数据门户。
-      </p>
+
+      <button class="comm-toggle reveal" id="communityToggle" aria-expanded="false" aria-controls="communityExpand">
+        <span data-zh="展开档案" data-en="Expand archive" id="communityToggleText">展开档案</span>
+        <svg class="comm-toggle__icon" viewBox="0 0 12 12"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+      </button>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1355,6 +1550,163 @@ tailwind.config = {
         <span class="comm-card__tag">iucnredlist.org</span>
       </a>
     </div>
+
+    <!-- 展开区域 -->
+    <div class="community-expand" id="communityExpand" aria-hidden="true">
+      <div class="community-expand__inner">
+
+        <div class="expand-label">
+          <span class="expand-label__line"></span>
+          <span class="expand-label__text" data-zh="图像档案" data-en="Visual archive">图像档案</span>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1518877593221-1f28583780b4?w=800&q=75&auto=format&fit=crop" alt="Sea turtle in open water" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="海龟 · 塑料污染的直接受害物种" data-en="Sea turtle · directly affected by plastic pollution">海龟 · 塑料污染的直接受害物种</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=75&auto=format&fit=crop" alt="Coral reef" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="珊瑚礁 · 全球硬珊瑚覆盖度十年下降 14%" data-en="Coral reefs · 14% hard-coral loss over a decade">珊瑚礁 · 全球硬珊瑚覆盖度十年下降 14%</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&q=75&auto=format&fit=crop" alt="Ocean surface" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="海洋表层 · 吸收全球约 90% 的过剩热量" data-en="Ocean surface · absorbs roughly 90% of excess heat">海洋表层 · 吸收全球约 90% 的过剩热量</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=800&q=75&auto=format&fit=crop" alt="Whale tail" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="鲸类 · 工业捕鲸后种群恢复缓慢" data-en="Whales · slow recovery after industrial whaling">鲸类 · 工业捕鲸后种群恢复缓慢</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=75&auto=format&fit=crop" alt="Humpback whale" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="座头鲸 · 大型鱼类种群自 1950 年代减少约 90%" data-en="Humpback · large fish stocks down ~90% since the 1950s">座头鲸 · 大型鱼类种群自 1950 年代减少约 90%</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=800&q=75&auto=format&fit=crop" alt="Deep ocean" loading="lazy" />
+            <div class="gallery-item__caption" data-zh="深海 · 海洋约 90% 的体积处于黑暗与高压中" data-en="Deep sea · roughly 90% of ocean volume in darkness">深海 · 海洋约 90% 的体积处于黑暗与高压中</div>
+          </div>
+        </div>
+
+        <div class="expand-label">
+          <span class="expand-label__line"></span>
+          <span class="expand-label__text" data-zh="关键统计" data-en="Key statistics">关键统计</span>
+        </div>
+
+        <div class="stat-table-wrap">
+          <table class="stat-table">
+            <thead>
+              <tr>
+                <th data-zh="指标" data-en="Indicator">指标</th>
+                <th data-zh="观测值" data-en="Observed value">观测值</th>
+                <th data-zh="参考期" data-en="Reference period">参考期</th>
+                <th data-zh="来源" data-en="Source">来源</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-zh="海洋热含量（0–2000 米）" data-en="Ocean heat content (0–2000 m)">海洋热含量（0–2000 米）</td>
+                <td class="val">+ 0.35 × 10²² J / 年</td>
+                <td data-zh="2006 – 2018" data-en="2006 – 2018">2006 – 2018</td>
+                <td class="src"><a href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">IPCC AR6 WGI</a></td>
+              </tr>
+              <tr>
+                <td data-zh="全球平均海平面" data-en="Global mean sea level">全球平均海平面</td>
+                <td class="val">+ 3.7 mm / 年</td>
+                <td data-zh="2006 – 2018" data-en="2006 – 2018">2006 – 2018</td>
+                <td class="src"><a href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">IPCC AR6 WGI</a></td>
+              </tr>
+              <tr>
+                <td data-zh="表层海水 pH 值" data-en="Surface-ocean pH">表层海水 pH 值</td>
+                <td class="val">− 0.017 / 十年</td>
+                <td data-zh="1990s – 2020s" data-en="1990s – 2020s">1990s – 2020s</td>
+                <td class="src"><a href="https://www.ipcc.ch/report/ar6/wg1/" target="_blank" rel="noopener noreferrer">IPCC AR6 WGI</a></td>
+              </tr>
+              <tr>
+                <td data-zh="全球硬珊瑚覆盖度" data-en="Global hard-coral cover">全球硬珊瑚覆盖度</td>
+                <td class="val">− 14 %</td>
+                <td data-zh="2009 – 2018" data-en="2009 – 2018">2009 – 2018</td>
+                <td class="src"><a href="https://gcrmn.net/2021-report/" target="_blank" rel="noopener noreferrer">GCRMN 2021</a></td>
+              </tr>
+              <tr>
+                <td data-zh="不可持续捕捞的鱼类种群占比" data-en="Stocks at unsustainable levels">不可持续捕捞的鱼类种群占比</td>
+                <td class="val">35.4 %</td>
+                <td data-zh="2019" data-en="2019">2019</td>
+                <td class="src"><a href="https://www.fao.org/sofia/en" target="_blank" rel="noopener noreferrer">FAO SOFIA 2022</a></td>
+              </tr>
+              <tr>
+                <td data-zh="每年流入海洋的塑料总量" data-en="Annual plastic inflow to ocean">每年流入海洋的塑料总量</td>
+                <td class="val">≈ 11 Mt / 年</td>
+                <td data-zh="2016 估值" data-en="2016 estimate">2016 估值</td>
+                <td class="src"><a href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer">Science 2020</a></td>
+              </tr>
+              <tr>
+                <td data-zh="大型鱼类种群相对历史丰度" data-en="Large fish relative abundance">大型鱼类种群相对历史丰度</td>
+                <td class="val">≈ − 90 %</td>
+                <td data-zh="1950s – 2000s" data-en="1950s – 2000s">1950s – 2000s</td>
+                <td class="src"><a href="https://www.nature.com/articles/nature01610" target="_blank" rel="noopener noreferrer">Myers &amp; Worm, Nature 2003</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="expand-label">
+          <span class="expand-label__line"></span>
+          <span class="expand-label__text" data-zh="一手数据门户" data-en="Primary data portals">一手数据门户</span>
+        </div>
+
+        <div class="portal-list">
+          <a class="portal-item" href="https://www.ipcc.ch/data/" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">IPCC Data Distribution Centre</div>
+              <div class="portal-item__url">ipcc.ch/data</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+
+          <a class="portal-item" href="https://www.fao.org/fishery/statistics/en" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">FAO Fisheries &amp; Aquaculture Statistics</div>
+              <div class="portal-item__url">fao.org/fishery/statistics</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+
+          <a class="portal-item" href="https://marine.copernicus.eu/access-data" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">Copernicus Marine Data Access</div>
+              <div class="portal-item__url">marine.copernicus.eu/access-data</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+
+          <a class="portal-item" href="https://www.ncei.noaa.gov/" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">NOAA National Centers for Environmental Information</div>
+              <div class="portal-item__url">ncei.noaa.gov</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+
+          <a class="portal-item" href="https://gcrmn.net/data/" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">GCRMN Coral Reef Data</div>
+              <div class="portal-item__url">gcrmn.net/data</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+
+          <a class="portal-item" href="https://www.iucnredlist.org/search" target="_blank" rel="noopener noreferrer">
+            <div class="portal-item__info">
+              <div class="portal-item__name">IUCN Red List Species Search</div>
+              <div class="portal-item__url">iucnredlist.org/search</div>
+            </div>
+            <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1587,6 +1939,7 @@ tailwind.config = {
 </section>
 
 
+<!-- ══════════════════════ 页脚 ══════════════════════ -->
 <footer class="bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
     <div class="grid md:grid-cols-12 gap-10 md:gap-8">
@@ -1644,7 +1997,7 @@ tailwind.config = {
     <div class="hero__scrim"></div>
 
     <nav class="navbar">
-      <a href="#" class="logo" data-info="story">ECHOID</a>
+      <a class="logo" data-info="story">ECHOID</a>
 
       <div class="nav__cluster">
         <div class="nav__links">
@@ -1708,7 +2061,6 @@ tailwind.config = {
     <span>Back</span>
   </button>
 
-  <!-- 信息层 -->
   <div class="join-info" id="joinInfo" aria-hidden="true">
     <button class="join-info-close" id="joinInfoClose" aria-label="Back">
       <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
@@ -1861,6 +2213,9 @@ var $dailyLogout  = document.getElementById('dailyLogout');
 var $progCount    = document.getElementById('progCount');
 var $progBar      = document.getElementById('progBar');
 var $progMsg      = document.getElementById('progMsg');
+var $communityToggle = document.getElementById('communityToggle');
+var $communityExpand = document.getElementById('communityExpand');
+var $communityToggleText = document.getElementById('communityToggleText');
 
 var joinBtns      = Array.prototype.slice.call(document.querySelectorAll('[data-open-join]'));
 var joinCloseBtns = Array.prototype.slice.call(document.querySelectorAll('[data-close-join]'));
@@ -1874,6 +2229,7 @@ var checkRows     = Array.prototype.slice.call(document.querySelectorAll('.check
 var currentLang = 'zh';
 var menuOpen = false;
 var joinMenuOpen = false;
+var communityOpen = false;
 var currentUser = safeParse(localStorage.getItem(USER_KEY), null);
 var dailyState = safeParse(localStorage.getItem(DAILY_KEY), {});
 var pledgeState = safeParse(localStorage.getItem(PLEDGE_KEY), {});
@@ -2164,7 +2520,24 @@ function initReveal() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   16. 事件绑定
+   16. 社区展开
+   ══════════════════════════════════════════════════════════ */
+function toggleCommunity() {
+  communityOpen = !communityOpen;
+  $communityToggle.classList.toggle('open', communityOpen);
+  $communityExpand.classList.toggle('open', communityOpen);
+  $communityToggle.setAttribute('aria-expanded', String(communityOpen));
+  $communityExpand.setAttribute('aria-hidden', String(!communityOpen));
+  var txt = $communityToggle.querySelector('span[data-zh]');
+  if (txt) {
+    txt.textContent = communityOpen
+      ? (currentLang === 'zh' ? '收起档案' : 'Collapse archive')
+      : (currentLang === 'zh' ? '展开档案' : 'Expand archive');
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   17. 事件绑定
    ══════════════════════════════════════════════════════════ */
 
 /* 主页面移动菜单 */
@@ -2328,8 +2701,11 @@ checkRows.forEach(function (row) {
   });
 });
 
+/* 社区展开 */
+$communityToggle.addEventListener('click', toggleCommunity);
+
 /* ══════════════════════════════════════════════════════════
-   17. 初始化
+   18. 初始化
    ══════════════════════════════════════════════════════════ */
 function init() {
   initReveal();
