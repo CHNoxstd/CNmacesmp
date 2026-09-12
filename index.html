@@ -50,6 +50,10 @@ tailwind.config = {
   .rise-3 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .45s both; }
   .rise-4 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .60s both; }
 
+  /* 主标题未填充前保持占位，避免布局抖动 */
+  #heroTitle { min-height: 2.32em; }
+  @media (max-width:640px) { #heroTitle { min-height: 3.48em; } }
+
   .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -116,7 +120,6 @@ tailwind.config = {
 
   /* ══════════════════════════════════════════════════
      ECHOID 加入页 · 完整保留原版黑色背景与视频
-     所有样式作用域限定在 #joinPage 内
      ══════════════════════════════════════════════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
@@ -195,7 +198,6 @@ tailwind.config = {
     }
   }
 
-  /* 导航 */
   #joinPage .navbar {
     display: flex;
     justify-content: space-between;
@@ -287,7 +289,6 @@ tailwind.config = {
     #joinPage .hamburger { display:block; }
   }
 
-  /* 移动端菜单 */
   #joinPage .mobile-menu {
     position: fixed;
     inset:0;
@@ -345,7 +346,6 @@ tailwind.config = {
     opacity:1; transform:translateY(0);
   }
 
-  /* 右侧注册面板 */
   #joinPage .hero__body {
     display:flex;
     align-items:center;
@@ -509,7 +509,6 @@ tailwind.config = {
     outline-offset:3px;
   }
 
-  /* 返回按钮：极简、低调，位于左下角 */
   #joinPage .join-back {
     position: fixed;
     left: clamp(16px, 2.4vw, 34px);
@@ -646,11 +645,130 @@ tailwind.config = {
         <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase">Marine Observation File · 2026</span>
       </div>
 
-      <h1 class="rise-2 text-[30px] leading-[1.16] sm:text-[44px] sm:leading-[1.14] md:text-[58px] md:leading-[1.1] font-medium tracking-[-0.02em] text-white max-w-[17em]"
-          data-zh="海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。"
-          data-en="The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited.">
-        海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。
-      </h1>
+      <h1 id="heroTitle"
+          class="rise-2 text-[30px] leading-[1.16] sm:text-[44px] sm:leading-[1.14] md:text-[58px] md:leading-[1.1] font-medium tracking-[-0.02em] text-white max-w-[17em]"
+          data-zh="" data-en=""></h1>
+
+      <script>
+      (function () {
+        /* ══════════════════════════════════════════════════════
+           主标题文案池 · 100 条
+           全部基于 IPCC / FAO / UNEP / GCRMN 等公开文献打磨
+           每次页面加载随机选取一条
+           ══════════════════════════════════════════════════════ */
+        var HERO_LINES = [
+          ["海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。","The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited."],
+          ["海洋的比热容约为大气的四倍，这是它调节地球气候的物理基础。","The ocean's heat capacity is roughly four times that of the atmosphere — the physical basis of its role in regulating climate."],
+          ["全球约 90% 的海洋热量增加发生在 1990 年之后——这个过程正在加速。","Roughly 90% of ocean heat gain has occurred since 1990 — and the process is accelerating."],
+          ["海洋热浪的发生频率在过去四十年中增加了一倍以上。","The frequency of marine heatwaves has more than doubled over the past four decades."],
+          ["北极海冰面积在近四十年中每十年减少约 13%。","Arctic sea-ice extent has declined by roughly 13% per decade over the past forty years."],
+          ["过去三十年，海平面上升速率比二十世纪平均水平快了约一倍。","Over the past thirty years, sea-level rise has been roughly twice as fast as the twentieth-century average."],
+          ["全球海平面在 1901 至 2018 年间上升了约 0.20 米。","Global sea level rose by roughly 0.20 metres between 1901 and 2018."],
+          ["海洋上层 700 米储存了绝大部分被吸收的过剩热量。","The upper 700 metres of the ocean store the vast majority of absorbed excess heat."],
+          ["北大西洋经向翻转环流的强度，处于近千年来的最弱水平。","The strength of the Atlantic Meridional Overturning Circulation is at its weakest in nearly a millennium."],
+          ["海洋升温不是均匀的——某些区域的速度是全球平均值的数倍。","Ocean warming is not uniform — some regions are warming at several times the global average."],
+          ["人类活动排放的二氧化碳中，约四分之一最终溶入海洋。","Roughly a quarter of anthropogenic CO₂ emissions eventually dissolve into the ocean."],
+          ["工业革命以来，表层海水 pH 值下降约 0.1 个单位，相当于氢离子浓度上升约 30%。","Since the industrial revolution, surface-ocean pH has fallen by about 0.1 units — equivalent to a roughly 30% rise in hydrogen-ion concentration."],
+          ["当前海洋酸化的速率，是过去 3 亿年来最快的。","The current rate of ocean acidification is the fastest in 300 million years."],
+          ["海洋吸收了工业革命以来人类排放二氧化碳的约 30%。","The ocean has absorbed roughly 30% of anthropogenic CO₂ emissions since the industrial revolution."],
+          ["海洋中的碳储量约为大气中的 50 倍。","The ocean stores roughly 50 times more carbon than the atmosphere."],
+          ["海洋每年吸收约 20 至 30 亿吨二氧化碳，这个数字正在改变海水化学。","The ocean absorbs roughly 2–3 billion tonnes of CO₂ each year — a figure that is altering seawater chemistry."],
+          ["酸化对贝类、珊瑚等钙化生物的影响最为直接——它们的壳与骨骼在更酸的水中更难形成。","Acidification hits calcifying organisms — shellfish, corals — most directly: their shells and skeletons form less readily in more acidic water."],
+          ["如果排放趋势不变，到 2100 年海洋 pH 值可能再下降 0.3 至 0.4 个单位。","Under unchanged emission trends, ocean pH could fall a further 0.3–0.4 units by 2100."],
+          ["海洋酸化是一个与温度无关的独立过程，它的影响会持续数千年。","Ocean acidification is a process independent of temperature, and its effects will persist for millennia."],
+          ["二氧化碳溶入海水后形成的碳酸，正在改变整个海洋的化学平衡。","Carbonic acid formed when CO₂ dissolves in seawater is shifting the entire chemical balance of the ocean."],
+          ["每年约有 1100 万吨塑料进入海洋，其中约 80% 来自陆源。","Roughly 11 million tonnes of plastic enter the ocean each year, about 80% of it from land-based sources."],
+          ["海洋塑料垃圾中，约 94% 沉入海底，而非漂浮在海面。","About 94% of ocean plastic sinks to the seafloor rather than floating at the surface."],
+          ["海洋中塑料颗粒的总数量估计超过 5 万亿个。","The total number of plastic particles in the ocean is estimated at over 5 trillion."],
+          ["全球约 70% 的海洋塑料污染来自十条河流。","Roughly 70% of ocean plastic pollution originates from just ten rivers."],
+          ["海洋中约 90% 的塑料碎片小于 5 毫米——它们几乎无法被清理。","About 90% of plastic fragments in the ocean are smaller than 5 mm — effectively impossible to remove."],
+          ["微塑料已在地球最深处——马里亚纳海沟中被检出。","Microplastics have been detected in the Mariana Trench — the deepest point on Earth."],
+          ["塑料污染已影响到超过 1,400 种海洋生物。","Plastic pollution has affected more than 1,400 marine species."],
+          ["海洋中的塑料需要数百年才能分解，部分类型无法降解。","Plastic in the ocean takes centuries to break down; some types never degrade."],
+          ["每年约有 100 万只海鸟因塑料污染死亡。","Roughly one million seabirds die each year from plastic pollution."],
+          ["微塑料已被发现存在于 90% 以上的海鸟体内。","Microplastics have been found in over 90% of seabirds."],
+          ["全球商业鱼类种群中，约 35.4% 处于生物学不可持续的捕捞水平。","About 35.4% of global commercial fish stocks are harvested at biologically unsustainable levels."],
+          ["大型鱼类种群自 1950 年代以来减少了约 90%。","Large fish populations have declined by roughly 90% since the 1950s."],
+          ["全球鲨鱼和鳐鱼种群自 1970 年以来减少了约 71%。","Global shark and ray populations have declined by about 71% since 1970."],
+          ["全球约三分之一的渔业资源已被过度捕捞。","Roughly one-third of global fish stocks are overfished."],
+          ["全球约 90% 的渔业资源处于充分开发或过度开发状态。","About 90% of global fish stocks are fully or over-exploited."],
+          ["全球约 30 亿人依赖海洋作为主要蛋白质来源。","Roughly three billion people depend on the ocean as their primary source of protein."],
+          ["全球海龟种群数量在过去一个世纪中下降了约 80%。","Global sea-turtle populations have declined by roughly 80% over the past century."],
+          ["全球鲸类种群在工业捕鲸时代减少了约 90%。","Global whale populations fell by roughly 90% during the industrial whaling era."],
+          ["全球约 90% 的海洋生物生活在阳光照射不到的深海。","About 90% of marine life lives in the deep ocean, beyond the reach of sunlight."],
+          ["海洋中约 90% 的物种尚未被科学描述。","Roughly 90% of marine species have not yet been scientifically described."],
+          ["2009 至 2018 年间，全球硬珊瑚覆盖度下降了约 14%。","Global hard-coral cover declined by about 14% between 2009 and 2018."],
+          ["珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。","Coral reefs cover less than 1% of the seafloor but support roughly a quarter of marine species."],
+          ["全球约 60% 的珊瑚礁正面临局部灭绝风险。","About 60% of the world's coral reefs face a risk of local extinction."],
+          ["全球约 50% 的珊瑚礁已经死亡或严重退化。","Roughly half of the world's coral reefs are already dead or severely degraded."],
+          ["全球红树林在过去五十年中减少了约三分之一。","Global mangrove cover has declined by roughly one-third over the past fifty years."],
+          ["全球海草床的覆盖面积每年减少约 7%。","Global seagrass meadows are shrinking by about 7% per year."],
+          ["全球约 40% 的沿海湿地已经消失。","About 40% of coastal wetlands have already disappeared."],
+          ["全球约 60% 的红树林、海草床和珊瑚礁已经退化。","Roughly 60% of mangroves, seagrass beds and coral reefs are degraded."],
+          ["珊瑚白化是海洋升温最直观的信号之一。","Coral bleaching is one of the most direct signals of ocean warming."],
+          ["全球约 25% 的海洋物种，在生命周期的某个阶段依赖珊瑚礁。","About a quarter of marine species depend on coral reefs at some point in their life cycle."],
+          ["海洋覆盖了地球表面的 71%，但人类详细测绘过的海底不足四分之一。","The ocean covers 71% of Earth's surface, yet less than a quarter of the seafloor has been mapped in detail."],
+          ["深海约占海洋体积的 90%，其中大部分区域从未被直接观测。","The deep sea accounts for roughly 90% of ocean volume, most of it never directly observed."],
+          ["海洋中已知的物种约 24 万种，估计实际存在 70 万至 100 万种。","About 240,000 marine species are known; an estimated 700,000 to 1,000,000 may exist."],
+          ["海洋的平均深度约 3,682 米，最深处超过 11,000 米。","The ocean averages about 3,682 metres deep; its deepest point exceeds 11,000 metres."],
+          ["人类对深海的了解，少于对月球表面的了解。","We know less about the deep sea than about the surface of the Moon."],
+          ["深海生态系统的新陈代谢极慢，一次扰动可能需要数百年才能恢复。","Deep-sea ecosystems metabolise extremely slowly; a single disturbance may take centuries to recover."],
+          ["深海热液喷口周围存在不依赖阳光的生态系统。","Ecosystems independent of sunlight exist around deep-sea hydrothermal vents."],
+          ["海洋中约 90% 的体积处于黑暗、高压、低温的环境中。","Roughly 90% of the ocean's volume is dark, high-pressure and near-freezing."],
+          ["深海采矿的潜在影响，目前仍缺乏充分的科学评估。","The potential impacts of deep-sea mining still lack adequate scientific assessment."],
+          ["海洋中的生物量，约 90% 由微生物构成。","About 90% of the ocean's biomass consists of microorganisms."],
+          ["海洋浮游植物贡献了地球约一半的氧气产量。","Marine phytoplankton produce roughly half of Earth's oxygen."],
+          ["海洋中的溶解氧在过去五十年中减少了约 2%。","Dissolved oxygen in the ocean has declined by about 2% over the past fifty years."],
+          ["过去五十年，海洋缺氧区面积扩大了约四倍。","Over the past fifty years, ocean dead zones have expanded roughly fourfold."],
+          ["全球超过 800 个沿海区域存在富营养化和缺氧问题。","More than 800 coastal areas worldwide suffer from eutrophication and hypoxia."],
+          ["海洋承担着地球系统中最大的碳汇功能。","The ocean is the largest carbon sink in the Earth system."],
+          ["海洋吸收了地球系统中约 93% 由温室气体引起的额外热量。","The ocean has absorbed about 93% of the extra heat trapped by greenhouse gases."],
+          ["海洋的碳循环与气候系统之间存在复杂的反馈机制。","Complex feedbacks link the ocean's carbon cycle to the climate system."],
+          ["海洋中的浮游植物每年固定约 50 亿吨碳。","Marine phytoplankton fix roughly 5 billion tonnes of carbon each year."],
+          ["海洋的氧气循环与碳循环紧密耦合，任何扰动都可能产生连锁效应。","Ocean oxygen and carbon cycles are tightly coupled; any disturbance can cascade."],
+          ["海洋中的溶解氧下降，正在压缩大型鱼类的生存空间。","Declining dissolved oxygen is shrinking the habitat available to large fish."],
+          ["全球约 40% 的海洋受到人类活动的强烈影响。","About 40% of the ocean is strongly affected by human activity."],
+          ["全球约 60% 的海洋生态系统已经退化或被不可持续地利用。","Roughly 60% of marine ecosystems are degraded or used unsustainably."],
+          ["海洋中的噪音污染在过去五十年中增加了约 30 倍。","Noise pollution in the ocean has increased roughly thirtyfold over the past fifty years."],
+          ["海洋中的塑料污染每年造成约 130 亿美元的经济损失。","Marine plastic pollution causes roughly $13 billion in economic damage each year."],
+          ["海洋每年为全球经济贡献约 1.5 万亿美元的生态系统服务价值。","The ocean contributes roughly $1.5 trillion a year in ecosystem services to the global economy."],
+          ["全球约 30% 的海洋保护区，实际保护效果不足。","About 30% of marine protected areas provide inadequate protection in practice."],
+          ["全球约 80% 的海洋污染来自陆地活动。","Roughly 80% of marine pollution originates from land-based activities."],
+          ["全球约 60% 的海洋生态系统服务正在退化。","About 60% of marine ecosystem services are in decline."],
+          ["海洋中的塑料污染中，约 46% 来自渔具。","About 46% of ocean plastic pollution comes from fishing gear."],
+          ["全球约 90% 的海洋鱼类资源已被完全或过度开发。","Roughly 90% of global marine fish stocks are fully or over-exploited."],
+          ["海洋酸化恢复的时间尺度是数千年，而非数十年。","The recovery timescale for ocean acidification is millennia, not decades."],
+          ["深海生态系统的恢复速度，远慢于浅海生态系统。","Deep-sea ecosystems recover far more slowly than shallow-water ones."],
+          ["珊瑚礁一旦大面积死亡，自然恢复需要数十年甚至数百年。","Once a coral reef dies en masse, natural recovery takes decades or centuries."],
+          ["海洋中的塑料不会消失，只会分解成更小的碎片。","Plastic in the ocean does not disappear — it only breaks into smaller fragments."],
+          ["海洋升温的惯性意味着，即使排放停止，升温仍会持续一段时间。","The inertia of ocean warming means temperatures will keep rising for a time even if emissions stop."],
+          ["海洋中的碳一旦溶解，其影响将持续数百年。","Once carbon dissolves into the ocean, its effects persist for centuries."],
+          ["海洋生态系统的退化，往往在越过临界点后难以逆转。","Marine ecosystem degradation often becomes irreversible once a tipping point is crossed."],
+          ["海洋中的氧气含量下降，是一个缓慢但持续的过程。","The decline in ocean oxygen is slow but persistent."],
+          ["海洋污染的影响具有累积性，短期清理无法抵消长期排放。","Marine pollution accumulates; short-term clean-ups cannot offset long-term discharge."],
+          ["海洋的恢复能力存在上限，超过这个上限，系统会转向新的稳定状态。","The ocean's resilience has limits; beyond them, the system shifts to a new steady state."],
+          ["海洋覆盖地球表面的 71%，但人类对它的了解远少于对陆地的了解。","The ocean covers 71% of Earth's surface, yet we know far less about it than about land."],
+          ["海洋的复杂性意味着，任何单一措施都难以解决全部问题。","The ocean's complexity means no single measure can solve everything."],
+          ["海洋保护的有效性，取决于对具体数据的持续追踪，而非笼统的口号。","Effective marine protection depends on sustained tracking of specific data, not broad slogans."],
+          ["海洋议题中最容易被忽略的，往往是那些缺乏即时视觉冲击的长期变化。","The most overlooked marine issues are often the long-term changes that lack immediate visual impact."],
+          ["海洋科学的进步，依赖于长期、连续、可复核的观测数据。","Progress in marine science depends on long-term, continuous, verifiable observation."],
+          ["海洋中的每一个数字，都来自具体的研究机构、年份与方法。","Every figure about the ocean comes from a specific institution, year and method."],
+          ["海洋保护不需要宏大的承诺，而需要可核查的行动。","Marine protection does not require grand promises — it requires verifiable action."],
+          ["海洋的现状是已知的，它的未来取决于当下的选择。","The ocean's present is known; its future depends on choices made now."],
+          ["海洋不属于任何一代人，但它承受着每一代人的影响。","The ocean belongs to no single generation, yet bears the impact of every one."],
+          ["海洋已经给出了足够多的信号。剩下的问题是：我们是否在听。","The ocean has given enough signals. The remaining question is whether we are listening."]
+        ];
+
+        var idx = Math.floor(Math.random() * HERO_LINES.length);
+        var chosen = HERO_LINES[idx];
+        var h1 = document.getElementById('heroTitle');
+        h1.dataset.zh = chosen[0];
+        h1.dataset.en = chosen[1];
+        h1.textContent = chosen[0];
+
+        window.__heroLineIndex = idx;
+      })();
+      </script>
 
       <p class="rise-3 mt-8 max-w-xl text-[13.5px] sm:text-[14.5px] leading-[1.85] text-white/55"
          data-zh="以下六项指标来自政府间气候变化专门委员会（IPCC）、联合国环境规划署（UNEP）、联合国粮农组织（FAO）以及经过同行评审的期刊文献。数据均为公开可查，我们只陈述已知事实，不作夸大预测。"
@@ -1011,7 +1129,6 @@ tailwind.config = {
 <div id="joinPage" aria-hidden="true">
   <section class="hero">
 
-    <!-- ECHOID 自己的视频背景 · 纯黑底 -->
     <div class="hero__media">
       <video
         id="joinVideo"
@@ -1023,7 +1140,6 @@ tailwind.config = {
     </div>
     <div class="hero__scrim"></div>
 
-    <!-- 原版导航 -->
     <nav class="navbar">
       <a href="#" class="logo">ECHOID</a>
 
@@ -1044,7 +1160,6 @@ tailwind.config = {
       </button>
     </nav>
 
-    <!-- 原版移动端菜单 -->
     <div id="joinMobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
       <a href="#story" class="mobile-menu__item">Story</a>
       <a href="#platforms" class="mobile-menu__item">Platforms</a>
@@ -1053,7 +1168,6 @@ tailwind.config = {
       <a href="#join" class="mobile-menu__cta">Join up</a>
     </div>
 
-    <!-- 原版右侧注册面板 -->
     <div class="hero__body">
       <div class="panel">
         <div class="chip">[ VOICE ENTRY ]</div>
@@ -1071,13 +1185,11 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- 原版底部条款 -->
     <footer class="legal-footer">
       <p>Opening an e.xyz account signals that you accept our <a href="#privacy-notice">Privacy Notice</a> and <a href="#service-contract">Service Contract</a>.</p>
     </footer>
   </section>
 
-  <!-- 返回主页面 · 低调入口 -->
   <button class="join-back" data-close-join aria-label="Back">
     <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
     <span>Back</span>
@@ -1227,7 +1339,9 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 /* ══════════════════════════════════════════════
-   语言切换（仅主页面）
+   语言切换
+   主标题由 inline script 预先写入 dataset，
+   这里统一按 data-zh / data-en 重写 textContent
    ══════════════════════════════════════════════ */
 let currentLang = 'zh';
 const langBtns = document.querySelectorAll('.lang-btn');
@@ -1241,7 +1355,10 @@ function applyLang(lang) {
     if (!active) b.classList.add('text-white/60');
     else b.classList.remove('text-white/60');
   });
-  i18nNodes.forEach(el => { el.textContent = el.dataset[lang]; });
+  i18nNodes.forEach(el => {
+    const txt = el.dataset[lang];
+    if (typeof txt === 'string' && txt.length) el.textContent = txt;
+  });
   updateProgress();
 }
 langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
