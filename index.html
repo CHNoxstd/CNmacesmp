@@ -13,20 +13,15 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Geist', 'system-ui', 'sans-serif'],
-        mono: ['Geist Mono', 'ui-monospace', 'monospace']
-      },
-      colors: {
-        ink: {
-          950: '#041724', 900: '#07253B', 800: '#0B3A57',
-          700: '#247BA0', 500: '#67C1E8', 300: '#A8DBF0'
-        }
-      }
+  theme: { extend: {
+    fontFamily: {
+      sans: ['Geist', 'system-ui', 'sans-serif'],
+      mono: ['Geist Mono', 'ui-monospace', 'monospace']
+    },
+    colors: {
+      ink: { 950: '#041724', 900: '#07253B', 800: '#0B3A57', 700: '#247BA0', 500: '#67C1E8', 300: '#A8DBF0' }
     }
-  }
+  }}
 }
 </script>
 
@@ -125,7 +120,7 @@ tailwind.config = {
     white-space: nowrap;
   }
 
-  /* 数据卡片：可点击跳转 */
+  /* 数据卡片 */
   .data-card {
     display: block;
     text-decoration: none;
@@ -139,8 +134,7 @@ tailwind.config = {
     content: "";
     position: absolute;
     left: 0; top: 32px; bottom: 32px;
-    width: 1px;
-    background: #67C1E8;
+    width: 1px; background: #67C1E8;
     opacity: 0;
     transition: opacity .3s ease;
   }
@@ -190,22 +184,16 @@ tailwind.config = {
     transform: translateY(-2px);
   }
   .comm-card__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
   }
   .comm-card__name {
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
+    font-size: 16px; font-weight: 500; color: #fff;
     letter-spacing: -0.01em;
   }
   .comm-card__arrow {
-    flex: none;
-    width: 18px; height: 18px;
-    stroke: rgba(103,193,232,.7);
-    stroke-width: 1.6;
+    flex: none; width: 18px; height: 18px;
+    stroke: rgba(103,193,232,.7); stroke-width: 1.6;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
   }
@@ -214,36 +202,27 @@ tailwind.config = {
     stroke: #67C1E8;
   }
   .comm-card__desc {
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 13px; line-height: 1.7;
     color: rgba(255,255,255,.5);
   }
   .comm-card__tag {
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
+    font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
     color: rgba(103,193,232,.6);
   }
 
-  /* ══════════════════════════════════════════════
-     今日行动
-     ══════════════════════════════════════════════ */
+  /* 今日行动 */
   #daily {
     display: none;
     background: #07253B;
     border-top: 1px solid rgba(255,255,255,.08);
   }
   #daily.visible { display: block; }
-
   .daily-wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 24px;
+    max-width: 720px; margin: 0 auto; padding: 0 24px;
   }
   @media (min-width: 768px) { .daily-wrap { padding: 0 48px; } }
   @media (min-width: 1024px) { .daily-wrap { padding: 0 80px; } }
-
   .daily-head {
     display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
   }
@@ -263,7 +242,6 @@ tailwind.config = {
     font-size: 12px; letter-spacing: .08em;
     color: rgba(255,255,255,.4); margin-bottom: 32px;
   }
-
   .daily-card {
     background: rgba(255,255,255,.03);
     border: 1px solid rgba(255,255,255,.1);
@@ -281,7 +259,6 @@ tailwind.config = {
     background: rgba(103,193,232,.05);
   }
   @media (min-width: 768px) { .daily-card { padding: 36px; } }
-
   .daily-card__check {
     flex: none; width: 26px; height: 26px;
     border: 1px solid rgba(255,255,255,.3);
@@ -302,7 +279,6 @@ tailwind.config = {
     opacity: 0; transition: opacity .22s ease;
   }
   .daily-card.done .daily-card__check svg { opacity: 1; }
-
   .daily-card__body { flex: 1; min-width: 0; }
   .daily-card__label {
     font-family: 'Geist Mono', monospace;
@@ -324,7 +300,6 @@ tailwind.config = {
     font-size: 13px; line-height: 1.7;
     color: rgba(255,255,255,.42);
   }
-
   .daily-streak { margin-top: 36px; }
   .daily-streak__head {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -369,7 +344,6 @@ tailwind.config = {
     transition: background .25s ease;
   }
   .daily-day.filled .daily-day__dot { background: #67C1E8; }
-
   .daily-logout {
     display: inline-block; margin-top: 32px;
     font-family: 'Geist Mono', monospace;
@@ -380,9 +354,9 @@ tailwind.config = {
   }
   .daily-logout:hover { color: rgba(255,255,255,.7); }
 
-  /* ══════════════════════════════════════════════
+  /* ══════════════════════════════════════════════════
      ECHOID 加入页
-     ══════════════════════════════════════════════ */
+     ══════════════════════════════════════════════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
     --text-dimmer: rgba(255,255,255,0.42);
@@ -468,6 +442,7 @@ tailwind.config = {
     letter-spacing: 0.18em; text-transform: uppercase;
     color: #fff; text-decoration: none;
     transition: color 0.25s ease;
+    cursor: pointer;
   }
   #joinPage .nav__links a:hover { color: var(--text-dim); }
   #joinPage .nav__cta {
@@ -479,12 +454,12 @@ tailwind.config = {
     padding: clamp(12px,1vw,17px) clamp(20px,1.8vw,32px);
     border: 1px solid var(--line-strong);
     transition: background 0.25s ease, border-color 0.25s ease;
+    cursor: pointer;
   }
   #joinPage .nav__cta:hover {
     background-color: var(--fill-ghost);
     border-color: rgba(255,255,255,0.5);
   }
-
   #joinPage .hamburger {
     display: none; width: 44px; height: 44px;
     position: relative; cursor: pointer;
@@ -530,20 +505,19 @@ tailwind.config = {
     opacity:1; pointer-events:auto;
   }
   #joinPage .mobile-menu__item {
-    font-family:var(--font-mono);
-    font-weight:400;
+    font-family:var(--font-mono); font-weight:400;
     font-size:clamp(20px,5.5vw,28px);
     letter-spacing:0.14em; text-transform:uppercase;
     color:#fff; text-decoration:none;
     opacity:0; transform:translateY(16px);
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium);
+    cursor: pointer;
   }
   #joinPage .mobile-menu.open .mobile-menu__item {
     opacity:1; transform:translateY(0);
   }
   #joinPage .mobile-menu__cta {
-    font-family:var(--font-mono);
-    font-weight:400;
+    font-family:var(--font-mono); font-weight:400;
     letter-spacing:0.22em; text-transform:uppercase;
     color:#fff; text-decoration:none;
     padding:16px 40px;
@@ -620,6 +594,26 @@ tailwind.config = {
     border-color:rgba(255,255,255,0.85);
   }
   #joinPage .email-input:focus::placeholder { color:var(--text-dimmer); }
+  #joinPage .email-input.is-error {
+    border-color: rgba(255,120,120,0.85);
+  }
+
+  #joinPage .join-error {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,140,140,0.95);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    margin-top: 0;
+  }
+  #joinPage .join-error.show {
+    max-height: 40px;
+    opacity: 1;
+    margin-top: 4px;
+  }
 
   #joinPage .btn--ghost,
   #joinPage .btn--solid {
@@ -630,7 +624,7 @@ tailwind.config = {
     letter-spacing:0.22em;
     font-size:clamp(11px,0.78vw,14px);
     cursor:pointer;
-    transition:background 0.25s ease, color 0.25s ease;
+    transition:background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
   }
   #joinPage .btn--ghost {
     background:var(--fill-ghost); color:var(--text-dimmer);
@@ -640,6 +634,11 @@ tailwind.config = {
   }
   #joinPage .btn--solid { background:var(--fill-solid); color:#fff; }
   #joinPage .btn--solid:hover { background:rgba(255,255,255,0.17); }
+  #joinPage .btn--ghost:disabled,
+  #joinPage .btn--solid:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
 
   #joinPage .referral-link {
     align-self:center;
@@ -650,9 +649,63 @@ tailwind.config = {
     letter-spacing:0.18em; color:#fff;
     text-decoration:underline;
     text-underline-offset:4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     transition:color 0.25s ease;
   }
   #joinPage .referral-link:hover { color:var(--text-dim); }
+
+  /* 邀请码面板 */
+  #joinPage .invite-panel {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s var(--ease-premium), opacity 0.35s ease, margin-top 0.35s ease;
+    margin-top: 0;
+  }
+  #joinPage .invite-panel.open {
+    max-height: 220px;
+    opacity: 1;
+    margin-top: 18px;
+  }
+  #joinPage .invite-row {
+    display: flex; gap: 10px;
+  }
+  #joinPage .invite-input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: #fff;
+    transition: border-color 0.25s ease;
+  }
+  #joinPage .invite-input::placeholder { color: var(--text-dim); }
+  #joinPage .invite-input:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.85);
+  }
+  #joinPage .invite-submit {
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: #fff;
+    padding: 14px 22px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+    white-space: nowrap;
+  }
+  #joinPage .invite-submit:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.5);
+  }
 
   #joinPage .legal-footer {
     border-top:1px solid var(--line);
@@ -669,6 +722,7 @@ tailwind.config = {
     text-underline-offset:3px;
     text-decoration-thickness:1px;
     transition:color 0.25s ease;
+    cursor: pointer;
   }
   #joinPage .legal-footer a:hover { color:var(--text-dim); }
 
@@ -710,6 +764,90 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
+  /* 信息层 */
+  #joinPage .join-info {
+    position: absolute;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0,0,0,0.94);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px clamp(24px,6vw,80px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease-premium);
+  }
+  #joinPage .join-info.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #joinPage .join-info-close {
+    position: absolute;
+    top: clamp(20px,2.4vw,34px);
+    left: clamp(20px,5vw,100px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  #joinPage .join-info-close:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.6);
+  }
+  #joinPage .join-info-close svg {
+    width: 12px; height: 12px;
+    stroke: currentColor; stroke-width: 1.8;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
+  #joinPage .join-info-inner {
+    max-width: 640px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease 0.1s, transform 0.6s var(--ease-premium) 0.1s;
+  }
+  #joinPage .join-info.open .join-info-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #joinPage .join-info-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+  #joinPage .join-info-title {
+    font-family: var(--font-display);
+    font-weight: 200;
+    font-size: clamp(32px,4vw,54px);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  #joinPage .join-info-text {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(14px,1.05vw,17px);
+    line-height: 1.8;
+    color: rgba(255,255,255,0.68);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #joinPage .hero__media video { display:none; }
     #joinPage *, #joinPage *::before, #joinPage *::after {
@@ -734,7 +872,6 @@ tailwind.config = {
 <body class="text-white font-sans antialiased">
 
 <!-- ══════════════════════ 主页面 ══════════════════════ -->
-
 <section id="home" class="relative min-h-screen w-full overflow-hidden">
   <video
     id="heroVideo"
@@ -974,7 +1111,6 @@ tailwind.config = {
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12">
-
       <a class="reveal data-card" href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer">
         <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">01</div>
         <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
@@ -1076,7 +1212,6 @@ tailwind.config = {
           <svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>
         </span>
       </a>
-
     </div>
   </div>
 </section>
@@ -1085,7 +1220,6 @@ tailwind.config = {
 <!-- ══════════════════════ 社区 ══════════════════════ -->
 <section id="community" class="relative bg-ink-900 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="reveal max-w-2xl mb-16 md:mb-20">
       <div class="flex items-center gap-3 mb-6">
         <span class="w-6 h-px bg-ink-500"></span>
@@ -1104,7 +1238,6 @@ tailwind.config = {
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
       <a class="reveal comm-card" href="https://www.ipcc.ch/" target="_blank" rel="noopener noreferrer">
         <div class="comm-card__head">
           <span class="comm-card__name">IPCC</span>
@@ -1221,7 +1354,6 @@ tailwind.config = {
         </p>
         <span class="comm-card__tag">iucnredlist.org</span>
       </a>
-
     </div>
   </div>
 </section>
@@ -1339,7 +1471,6 @@ tailwind.config = {
       <span class="daily-accent"></span>
       <span class="daily-tag" data-zh="今日行动" data-en="Today's action">今日行动</span>
     </div>
-
     <h2 id="dailyGreeting" class="daily-greeting reveal" data-zh="你好。" data-en="Hello.">你好。</h2>
     <p id="dailyDate" class="daily-date reveal"></p>
 
@@ -1513,16 +1644,18 @@ tailwind.config = {
     <div class="hero__scrim"></div>
 
     <nav class="navbar">
-      <a href="#" class="logo">ECHOID</a>
+      <a href="#" class="logo" data-info="story">ECHOID</a>
+
       <div class="nav__cluster">
         <div class="nav__links">
-          <a href="#story">Story</a>
-          <a href="#platforms">Platforms</a>
-          <a href="#identity">Identity</a>
-          <a href="#contact">Contact</a>
+          <a data-info="story">Story</a>
+          <a data-info="platforms">Platforms</a>
+          <a data-info="identity">Identity</a>
+          <a data-info="contact">Contact</a>
         </div>
-        <a href="#join" class="nav__cta">Join up</a>
+        <a class="nav__cta" id="joinNavCta">Join up</a>
       </div>
+
       <button class="hamburger" aria-expanded="false" aria-controls="joinMobileMenu" aria-label="Open menu">
         <span class="hamburger__bar"></span>
         <span class="hamburger__bar"></span>
@@ -1531,11 +1664,11 @@ tailwind.config = {
     </nav>
 
     <div id="joinMobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
-      <a href="#story" class="mobile-menu__item">Story</a>
-      <a href="#platforms" class="mobile-menu__item">Platforms</a>
-      <a href="#identity" class="mobile-menu__item">Identity</a>
-      <a href="#contact" class="mobile-menu__item">Contact</a>
-      <a href="#join" class="mobile-menu__cta">Join up</a>
+      <a class="mobile-menu__item" data-info="story">Story</a>
+      <a class="mobile-menu__item" data-info="platforms">Platforms</a>
+      <a class="mobile-menu__item" data-info="identity">Identity</a>
+      <a class="mobile-menu__item" data-info="contact">Contact</a>
+      <a class="mobile-menu__cta" id="joinMobileCta">Join up</a>
     </div>
 
     <div class="hero__body">
@@ -1548,17 +1681,25 @@ tailwind.config = {
           <label for="joinEmail" class="visually-hidden">Email</label>
           <input id="joinEmail" class="email-input" type="email" name="email"
                  autocomplete="email" inputmode="email" placeholder="Email" />
+          <div class="join-error" id="joinError" role="alert" aria-live="polite"></div>
           <button type="submit" class="btn--ghost" id="joinSubmit">Proceed using email</button>
           <button type="button" class="btn--solid" id="joinAccess">Access</button>
         </form>
 
-        <a href="mailto:invite@blueguardian.example?subject=Invite%20key%20request"
-           class="referral-link">I've got an invite key</a>
+        <button type="button" class="referral-link" id="joinInviteToggle">I've got an invite key</button>
+
+        <div class="invite-panel" id="joinInvitePanel">
+          <div class="invite-row">
+            <input type="text" class="invite-input" id="joinInviteInput" placeholder="Invite key" autocomplete="off" />
+            <button type="button" class="invite-submit" id="joinInviteSubmit">Verify</button>
+          </div>
+          <div class="join-error" id="joinInviteError" role="alert" aria-live="polite"></div>
+        </div>
       </div>
     </div>
 
     <footer class="legal-footer">
-      <p>Opening an e.xyz account signals that you accept our <a href="#join">Privacy Notice</a> and <a href="#join">Service Contract</a>.</p>
+      <p>Opening an e.xyz account signals that you accept our <a data-info="privacy">Privacy Notice</a> and <a data-info="contract">Service Contract</a>.</p>
     </footer>
   </section>
 
@@ -1566,12 +1707,25 @@ tailwind.config = {
     <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
     <span>Back</span>
   </button>
+
+  <!-- 信息层 -->
+  <div class="join-info" id="joinInfo" aria-hidden="true">
+    <button class="join-info-close" id="joinInfoClose" aria-label="Back">
+      <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
+      <span>Back</span>
+    </button>
+    <div class="join-info-inner">
+      <span class="join-info-tag" id="joinInfoTag"></span>
+      <h3 class="join-info-title" id="joinInfoTitle"></h3>
+      <p class="join-info-text" id="joinInfoText"></p>
+    </div>
+  </div>
 </div>
 
 
 <script>
 /* ══════════════════════════════════════════════════════════
-   0. 常量
+   0. 常量与工具
    ══════════════════════════════════════════════════════════ */
 var USER_KEY = 'bg_user_v2';
 var DAILY_KEY = 'bg_daily_v2';
@@ -1631,7 +1785,43 @@ function getTodayAction() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   2. DOM 缓存
+   2. ECHOID 信息内容
+   ══════════════════════════════════════════════════════════ */
+var INFO_CONTENT = {
+  story: {
+    tag: '[ STORY ]',
+    title: 'Story',
+    text: 'ECHOID began with a single question: can a voice carry an identity across networks without relying on a central authority? The answer is a signature, not a database. Every ECHOID is derived locally, verified remotely, and never stored as a credential anywhere on the network.'
+  },
+  platforms: {
+    tag: '[ PLATFORMS ]',
+    title: 'Platforms',
+    text: 'ECHOID runs across E network nodes. Your identity is portable, verifiable and does not depend on any single platform remaining online. If one node goes down, the signature still verifies against the others. There is no master server and no single point of failure.'
+  },
+  identity: {
+    tag: '[ IDENTITY ]',
+    title: 'Identity',
+    text: 'An ECHOID is derived from three inputs: your email address, an optional invite key, and a device-bound signature. No password is stored. No biometric data leaves your device. The resulting identifier is unique to you, but it cannot be used to reconstruct any of those three inputs.'
+  },
+  contact: {
+    tag: '[ CONTACT ]',
+    title: 'Contact',
+    text: 'For partnership enquiries, write to join@echoid.net. For press, press@echoid.net. For security disclosures, security@echoid.net. We read everything, but we cannot respond to every message individually.'
+  },
+  privacy: {
+    tag: '[ PRIVACY NOTICE ]',
+    title: 'Privacy Notice',
+    text: 'ECHOID stores your email address locally on your device. No usage analytics, no tracking pixels, no third-party scripts. Your participation records never leave your browser unless you explicitly export them. This page itself sets no cookies.'
+  },
+  contract: {
+    tag: '[ SERVICE CONTRACT ]',
+    title: 'Service Contract',
+    text: 'ECHOID is provided as-is, without warranty. The network does not custody assets, does not hold personal data on behalf of users, and does not mediate disputes between parties. You retain full control of your identifier at all times.'
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   3. DOM 缓存
    ══════════════════════════════════════════════════════════ */
 var $heroVideo    = document.getElementById('heroVideo');
 var $heroTitle    = document.getElementById('heroTitle');
@@ -1645,6 +1835,19 @@ var $joinForm     = document.getElementById('joinForm');
 var $joinEmail    = document.getElementById('joinEmail');
 var $joinSubmit   = document.getElementById('joinSubmit');
 var $joinAccess   = document.getElementById('joinAccess');
+var $joinError    = document.getElementById('joinError');
+var $joinInviteToggle = document.getElementById('joinInviteToggle');
+var $joinInvitePanel  = document.getElementById('joinInvitePanel');
+var $joinInviteInput  = document.getElementById('joinInviteInput');
+var $joinInviteSubmit = document.getElementById('joinInviteSubmit');
+var $joinInviteError  = document.getElementById('joinInviteError');
+var $joinInfo         = document.getElementById('joinInfo');
+var $joinInfoTag      = document.getElementById('joinInfoTag');
+var $joinInfoTitle    = document.getElementById('joinInfoTitle');
+var $joinInfoText     = document.getElementById('joinInfoText');
+var $joinInfoClose    = document.getElementById('joinInfoClose');
+var $joinNavCta       = document.getElementById('joinNavCta');
+var $joinMobileCta    = document.getElementById('joinMobileCta');
 var $daily        = document.getElementById('daily');
 var $dailyGreeting= document.getElementById('dailyGreeting');
 var $dailyDate    = document.getElementById('dailyDate');
@@ -1666,7 +1869,7 @@ var i18nNodes     = Array.prototype.slice.call(document.querySelectorAll('[data-
 var checkRows     = Array.prototype.slice.call(document.querySelectorAll('.check-row'));
 
 /* ══════════════════════════════════════════════════════════
-   3. 状态
+   4. 状态
    ══════════════════════════════════════════════════════════ */
 var currentLang = 'zh';
 var menuOpen = false;
@@ -1675,9 +1878,11 @@ var currentUser = safeParse(localStorage.getItem(USER_KEY), null);
 var dailyState = safeParse(localStorage.getItem(DAILY_KEY), {});
 var pledgeState = safeParse(localStorage.getItem(PLEDGE_KEY), {});
 var joinScrollY = 0;
+var errorTimer = null;
+var inviteErrorTimer = null;
 
 /* ══════════════════════════════════════════════════════════
-   4. 用户名
+   5. 用户名
    ══════════════════════════════════════════════════════════ */
 function getUserName(user) {
   if (!user || !user.email) return '';
@@ -1700,7 +1905,7 @@ function updateJoinButtons() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   5. 今日行动渲染
+   6. 今日行动
    ══════════════════════════════════════════════════════════ */
 function renderDaily() {
   if (!currentUser) return;
@@ -1709,7 +1914,6 @@ function renderDaily() {
 
   var d = new Date();
   $dailyDate.textContent = d.getFullYear() + ' · ' + pad2(d.getMonth() + 1) + ' · ' + pad2(d.getDate());
-
   $dailyAction.textContent = (currentLang === 'zh') ? action.zh : action.en;
   $dailyNote.textContent   = (currentLang === 'zh') ? action.noteZh : action.noteEn;
 
@@ -1751,7 +1955,7 @@ function toggleDaily() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   6. 登录 / 登出
+   7. 登录 / 登出
    ══════════════════════════════════════════════════════════ */
 function setUser(email) {
   var t = String(email || '').trim();
@@ -1774,7 +1978,33 @@ function logoutUser() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   7. ECHOID 页开关
+   8. 错误提示
+   ══════════════════════════════════════════════════════════ */
+function showJoinError(msg) {
+  $joinError.textContent = msg;
+  $joinError.classList.add('show');
+  $joinEmail.classList.add('is-error');
+  if (errorTimer) clearTimeout(errorTimer);
+  errorTimer = setTimeout(function () {
+    $joinError.classList.remove('show');
+    $joinEmail.classList.remove('is-error');
+  }, 3200);
+}
+function clearJoinError() {
+  $joinError.classList.remove('show');
+  $joinEmail.classList.remove('is-error');
+}
+function showInviteError(msg) {
+  $joinInviteError.textContent = msg;
+  $joinInviteError.classList.add('show');
+  if (inviteErrorTimer) clearTimeout(inviteErrorTimer);
+  inviteErrorTimer = setTimeout(function () {
+    $joinInviteError.classList.remove('show');
+  }, 3200);
+}
+
+/* ══════════════════════════════════════════════════════════
+   9. ECHOID 页开关
    ══════════════════════════════════════════════════════════ */
 function openJoin() {
   if (menuOpen) setMenu(false);
@@ -1801,6 +2031,7 @@ function openJoin() {
 }
 
 function closeJoin() {
+  closeJoinInfo();
   $joinPage.classList.remove('active');
   $joinPage.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('join-open');
@@ -1810,7 +2041,24 @@ function closeJoin() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   8. 主页面移动菜单
+   10. 信息层
+   ══════════════════════════════════════════════════════════ */
+function openJoinInfo(key) {
+  var c = INFO_CONTENT[key];
+  if (!c) return;
+  $joinInfoTag.textContent = c.tag;
+  $joinInfoTitle.textContent = c.title;
+  $joinInfoText.textContent = c.text;
+  $joinInfo.classList.add('open');
+  $joinInfo.setAttribute('aria-hidden', 'false');
+}
+function closeJoinInfo() {
+  $joinInfo.classList.remove('open');
+  $joinInfo.setAttribute('aria-hidden', 'true');
+}
+
+/* ══════════════════════════════════════════════════════════
+   11. 主页面移动菜单
    ══════════════════════════════════════════════════════════ */
 function setMenu(state) {
   menuOpen = state;
@@ -1831,7 +2079,7 @@ function setMenu(state) {
 $mobilePanel.style.pointerEvents = 'none';
 
 /* ══════════════════════════════════════════════════════════
-   9. ECHOID 汉堡菜单
+   12. ECHOID 汉堡菜单
    ══════════════════════════════════════════════════════════ */
 var $joinHamburger = $joinPage.querySelector('.hamburger');
 var $joinMobileMenu = document.getElementById('joinMobileMenu');
@@ -1857,7 +2105,7 @@ function toggleJoinMenu() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   10. 语言切换
+   13. 语言切换
    ══════════════════════════════════════════════════════════ */
 function applyLang(lang) {
   currentLang = lang;
@@ -1877,7 +2125,7 @@ function applyLang(lang) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   11. 承诺清单
+   14. 承诺清单
    ══════════════════════════════════════════════════════════ */
 function renderPledgeRows() {
   checkRows.forEach(function (row) {
@@ -1896,7 +2144,7 @@ function updateProgress() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   12. 滚动揭示
+   15. 滚动揭示
    ══════════════════════════════════════════════════════════ */
 function initReveal() {
   var els = document.querySelectorAll('.reveal');
@@ -1916,13 +2164,16 @@ function initReveal() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   13. 事件绑定
+   16. 事件绑定
    ══════════════════════════════════════════════════════════ */
+
+/* 主页面移动菜单 */
 $menuBtn.addEventListener('click', function () { setMenu(!menuOpen); });
 document.querySelectorAll('.mobile-link').forEach(function (l) {
   l.addEventListener('click', function () { setMenu(false); });
 });
 
+/* 打开/关闭 ECHOID 页 */
 joinBtns.forEach(function (btn) {
   btn.addEventListener('click', function (e) { e.preventDefault(); openJoin(); });
 });
@@ -1930,9 +2181,16 @@ joinCloseBtns.forEach(function (btn) {
   btn.addEventListener('click', closeJoin);
 });
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape' && $joinPage.classList.contains('active')) closeJoin();
+  if (e.key === 'Escape') {
+    if ($joinInfo.classList.contains('open')) {
+      closeJoinInfo();
+    } else if ($joinPage.classList.contains('active')) {
+      closeJoin();
+    }
+  }
 });
 
+/* ECHOID 汉堡菜单 */
 $joinHamburger.addEventListener('click', toggleJoinMenu);
 $joinMobileMenu.addEventListener('click', function (e) {
   if (e.target === $joinMobileMenu) toggleJoinMenu();
@@ -1947,15 +2205,42 @@ joinMq.addEventListener('change', function () {
   if (joinMq.matches && $joinHamburger.classList.contains('active')) toggleJoinMenu();
 });
 
+/* ECHOID 导航 → 信息层 */
+document.querySelectorAll('#joinPage [data-info]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    if ($joinHamburger.classList.contains('active')) toggleJoinMenu();
+    openJoinInfo(el.getAttribute('data-info'));
+  });
+});
+$joinInfoClose.addEventListener('click', closeJoinInfo);
+
+/* Join up → 聚焦邮箱 */
+function focusEmail() {
+  if ($joinHamburger.classList.contains('active')) toggleJoinMenu();
+  if ($joinEmail) $joinEmail.focus();
+  $joinEmail.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+$joinNavCta.addEventListener('click', focusEmail);
+$joinMobileCta.addEventListener('click', focusEmail);
+
+/* 表单提交 */
 function handleJoinSubmit(e) {
   if (e) e.preventDefault();
   var val = ($joinEmail.value || '').trim();
-  if (!val || val.indexOf('@') === -1 || val.indexOf('.') === -1) {
+
+  if (!val) {
+    showJoinError('请输入邮箱地址 · Enter your email address');
     $joinEmail.focus();
-    $joinEmail.style.borderColor = 'rgba(255,120,120,0.85)';
-    setTimeout(function () { $joinEmail.style.borderColor = ''; }, 900);
     return;
   }
+  if (val.indexOf('@') === -1 || val.indexOf('.') === -1 || val.length < 5) {
+    showJoinError('邮箱格式不正确 · Invalid email address');
+    $joinEmail.focus();
+    return;
+  }
+
+  clearJoinError();
   $joinSubmit.textContent = 'Signed in — welcome';
   $joinSubmit.disabled = true;
   $joinSubmit.style.color = 'rgba(255,255,255,0.85)';
@@ -1972,22 +2257,67 @@ function handleJoinSubmit(e) {
   }, 480);
 }
 $joinForm.addEventListener('submit', handleJoinSubmit);
-if ($joinAccess) $joinAccess.addEventListener('click', handleJoinSubmit);
+$joinAccess.addEventListener('click', handleJoinSubmit);
 
+/* 邮箱输入时清除错误 */
+$joinEmail.addEventListener('input', function () {
+  if ($joinError.classList.contains('show')) clearJoinError();
+});
+
+/* 邀请码面板 */
+$joinInviteToggle.addEventListener('click', function () {
+  var isOpen = $joinInvitePanel.classList.contains('open');
+  if (isOpen) {
+    $joinInvitePanel.classList.remove('open');
+  } else {
+    $joinInvitePanel.classList.add('open');
+    setTimeout(function () { $joinInviteInput.focus(); }, 320);
+  }
+});
+
+$joinInviteSubmit.addEventListener('click', function () {
+  var key = ($joinInviteInput.value || '').trim();
+  if (!key) {
+    showInviteError('请输入邀请码 · Enter an invite key');
+    $joinInviteInput.focus();
+    return;
+  }
+  if (key.length < 6) {
+    showInviteError('邀请码长度不足 · Key too short');
+    $joinInviteInput.focus();
+    return;
+  }
+  showInviteError('邀请码验证中 · Verifying…');
+  setTimeout(function () {
+    showInviteError('邀请码无效，请联系邀请人 · Invalid key');
+  }, 900);
+});
+
+$joinInviteInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    $joinInviteSubmit.click();
+  }
+});
+
+/* 今日行动打卡 */
 $dailyCheck.addEventListener('click', toggleDaily);
 $dailyCheck.addEventListener('keydown', function (e) {
   if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleDaily(); }
 });
 
+/* 登出 */
 $dailyLogout.addEventListener('click', function () {
   logoutUser();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+/* 语言 */
 langBtns.forEach(function (btn) {
   btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
 });
 
+/* 承诺清单 */
 checkRows.forEach(function (row) {
   row.addEventListener('click', function () {
     var k = row.dataset.key;
@@ -1999,7 +2329,7 @@ checkRows.forEach(function (row) {
 });
 
 /* ══════════════════════════════════════════════════════════
-   14. 初始化
+   17. 初始化
    ══════════════════════════════════════════════════════════ */
 function init() {
   initReveal();
