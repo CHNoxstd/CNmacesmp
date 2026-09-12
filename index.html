@@ -3,22 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>蓝色守护者 | 海洋保护公益计划</title>
+<title>蓝色守护者 · 海洋观测档案</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
   theme: {
     extend: {
-      fontFamily: { geist: ['Geist', 'sans-serif'] },
+      fontFamily: {
+        sans: ['Geist', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'monospace']
+      },
       colors: {
-        ocean: {
-          light: '#67C1E8',
-          mid: '#247BA0',
-          deep: '#07253B',
-          darker: '#041724'
+        ink: {
+          950: '#041724',
+          900: '#07253B',
+          800: '#0B3A57',
+          700: '#247BA0',
+          500: '#67C1E8',
+          300: '#A8DBF0'
         }
       }
     }
@@ -26,241 +31,644 @@ tailwind.config = {
 }
 </script>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #041724;
-}
-@keyframes fadeSlideUp {
-  from { opacity:0; transform:translateY(26px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.anim-200 { animation: fadeSlideUp 0.85s ease 0.2s both; }
-.anim-400 { animation: fadeSlideUp 0.85s ease 0.4s both; }
-.anim-600 { animation: fadeSlideUp 0.85s ease 0.6s both; }
-.anim-800 { animation: fadeSlideUp 0.85s ease 0.8s both; }
-.menu-transition { transition: all 500ms cubic-bezier(0.16,1,0.3,1); }
-.icon-transition { transition: all 300ms ease; }
-.ocean-mask {
-  position:absolute; inset:0;
-  background: radial-gradient(ellipse at top, rgba(36,123,160,0.22) 0%, rgba(4,23,36,0.78) 100%);
-}
-.fade-in {
-  opacity:0; transform:translateY(30px);
-  transition:0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.fade-in.active { opacity:1; transform:translateY(0); }
-.lang-btn.active { background-color:#67C1E8; color:#07253B; }
-.lang-btn:not(.active):hover { background-color:rgba(255,255,255,0.12); }
-html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #041724;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+  }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* 进入动画：短、低幅度、克制 */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rise-1 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .15s both; }
+  .rise-2 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .30s both; }
+  .rise-3 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .45s both; }
+  .rise-4 { animation: rise .7s cubic-bezier(.2,.8,.2,1) .60s both; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+
+  .hero-scrim {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(4,23,36,.42) 0%, rgba(4,23,36,.28) 34%, rgba(4,23,36,.86) 82%, rgba(4,23,36,.98) 100%),
+      radial-gradient(ellipse 80% 55% at 50% 0%, rgba(36,123,160,.18) 0%, rgba(4,23,36,.62) 100%);
+  }
+
+  .hairline { border-color: rgba(255,255,255,.08); }
+
+  /* 承诺清单 */
+  .check-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    cursor: pointer;
+    transition: opacity .3s ease;
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-box {
+    flex: none; width: 18px; height: 18px; margin-top: 2px;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .22s ease;
+  }
+  .check-box svg {
+    width: 11px; height: 11px; opacity: 0;
+    transition: opacity .22s ease;
+    stroke: #041724; stroke-width: 3;
+  }
+  .check-row.done .check-box {
+    background: #67C1E8;
+    border-color: #67C1E8;
+  }
+  .check-row.done .check-box svg { opacity: 1; }
+  .check-row.done .check-label { color: rgba(255,255,255,.42); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.25); }
+  .check-row:hover .check-box { border-color: rgba(103,193,232,.6); }
+
+  .lang-btn { transition: all .2s ease; }
+  .lang-btn.active { background: rgba(255,255,255,.9); color: #041724; }
+  .lang-btn:not(.active):hover { background: rgba(255,255,255,.08); }
+
+  .nav-a {
+    position: relative;
+    transition: color .25s ease;
+  }
+  .nav-a::after {
+    content: ""; position: absolute; left: 0; bottom: -4px;
+    width: 0; height: 1px; background: #67C1E8;
+    transition: width .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-a:hover::after { width: 100%; }
+
+  .mobile-panel {
+    transition: height .55s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+    overflow: hidden;
+  }
+
+  ::selection { background: #67C1E8; color: #041724; }
 </style>
 </head>
-<body class="text-white font-geist">
 
+<body class="text-white font-sans antialiased">
+
+<!-- ══════════════════════ 首屏 ══════════════════════ -->
 <section id="home" class="relative min-h-screen w-full overflow-hidden">
+
   <video
-    autoplay muted loop playsInline
+    autoplay muted loop playsinline
     class="absolute inset-0 w-full h-full object-cover"
-    style="object-position:center 60%"
+    style="object-position:center 58%"
     src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_204221_5339e40b-e73d-4ab0-9c65-79c18c66fd50.mp4"
   ></video>
-  <div class="ocean-mask"></div>
+  <div class="hero-scrim"></div>
 
-  <nav class="relative z-30 flex items-center justify-between px-6 py-5 md:px-12 lg:px-16">
-    <div class="flex items-center gap-8">
-      <span class="text-lg font-semibold tracking-tight text-white sm:text-xl" data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</span>
-      <div class="hidden md:flex gap-6">
-        <a href="#home" data-zh="首页" data-en="Home" class="nav-link text-sm text-white/75 hover:text-ocean-light transition-colors">首页</a>
-        <a href="#problem" data-zh="海洋现状" data-en="Current State" class="nav-link text-sm text-white/75 hover:text-ocean-light transition-colors">海洋现状</a>
-        <a href="#solution" data-zh="保护举措" data-en="Conservation Measures" class="nav-link text-sm text-white/75 hover:text-ocean-light transition-colors">保护举措</a>
-        <a href="#action" data-zh="参与行动" data-en="Get Involved" class="nav-link text-sm text-white/75 hover:text-ocean-light transition-colors">参与行动</a>
+  <!-- 导航 -->
+  <nav class="relative z-30 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
+    <div class="flex items-center gap-10">
+      <a href="#home" class="flex items-baseline gap-2.5">
+        <span class="text-[15px] font-medium tracking-tight text-white" data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</span>
+        <span class="hidden sm:inline font-mono text-[10px] tracking-[0.18em] text-white/35 uppercase">Est. 2026</span>
+      </a>
+      <div class="hidden md:flex gap-8">
+        <a href="#data"     class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
+        <a href="#action"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
+        <a href="#pledge"   class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
       </div>
     </div>
+
     <div class="hidden md:flex items-center gap-3">
-      <div class="flex rounded-lg overflow-hidden border border-white/20">
-        <button class="lang-btn active px-3 py-1.5 text-xs transition-colors" data-lang="zh">中文</button>
-        <button class="lang-btn px-3 py-1.5 text-xs transition-colors" data-lang="en">EN</button>
+      <div class="flex rounded-md overflow-hidden border border-white/15 p-0.5">
+        <button class="lang-btn active px-2.5 py-1 text-[11px] font-mono tracking-wider rounded" data-lang="zh">中</button>
+        <button class="lang-btn px-2.5 py-1 text-[11px] font-mono tracking-wider rounded text-white/60" data-lang="en">EN</button>
       </div>
-      <a href="#action" data-zh="采取行动" data-en="Take Action" class="cta-desktop rounded-lg bg-ocean-light px-5 py-2 text-sm font-medium text-ocean-deep hover:scale-105 transition-transform">采取行动</a>
+      <a href="#pledge"
+         class="rounded-md bg-white text-ink-950 px-5 py-2 text-[13px] font-medium hover:bg-ink-500 transition-colors"
+         data-zh="加入计划" data-en="Join">加入计划</a>
     </div>
-    <button id="menuBtn" class="md:hidden relative z-50 w-10 h-10 flex items-center justify-center active:scale-90">
-      <svg id="menuIcon" class="icon-transition absolute w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+
+    <button id="menuBtn" class="md:hidden relative z-50 w-10 h-10 -mr-2 flex items-center justify-center active:scale-90 transition-transform">
+      <svg id="iconMenu" class="absolute w-5 h-5 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/>
       </svg>
-      <svg id="closeIcon" class="icon-transition absolute w-6 h-6 text-white opacity-0 scale-75 -rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+      <svg id="iconClose" class="absolute w-5 h-5 opacity-0 rotate-45 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
     </button>
   </nav>
 
-  <div id="mobileMenu" class="menu-transition absolute inset-x-0 top-0 z-20 bg-ocean-darker/96 backdrop-blur-xl h-0 opacity-0 pointer-events-none overflow-hidden">
-    <div class="flex h-full flex-col justify-center px-8">
-      <div id="menuInner" class="menu-transition delay-100 opacity-0 translate-y-8">
-        <a href="#home" class="mobile-link block text-3xl font-medium text-white/85 hover:text-ocean-light mb-5" data-zh="首页" data-en="Home">首页</a>
-        <a href="#problem" class="mobile-link block text-3xl font-medium text-white/85 hover:text-ocean-light mb-5" data-zh="海洋现状" data-en="Current State">海洋现状</a>
-        <a href="#solution" class="mobile-link block text-3xl font-medium text-white/85 hover:text-ocean-light mb-5" data-zh="保护举措" data-en="Conservation Measures">保护举措</a>
-        <a href="#action" class="mobile-link block text-3xl font-medium text-white/85 hover:text-ocean-light mb-5" data-zh="参与行动" data-en="Get Involved">参与行动</a>
-        <div class="flex gap-3 my-6">
-          <button class="lang-btn active px-4 py-2 rounded-lg border border-white/20 text-sm transition-colors" data-lang="zh">中文</button>
-          <button class="lang-btn px-4 py-2 rounded-lg border border-white/20 text-sm transition-colors" data-lang="en">EN</button>
+  <!-- 移动端菜单 -->
+  <div id="mobilePanel" class="mobile-panel absolute inset-x-0 top-0 z-20 h-0 opacity-0 bg-ink-950/97 backdrop-blur-xl">
+    <div class="flex h-full flex-col justify-center px-8 pt-20">
+      <a href="#data"   class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a>
+      <a href="#action" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a>
+      <a href="#pledge" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a>
+      <div class="flex gap-2 mt-4 mb-8">
+        <button class="lang-btn active px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono" data-lang="zh">中文</button>
+        <button class="lang-btn px-4 py-2 rounded-md border border-white/15 text-[13px] font-mono text-white/60" data-lang="en">EN</button>
+      </div>
+      <a href="#pledge" class="mobile-link inline-block w-fit rounded-md bg-white text-ink-950 px-7 py-3 text-[14px] font-medium" data-zh="加入计划" data-en="Join">加入计划</a>
+    </div>
+  </div>
+
+  <!-- 首屏正文 -->
+  <div class="relative z-10 min-h-[calc(100vh-92px)] flex flex-col justify-end px-6 pb-14 sm:pb-20 md:px-12 lg:px-20 md:pb-24">
+    <div class="max-w-4xl">
+
+      <div class="rise-1 flex items-center gap-3 mb-8">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase">Marine Observation File · 2026</span>
+      </div>
+
+      <h1 class="rise-2 text-[30px] leading-[1.16] sm:text-[44px] sm:leading-[1.14] md:text-[58px] md:leading-[1.1] font-medium tracking-[-0.02em] text-white max-w-[17em]"
+          data-zh="海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。"
+          data-en="The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited.">
+        海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。
+      </h1>
+
+      <p class="rise-3 mt-8 max-w-xl text-[13.5px] sm:text-[14.5px] leading-[1.85] text-white/55"
+         data-zh="以下六项指标来自政府间气候变化专门委员会（IPCC）、联合国环境规划署（UNEP）、联合国粮农组织（FAO）以及经过同行评审的期刊文献。数据均为公开可查，我们只陈述已知事实，不作夸大预测。"
+         data-en="The six indicators below are drawn from the IPCC, UNEP, FAO and peer-reviewed literature. All figures are publicly verifiable. We state what is known — we do not exaggerate projections.">
+        以下六项指标来自政府间气候变化专门委员会（IPCC）、联合国环境规划署（UNEP）、联合国粮农组织（FAO）以及经过同行评审的期刊文献。数据均为公开可查，我们只陈述已知事实，不作夸大预测。
+      </p>
+
+      <div class="rise-4 mt-10 flex flex-wrap gap-3">
+        <a href="#data"
+           class="group inline-flex items-center gap-2 rounded-md bg-white text-ink-950 px-6 py-3 text-[13.5px] font-medium hover:bg-ink-500 transition-colors"
+           data-zh="查阅观测数据" data-en="View the data">
+          查阅观测数据
+          <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="#pledge"
+           class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
+           data-zh="直接参与" data-en="Take part">直接参与</a>
+      </div>
+    </div>
+
+    <div class="rise-4 mt-14 pt-6 border-t hairline flex flex-wrap items-center gap-x-8 gap-y-2 font-mono text-[10px] tracking-[0.14em] text-white/28 uppercase">
+      <span>IPCC AR6</span>
+      <span>UNEP 2021</span>
+      <span>FAO 2022</span>
+      <span>Science / 2020</span>
+      <span>Nature / 2003</span>
+      <span class="hidden sm:inline">GCRMN 2021</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 观测数据 ══════════════════════ -->
+<section id="data" class="relative bg-ink-950 border-t hairline">
+  <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
+
+    <div class="reveal max-w-2xl mb-16 md:mb-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="观测数据" data-en="Observed data">观测数据</span>
+      </div>
+      <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
+          data-zh="六项已被广泛记录的系统性指标"
+          data-en="Six widely documented system-level indicators">
+        六项已被广泛记录的系统性指标
+      </h2>
+      <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
+         data-zh="这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。每项数据均标注原始来源。"
+         data-en="These figures are not the whole picture, but they represent the most consistent quantified account of pressure on marine systems. Every figure is attributed.">
+        这些数字不代表全部问题，但构成了目前科学界对海洋系统压力最一致的量化描述。每项数据均标注原始来源。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-0">
+
+      <!-- 01 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">01</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          1,100<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-1.5">万吨</span>
         </div>
-        <a href="#action" class="mobile-link mt-2 inline-block rounded-full bg-ocean-light px-8 py-3.5 text-base font-medium text-ocean-deep hover:scale-105 transition-transform" data-zh="采取行动" data-en="Take Action">采取行动</a>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="每年流入海洋的塑料总量估值。其中约 80% 来自陆源。"
+           data-en="Estimated annual plastic inflow to the ocean. Roughly 80% originates on land.">
+          每年流入海洋的塑料总量估值。其中约 80% 来自陆源。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">Borrelle et al. · Science, 2020</p>
       </div>
-    </div>
-  </div>
 
-  <div class="relative z-10 h-[calc(100vh-80px)] flex flex-col justify-between px-6 pt-12 pb-10 sm:pt-16 sm:pb-12 md:px-12 md:pt-20 md:pb-16 lg:px-16">
-    <div class="max-w-3xl">
-      <h1 class="anim-400 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight text-white" data-zh="海洋生态系统，亟待系统性维护" data-en="Marine ecosystems require systematic conservation">海洋生态系统，亟待系统性维护</h1>
-    </div>
-    <div>
-      <p class="anim-600 text-sm sm:text-base md:text-lg leading-relaxed text-white/65 max-w-sm sm:max-w-lg mb-5 sm:mb-6" data-zh="据公开统计数据，每年约有800万吨塑料废弃物进入海洋环境，对近海与大洋生态构成持续压力。我们呼吁社会各界以严谨、务实的态度参与海洋保护工作。" data-en="According to public statistics, approximately 8 million tons of plastic waste enter marine environments annually, exerting sustained pressure on coastal and open‑ocean ecosystems. We call for rigorous, pragmatic engagement in marine conservation.">据公开统计数据，每年约有800万吨塑料废弃物进入海洋环境，对近海与大洋生态构成持续压力。我们呼吁社会各界以严谨、务实的态度参与海洋保护工作。</p>
-      <div class="anim-800 flex flex-wrap gap-3">
-        <a href="#action" class="rounded-lg bg-ocean-light px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-medium text-ocean-deep hover:scale-105 transition-transform" data-zh="采取行动" data-en="Take Action">采取行动</a>
-        <a href="#problem" class="rounded-lg border border-ocean-light/50 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-medium text-ocean-light hover:bg-ocean-light/10 transition-colors" data-zh="查阅资料" data-en="Review Data">查阅资料</a>
+      <!-- 02 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">02</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          35.4<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="全球商业鱼类种群中，处于生物学不可持续捕捞水平的比例。"
+           data-en="Share of global commercial fish stocks harvested at biologically unsustainable levels.">
+          全球商业鱼类种群中，处于生物学不可持续捕捞水平的比例。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">FAO · SOFIA 2022</p>
       </div>
+
+      <!-- 03 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">03</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          ~90<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="全球气候系统中，过剩热量被海洋吸收的比例。这是海洋升温的直接驱动因素。"
+           data-en="Share of excess heat in the climate system absorbed by the ocean — the direct driver of marine warming.">
+          全球气候系统中，过剩热量被海洋吸收的比例。这是海洋升温的直接驱动因素。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
+      </div>
+
+      <!-- 04 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">04</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          ~25<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="人类活动排放的二氧化碳中，被海洋吸收的比例。吸收过程本身正在改变海水化学组成。"
+           data-en="Share of anthropogenic CO₂ emissions absorbed by the ocean. The absorption itself is altering seawater chemistry.">
+          人类活动排放的二氧化碳中，被海洋吸收的比例。吸收过程本身正在改变海水化学组成。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
+      </div>
+
+      <!-- 05 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">05</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          0.1<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-1.5">单位</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="工业革命以来表层海水 pH 值的下降幅度，相当于氢离子浓度上升约 30%。"
+           data-en="Decline in surface-ocean pH since the industrial revolution — equivalent to roughly a 30% rise in hydrogen-ion concentration.">
+          工业革命以来表层海水 pH 值的下降幅度，相当于氢离子浓度上升约 30%。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">IPCC · AR6 WGI</p>
+      </div>
+
+      <!-- 06 -->
+      <div class="reveal border-t hairline py-8">
+        <div class="font-mono text-[10px] tracking-[0.18em] text-white/25 mb-4">06</div>
+        <div class="font-mono tnum text-[34px] md:text-[40px] font-medium tracking-[-0.02em] text-white leading-none">
+          14<span class="text-[18px] md:text-[20px] font-normal text-white/45 ml-0.5">%</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-[1.7] text-white/65"
+           data-zh="2009 至 2018 年间，全球硬珊瑚覆盖度的下降幅度。珊瑚礁支撑着约四分之一的海洋物种。"
+           data-en="Decline in global hard-coral cover between 2009 and 2018. Coral reefs support roughly a quarter of marine species.">
+          2009 至 2018 年间，全球硬珊瑚覆盖度的下降幅度。珊瑚礁支撑着约四分之一的海洋物种。
+        </p>
+        <p class="mt-4 font-mono text-[9.5px] tracking-[0.12em] text-white/25 uppercase">GCRMN · Status of Coral Reefs, 2021</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="problem" class="relative bg-ocean-darker py-20 md:py-28 px-6 md:px-12 lg:px-16">
-  <div class="max-w-5xl mx-auto">
-    <div class="fade-in mb-12">
-      <h2 class="text-2xl md:text-3xl font-semibold text-ocean-light mb-4" data-zh="海洋生态面临的客观挑战" data-en="Objective Challenges Facing Marine Ecosystems">海洋生态面临的客观挑战</h2>
-      <p class="text-white/70 leading-relaxed" data-zh="基于现有监测结果，海洋承载着全球生物多样性的重要部分，而人为活动带来的多重压力正在改变其稳定状态。以下为已被广泛记录的关键指标。" data-en="Based on available monitoring records, oceans host a significant share of global biodiversity. Multiple anthropogenic pressures are altering their stable conditions. Below are widely‑documented key indicators.">基于现有监测结果，海洋承载着全球生物多样性的重要部分，而人为活动带来的多重压力正在改变其稳定状态。以下为已被广泛记录的关键指标。</p>
+
+<!-- ══════════════════════ 行动路径 ══════════════════════ -->
+<section id="action" class="relative bg-ink-900 border-t hairline">
+  <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
+
+    <div class="reveal max-w-2xl mb-16 md:mb-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="行动路径" data-en="Action pathways">行动路径</span>
+      </div>
+      <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
+          data-zh="五项具有实际减排与减塑效果的个体行动"
+          data-en="Five individual actions with measurable impact">
+        五项具有实际减排与减塑效果的个体行动
+      </h2>
+      <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
+         data-zh="以下措施不依赖于宏观政策，个体即可执行；且均有研究验证其对近海生态的减负作用。"
+         data-en="These measures do not depend on macro policy. They can be carried out individually, and each has research support for reducing pressure on coastal ecosystems.">
+        以下措施不依赖于宏观政策，个体即可执行；且均有研究验证其对近海生态的减负作用。
+      </p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="fade-in bg-ocean-deep/40 rounded-xl p-6 border border-ocean-mid/20">
-        <div class="text-2xl mb-2">🌊</div>
-        <h3 class="text-lg font-medium text-white mb-1" data-zh="800万吨" data-en="8 million tons">800万吨</h3>
-        <p class="text-white/60 text-sm" data-zh="每年进入海洋的塑料废弃物估算量" data-en="Estimated annual plastic inflow to oceans">每年进入海洋的塑料废弃物估算量</p>
+
+    <div class="grid md:grid-cols-2 gap-x-14 gap-y-0">
+
+      <div class="reveal border-t hairline py-9">
+        <div class="flex items-baseline gap-4 mb-3">
+          <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.01</span>
+          <h3 class="text-[16px] font-medium text-white" data-zh="削减一次性塑料的实际使用量" data-en="Cut actual single-use plastic consumption">削减一次性塑料的实际使用量</h3>
+        </div>
+        <p class="text-[13.5px] leading-[1.85] text-white/60 pl-[calc(10px+1rem)]"
+           data-zh="随身携带可重复使用的容器与购物袋；在餐厅主动拒绝吸管与一次性餐具。依据《科学》期刊 2020 年的模型，陆源塑料减排是降低海洋塑料流入量最直接的路径。"
+           data-en="Carry reusable containers and bags; decline straws and disposable cutlery. Per the Science 2020 model, reducing land-based plastic is the most direct route to cutting ocean inflow.">
+          随身携带可重复使用的容器与购物袋；在餐厅主动拒绝吸管与一次性餐具。依据《科学》期刊 2020 年的模型，陆源塑料减排是降低海洋塑料流入量最直接的路径。
+        </p>
       </div>
-      <div class="fade-in bg-ocean-deep/40 rounded-xl p-6 border border-ocean-mid/20">
-        <div class="text-2xl mb-2">🐢</div>
-        <h3 class="text-lg font-medium text-white mb-1" data-zh="10万+" data-en="100,000+">10万+</h3>
-        <p class="text-white/60 text-sm" data-zh="受塑料污染影响的海洋生物年度估值" data-en="Estimated annual marine‑fauna impacts from plastic">受塑料污染影响的海洋生物年度估值</p>
+
+      <div class="reveal border-t hairline py-9">
+        <div class="flex items-baseline gap-4 mb-3">
+          <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.02</span>
+          <h3 class="text-[16px] font-medium text-white" data-zh="选择有认证来源的海产品" data-en="Choose certified seafood sources">选择有认证来源的海产品</h3>
+        </div>
+        <p class="text-[13.5px] leading-[1.85] text-white/60 pl-[calc(10px+1rem)]"
+           data-zh="优先选择带有 MSC（海洋管理委员会）或 ASC（水产养殖管理委员会）标识的产品。避免食用处于濒危等级或缺乏种群评估数据的物种，例如部分蓝鳍金枪鱼种群。"
+           data-en="Prefer products bearing MSC or ASC certification. Avoid species classified as endangered, or those lacking stock-assessment data — certain bluefin tuna populations among them.">
+          优先选择带有 MSC（海洋管理委员会）或 ASC（水产养殖管理委员会）标识的产品。避免食用处于濒危等级或缺乏种群评估数据的物种，例如部分蓝鳍金枪鱼种群。
+        </p>
       </div>
-      <div class="fade-in bg-ocean-deep/40 rounded-xl p-6 border border-ocean-mid/20">
-        <div class="text-2xl mb-2">🐠</div>
-        <h3 class="text-lg font-medium text-white mb-1" data-zh="90%" data-en="90%">90%</h3>
-        <p class="text-white/60 text-sm" data-zh="大型鱼类种群历史丰度变化参考值" data-en="Reference trend for large‑fish biomass">大型鱼类种群历史丰度变化参考值</p>
+
+      <div class="reveal border-t hairline py-9">
+        <div class="flex items-baseline gap-4 mb-3">
+          <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.03</span>
+          <h3 class="text-[16px] font-medium text-white" data-zh="参与有组织的海岸清理" data-en="Join an organised coastal clean-up">参与有组织的海岸清理</h3>
+        </div>
+        <p class="text-[13.5px] leading-[1.85] text-white/60 pl-[calc(10px+1rem)]"
+           data-zh="通过正规公益机构报名，遵循现场安全规范，避免踩踏潮间带生物栖息区。净滩的核心价值在于垃圾溯源记录，而不只是清理本身——因此建议配合使用 ICC 国际海岸清理记录卡。"
+           data-en="Register through a recognised organisation, follow on-site safety rules, and avoid trampling intertidal habitats. The core value of a clean-up is debris-tracking data, not just collection — use the ICC data card where possible.">
+          通过正规公益机构报名，遵循现场安全规范，避免踩踏潮间带生物栖息区。净滩的核心价值在于垃圾溯源记录，而不只是清理本身——因此建议配合使用 ICC 国际海岸清理记录卡。
+        </p>
       </div>
-      <div class="fade-in bg-ocean-deep/40 rounded-xl p-6 border border-ocean-mid/20">
-        <div class="text-2xl mb-2">⏰</div>
-        <h3 class="text-lg font-medium text-white mb-1" data-zh="2050年" data-en="By 2050">2050年</h3>
-        <p class="text-white/60 text-sm" data-zh="现有趋势下海洋塑料总量的预测情景" data-en="Projection scenario under current trends">现有趋势下海洋塑料总量的预测情景</p>
+
+      <div class="reveal border-t hairline py-9">
+        <div class="flex items-baseline gap-4 mb-3">
+          <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.04</span>
+          <h3 class="text-[16px] font-medium text-white" data-zh="降低个人碳排放强度" data-en="Reduce personal carbon intensity">降低个人碳排放强度</h3>
+        </div>
+        <p class="text-[13.5px] leading-[1.85] text-white/60 pl-[calc(10px+1rem)]"
+           data-zh="海洋吸收了约 90% 的过剩热量与约四分之一的二氧化碳。这意味着每一次实质性的减碳行为，都直接对应海洋升温与酸化压力的降低。优先方向：减少航空出行、缩短供应链距离、降低肉类消费频次。"
+           data-en="The ocean absorbs ~90% of excess heat and ~25% of CO₂. Every substantive emission reduction directly lowers thermal and acidification pressure on the ocean. Priorities: fewer flights, shorter supply chains, less meat.">
+          海洋吸收了约 90% 的过剩热量与约四分之一的二氧化碳。这意味着每一次实质性的减碳行为，都直接对应海洋升温与酸化压力的降低。优先方向：减少航空出行、缩短供应链距离、降低肉类消费频次。
+        </p>
       </div>
+
+      <div class="reveal border-t hairline py-9 md:col-span-2">
+        <div class="flex items-baseline gap-4 mb-3">
+          <span class="font-mono text-[10px] tracking-[0.18em] text-ink-500">A.05</span>
+          <h3 class="text-[16px] font-medium text-white" data-zh="传播信息时保持来源可溯" data-en="Keep sourcing traceable when sharing">传播信息时保持来源可溯</h3>
+        </div>
+        <p class="text-[13.5px] leading-[1.85] text-white/60 pl-[calc(10px+1rem)] max-w-3xl"
+           data-zh="海洋议题常被大量未经核实的预测性说法包裹，其中不少后来被证伪。在传播时，引用具体的机构、年份与文献，比引用「研究表明」这种模糊表述更有价值，也更难被反驳。"
+           data-en="Marine issues are frequently wrapped in unverified projections, many later disproven. Citing a specific institution, year and paper is more useful — and harder to dismiss — than the vague phrase “studies show”.">
+          海洋议题常被大量未经核实的预测性说法包裹，其中不少后来被证伪。在传播时，引用具体的机构、年份与文献，比引用「研究表明」这种模糊表述更有价值，也更难被反驳。
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="solution" class="relative bg-ocean-deep py-20 md:py-28 px-6 md:px-12 lg:px-16">
-  <div class="max-w-5xl mx-auto">
-    <div class="fade-in mb-12">
-      <h2 class="text-2xl md:text-3xl font-semibold text-ocean-light mb-4" data-zh="可落地的海洋保护实践路径" data-en="Practical Pathways for Marine Conservation">可落地的海洋保护实践路径</h2>
-      <p class="text-white/65" data-zh="下述措施经相关领域研究验证具备可行性，可作为公众参与海洋保护的参考方向。" data-en="The measures below are research‑validated and serve as practical references for public‑level action.">下述措施经相关领域研究验证具备可行性，可作为公众参与海洋保护的参考方向。</p>
+
+<!-- ══════════════════════ 参与清单 ══════════════════════ -->
+<section id="pledge" class="relative bg-ink-950 border-t hairline">
+  <div class="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
+
+    <div class="reveal mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="参与记录" data-en="Participation record">参与记录</span>
+      </div>
+      <h2 class="text-[26px] md:text-[32px] font-medium tracking-[-0.015em] leading-[1.28] text-white"
+          data-zh="六个月内的六项可核查行动"
+          data-en="Six verifiable actions within six months">
+        六个月内的六项可核查行动
+      </h2>
+      <p class="mt-5 text-[14px] leading-[1.85] text-white/50"
+         data-zh="勾选你已完成的项目。清单保存在本地，不会上传。行动不需要一步到位，重要的是持续累积。"
+         data-en="Tick what you have completed. The list is stored locally and is never uploaded. Actions need not be perfect — consistency matters more.">
+        勾选你已完成的项目。清单保存在本地，不会上传。行动不需要一步到位，重要的是持续累积。
+      </p>
     </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="fade-in bg-ocean-darker/40 rounded-xl p-6 border border-ocean-mid/20">
-        <h3 class="text-lg font-medium text-white mb-2" data-zh="管控一次性塑料制品使用" data-en="Regulate Single‑Use Plastic Consumption">管控一次性塑料制品使用</h3>
-        <p class="text-white/65 text-sm leading-relaxed" data-zh="优先选用可重复利用容器与用具，减少一次性塑料袋、吸管、餐具等物品的消耗，降低塑料向近海环境迁移的风险。" data-en="Prioritize reusable containers and utensils; reduce consumption of disposable plastic bags, straws and cutlery to mitigate plastic transport into coastal waters.">优先选用可重复利用容器与用具，减少一次性塑料袋、吸管、餐具等物品的消耗，降低塑料向近海环境迁移的风险。</p>
+
+    <div class="reveal bg-white/[0.02] border hairline rounded-lg px-6 md:px-8 py-2">
+
+      <div class="check-row" data-key="p1">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="连续四周随身携带可重复使用的购物袋与水杯" data-en="Carried reusable bags and a bottle for four consecutive weeks">连续四周随身携带可重复使用的购物袋与水杯</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Plastic reduction</p>
+        </div>
       </div>
-      <div class="fade-in bg-ocean-darker/40 rounded-xl p-6 border border-ocean-mid/20">
-        <h3 class="text-lg font-medium text-white mb-2" data-zh="选择可持续管理来源的海产品" data-en="Select Sustainably‑Managed Seafood">选择可持续管理来源的海产品</h3>
-        <p class="text-white/65 text-sm leading-relaxed" data-zh="参考MSC、ASC等公认可持续渔业认证标识，规避濒危海洋物种，支持资源养护型捕捞模式。" data-en="Refer to widely‑recognized certifications such as MSC and ASC; avoid endangered marine species and support resource‑conserving fisheries.">参考MSC、ASC等公认可持续渔业认证标识，规避濒危海洋物种，支持资源养护型捕捞模式。</p>
+
+      <div class="check-row" data-key="p2">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="购买海产品时核验过一次 MSC 或 ASC 认证标识" data-en="Verified an MSC or ASC label on a seafood purchase">购买海产品时核验过一次 MSC 或 ASC 认证标识</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Responsible sourcing</p>
+        </div>
       </div>
-      <div class="fade-in bg-ocean-darker/40 rounded-xl p-6 border border-ocean-mid/20">
-        <h3 class="text-lg font-medium text-white mb-2" data-zh="有序参与海岸清理活动" data-en="Participate in Organized Coastal Clean‑Ups">有序参与海岸清理活动</h3>
-        <p class="text-white/65 text-sm leading-relaxed" data-zh="在确保自身安全、不扰动海岸生境的前提下，参与规范化净滩活动，减少海岸带固体废弃物累积。" data-en="Join regulated beach‑clean‑up events safely without disturbing coastal habitats, to reduce solid‑waste accumulation along shorelines.">在确保自身安全、不扰动海岸生境的前提下，参与规范化净滩活动，减少海岸带固体废弃物累积。</p>
+
+      <div class="check-row" data-key="p3">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="报名或参与过一次有组织的净滩活动" data-en="Signed up for or joined an organised beach clean-up">报名或参与过一次有组织的净滩活动</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Direct participation</p>
+        </div>
       </div>
-      <div class="fade-in bg-ocean-darker/40 rounded-xl p-6 border border-ocean-mid/20">
-        <h3 class="text-lg font-medium text-white mb-2" data-zh="降低碳排放与能源消耗" data-en="Reduce Carbon Emissions and Energy Use">降低碳排放与能源消耗</h3>
-        <p class="text-white/65 text-sm leading-relaxed" data-zh="海洋承担显著的碳汇功能，通过低碳出行、节约能源等方式减缓温室气体排放，有助于缓解海洋酸化与升温压力。" data-en="Oceans function as a major carbon sink. Low‑carbon mobility and energy conservation help mitigate ocean acidification and thermal stress.">海洋承担显著的碳汇功能，通过低碳出行、节约能源等方式减缓温室气体排放，有助于缓解海洋酸化与升温压力。</p>
+
+      <div class="check-row" data-key="p4">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="查阅过本地区至少一项具体的海洋环境议题" data-en="Looked into at least one specific local marine issue">查阅过本地区至少一项具体的海洋环境议题</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Local awareness</p>
+        </div>
       </div>
-      <div class="fade-in bg-ocean-darker/40 rounded-xl p-6 border border-ocean-mid/20 md:col-span-2">
-        <h3 class="text-lg font-medium text-white mb-2" data-zh="传播经过验证的海洋科学知识" data-en="Disseminate Evidence‑Based Marine Science">传播经过验证的海洋科学知识</h3>
-        <p class="text-white/65 text-sm leading-relaxed" data-zh="依托权威科研机构与科普平台获取海洋生态信息，客观、准确地向身边人群传递科学的保护理念。" data-en="Obtain marine‑ecology information from reputable research and outreach sources; communicate evidence‑based conservation concepts objectively and accurately.">依托权威科研机构与科普平台获取海洋生态信息，客观、准确地向身边人群传递科学的保护理念。</p>
+
+      <div class="check-row" data-key="p5">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="向他人传递过一条带有明确来源的海洋信息" data-en="Shared one marine fact with a cited source to another person">向他人传递过一条带有明确来源的海洋信息</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Evidence-based sharing</p>
+        </div>
       </div>
+
+      <div class="check-row" data-key="p6">
+        <span class="check-box"><svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2l2.3 2.3L9.5 3.8"/></svg></span>
+        <div>
+          <p class="check-label text-[14px] text-white/88 leading-snug transition-colors" data-zh="完成过一次个人年度用能的系统性审视" data-en="Completed a systematic review of your annual energy use">完成过一次个人年度用能的系统性审视</p>
+          <p class="mt-1 font-mono text-[9.5px] tracking-[0.12em] text-white/28 uppercase">Carbon review</p>
+        </div>
+      </div>
+
     </div>
+
+    <!-- 进度 -->
+    <div class="reveal mt-10">
+      <div class="flex items-baseline justify-between mb-3">
+        <span class="font-mono text-[10px] tracking-[0.18em] text-white/30 uppercase" data-zh="完成进度" data-en="Completion">完成进度</span>
+        <span class="font-mono tnum text-[13px] text-ink-500"><span id="progCount">0</span> / 6</span>
+      </div>
+      <div class="h-px w-full bg-white/8 relative overflow-hidden">
+        <div id="progBar" class="absolute inset-y-0 left-0 bg-ink-500 transition-all duration-500 ease-out" style="width:0%"></div>
+      </div>
+      <p id="progMsg" class="mt-5 text-[13px] leading-relaxed text-white/45 transition-opacity duration-300"
+         data-zh="勾选任意一项开始记录。"
+         data-en="Tick any item to begin tracking.">
+        勾选任意一项开始记录。
+      </p>
+    </div>
+
   </div>
 </section>
 
-<section id="action" class="relative bg-ocean-darker py-20 md:py-28 px-6 md:px-12 lg:px-16">
-  <div class="max-w-4xl mx-auto">
-    <div class="fade-in mb-12 text-center">
-      <h2 class="text-2xl md:text-3xl font-semibold text-ocean-light mb-4" data-zh="凝聚共识，持续推进海洋保护" data-en="Build Consensus and Advance Conservation Sustainedly">凝聚共识，持续推进海洋保护</h2>
-      <p class="text-white/70 leading-relaxed mb-8" data-zh="「蓝色守护者」计划面向关注海洋生态的公众开放参与渠道。参与者可获得系统性行动指引、活动报名资格、阶段性进展报告与参与证明材料。" data-en="The Blue Guardian program offers public‑participation pathways for those concerned with marine health. Participants receive structured guidance, event access, periodic progress reports and documentation of engagement.">「蓝色守护者」计划面向关注海洋生态的公众开放参与渠道。参与者可获得系统性行动指引、活动报名资格、阶段性进展报告与参与证明材料。</p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#home" class="rounded-lg bg-ocean-light px-6 py-3 text-base font-medium text-ocean-deep hover:scale-105 transition-transform" data-zh="查阅行动指南" data-en="View Action Guidelines">查阅行动指南</a>
-        <a href="#home" class="rounded-lg border border-ocean-light/50 px-6 py-3 text-base font-medium text-ocean-light hover:bg-ocean-light/10 transition-colors" data-zh="了解支持途径" data-en="Learn about Support Channels">了解支持途径</a>
-      </div>
-    </div>
-    <div class="fade-in max-w‑2xl mx-auto text‑center">
-      <h3 class="text‑xl md:text‑2xl font‑medium text‑ocean‑light mb‑3" data‑zh="海洋是支撑人类存续的关键自然系统" data‑en="Oceans are critical natural systems sustaining human existence">海洋是支撑人类存续的关键自然系统</h3>
-      <p class="text‑white/65 leading‑relaxed" data‑zh="它为全球提供氧气调节、气候稳定、生物资源等基础服务。维护海洋生态的长期稳定，是全社会共同的责任。" data‑en="It delivers fundamental services including oxygen regulation, climate stability and biological resources. Safeguarding long‑term marine stability is a shared social responsibility.">它为全球提供氧气调节、气候稳定、生物资源等基础服务。维护海洋生态的长期稳定，是全社会共同的责任。</p>
-    </div>
-  </div>
-</section>
 
-<footer class="bg-ocean-darker/80 border-t border-ocean-mid/20 py-8 px-6 md:px-12 lg:px-16 text-center">
-  <div class="mb‑4 flex flex‑wrap justify‑center gap‑6 text‑sm text‑white/55">
-    <a href="#home" data‑zh="关于我们" data‑en="About Us" class="hover:text‑ocean‑light transition‑colors">关于我们</a>
-    <a href="#home" data‑zh="隐私政策" data‑en="Privacy Policy" class="hover:text‑ocean‑light transition‑colors">隐私政策</a>
-    <a href="#home" data‑zh="联系我们" data‑en="Contact" class="hover:text‑ocean‑light transition‑colors">联系我们</a>
+<!-- ══════════════════════ 页脚 ══════════════════════ -->
+<footer class="bg-ink-950 border-t hairline">
+  <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
+
+    <div class="grid md:grid-cols-12 gap-10 md:gap-8">
+
+      <div class="md:col-span-5">
+        <div class="flex items-baseline gap-2.5 mb-5">
+          <span class="text-[15px] font-medium text-white" data-zh="蓝色守护者" data-en="Blue Guardian">蓝色守护者</span>
+          <span class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase">Marine Program</span>
+        </div>
+        <p class="text-[13px] leading-[1.9] text-white/45 max-w-sm"
+           data-zh="本项目不进行募捐，不销售商品，不承诺可核查结果之外的任何事项。所有引用数据均可在原始文献中查证。"
+           data-en="This project does not solicit donations or sell goods, and claims nothing beyond verifiable outcomes. All cited figures can be checked against the original literature.">
+          本项目不进行募捐，不销售商品，不承诺可核查结果之外的任何事项。所有引用数据均可在原始文献中查证。
+        </p>
+      </div>
+
+      <div class="md:col-span-3 md:col-start-7">
+        <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="数据来源" data-en="Sources">数据来源</p>
+        <ul class="space-y-2.5 font-mono text-[11px] tracking-[0.06em] text-white/40">
+          <li>IPCC · AR6 WGI</li>
+          <li>UNEP · 2021</li>
+          <li>FAO · SOFIA 2022</li>
+          <li>Borrelle et al. · Science, 2020</li>
+          <li>Myers &amp; Worm · Nature, 2003</li>
+          <li>GCRMN · 2021</li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="联系" data-en="Contact">联系</p>
+        <ul class="space-y-2.5 text-[13px] text-white/45">
+          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="关于项目" data-en="About">关于项目</a></li>
+          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="数据更正" data-en="Data corrections">数据更正</a></li>
+          <li><a href="#home" class="hover:text-ink-500 transition-colors" data-zh="隐私说明" data-en="Privacy">隐私说明</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-14 pt-8 border-t hairline flex flex-wrap items-center justify-between gap-3">
+      <p class="font-mono text-[10.5px] tracking-[0.08em] text-white/25">© 2026 Blue Guardian · Marine Observation File</p>
+      <p class="font-mono text-[10.5px] tracking-[0.08em] text-white/25">本页不使用追踪脚本 · No trackers</p>
+    </div>
+
   </div>
-  <p class="text-white/45 text-sm" data-zh="© 2026 蓝色守护者 · 海洋保护公益计划" data-en="© 2026 Blue Guardian · Marine Conservation Initiative">© 2026 蓝色守护者 · 海洋保护公益计划</p>
 </footer>
 
+
 <script>
-const menuBtn = document.getElementById('menuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const menuInner = document.getElementById('menuInner');
-const menuIcon = document.getElementById('menuIcon');
-const closeIcon = document.getElementById('closeIcon');
+/* ── 移动端菜单 ── */
+const menuBtn   = document.getElementById('menuBtn');
+const panel     = document.getElementById('mobilePanel');
+const iconMenu  = document.getElementById('iconMenu');
+const iconClose = document.getElementById('iconClose');
 const mobileLinks = document.querySelectorAll('.mobile-link');
-let open = false;
+let menuOpen = false;
 
 function setMenu(state) {
-  open = state;
-  if (open) {
-    mobileMenu.classList.remove('h-0','opacity-0','pointer-events-none','overflow-hidden');
-    mobileMenu.classList.add('h-screen','opacity-100');
-    menuInner.classList.remove('opacity-0','translate-y-8');
-    menuInner.classList.add('opacity-100','translate-y-0');
-    menuIcon.classList.add('opacity-0','scale-75','rotate-90');
-    menuIcon.classList.remove('opacity-100','scale-100','rotate-0');
-    closeIcon.classList.add('opacity-100','scale-100','rotate-0');
-    closeIcon.classList.remove('opacity-0','scale-75','-rotate-90');
+  menuOpen = state;
+  if (state) {
+    panel.style.height = '100vh';
+    panel.style.opacity = '1';
+    panel.style.pointerEvents = 'auto';
+    iconMenu.classList.add('opacity-0', '-rotate-45');
+    iconClose.classList.remove('opacity-0', 'rotate-45');
   } else {
-    mobileMenu.classList.add('h-0','opacity-0','pointer-events-none','overflow-hidden');
-    mobileMenu.classList.remove('h-screen','opacity-100');
-    menuInner.classList.add('opacity-0','translate-y-8');
-    menuInner.classList.remove('opacity-100','translate-y-0');
-    menuIcon.classList.remove('opacity-0','scale-75','rotate-90');
-    menuIcon.classList.add('opacity-100','scale-100','rotate-0');
-    closeIcon.classList.remove('opacity-100','scale-100','rotate-0');
-    closeIcon.classList.add('opacity-0','scale-75','-rotate-90');
+    panel.style.height = '0';
+    panel.style.opacity = '0';
+    panel.style.pointerEvents = 'none';
+    iconMenu.classList.remove('opacity-0', '-rotate-45');
+    iconClose.classList.add('opacity-0', 'rotate-45');
   }
 }
-menuBtn.addEventListener('click', ()=>setMenu(!open));
-mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenu(false)));
+panel.style.pointerEvents = 'none';
+menuBtn.addEventListener('click', () => setMenu(!menuOpen));
+mobileLinks.forEach(l => l.addEventListener('click', () => setMenu(false)));
 
-const fadeEls = document.querySelectorAll('.fade-in');
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('active'); });
-}, {threshold:0.12});
-fadeEls.forEach(el=>observer.observe(el));
+/* ── 滚动揭示 ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+/* ── 语言切换 ── */
 let currentLang = 'zh';
 const langBtns = document.querySelectorAll('.lang-btn');
-const textNodes = document.querySelectorAll('[data-zh][data-en]');
-function applyLang(lang){
+const i18nNodes = document.querySelectorAll('[data-zh][data-en]');
+
+function applyLang(lang) {
   currentLang = lang;
-  langBtns.forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
-  textNodes.forEach(el=>el.textContent = el.dataset[lang]);
+  langBtns.forEach(b => {
+    const active = b.dataset.lang === lang;
+    b.classList.toggle('active', active);
+    if (!active) b.classList.add('text-white/60');
+    else b.classList.remove('text-white/60');
+  });
+  i18nNodes.forEach(el => { el.textContent = el.dataset[lang]; });
+  updateProgress(); // 更新进度文案语言
 }
-langBtns.forEach(btn=>btn.addEventListener('click',()=>applyLang(btn.dataset.lang)));
+langBtns.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
+
+/* ── 承诺清单 ── */
+const rows = document.querySelectorAll('.check-row');
+const progCount = document.getElementById('progCount');
+const progBar = document.getElementById('progBar');
+const progMsg = document.getElementById('progMsg');
+const STORE_KEY = 'bg_pledge_v1';
+
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch (e) { state = {}; }
+
+function renderRows() {
+  rows.forEach(row => {
+    const key = row.dataset.key;
+    row.classList.toggle('done', !!state[key]);
+  });
+}
+
+function updateProgress() {
+  const done = Object.values(state).filter(Boolean).length;
+  progCount.textContent = done;
+  progBar.style.width = (done / 6 * 100) + '%';
+
+  const zh = ['勾选任意一项开始记录。', '已经开始了。保持这个节奏。', '两项。行动正在形成习惯。', '三项。这已经超过大多数人的参与深度。', '四项。你正在产生可被观察的影响。', '五项。距离完整记录只差一步。', '六项全部完成。感谢你的持续投入。'];
+  const en = ['Tick any item to begin tracking.', 'A start. Keep the rhythm.', 'Two. Habits are forming.', 'Three. That already exceeds most participation.', 'Four. Your impact is becoming observable.', 'Five. One step from a complete record.', 'All six complete. Thank you for the sustained effort.'];
+  progMsg.textContent = (currentLang === 'zh' ? zh : en)[done];
+  progMsg.style.opacity = done === 0 ? '.6' : '1';
+}
+
+rows.forEach(row => {
+  row.addEventListener('click', () => {
+    const key = row.dataset.key;
+    state[key] = !state[key];
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
+    renderRows();
+    updateProgress();
+  });
+});
+
+renderRows();
+updateProgress();
 </script>
+
 </body>
 </html>
