@@ -20,12 +20,8 @@ tailwind.config = {
       },
       colors: {
         ink: {
-          950: '#041724',
-          900: '#07253B',
-          800: '#0B3A57',
-          700: '#247BA0',
-          500: '#67C1E8',
-          300: '#A8DBF0'
+          950: '#041724', 900: '#07253B', 800: '#0B3A57',
+          700: '#247BA0', 500: '#67C1E8', 300: '#A8DBF0'
         }
       }
     }
@@ -119,7 +115,8 @@ tailwind.config = {
   ::selection { background: #67C1E8; color: #041724; }
 
   /* ══════════════════════════════════════════════════
-     ECHOID 加入计划整页（作用域限定在 #joinPage 内）
+     ECHOID 加入页 · 完整保留原版黑色背景与视频
+     所有样式作用域限定在 #joinPage 内
      ══════════════════════════════════════════════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
@@ -145,16 +142,12 @@ tailwind.config = {
     pointer-events: none;
     transition: opacity .5s var(--ease-premium);
   }
-  #joinPage.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  #joinPage.active { opacity: 1; pointer-events: auto; }
+
   #joinPage *,
   #joinPage *::before,
   #joinPage *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -212,11 +205,6 @@ tailwind.config = {
     z-index: 60;
     position: relative;
   }
-  #joinPage .navbar__brand {
-    display: flex;
-    align-items: center;
-    gap: clamp(16px, 2vw, 30px);
-  }
   #joinPage .logo {
     font-family: var(--font-display);
     font-weight: 200;
@@ -226,21 +214,6 @@ tailwind.config = {
     text-decoration: none;
     line-height: 1;
   }
-  #joinPage .nav-back {
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: clamp(10px, 0.72vw, 12px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 6px 0;
-    transition: color 0.25s ease;
-    white-space: nowrap;
-  }
-  #joinPage .nav-back:hover { color: #fff; }
 
   #joinPage .nav__cluster {
     display: flex;
@@ -282,8 +255,7 @@ tailwind.config = {
 
   #joinPage .hamburger {
     display: none;
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     position: relative;
     cursor: pointer;
     background: transparent;
@@ -293,15 +265,13 @@ tailwind.config = {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 22px;
-    height: 1px;
+    width: 22px; height: 1px;
     background-color: #fff;
     transition: transform 0.45s var(--ease-premium), opacity 0.25s ease;
   }
   #joinPage .hamburger__bar:nth-child(1) { top:16px; }
   #joinPage .hamburger__bar:nth-child(2) { top:22px; }
   #joinPage .hamburger__bar:nth-child(3) { top:28px; }
-
   #joinPage .hamburger.active .hamburger__bar:nth-child(1) {
     transform: translateX(-50%) rotate(45deg); top:22px;
   }
@@ -537,6 +507,50 @@ tailwind.config = {
   #joinPage :focus-visible {
     outline:1px solid rgba(255,255,255,0.7);
     outline-offset:3px;
+  }
+
+  /* 返回按钮：极简、低调，位于左下角 */
+  #joinPage .join-back {
+    position: fixed;
+    left: clamp(16px, 2.4vw, 34px);
+    bottom: clamp(16px, 2.4vw, 34px);
+    z-index: 70;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .4s ease .25s, transform .5s var(--ease-premium) .25s,
+                color .25s ease, border-color .25s ease, background .25s ease;
+  }
+  #joinPage.active .join-back {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #joinPage .join-back:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.55);
+  }
+  #joinPage .join-back svg {
+    width: 12px; height: 12px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -993,18 +1007,15 @@ tailwind.config = {
 </footer>
 
 
-<!-- ══════════════════════ 加入计划 · ECHOID 整页 ══════════════════════ -->
-
+<!-- ══════════════════════ 加入计划 · ECHOID 完整界面 ══════════════════════ -->
 <div id="joinPage" aria-hidden="true">
   <section class="hero">
+
+    <!-- ECHOID 自己的视频背景 · 纯黑底 -->
     <div class="hero__media">
       <video
         id="joinVideo"
-        autoplay
-        muted
-        loop
-        playsInline
-        preload="auto"
+        autoplay muted loop playsInline preload="auto"
         poster="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png"
       >
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4" type="video/mp4" />
@@ -1012,12 +1023,9 @@ tailwind.config = {
     </div>
     <div class="hero__scrim"></div>
 
-    <!-- 导航 -->
+    <!-- 原版导航 -->
     <nav class="navbar">
-      <div class="navbar__brand">
-        <button class="nav-back" data-close-join aria-label="返回主页面">← 返回</button>
-        <a href="#" class="logo">ECHOID</a>
-      </div>
+      <a href="#" class="logo">ECHOID</a>
 
       <div class="nav__cluster">
         <div class="nav__links">
@@ -1036,7 +1044,7 @@ tailwind.config = {
       </button>
     </nav>
 
-    <!-- 移动端菜单 -->
+    <!-- 原版移动端菜单 -->
     <div id="joinMobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
       <a href="#story" class="mobile-menu__item">Story</a>
       <a href="#platforms" class="mobile-menu__item">Platforms</a>
@@ -1045,7 +1053,7 @@ tailwind.config = {
       <a href="#join" class="mobile-menu__cta">Join up</a>
     </div>
 
-    <!-- 右侧注册面板 -->
+    <!-- 原版右侧注册面板 -->
     <div class="hero__body">
       <div class="panel">
         <div class="chip">[ VOICE ENTRY ]</div>
@@ -1063,11 +1071,17 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- 底部条款 -->
+    <!-- 原版底部条款 -->
     <footer class="legal-footer">
       <p>Opening an e.xyz account signals that you accept our <a href="#privacy-notice">Privacy Notice</a> and <a href="#service-contract">Service Contract</a>.</p>
     </footer>
   </section>
+
+  <!-- 返回主页面 · 低调入口 -->
+  <button class="join-back" data-close-join aria-label="Back">
+    <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
+    <span>Back</span>
+  </button>
 </div>
 
 
@@ -1127,7 +1141,6 @@ function closeJoin() {
   joinPage.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('join-open');
   if (joinVideo) joinVideo.pause();
-  // 关闭 ECHOID 页内的移动菜单
   if (joinHamburger.classList.contains('active')) toggleJoinMenu();
   window.scrollTo(0, joinScrollMemory.y);
 }
@@ -1174,7 +1187,6 @@ joinMenuItems.forEach(el => el.addEventListener('click', () => {
   if (joinHamburger.classList.contains('active')) toggleJoinMenu();
 }));
 
-// 视口 ≥901px 时自动收起 ECHOID 移动菜单
 const joinMq = window.matchMedia('(min-width:901px)');
 joinMq.addEventListener('change', () => {
   if (joinMq.matches && joinHamburger.classList.contains('active')) toggleJoinMenu();
