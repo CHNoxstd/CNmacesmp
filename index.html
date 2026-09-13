@@ -251,6 +251,8 @@ tailwind.config = {
   .comm-toggle.open .comm-toggle__icon {
     transform: rotate(180deg);
   }
+  #learnRefresh .comm-toggle__icon { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+  #learnRefresh:hover .comm-toggle__icon { transform: rotate(180deg); }
 
   .community-expand {
     display: grid;
@@ -542,15 +544,6 @@ tailwind.config = {
     color: rgba(255,255,255,.35);
     max-width: 760px;
   }
-
-  .chart-line {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-  }
-  .reveal.on .chart-line {
-    animation: drawLine 2.2s cubic-bezier(.2,.8,.2,1) .25s forwards;
-  }
-  @keyframes drawLine { to { stroke-dashoffset: 0; } }
 
   #daily {
     display: none;
@@ -1167,7 +1160,6 @@ tailwind.config = {
     }
     .reveal { opacity: 1; transform: none; transition: none; }
     .wave-layer { animation: none !important; }
-    .chart-line { stroke-dashoffset: 0 !important; animation: none !important; }
   }
   @media (max-height:640px) {
     #joinPage .navbar { padding:12px var(--gutter); }
@@ -1546,9 +1538,9 @@ tailwind.config = {
         从原始评估报告中摘取的文献内容
       </h2>
       <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
-         data-zh="以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每一条都标注了报告名称、发布年份与具体章节。我们只做压缩转述，不添加解释，也不引用情景预测。完整内容、不确定性区间与置信度评级请以原始报告为准。"
-         data-en="The entries below are taken from published IPCC, UNEP and FAO material. Each cites the report, year and specific chapter. We compress and restate; we do not interpret, and we do not cite scenario projections. For full context, uncertainty ranges and confidence ratings, consult the original reports.">
-        以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每一条都标注了报告名称、发布年份与具体章节。我们只做压缩转述，不添加解释，也不引用情景预测。完整内容、不确定性区间与置信度评级请以原始报告为准。
+         data-zh="以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每条标注报告名称、年份与章节。每次打开页面从 120 条文献池中随机抽取 9 条展示，同一天内保持一致。我们只做压缩转述，不添加解释，也不引用情景预测。"
+         data-en="The entries below are taken from published IPCC, UNEP and FAO material. Each cites report, year and chapter. Nine of 120 entries are drawn at random on each visit and remain stable within the same day. We compress and restate; we do not interpret, and we do not cite scenario projections.">
+        以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每条标注报告名称、年份与章节。每次打开页面从 120 条文献池中随机抽取 9 条展示，同一天内保持一致。我们只做压缩转述，不添加解释，也不引用情景预测。
       </p>
     </div>
 
@@ -1583,237 +1575,20 @@ tailwind.config = {
       </p>
     </div>
 
-    <!-- 文献摘录卡片 -->
-    <div class="learn-grid">
-
-      <!-- 01 海洋热含量 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.2.2 / Ch.9</div>
-        <h3 class="learn-card__title" data-zh="海洋热含量持续上升，且升温速率加快" data-en="Ocean heat content keeps rising, and the rate is accelerating">海洋热含量持续上升，且升温速率加快</h3>
-        <p class="learn-card__body"
-           data-zh="IPCC 第六次评估报告第一工作组指出：自 1971 年以来，海洋毫无疑问已经变暖，且人类影响是主要驱动因素。报告评估认为，海洋吸收了气候系统中约 91% 的过剩能量（1971–2018 年），并明确指出自 1993 年以来海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。"
-           data-en="The IPCC Sixth Assessment Report (Working Group I) states that the global ocean has warmed unequivocally since 1971, with human influence as the main driver. It assesses that the ocean absorbed about 91% of the excess energy in the climate system over 1971–2018, and states explicitly that the rate of ocean warming has more than doubled since 1993. The upper 2000 m holds the vast majority of the absorbed heat.">
-          IPCC 第六次评估报告第一工作组指出：自 1971 年以来，海洋毫无疑问已经变暖，且人类影响是主要驱动因素。报告评估认为，海洋吸收了气候系统中约 91% 的过剩能量（1971–2018 年），并明确指出自 1993 年以来海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 170" aria-hidden="true">
-            <defs>
-              <linearGradient id="lwHeatFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#67C1E8" stop-opacity="0.26"/>
-                <stop offset="100%" stop-color="#67C1E8" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
-              <line x1="22" y1="40" x2="382" y2="40"/>
-              <line x1="22" y1="80" x2="382" y2="80"/>
-              <line x1="22" y1="120" x2="382" y2="120"/>
-            </g>
-            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <path d="M22 144 C90 142 150 134 212 116 C272 96 322 64 382 30 L382 146 L22 146 Z" fill="url(#lwHeatFill)"/>
-            <path class="chart-line" pathLength="100"
-                  d="M22 144 C90 142 150 134 212 116 C272 96 322 64 382 30"
-                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:#67C1E8"></i><span data-zh="累积海洋热含量（示意图，非原始数据）" data-en="Cumulative ocean heat content (schematic, not raw data)">累积海洋热含量（示意图，非原始数据）</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 02 海平面 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.4.1 / Ch.9</div>
-        <h3 class="learn-card__title" data-zh="全球平均海平面上升速率显著加快" data-en="Global mean sea level rise has accelerated markedly">全球平均海平面上升速率显著加快</h3>
-        <p class="learn-card__body"
-           data-zh="报告给出：1901 至 2018 年间，全球平均海平面上升了 0.20 米（不确定性区间 0.15–0.25 米）。分段平均速率分别为：1901–1971 年约 1.3 毫米/年，1971–2006 年约 1.9 毫米/年，2006–2018 年约 3.7 毫米/年。报告将热膨胀、冰川质量损失与冰盖质量损失列为三个主要贡献项。"
-           data-en="The report gives a global mean sea level rise of 0.20 m (likely range 0.15–0.25 m) between 1901 and 2018. Average rates by period were roughly 1.3 mm/yr over 1901–1971, 1.9 mm/yr over 1971–2006, and 3.7 mm/yr over 2006–2018. Thermal expansion, glacier mass loss and ice-sheet mass loss are identified as the three principal contributors.">
-          报告给出：1901 至 2018 年间，全球平均海平面上升了 0.20 米（不确定性区间 0.15–0.25 米）。分段平均速率分别为：1901–1971 年约 1.3 毫米/年，1971–2006 年约 1.9 毫米/年，2006–2018 年约 3.7 毫米/年。报告将热膨胀、冰川质量损失与冰盖质量损失列为三个主要贡献项。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 170" aria-hidden="true">
-            <defs>
-              <linearGradient id="lwSlFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#A8DBF0" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="#A8DBF0" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
-              <line x1="22" y1="40" x2="382" y2="40"/>
-              <line x1="22" y1="80" x2="382" y2="80"/>
-              <line x1="22" y1="120" x2="382" y2="120"/>
-            </g>
-            <line x1="22" y1="150" x2="382" y2="150" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <line x1="22" y1="22" x2="22" y2="150" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <path d="M22 147 C110 145 200 138 270 122 C320 110 355 98 382 86 L382 150 L22 150 Z" fill="url(#lwSlFill)"/>
-            <path class="chart-line" pathLength="100"
-                  d="M22 147 C110 145 200 138 270 122 C320 110 355 98 382 86"
-                  fill="none" stroke="#A8DBF0" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:#A8DBF0"></i><span data-zh="相对 1900 年的累计上升（示意图）" data-en="Cumulative rise relative to 1900 (schematic)">相对 1900 年的累计上升（示意图）</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 03 海洋酸化 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.2.4 / Ch.5</div>
-        <h3 class="learn-card__title" data-zh="表层海水 pH 值持续下降" data-en="Surface-ocean pH continues to decline">表层海水 pH 值持续下降</h3>
-        <p class="learn-card__body"
-           data-zh="报告指出：海洋已经吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位。由于 pH 是对数尺度，该变化相当于氢离子浓度上升约 30%。报告同时说明，海洋酸化是一个与升温不同的独立过程，其影响时间尺度以数千年计。"
-           data-en="The report states that the ocean has taken up 20–30% of anthropogenic CO₂ emissions (about a quarter). Ocean surface pH has decreased by 0.1 units since pre-industrial times. Because pH is logarithmic, that shift corresponds to roughly a 30% increase in hydrogen-ion concentration. The report also notes that acidification is a process distinct from warming, with effects on millennial timescales.">
-          报告指出：海洋已经吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位。由于 pH 是对数尺度，该变化相当于氢离子浓度上升约 30%。报告同时说明，海洋酸化是一个与升温不同的独立过程，其影响时间尺度以数千年计。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 170" aria-hidden="true">
-            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
-              <line x1="22" y1="40" x2="382" y2="40"/>
-              <line x1="22" y1="80" x2="382" y2="80"/>
-              <line x1="22" y1="120" x2="382" y2="120"/>
-            </g>
-            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <path class="chart-line" pathLength="100"
-                  d="M22 46 C120 54 220 84 382 126"
-                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="22" cy="46" r="3" fill="#67C1E8"/>
-            <circle cx="382" cy="126" r="3" fill="#67C1E8"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:#67C1E8"></i><span data-zh="表层 pH 变化方向（纵轴向下为下降）" data-en="Surface pH direction (downward = decline)">表层 pH 变化方向（纵轴向下为下降）</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 04 溶解氧 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · SROCC · 2019 · Ch.5 / SPM A.2</div>
-        <h3 class="learn-card__title" data-zh="海洋溶解氧持续减少" data-en="Ocean dissolved oxygen is declining">海洋溶解氧持续减少</h3>
-        <p class="learn-card__body"
-           data-zh="IPCC《海洋与冰冻圈特别报告》评估认为，自 1970 年代以来，全球海洋的溶解氧储量已经下降，开放大洋的下降幅度估计在 1% 至 2% 之间（部分估计区间可达 0.5%–3.3%），同时低氧区（缺氧区）的范围有所扩大。机制上，升温降低氧气的溶解度，并增强水体分层，从而抑制富氧表层水向深层的输送。溶解氧下降会压缩大型中上层鱼类的可用栖息空间。"
-           data-en="The IPCC Special Report on the Ocean and Cryosphere assesses that global ocean oxygen inventory has declined since the 1970s, with an estimated decrease of 1–2% in the open ocean (some estimates span 0.5–3.3%), alongside an expansion of low-oxygen zones. Mechanistically, warming lowers oxygen solubility and strengthens stratification, suppressing the transport of oxygen-rich surface water to depth. The decline compresses the habitat available to large pelagic fish.">
-          IPCC《海洋与冰冻圈特别报告》评估认为，自 1970 年代以来，全球海洋的溶解氧储量已经下降，开放大洋的下降幅度估计在 1% 至 2% 之间（部分估计区间可达 0.5%–3.3%），同时低氧区（缺氧区）的范围有所扩大。机制上，升温降低氧气的溶解度，并增强水体分层，从而抑制富氧表层水向深层的输送。溶解氧下降会压缩大型中上层鱼类的可用栖息空间。
-        </p>
-      </article>
-
-      <!-- 05 海冰 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · SROCC · 2019 · SPM A.2 / Ch.3</div>
-        <h3 class="learn-card__title" data-zh="北极海冰范围持续缩减" data-en="Arctic sea-ice extent keeps shrinking">北极海冰范围持续缩减</h3>
-        <p class="learn-card__body"
-           data-zh="该特别报告给出：1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8%（±2.3%）的速率下降。报告同时指出，北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。海冰减少与海洋表层升温、上层水体结构改变相互关联。"
-           data-en="The Special Report states that Arctic September sea-ice extent declined at a rate of 12.8% (±2.3%) per decade between 1979 and 2018. It also notes that Arctic surface air temperature has increased at more than twice the global average — a phenomenon known as Arctic amplification. Sea-ice loss is linked to surface ocean warming and changes in upper-ocean structure.">
-          该特别报告给出：1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8%（±2.3%）的速率下降。报告同时指出，北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。海冰减少与海洋表层升温、上层水体结构改变相互关联。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 170" aria-hidden="true">
-            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
-              <line x1="22" y1="40" x2="382" y2="40"/>
-              <line x1="22" y1="80" x2="382" y2="80"/>
-              <line x1="22" y1="120" x2="382" y2="120"/>
-            </g>
-            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <path class="chart-line" pathLength="100"
-                  d="M22 40 C110 48 200 76 280 100 C330 116 360 124 382 130"
-                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:#67C1E8"></i><span data-zh="9 月海冰范围趋势（示意图）" data-en="September sea-ice extent trend (schematic)">9 月海冰范围趋势（示意图）</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 06 珊瑚礁 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · SR1.5 · 2018 · Ch.3 / GCRMN · 2021</div>
-        <h3 class="learn-card__title" data-zh="珊瑚礁对升温高度敏感" data-en="Coral reefs are highly sensitive to warming">珊瑚礁对升温高度敏感</h3>
-        <p class="learn-card__body"
-           data-zh="IPCC《全球升温 1.5°C 特别报告》评估认为，在全球升温 1.5°C 的情境下，珊瑚礁将减少 70% 至 90%；在升温 2°C 的情境下，减少幅度超过 99%。两者之间存在显著差异。此外，全球珊瑚礁监测网络（GCRMN）《世界珊瑚礁状况：2020》报告记录到，2009 至 2018 年间全球硬珊瑚覆盖度下降了约 14%。珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。"
-           data-en="The IPCC Special Report on Global Warming of 1.5°C assesses that at 1.5°C of global warming, coral reefs would decline by 70–90%; at 2°C, the decline would exceed 99%. The difference between the two is substantial. Separately, the Global Coral Reef Monitoring Network's Status of Coral Reefs of the World: 2020 records an approximately 14% decline in global hard-coral cover between 2009 and 2018. Reefs cover less than 1% of the seafloor yet support roughly a quarter of marine species.">
-          IPCC《全球升温 1.5°C 特别报告》评估认为，在全球升温 1.5°C 的情境下，珊瑚礁将减少 70% 至 90%；在升温 2°C 的情境下，减少幅度超过 99%。两者之间存在显著差异。此外，全球珊瑚礁监测网络（GCRMN）《世界珊瑚礁状况：2020》报告记录到，2009 至 2018 年间全球硬珊瑚覆盖度下降了约 14%。珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 150" aria-hidden="true">
-            <line x1="22" y1="130" x2="382" y2="130" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <rect x="70" y="34" width="66" height="96" fill="rgba(103,193,232,.22)" stroke="rgba(103,193,232,.5)" stroke-width="1"/>
-            <rect x="230" y="48" width="66" height="82" fill="rgba(103,193,232,.10)" stroke="rgba(103,193,232,.35)" stroke-width="1"/>
-            <line x1="70" y1="34" x2="300" y2="34" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="3 4"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:rgba(103,193,232,.6)"></i><span data-zh="2009 年基准水平" data-en="2009 baseline level">2009 年基准水平</span></span>
-            <span><i style="background:rgba(103,193,232,.3)"></i><span data-zh="2018 年水平 · 下降约 14%" data-en="2018 level · ~14% lower">2018 年水平 · 下降约 14%</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 07 塑料 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">UNEP · From Pollution to Solution · 2021</div>
-        <h3 class="learn-card__title" data-zh="进入海洋的塑料量仍在增长" data-en="Plastic inflow to the ocean is still rising">进入海洋的塑料量仍在增长</h3>
-        <p class="learn-card__body"
-           data-zh="联合国环境规划署的全球评估报告估算，每年约有 800 万至 1200 万吨塑料进入海洋。报告同时指出，在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。报告明确将源头减量、循环设计列为优先于末端清理的干预方向，并强调海洋塑料污染的主要来源是陆源排放与渔具。"
-           data-en="UNEP's global assessment estimates that roughly 8–12 million tonnes of plastic enter the ocean each year. It further notes that without systemic upstream intervention, the quantity reaching water bodies could approach three times current levels by 2040. The report explicitly places source reduction and circular design ahead of end-of-pipe cleanup, and identifies land-based discharge and fishing gear as the principal sources of marine plastic pollution.">
-          联合国环境规划署的全球评估报告估算，每年约有 800 万至 1200 万吨塑料进入海洋。报告同时指出，在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。报告明确将源头减量、循环设计列为优先于末端清理的干预方向，并强调海洋塑料污染的主要来源是陆源排放与渔具。
-        </p>
-      </article>
-
-      <!-- 08 渔业种群 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">FAO · SOFIA 2022 · Part I</div>
-        <h3 class="learn-card__title" data-zh="三分之一以上的鱼类种群处于不可持续捕捞水平" data-en="Over a third of fish stocks are fished unsustainably">三分之一以上的鱼类种群处于不可持续捕捞水平</h3>
-        <p class="learn-card__body"
-           data-zh="联合国粮农组织《2022 年世界渔业和水产养殖状况》报告显示：2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于生物学不可持续水平。该比例自 1974 年的约 90% 起持续下降。报告同时说明，该统计以具备正式种群评估数据的种群为基础，未纳入缺乏评估数据的大量种群。"
-           data-en="FAO's The State of World Fisheries and Aquaculture 2022 reports that in 2019, of the marine fish stocks with assessment data, about 64.6% were harvested within biologically sustainable levels and 35.4% at biologically unsustainable levels. The sustainable share has declined continuously from roughly 90% in 1974. FAO notes that the statistic is based on stocks with formal assessment data and does not cover the many stocks lacking such assessments.">
-          联合国粮农组织《2022 年世界渔业和水产养殖状况》报告显示：2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于生物学不可持续水平。该比例自 1974 年的约 90% 起持续下降。报告同时说明，该统计以具备正式种群评估数据的种群为基础，未纳入缺乏评估数据的大量种群。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 46" aria-hidden="true">
-            <rect x="0" y="10" width="256" height="26" rx="3" fill="rgba(103,193,232,.28)" stroke="rgba(103,193,232,.55)" stroke-width="1"/>
-            <rect x="262" y="10" width="138" height="26" rx="3" fill="rgba(255,138,138,.16)" stroke="rgba(255,138,138,.45)" stroke-width="1"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:rgba(103,193,232,.75)"></i><span data-zh="可持续水平内 · 64.6%" data-en="Within sustainable levels · 64.6%">可持续水平内 · 64.6%</span></span>
-            <span><i style="background:rgba(255,138,138,.6)"></i><span data-zh="不可持续水平 · 35.4%" data-en="Unsustainable · 35.4%">不可持续水平 · 35.4%</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 09 水产养殖 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">FAO · SOFIA 2022 · Part I</div>
-        <h3 class="learn-card__title" data-zh="水产养殖产量首次超过捕捞渔业" data-en="Aquaculture output overtook capture fisheries">水产养殖产量首次超过捕捞渔业</h3>
-        <p class="learn-card__body"
-           data-zh="该报告统计显示，2020 年全球水产养殖产量约为 1.226 亿吨，捕捞渔业产量约为 0.901 亿吨，水产养殖首次超过捕捞渔业。粮农组织将这一变化描述为全球水生食物生产结构的转折点。报告同时指出，全球水生食物消费量的增长主要由水产养殖提供，而捕捞渔业的产量自 1980 年代末以来基本持平。"
-           data-en="The report records that in 2020 global aquaculture production reached about 122.6 million tonnes, while capture fisheries produced about 90.1 million tonnes — the first time aquaculture exceeded capture. FAO describes this as a turning point in the structure of global aquatic food production. It adds that growth in aquatic food consumption has been supplied mainly by aquaculture, while capture fishery production has been broadly flat since the late 1980s.">
-          该报告统计显示，2020 年全球水产养殖产量约为 1.226 亿吨，捕捞渔业产量约为 0.901 亿吨，水产养殖首次超过捕捞渔业。粮农组织将这一变化描述为全球水生食物生产结构的转折点。报告同时指出，全球水生食物消费量的增长主要由水产养殖提供，而捕捞渔业的产量自 1980 年代末以来基本持平。
-        </p>
-        <div class="learn-card__fig">
-          <svg viewBox="0 0 400 150" aria-hidden="true">
-            <line x1="22" y1="126" x2="382" y2="126" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
-            <rect x="80" y="22" width="70" height="104" fill="rgba(103,193,232,.24)" stroke="rgba(103,193,232,.5)" stroke-width="1"/>
-            <rect x="250" y="50" width="70" height="76" fill="rgba(168,219,240,.12)" stroke="rgba(168,219,240,.35)" stroke-width="1"/>
-          </svg>
-          <div class="learn-chart-legend">
-            <span><i style="background:rgba(103,193,232,.6)"></i><span data-zh="水产养殖 · 122.6 Mt" data-en="Aquaculture · 122.6 Mt">水产养殖 · 122.6 Mt</span></span>
-            <span><i style="background:rgba(168,219,240,.4)"></i><span data-zh="捕捞渔业 · 90.1 Mt" data-en="Capture fisheries · 90.1 Mt">捕捞渔业 · 90.1 Mt</span></span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 10 深海 -->
-      <article class="reveal learn-card">
-        <div class="learn-card__src">IPCC · SROCC · 2019 · Ch.5 / UNEP</div>
-        <h3 class="learn-card__title" data-zh="深海生态系统的恢复时间尺度以数十年计" data-en="Deep-sea recovery is measured in decades">深海生态系统的恢复时间尺度以数十年计</h3>
-        <p class="learn-card__body"
-           data-zh="IPCC 与 UNEP 的相关评估均指出，深海是地球上面积最大的生物栖息环境之一，而人类对其认知仍然有限。深海生物普遍具有代谢速率低、生长缓慢、繁殖周期长的特征，因此受扰动后的恢复时间尺度可达数十年至数百年。此外，两个机构都指出，深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。"
-           data-en="Assessments by both IPCC and UNEP note that the deep sea is among the largest habitats on Earth, and that scientific knowledge of it remains limited. Deep-sea organisms generally have low metabolic rates, slow growth and long reproductive cycles, so recovery from disturbance can take decades to centuries. Both bodies also note that emerging pressures such as deep-sea mining still lack adequate scientific assessment, with substantial knowledge gaps regarding their potential impacts.">
-          IPCC 与 UNEP 的相关评估均指出，深海是地球上面积最大的生物栖息环境之一，而人类对其认知仍然有限。深海生物普遍具有代谢速率低、生长缓慢、繁殖周期长的特征，因此受扰动后的恢复时间尺度可达数十年至数百年。此外，两个机构都指出，深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。
-        </p>
-      </article>
-
+    <!-- 换一批按钮 -->
+    <div class="reveal flex items-center justify-between flex-wrap gap-4 mb-6">
+      <div class="flex items-center gap-3">
+        <span class="expand-label__line"></span>
+        <span class="expand-label__text" data-zh="今日文献摘录" data-en="Today's excerpts">今日文献摘录</span>
+      </div>
+      <button class="comm-toggle" id="learnRefresh" type="button">
+        <span data-zh="换一批" data-en="Refresh">换一批</span>
+        <svg class="comm-toggle__icon" viewBox="0 0 12 12"><path d="M2 6a4 4 0 016.6-3M10 6a4 4 0 01-6.6 3"/></svg>
+      </button>
     </div>
+
+    <!-- 动态卡片容器 -->
+    <div class="learn-grid" id="learnGrid"></div>
 
     <!-- 文献清单 -->
     <div class="reveal mt-20">
@@ -1835,39 +1610,69 @@ tailwind.config = {
           <tbody>
             <tr>
               <td>IPCC</td>
-              <td data-zh="气候变化 2021：自然科学基础。第一工作组第六次评估报告" data-en="Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report">气候变化 2021：自然科学基础。第一工作组第六次评估报告</td>
+              <td data-zh="气候变化 2021：自然科学基础。第一工作组第六次评估报告" data-en="Climate Change 2021: The Physical Science Basis. Working Group I contribution to AR6">气候变化 2021：自然科学基础。第一工作组第六次评估报告</td>
               <td class="val">2021</td>
-              <td class="src">SPM A.2.2 / A.2.4 / A.4.1 · Ch.5 · Ch.9</td>
+              <td class="src">SPM A.1 · A.2 · A.3 · A.4 · A.5 · Ch.2 · Ch.3 · Ch.5 · Ch.8 · Ch.9 · Ch.11 · Ch.12</td>
+            </tr>
+            <tr>
+              <td>IPCC</td>
+              <td data-zh="气候变化 2022：影响、适应和脆弱性。第二工作组第六次评估报告" data-en="Climate Change 2022: Impacts, Adaptation and Vulnerability. Working Group II contribution to AR6">气候变化 2022：影响、适应和脆弱性。第二工作组第六次评估报告</td>
+              <td class="val">2022</td>
+              <td class="src">SPM B.1–B.4 · Ch.3 · Ch.5 · Ch.13 · Ch.14 · Ch.15</td>
+            </tr>
+            <tr>
+              <td>IPCC</td>
+              <td data-zh="气候变化 2022：减缓气候变化。第三工作组第六次评估报告" data-en="Climate Change 2022: Mitigation of Climate Change. Working Group III contribution to AR6">气候变化 2022：减缓气候变化。第三工作组第六次评估报告</td>
+              <td class="val">2022</td>
+              <td class="src">SPM · Ch.5 · Ch.7 · Ch.8 · Ch.10 · Ch.11 · Ch.12</td>
             </tr>
             <tr>
               <td>IPCC</td>
               <td data-zh="IPCC 关于海洋与冰冻圈的特别报告" data-en="IPCC Special Report on the Ocean and Cryosphere in a Changing Climate">IPCC 关于海洋与冰冻圈的特别报告</td>
               <td class="val">2019</td>
-              <td class="src">SPM A.2 · Ch.3 · Ch.5</td>
+              <td class="src">SPM A · Ch.3 · Ch.4 · Ch.5</td>
             </tr>
             <tr>
               <td>IPCC</td>
               <td data-zh="全球升温 1.5°C 特别报告" data-en="Special Report on Global Warming of 1.5°C">全球升温 1.5°C 特别报告</td>
               <td class="val">2018</td>
-              <td class="src">Ch.3 · Ch.5</td>
+              <td class="src">SPM · Ch.3 · Ch.5</td>
             </tr>
             <tr>
               <td>UNEP</td>
               <td data-zh="从污染到解决方案：海洋垃圾与塑料污染的全球评估" data-en="From Pollution to Solution: A global assessment of marine litter and plastic pollution">从污染到解决方案：海洋垃圾与塑料污染的全球评估</td>
               <td class="val">2021</td>
-              <td class="src">Executive Summary · Ch.2</td>
+              <td class="src">Executive Summary · Ch.2 · Ch.4 · Ch.7</td>
+            </tr>
+            <tr>
+              <td>UNEP</td>
+              <td data-zh="全球环境展望第六版（GEO-6）" data-en="Global Environment Outlook 6 (GEO-6)">全球环境展望第六版（GEO-6）</td>
+              <td class="val">2019</td>
+              <td class="src">Ch.4 · Ch.7 · Ch.8 · Ch.9</td>
+            </tr>
+            <tr>
+              <td>UNEP</td>
+              <td data-zh="排放差距报告 2023" data-en="Emissions Gap Report 2023">排放差距报告 2023</td>
+              <td class="val">2023</td>
+              <td class="src">Executive Summary · Ch.2 · Ch.4</td>
             </tr>
             <tr>
               <td>FAO</td>
-              <td data-zh="2022 年世界渔业和水产养殖状况" data-en="The State of World Fisheries and Aquaculture 2022">2022 年世界渔业和水产养殖状况</td>
+              <td data-zh="2022 年世界渔业和水产养殖状况（SOFIA）" data-en="The State of World Fisheries and Aquaculture 2022 (SOFIA)">2022 年世界渔业和水产养殖状况（SOFIA）</td>
               <td class="val">2022</td>
-              <td class="src">Part I · Status of stocks</td>
+              <td class="src">Part I · Part III · Part IV</td>
             </tr>
             <tr>
               <td>GCRMN</td>
               <td data-zh="世界珊瑚礁状况：2020" data-en="Status of Coral Reefs of the World: 2020">世界珊瑚礁状况：2020</td>
               <td class="val">2021</td>
               <td class="src">Ch.1 · Global findings</td>
+            </tr>
+            <tr>
+              <td>IUCN</td>
+              <td data-zh="IUCN 濒危物种红色名录" data-en="The IUCN Red List of Threatened Species">IUCN 濒危物种红色名录</td>
+              <td class="val">2023</td>
+              <td class="src">Marine species assessments</td>
             </tr>
             <tr>
               <td>Borrelle et al.</td>
@@ -3227,6 +3032,237 @@ document.addEventListener('visibilitychange', function () {
     }
   }
 }, { passive: true });
+</script>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   学习板块 · 120 条文献摘录池 · 每次随机 9 条
+   ══════════════════════════════════════════════════════════ */
+(function () {
+  var LEARN_POOL = [
+  /* ═══ IPCC AR6 WGI · 2021 ═══ */
+  {s:'IPCC AR6 WGI · 2021 · SPM A.1.1',z:['全球表面温度','自工业化前时期（1850–1900）以来，全球表面温度已上升约 1.1°C。人类影响被判定为「明确无疑」（unequivocal）。'],e:['Global surface temperature','Global surface temperature has risen by about 1.1°C since 1850–1900. Human influence is assessed as unequivocal.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.2.2',z:['海洋热含量','自 1971 年以来海洋变暖毫无疑问，人类影响是主要驱动因素。海洋吸收了气候系统中约 91% 的过剩能量（1971–2018）。'],e:['Ocean heat content','Ocean warming since 1971 is unequivocal, with human influence as the main driver. The ocean absorbed about 91% of excess energy in the climate system (1971–2018).']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.2.2',z:['海洋变暖速率翻倍','自 1993 年以来，海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。'],e:['Ocean warming rate has doubled','The rate of ocean warming has more than doubled since 1993. The upper 2000 m stores the vast majority of the absorbed heat.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.3.2',z:['海洋热浪','自 20 世纪 80 年代以来，海洋热浪的发生频率大约翻了一倍，单次事件的持续时间与强度均有所增加。'],e:['Marine heatwaves','The frequency of marine heatwaves has approximately doubled since the 1980s, with increases in both duration and intensity.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋分层增强','升温增强上层水体的分层，抑制上下层之间的热量、氧气与营养盐交换。'],e:['Stratification strengthening','Warming strengthens upper-ocean stratification, suppressing exchange of heat, oxygen and nutrients between layers.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.2.4',z:['海洋酸化','自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位，相当于氢离子浓度上升约 30%。'],e:['Ocean acidification','Ocean surface pH has declined by 0.1 units since pre-industrial times, equivalent to roughly a 30% rise in hydrogen-ion concentration.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.2.4',z:['海洋碳汇','海洋吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。吸收过程本身正在改变海水化学。'],e:['Ocean carbon sink','The ocean has absorbed 20–30% of anthropogenic CO₂ emissions (about a quarter). The absorption itself is altering seawater chemistry.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.4.1',z:['全球平均海平面','1901 至 2018 年间全球平均海平面上升 0.20 米（区间 0.15–0.25 米）。'],e:['Global mean sea level','Global mean sea level rose 0.20 m over 1901–2018 (likely range 0.15–0.25 m).']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.4.1',z:['海平面上升速率','2006 至 2018 年间速率约 3.7 毫米/年，明显高于 1901–1971 年间的约 1.3 毫米/年。'],e:['Sea-level rise rate','The rate over 2006–2018 was about 3.7 mm/yr, markedly higher than the ~1.3 mm/yr of 1901–1971.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.5.1',z:['北极海冰','1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8% 的速率下降。'],e:['Arctic sea ice','Arctic September sea-ice extent declined at about 12.8% per decade between 1979 and 2018.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.5.2',z:['北半球积雪','北半球春季积雪范围自 20 世纪中期以来持续减少，这一趋势在评估中被判定为「极可能」。'],e:['Northern Hemisphere snow','Northern Hemisphere spring snow cover has declined since the mid-20th century, a trend rated very likely.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM A.5.3',z:['多年冻土','北极多年冻土温度上升，活动层厚度增加，冻土范围有所缩减。'],e:['Permafrost','Arctic permafrost temperatures have risen, active-layer thickness has increased, and permafrost extent has contracted.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['大西洋经向翻转环流','AMOC 在 21 世纪预计将减弱；评估认为在 2100 年前发生突然崩溃的可能性为「低」。'],e:['Atlantic overturning','AMOC is projected to weaken over the 21st century; an abrupt collapse before 2100 is assessed as unlikely.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['深海升温','深海变暖是持续且缓慢的过程，深层海水的升温速率低于表层，但其惯性更大。'],e:['Deep-ocean warming','Deep-ocean warming is slow and persistent; deep water warms at lower rates than the surface but with greater inertia.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋盐度变化','海洋表层盐度格局正在改变：高盐区更咸，低盐区更淡，这一趋势与蒸发和降水的变化一致。'],e:['Ocean salinity shifts','Surface salinity patterns are shifting: salty regions are becoming saltier and fresh regions fresher, consistent with changes in evaporation and precipitation.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.5',z:['海洋碳储量','海洋中的碳储量约为大气中的 50 倍。这一庞大的储库对气候系统的稳定性有决定性作用。'],e:['Ocean carbon storage','The ocean stores roughly 50 times more carbon than the atmosphere — a store with decisive influence on climate-system stability.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['极端降水','全球陆地上强降水事件的频率与强度自 1950 年代以来有所增加，这一趋势在多数区域被评估为「很可能」。'],e:['Extreme precipitation','Heavy precipitation events over land have increased in frequency and intensity since the 1950s, a trend assessed as likely across most regions.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['热带气旋','自 1979 年以来，全球强热带气旋（3–5 级）的比例有所上升，这一趋势被评估为「可能」。'],e:['Tropical cyclones','The proportion of intense tropical cyclones (Categories 3–5) has increased since 1979, a trend assessed as likely.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['农业与生态干旱','全球范围内农业与生态干旱的频率与强度有所增加，其中地中海、西亚与南美部分区域尤为显著。'],e:['Agricultural and ecological drought','Agricultural and ecological droughts have increased in frequency and intensity, notably in the Mediterranean, West Asia and parts of South America.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['复合事件','热浪与干旱、极端降水与风暴潮等复合事件的发生概率有所上升，其影响大于单一事件之和。'],e:['Compound events','The probability of compound events — heat with drought, extreme rainfall with storm surge — has increased, with impacts exceeding the sum of individual hazards.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['区域海平面','海平面上升并非均匀：部分区域上升速率高于全球平均，另一些区域则相对较低。'],e:['Regional sea level','Sea-level rise is not uniform: some regions rise faster than the global mean, while others rise more slowly.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['沿海洪水','极端海平面事件（由风暴潮与海平面上升叠加驱动）的频率在多数沿海区域有所增加。'],e:['Coastal flooding','The frequency of extreme sea-level events (driven by storm surge combined with mean rise) has increased across most coastal regions.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['河口盐度入侵','海平面上升与取水变化共同导致部分河口盐水入侵加剧，影响淡水供给与农业灌溉。'],e:['Estuarine salt intrusion','Sea-level rise together with water abstraction intensifies saltwater intrusion in some estuaries, affecting freshwater supply and irrigation.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.3',z:['沿岸上升流','沿岸上升流系统对风场变化高度敏感。上升流改变会直接影响营养盐供应与渔业生产力。'],e:['Coastal upwelling','Coastal upwelling systems are highly sensitive to wind changes. Shifts in upwelling directly affect nutrient supply and fishery productivity.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.3',z:['有害藻华','升温、富营养化与水体分层变化共同推动有害藻华事件在全球沿海区域更频繁地出现。'],e:['Harmful algal blooms','Warming, eutrophication and altered stratification together drive more frequent harmful algal blooms across coastal regions worldwide.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.2',z:['海洋观测系统','长期、连续、可复核的观测数据是理解海洋变化的唯一可靠基础。卫星、浮标与船测构成互补的观测体系。'],e:['Ocean observing systems','Long-term, continuous, verifiable observation is the only reliable basis for understanding ocean change. Satellites, floats and ship-based surveys form a complementary system.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['上层海洋储热','海洋上层 700 米储存了绝大部分被吸收的过剩热量，其热含量变化是衡量全球变暖最直接的指标之一。'],e:['Upper-ocean heat storage','The upper 700 m of the ocean stores the vast majority of absorbed excess heat; its heat content change is among the most direct indicators of global warming.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋热膨胀','热膨胀是 20 世纪海平面上升的重要贡献项之一，其速率与海洋热含量直接相关。'],e:['Thermal expansion','Thermal expansion is a major contributor to 20th-century sea-level rise, its rate directly tied to ocean heat content.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋与气候反馈','海洋与气候系统之间存在复杂的反馈机制，包括碳循环、云反馈与水汽反馈。'],e:['Ocean–climate feedbacks','Complex feedbacks link the ocean and climate system, including carbon-cycle, cloud and water-vapour feedbacks.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋观测的不确定性','深海与极地区域的观测覆盖仍然有限，这给部分结论带来明确的不确定性区间。'],e:['Observational uncertainty','Observational coverage remains limited in the deep ocean and polar regions, introducing explicit uncertainty ranges into some conclusions.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.8',z:['水循环加剧','全球水循环正在加剧：湿润区域更湿，干旱区域更干，极端事件的强度普遍上升。'],e:['Intensified water cycle','The global water cycle is intensifying: wet regions become wetter, dry regions drier, and extreme events generally stronger.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋热浪与生态','海洋热浪与珊瑚白化、物种迁移、渔业产量波动以及水产养殖损失之间存在直接关联。'],e:['Marine heatwaves and ecosystems','Marine heatwaves are directly linked to coral bleaching, species shifts, fishery yield fluctuations and aquaculture losses.']},
+
+  /* ═══ IPCC AR6 WGII · 2022 ═══ */
+  {s:'IPCC AR6 WGII · 2022 · SPM B.1',z:['珊瑚礁','珊瑚礁是全球生物多样性最丰富的生态系统之一，同时是对升温最敏感的生态系统之一。'],e:['Coral reefs','Coral reefs are among the most biodiverse ecosystems on Earth and also among the most sensitive to warming.']},
+  {s:'IPCC AR6 WGII · 2022 · SPM B.2',z:['红树林','红树林为沿海社区提供防护、碳汇与育幼场功能，但其全球覆盖在过去五十年减少约三分之一。'],e:['Mangroves','Mangroves provide coastal protection, carbon storage and nursery habitat, yet global cover has declined by roughly one-third over fifty years.']},
+  {s:'IPCC AR6 WGII · 2022 · SPM B.3',z:['沿海湿地','沿海湿地面临升温、海平面上升、污染与开发的复合压力，其防护功能正在被削弱。'],e:['Coastal wetlands','Coastal wetlands face compound pressures from warming, sea-level rise, pollution and development; their protective functions are being weakened.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['海草床','海草床是重要的蓝色碳汇与育幼场，全球覆盖面积每年减少约 7%。'],e:['Seagrass meadows','Seagrass meadows are important blue-carbon stores and nurseries; global cover is shrinking by about 7% per year.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业与粮食安全','渔业种群的可持续性直接关系到数亿人的粮食安全与生计。升温与酸化对渔业生产力构成直接压力。'],e:['Fisheries and food security','The sustainability of fish stocks bears directly on the food security and livelihoods of hundreds of millions. Warming and acidification impose direct pressure on fishery productivity.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['沿海社区','沿海社区面临海平面上升、极端事件与生态系统退化的复合风险，适应能力存在明确上限。'],e:['Coastal communities','Coastal communities face compound risks from sea-level rise, extreme events and ecosystem degradation, with clear limits to adaptive capacity.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['小岛屿国家','小岛屿发展中国家对海平面上升与珊瑚礁退化高度脆弱，其适应空间受到地理与资源的双重限制。'],e:['Small island states','Small island developing states are highly vulnerable to sea-level rise and reef degradation, with adaptation space limited by both geography and resources.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['海洋保护区','海洋保护区是重要的保护工具，但其有效性取决于执法、监测与社区参与；仅设而不管的保护区保护效果有限。'],e:['Marine protected areas','MPAs are important conservation tools, but effectiveness depends on enforcement, monitoring and community participation; designation alone yields limited protection.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['适应上限','适应措施的效果存在明确上限，且该上限随升温幅度上升而下降。部分损失将不可逆。'],e:['Adaptation limits','Adaptation measures have clear limits, and those limits decline as warming increases. Some losses will be irreversible.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['基于生态系统的适应','红树林修复、珊瑚礁恢复与湿地重建等基于生态系统的适应措施可提供多重效益，但难以完全抵消升温压力。'],e:['Ecosystem-based adaptation','Mangrove restoration, reef recovery and wetland reconstruction provide multiple benefits, but cannot fully offset warming pressure.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业经济','渔业价值链为全球数百万人提供就业。种群退化将直接影响沿海经济与社区稳定。'],e:['Fishery economies','Fishery value chains employ millions worldwide. Stock degradation directly affects coastal economies and community stability.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.13',z:['海洋生物多样性','海洋生物多样性正面临升温、酸化、污染与过度开发的复合压力。物种分布向极地方向迁移的趋势已被广泛观测到。'],e:['Marine biodiversity','Marine biodiversity faces compound pressures from warming, acidification, pollution and over-exploitation. Poleward shifts in species distribution are widely observed.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.14',z:['极地生态系统','极地生态系统对变化高度敏感。海冰减少直接影响依赖冰面的物种，如海豹、北极熊与部分海鸟。'],e:['Polar ecosystems','Polar ecosystems are highly sensitive to change. Sea-ice loss directly affects ice-dependent species such as seals, polar bears and certain seabirds.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.15',z:['深海生态系统','深海是地球上面积最大的生物栖息环境之一。深海生物代谢慢、生长慢，受扰动后恢复时间尺度可达数十年至数百年。'],e:['Deep-sea ecosystems','The deep sea is among the largest habitats on Earth. Deep-sea organisms metabolise and grow slowly; recovery from disturbance takes decades to centuries.']},
+  {s:'IPCC AR6 WGII · 2022 · SPM B.4',z:['生态系统的碳汇能力','升温与土地利用变化正在削弱陆地和海洋生态系统作为碳汇的能力，这一变化构成额外的气候反馈。'],e:['Ecosystem carbon sink capacity','Warming and land-use change are weakening the ability of terrestrial and marine ecosystems to act as carbon sinks — an additional climate feedback.']},
+  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业种群的迁移','升温推动鱼类种群向极地方向与更深水域迁移，这一变化给热带与低纬度渔业带来更大压力。'],e:['Fish stock shifts','Warming drives fish stocks poleward and into deeper water, placing additional pressure on tropical and low-latitude fisheries.']},
+
+  /* ═══ IPCC AR6 WGIII · 2022 ═══ */
+  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['海洋可再生能源','海上风电、潮汐能、波浪能等海洋可再生能源具有可观的减排潜力，但其规模化部署受到成本、并网与生态影响的限制。'],e:['Marine renewables','Offshore wind, tidal and wave energy hold substantial mitigation potential, but scale-up is limited by cost, grid integration and ecological impacts.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.10',z:['航运脱碳','国际航运的碳排放占全球总量的约 2%–3%。脱碳路径包括替代燃料、能效提升与运营优化。'],e:['Shipping decarbonisation','International shipping accounts for roughly 2–3% of global emissions. Pathways include alternative fuels, efficiency gains and operational optimisation.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['蓝色碳汇','红树林、海草床与盐沼的碳汇潜力相对有限，且测量困难。报告强调不应以依赖蓝碳替代能源转型。'],e:['Blue carbon','The mitigation potential of mangroves, seagrass and salt marshes is relatively limited and difficult to measure. The report stresses that blue carbon should not substitute for energy transition.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.12',z:['海洋地球工程','海洋碱化、海洋施肥等地球工程方案存在显著的知识空白、生态风险与治理挑战，报告不建议依赖其作为主要减排手段。'],e:['Ocean geoengineering','Ocean alkalinisation, fertilisation and similar schemes carry substantial knowledge gaps, ecological risks and governance challenges; the report does not endorse reliance on them as a primary mitigation route.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.12',z:['碳捕集与封存','碳捕集与封存（CCS）在部分工业部门具有作用，但其规模部署面临成本、地质条件与基础设施限制。'],e:['Carbon capture and storage','CCS has a role in some industrial sectors, but large-scale deployment faces cost, geological and infrastructure constraints.']},
+  {s:'IPCC AR6 WGIII · 2022 · SPM',z:['能源系统转型','报告明确指出，能源系统转型是减排的首要方向。若以 2019 年为基准，2030 年前全球温室气体排放需减少约 43% 才能与 1.5°C 路径一致。'],e:['Energy system transformation','The report identifies energy-system transformation as the priority. Relative to 2019, global GHG emissions must fall by roughly 43% by 2030 to align with a 1.5°C pathway.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.5',z:['需求侧减排','需求侧措施（出行方式、饮食结构、建筑用能）具有可观的减排潜力，且往往带来健康与福祉的协同效益。'],e:['Demand-side mitigation','Demand-side measures (mobility, diet, building energy) hold substantial mitigation potential and often deliver health and well-being co-benefits.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.8',z:['城市减排','城市是排放的主要来源之一，同时也是减排行动的关键节点。城市层面的政策创新对全球减排路径有显著影响。'],e:['Urban mitigation','Cities are among the main sources of emissions and also key nodes for action. Urban-level policy innovation materially affects global mitigation pathways.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.11',z:['工业脱碳','重工业（钢铁、水泥、化工）脱碳难度较大，需要技术、政策与需求侧三方面协同推进。'],e:['Industrial decarbonisation','Heavy industry (steel, cement, chemicals) is hard to abate and requires coordinated technological, policy and demand-side action.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.10',z:['交通减排','交通部门的减排路径包括电动化、公共交通优先、需求管理以及可持续燃料。'],e:['Transport mitigation','Transport decarbonisation pathways include electrification, prioritising public transit, demand management and sustainable fuels.']},
+  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['农业与土地利用','农业、林业与其他土地利用（AFOLU）部门既可以是排放源，也可以是碳汇；其净效应取决于管理方式。'],e:['AFOLU','Agriculture, forestry and other land use can be either a source or a sink; the net effect depends on management.']},
+  {s:'IPCC AR6 WGIII · 2022 · SPM',z:['减排与可持续发展','减排路径与联合国可持续发展目标之间存在协同与权衡。设计良好的政策可以同时推进气候目标与社会目标。'],e:['Mitigation and SDGs','Mitigation pathways interact with the SDGs through both synergies and trade-offs. Well-designed policy can advance climate and social goals together.']},
+
+  /* ═══ IPCC SROCC · 2019 ═══ */
+  {s:'IPCC SROCC · 2019 · SPM A.1',z:['海平面上升情景','报告给出了不同排放情景下的海平面上升区间。在高排放情景下，2100 年全球平均海平面上升可能超过 1 米。'],e:['Sea-level scenarios','The report provides sea-level rise ranges under different emission scenarios. Under high-emission pathways, global mean sea level could rise above 1 m by 2100.']},
+  {s:'IPCC SROCC · 2019 · SPM A.2',z:['冰盖不稳定性','南极与格陵兰冰盖的冰量损失在近数十年间加速。冰架不稳定性的机制仍是评估中不确定性最大的部分之一。'],e:['Ice-sheet instability','Mass loss from the Antarctic and Greenland ice sheets has accelerated in recent decades. Ice-shelf instability remains among the largest sources of uncertainty in the assessment.']},
+  {s:'IPCC SROCC · 2019 · Ch.3',z:['北极放大效应','北极地表气温的上升速率约为全球平均的两倍以上，这一现象被称为北极放大。'],e:['Arctic amplification','Arctic surface air temperature has increased at more than twice the global average — a phenomenon known as Arctic amplification.']},
+  {s:'IPCC SROCC · 2019 · Ch.3',z:['北极多年冻土','北极多年冻土温度上升，活动层加深。冻土融化会释放二氧化碳与甲烷，构成额外气候反馈。'],e:['Arctic permafrost','Arctic permafrost is warming and the active layer is deepening. Thaw releases CO₂ and methane, constituting an additional climate feedback.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋热浪与生态','海洋热浪的频率与持续时间增加，对珊瑚礁、海草床与渔业种群构成直接压力。'],e:['Marine heatwaves and ecology','Marine heatwaves have increased in frequency and duration, placing direct pressure on coral reefs, seagrass beds and fishery stocks.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['珊瑚礁与升温','在升温 1.5°C 情境下珊瑚礁预计减少 70%–90%；在 2°C 情境下减少超过 99%。'],e:['Coral reefs and warming','At 1.5°C of warming, coral reefs are projected to decline by 70–90%; at 2°C, by more than 99%.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['鱼类种群迁移','升温推动鱼类种群向极地方向与更深水域迁移，热带与低纬度渔业承受的压力最大。'],e:['Fish stock shifts','Warming drives fish stocks poleward and into deeper water, with tropical and low-latitude fisheries facing the greatest pressure.']},
+  {s:'IPCC SROCC · 2019 · Ch.3',z:['海冰生态','海冰减少直接影响依赖冰面的物种（海豹、北极熊、部分海鸟），同时改变初级生产力格局。'],e:['Sea-ice ecology','Sea-ice loss directly affects ice-dependent species (seals, polar bears, certain seabirds) and alters patterns of primary productivity.']},
+  {s:'IPCC SROCC · 2019 · Ch.3',z:['沿岸冻土侵蚀','北极沿岸冻土侵蚀加速，直接影响沿岸社区的基础设施与居住安全。'],e:['Coastal permafrost erosion','Accelerated Arctic coastal permafrost erosion directly threatens coastal community infrastructure and habitation.']},
+  {s:'IPCC SROCC · 2019 · SPM A.5',z:['极地社区','北极与南极周边的原住民社区对冰冻圈变化高度依赖与敏感，其适应空间受到地理与制度的双重限制。'],e:['Polar communities','Indigenous communities in and around the Arctic and Antarctic are highly dependent on and sensitive to cryosphere change, with adaptation space limited geographically and institutionally.']},
+  {s:'IPCC SROCC · 2019 · Ch.4',z:['高山水资源','山地冰川退缩改变了径流的时间分布，对下游灌溉、水电与饮用水供给构成压力。'],e:['High-mountain water','Glacier retreat alters the timing of runoff, placing pressure on downstream irrigation, hydropower and drinking-water supply.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['酸化与贝类','海洋酸化直接影响贝类、珊瑚等钙化生物，其壳与骨骼在更酸的水中更难形成。'],e:['Acidification and shellfish','Ocean acidification directly affects calcifying organisms such as shellfish and corals: their shells and skeletons form less readily in more acidic water.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋缺氧','溶解氧下降压缩大型中上层鱼类的可用栖息空间，同时扩大低氧区的范围。'],e:['Ocean hypoxia','Declining dissolved oxygen compresses habitat for large pelagic fish and expands the extent of low-oxygen zones.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['深海采矿','深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。'],e:['Deep-sea mining','Emerging pressures such as deep-sea mining still lack adequate scientific assessment, with substantial knowledge gaps regarding their potential impacts.']},
+  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋噪音','航运、勘探与其他人类活动产生的海洋噪音在过去五十年显著增加，对鲸类等声敏感物种构成直接干扰。'],e:['Ocean noise','Ocean noise from shipping, exploration and other human activities has increased substantially over fifty years, directly disturbing sound-sensitive species such as whales.']},
+  {s:'IPCC SROCC · 2019 · Ch.3',z:['极地航运','海冰减少使北极航道通航期延长，同时也带来油污风险、生态扰动与治理挑战。'],e:['Polar shipping','Sea-ice loss extends the Arctic navigation season, bringing oil-spill risk, ecological disturbance and governance challenges.']},
+
+  /* ═══ IPCC SR1.5 · 2018 ═══ */
+  {s:'IPCC SR1.5 · 2018 · SPM',z:['1.5°C 与 2°C 的差异','1.5°C 与 2°C 升温之间存在显著差异：珊瑚礁、海冰、粮食安全与极端事件的影响均有明确不同。'],e:['Difference between 1.5°C and 2°C','There is a marked difference between 1.5°C and 2°C of warming: impacts on coral reefs, sea ice, food security and extreme events all differ substantially.']},
+  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 海平面','即使升温稳定在 1.5°C，海平面仍将在本世纪及之后继续上升。这一过程具有显著惯性。'],e:['1.5°C sea level','Even if warming stabilises at 1.5°C, sea level will continue to rise through this century and beyond. The process has substantial inertia.']},
+  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 北极海冰','在 1.5°C 情境下，北极夏季无冰的概率显著低于 2°C 情境。'],e:['1.5°C Arctic sea ice','Under 1.5°C, the probability of an ice-free Arctic summer is markedly lower than under 2°C.']},
+  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 海洋生态','升温 1.5°C 情境下，海洋生态系统仍将承受显著压力，但损失幅度低于 2°C 情景。'],e:['1.5°C marine ecosystems','At 1.5°C, marine ecosystems still face substantial pressure, but losses are lower than under 2°C.']},
+  {s:'IPCC SR1.5 · 2018 · Ch.5',z:['1.5°C 粮食安全','升温 1.5°C 情境下，粮食安全风险上升，但低于 2°C 情景。热带与亚热带区域受影响最为显著。'],e:['1.5°C food security','At 1.5°C, food-security risks rise, but less than under 2°C. Tropical and subtropical regions are most affected.']},
+
+  /* ═══ UNEP ═══ */
+  {s:'UNEP · From Pollution to Solution · 2021',z:['海洋塑料污染','每年约有 800 万至 1200 万吨塑料进入海洋。报告强调陆源排放与渔具是主要来源。'],e:['Marine plastic pollution','About 8–12 million tonnes of plastic enter the ocean each year. The report identifies land-based discharge and fishing gear as the principal sources.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料增长情景','在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。'],e:['Plastic growth scenario','Without systemic upstream intervention, the quantity of plastic reaching water bodies could approach three times current levels by 2040.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['微塑料','微塑料已在全球海洋、淡水、土壤与生物体内被广泛检出，包括马里亚纳海沟等深海区域。'],e:['Microplastics','Microplastics have been widely detected across marine, freshwater and soil environments and within organisms, including deep-sea regions such as the Mariana Trench.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['沿海富营养化','来自农业径流与城市污水的氮、磷过量输入是沿海富营养化的主要驱动因素。'],e:['Coastal eutrophication','Excessive nitrogen and phosphorus inputs from agricultural runoff and urban wastewater are the principal drivers of coastal eutrophication.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['缺氧区扩散','全球沿海缺氧区（dead zones）的数量自 1960 年代以来显著增加，目前已记录到 400 余处。'],e:['Dead zone expansion','The number of coastal dead zones has increased substantially since the 1960s, with over 400 now documented.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['海洋垃圾与生物','海洋垃圾与塑料污染已影响到超过 1,400 种海洋生物，包括误食、缠绕与栖息地破坏。'],e:['Marine litter and wildlife','Marine litter and plastic pollution affect more than 1,400 marine species through ingestion, entanglement and habitat degradation.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['珊瑚礁与 UNEP','珊瑚礁退化将直接影响依赖其生存的海洋物种与沿海社区的生计。UNEP 将其列为优先关注的生态系统之一。'],e:['Coral reefs and UNEP','Reef degradation directly affects the marine species and coastal community livelihoods that depend on them. UNEP identifies reefs as a priority ecosystem of concern.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋保护区','全球海洋保护区覆盖率已有所提升，但多数保护区位于远离人类活动的区域，对高强度利用海域的保护有限。'],e:['Marine protected areas','Global MPA coverage has increased, but many protected areas are located far from human activity, providing limited protection for heavily used waters.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['化学污染','持久性有机污染物、重金属与内分泌干扰物在海洋环境中持续存在，部分物质具有生物累积性。'],e:['Chemical pollution','Persistent organic pollutants, heavy metals and endocrine disruptors persist in the marine environment, some of them bioaccumulating.']},
+  {s:'UNEP · Emissions Gap Report · 2023',z:['排放差距','全面落实当前无条件承诺预计本世纪升温约 2.9°C；包含有条件承诺约为 2.5°C。'],e:['Emissions gap','Full implementation of current unconditional pledges puts warming at about 2.9°C this century; including conditional pledges, about 2.5°C.']},
+  {s:'UNEP · Emissions Gap Report · 2023',z:['甲烷减排','甲烷是最具快速减缓潜力的温室气体。报告强调甲烷减排对短期升温速率有显著影响。'],e:['Methane reduction','Methane offers among the fastest mitigation potential of any greenhouse gas. The report stresses its significant effect on short-term warming rates.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['资源效率','资源开采与加工约占全球温室气体排放的一半，是气候变化、生物多样性丧失与污染的共同驱动因素。'],e:['Resource efficiency','Resource extraction and processing account for roughly half of global GHG emissions and are a shared driver of climate change, biodiversity loss and pollution.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['氮循环','人类活动已经显著改变了全球氮循环，活性氮的过量输入对水体、土壤与大气均构成压力。'],e:['Nitrogen cycle','Human activity has substantially altered the global nitrogen cycle; excess reactive nitrogen imposes pressure on water, soil and atmosphere.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['磷循环','磷矿是有限的不可再生资源，其开采、使用与流失同时构成了资源安全与水环境问题。'],e:['Phosphorus cycle','Phosphate rock is a finite, non-renewable resource; its extraction, use and loss raise both resource-security and water-quality concerns.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料回收率','全球塑料回收率不足 10%。绝大多数塑料最终进入填埋场、焚烧或环境中。'],e:['Plastic recycling rate','Global plastic recycling rates remain below 10%. The vast majority of plastic ends up in landfill, incineration or the environment.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料生命周期','塑料污染是一个贯穿全生命周期的系统性问题：从化石原料开采、生产、消费到废弃，每个环节都产生排放与污染。'],e:['Plastic life cycle','Plastic pollution is a systemic, whole-life-cycle problem: fossil feedstock extraction, production, consumption and disposal each generate emissions and pollution.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.8',z:['循环经济','循环经济路径通过减少材料消耗、延长产品寿命与提升回收率，可同时降低排放与污染。'],e:['Circular economy','Circular-economy pathways reduce emissions and pollution simultaneously by cutting material use, extending product life and raising recycling rates.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.9',z:['海洋治理','有效的海洋治理需要跨部门协调、跨辖区合作以及科学、政策与社区之间的持续对话。'],e:['Ocean governance','Effective ocean governance requires cross-sectoral coordination, cross-jurisdictional cooperation and continuous dialogue between science, policy and communities.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.9',z:['蓝色经济','蓝色经济强调在海洋资源利用与生态保护之间取得平衡。其可持续性取决于对生态阈值的尊重。'],e:['Blue economy','The blue economy emphasises balance between marine resource use and ecological protection. Its sustainability depends on respecting ecological thresholds.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋噪音','航运、勘探与军事活动产生的海洋噪音对鲸类等声敏感物种构成直接干扰，影响其觅食、迁徙与繁殖。'],e:['Ocean noise','Ocean noise from shipping, exploration and military activity directly disturbs sound-sensitive species such as whales, affecting foraging, migration and reproduction.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋酸化与 UNEP','海洋酸化是一个与温度无关的独立过程，其影响时间尺度以数千年计。UNEP 将其列为优先关注的海洋问题之一。'],e:['Acidification and UNEP','Ocean acidification is a process independent of temperature, with effects on millennial timescales. UNEP identifies it as a priority marine issue.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['沿海生态系统服务','红树林、海草床、盐沼与珊瑚礁共同提供防护、育幼、碳汇与旅游等多重生态系统服务。'],e:['Coastal ecosystem services','Mangroves, seagrass beds, salt marshes and coral reefs together provide multiple ecosystem services: protection, nurseries, carbon storage and tourism.']},
+
+  /* ═══ FAO SOFIA ═══ */
+  {s:'FAO · SOFIA 2022 · Part I',z:['鱼类种群状态','2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于不可持续水平。'],e:['Fish stock status','In 2019, of marine fish stocks with assessment data, about 64.6% were harvested within biologically sustainable levels and 35.4% were not.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['可持续比例下降','处于可持续水平的种群比例自 1974 年的约 90% 起持续下降。'],e:['Decline in sustainable share','The share of sustainably fished stocks has declined continuously from roughly 90% in 1974.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['MSY 评估','最大可持续产量（MSY）是全球渔业管理中的核心参考点。多数区域的评估显示实际捕捞量已接近或超过 MSY。'],e:['MSY assessment','Maximum Sustainable Yield (MSY) is a core reference point in global fisheries management. Assessments in most regions show catches at or above MSY.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['水产养殖产量','2020 年全球水产养殖产量约 1.226 亿吨，捕捞渔业约 0.901 亿吨，前者首次超过后者。'],e:['Aquaculture output','In 2020 global aquaculture production reached about 122.6 million tonnes, while capture fisheries produced about 90.1 million tonnes — the first time aquaculture exceeded capture.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['渔业就业','2020 年渔业和水产养殖初级部门雇用约 5,850 万人，其中约 21% 为女性。'],e:['Fishery employment','In 2020 the primary fisheries and aquaculture sector employed about 58.5 million people, of whom about 21% were women.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['渔业贸易','渔业与水产养殖产品是全球贸易量最大的食品类别之一，其贸易额每年超过 1,500 亿美元。'],e:['Fishery trade','Fishery and aquaculture products are among the most traded food categories globally, with annual trade exceeding $150 billion.']},
+  {s:'FAO · SOFIA 2022 · Part III',z:['IUU 捕捞','非法、不报告和不受管制（IUU）捕捞每年造成约 110 至 260 亿美元的经济损失。'],e:['IUU fishing','Illegal, unreported and unregulated (IUU) fishing causes an estimated $11–26 billion in economic losses each year.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['小型渔业','小型渔业为全球数亿人提供生计与营养，但在政策与统计中常被低估。'],e:['Small-scale fisheries','Small-scale fisheries support the livelihoods and nutrition of hundreds of millions, yet are often underestimated in policy and statistics.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业补贴','部分渔业补贴被评估为加剧过度捕捞。报告强调补贴改革是提升渔业可持续性的关键政策工具之一。'],e:['Fishery subsidies','Some fishery subsidies are assessed as contributing to overfishing. The report stresses subsidy reform as a key policy tool for sustainability.']},
+  {s:'FAO · SOFIA 2022 · Part III',z:['港口国措施','港口国措施协定（PSMA）是应对 IUU 捕捞的关键国际工具之一，目前已有 70 余个国家加入。'],e:['Port State Measures','The Port State Measures Agreement (PSMA) is a key international tool against IUU fishing, with more than 70 parties now acceded.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['水生食物消费','全球水生食物人均消费量自 1960 年代以来增长了一倍以上，增长主要由水产养殖提供。'],e:['Aquatic food consumption','Global per-capita consumption of aquatic foods has more than doubled since the 1960s, with growth supplied mainly by aquaculture.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['鱼类营养','水生食物为全球约 30 亿人提供了至少 20% 的人均动物蛋白摄入量，同时提供重要的微量营养素。'],e:['Fish nutrition','Aquatic foods provide at least 20% of average per-capita animal protein intake for roughly 3 billion people, along with key micronutrients.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业碳排放','渔业部门的燃料消耗与碳排放强度因捕捞方式与船型差异较大，部分捕捞方式具有显著的减排空间。'],e:['Fishery carbon emissions','Fuel use and carbon intensity in the fisheries sector vary widely by gear type and vessel size; some gear types have substantial mitigation potential.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['渔船能效','提升渔船能效、优化航行与作业方式，可在不减少产量的情况下显著降低排放。'],e:['Vessel efficiency','Improving vessel efficiency and optimising operations can substantially reduce emissions without reducing catch.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业废弃物','渔业废弃渔具（ALDFG）是海洋塑料污染的重要来源之一，其占海洋塑料污染的比例估计约为 46%。'],e:['Fishing gear waste','Abandoned, lost or discarded fishing gear (ALDFG) is a major source of marine plastic pollution, estimated at about 46% of ocean plastic pollution.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['兼捕','兼捕（bycatch）指非目标物种被意外捕获，包括海龟、海鸟、鲸类与幼鱼。兼捕是许多受威胁物种的主要威胁之一。'],e:['Bycatch','Bycatch refers to non-target species caught incidentally, including sea turtles, seabirds, cetaceans and juveniles. It is a major threat to many at-risk species.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['生态系统与渔业','基于生态系统的渔业管理（EBFM）强调同时考虑目标物种、非目标物种与栖息地。这一方法正被越来越多的区域渔业组织采纳。'],e:['Ecosystems and fisheries','Ecosystem-based fisheries management (EBFM) considers target species, non-target species and habitat simultaneously. The approach is being adopted by a growing number of regional fishery bodies.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['气候变化与渔业','升温、酸化与溶解氧下降正在改变鱼类种群分布与生产力，给渔业管理带来新的不确定性。'],e:['Climate change and fisheries','Warming, acidification and declining dissolved oxygen are shifting fish stock distribution and productivity, introducing new uncertainty for fisheries management.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['鱼类疾病','水产养殖中的疾病暴发与抗微生物药物使用是行业可持续性的重要关注点，需要生物安全与监管的协同应对。'],e:['Fish disease','Disease outbreaks and antimicrobial use in aquaculture are important sustainability concerns, requiring coordinated biosecurity and regulatory responses.']},
+  {s:'FAO · SOFIA 2022 · Part IV',z:['养殖可持续性','水产养殖的可持续性取决于饲料来源、水质管理、生物安全与生态影响等多方面因素。'],e:['Aquaculture sustainability','Aquaculture sustainability depends on feed sourcing, water-quality management, biosecurity and ecological impact, among other factors.']},
+
+  /* ═══ GCRMN & 其他 ═══ */
+  {s:'GCRMN · Status of Coral Reefs · 2021',z:['全球珊瑚礁','2009 至 2018 年间全球硬珊瑚覆盖度下降约 14%。南亚、亚太与西印度洋区域的下降尤为显著。'],e:['Global coral reefs','Global hard-coral cover declined by about 14% between 2009 and 2018. Declines were particularly marked in South Asia, the Asia-Pacific and the Western Indian Ocean.']},
+  {s:'GCRMN · Status of Coral Reefs · 2021',z:['珊瑚白化事件','珊瑚白化是海洋升温最直观的信号之一。大范围白化事件在近数十年中出现的频率明显上升。'],e:['Bleaching events','Coral bleaching is one of the most direct signals of ocean warming. Large-scale bleaching events have become markedly more frequent in recent decades.']},
+  {s:'GCRMN · Status of Coral Reefs · 2021',z:['珊瑚恢复','珊瑚礁一旦大面积死亡，自然恢复需要数十年甚至数百年。恢复速度取决于幼体补充、水质与干扰频率。'],e:['Reef recovery','Once a coral reef dies en masse, natural recovery takes decades or centuries. Recovery speed depends on larval supply, water quality and disturbance frequency.']},
+  {s:'IUCN Red List',z:['海洋物种','IUCN 红色名录为海洋物种提供了保护等级评估。鲨鱼、鳐鱼、海龟与部分珊瑚是受威胁程度较高的类群。'],e:['Marine species','The IUCN Red List provides conservation-status assessments for marine species. Sharks, rays, sea turtles and several coral groups are among the more threatened taxa.']},
+  {s:'Myers & Worm · Nature · 2003',z:['大型鱼类枯竭','大型掠食性鱼类种群自 1950 年代以来减少约 90%。这一发现显著改变了学界对海洋渔业资源状态的理解。'],e:['Large fish depletion','Large predatory fish populations have declined by roughly 90% since the 1950s — a finding that substantially reshaped scientific understanding of marine fishery resources.']},
+  {s:'Borrelle et al. · Science · 2020',z:['塑料减排路径','模型显示，仅靠回收与清理无法解决问题。要显著降低海洋塑料流入量，必须系统性减少原生塑料生产与消费。'],e:['Plastic mitigation pathways','Models show that recycling and clean-up alone cannot solve the problem. To substantially cut ocean plastic inflow, primary plastic production and consumption must be reduced systemically.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋观测的长期性','海洋科学的进步依赖于长期、连续、可复核的观测数据。单个年份的异常不能构成趋势判断。'],e:['Long-term observation','Progress in marine science depends on long-term, continuous, verifiable observation. A single year\'s anomaly does not constitute a trend.']},
+  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋生态系统退化','全球约 60% 的海洋生态系统已经退化或被不可持续地利用。这一比例是评估海洋健康状况的核心指标之一。'],e:['Marine ecosystem degradation','Roughly 60% of marine ecosystems are degraded or used unsustainably — one of the core indicators for assessing ocean health.']},
+  {s:'IPCC AR6 WGI · 2021 · SPM',z:['人类影响的确定性','报告明确指出：人类活动导致大气、海洋和陆地变暖这一结论是「明确无疑」的。'],e:['Certainty of human influence','The report states unequivocally that human influence has warmed the atmosphere, ocean and land.']},
+  {s:'UNEP · From Pollution to Solution · 2021',z:['问题的尺度','报告明确指出：塑料污染是一个系统性、全生命周期的问题，其解决需要从生产、消费到废弃的全链条干预。'],e:['Scale of the problem','The report states unequivocally that plastic pollution is a systemic, whole-life-cycle problem, requiring intervention across production, consumption and disposal.']},
+  {s:'IPCC AR6 WGII · 2022 · SPM',z:['不可逆损失','报告指出：部分生态系统的损失已经不可逆，即使全球升温立即停止，也需数十年至数千年才能部分恢复。'],e:['Irreversible losses','The report notes that some ecosystem losses are already irreversible; even if warming stopped immediately, partial recovery would take decades to millennia.']},
+  {s:'FAO · SOFIA 2022 · Part I',z:['粮食安全','水生食物为全球约 30 亿人提供至少 20% 的动物蛋白摄入。渔业种群的可持续性直接关系到这一供给的稳定性。'],e:['Food security','Aquatic foods supply at least 20% of animal protein intake for about 3 billion people. The sustainability of fish stocks bears directly on the stability of that supply.']},
+  {s:'IPCC AR6 WGI · 2021 · Ch.2',z:['不确定性表述','IPCC 结论通常附带不确定性区间与置信度评级（如「很可能」「极可能」「明确无疑」）。引用具体数值时应保留这些限定。'],e:['Uncertainty language','IPCC conclusions typically carry uncertainty ranges and confidence ratings (e.g. likely, very likely, unequivocal). Citing specific numbers should preserve these qualifications.']}
+  ];
+
+  var GRID = document.getElementById('learnGrid');
+  var REFRESH = document.getElementById('learnRefresh');
+  if (!GRID) return;
+
+  /* 用日期做种子，保证同一天渲染结果一致 */
+  function daySeed() {
+    var d = new Date();
+    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  }
+  function makeRng(seed) {
+    var s = seed % 2147483647;
+    if (s <= 0) s += 2147483646;
+    return function () { s = s * 16807 % 2147483647; return (s - 1) / 2147483646; };
+  }
+  function pickN(arr, n, rng) {
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
+    }
+    return copy.slice(0, n);
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function currentLang() {
+    var btn = document.querySelector('.lang-btn.active');
+    return (btn && btn.dataset.lang === 'en') ? 'en' : 'zh';
+  }
+
+  function cardHtml(item, lang) {
+    var L = (lang === 'en') ? item.e : item.z;
+    return ''
+      + '<article class="reveal learn-card on">'
+      +   '<div class="learn-card__src">' + esc(item.s) + '</div>'
+      +   '<h3 class="learn-card__title" data-zh="' + esc(item.z[0]) + '" data-en="' + esc(item.e[0]) + '">' + esc(L[0]) + '</h3>'
+      +   '<p class="learn-card__body" data-zh="' + esc(item.z[1]) + '" data-en="' + esc(item.e[1]) + '">' + esc(L[1]) + '</p>'
+      + '</article>';
+  }
+
+  function renderLearn(forceReshuffle) {
+    var lang = currentLang();
+    var seed = daySeed() + (forceReshuffle ? Math.floor(Math.random() * 99999) : 0);
+    var rng = makeRng(seed);
+    var picked = pickN(LEARN_POOL, 9, rng);
+    var html = '';
+    for (var i = 0; i < picked.length; i++) html += cardHtml(picked[i], lang);
+    GRID.innerHTML = html;
+  }
+
+  /* 初始化渲染 */
+  renderLearn(false);
+
+  /* 换一批：随机洗牌 */
+  if (REFRESH) {
+    REFRESH.addEventListener('click', function () {
+      renderLearn(true);
+    });
+  }
+
+  /* 语言切换时同步重绘卡片 */
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setTimeout(function () { renderLearn(false); }, 30);
+    });
+  });
+
+})();
 </script>
 
 </body>
