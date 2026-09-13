@@ -429,6 +429,129 @@ tailwind.config = {
     stroke: #67C1E8;
   }
 
+  /* ══════════ 学习板块 ══════════ */
+  .learn-figure {
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    background: rgba(255,255,255,.02);
+    overflow: hidden;
+  }
+  .learn-figure__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .wave-svg { display: block; width: 100%; height: 200px; }
+  @media (max-width: 640px) { .wave-svg { height: 140px; } }
+  .wave-layer { will-change: transform; }
+  .wave-layer--a { animation: waveDrift 22s linear infinite; }
+  .wave-layer--b { animation: waveDrift 34s linear infinite reverse; }
+  @keyframes waveDrift {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-800px); }
+  }
+
+  .learn-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  @media (min-width: 1024px) {
+    .learn-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .learn-card {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 26px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  .learn-card:hover {
+    border-color: rgba(103,193,232,.28);
+    background: rgba(103,193,232,.035);
+  }
+  .learn-card__src {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(103,193,232,.72);
+    margin-bottom: 16px;
+  }
+  .learn-card__title {
+    font-size: 16.5px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.42;
+    margin-bottom: 14px;
+  }
+  .learn-card__body {
+    flex: 1 1 auto;
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: rgba(255,255,255,.6);
+  }
+  .learn-card__fig {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .learn-card__fig svg { display: block; width: 100%; height: auto; }
+
+  .learn-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 12px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.4);
+  }
+  .learn-chart-legend > span {
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .learn-chart-legend i {
+    width: 10px; height: 2px; border-radius: 1px;
+    display: inline-block; flex: none;
+  }
+
+  .learn-note {
+    padding: 0 24px 22px;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(255,255,255,.38);
+  }
+
+  .learn-disclaimer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: rgba(255,255,255,.35);
+    max-width: 760px;
+  }
+
+  .chart-line {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  .reveal.on .chart-line {
+    animation: drawLine 2.2s cubic-bezier(.2,.8,.2,1) .25s forwards;
+  }
+  @keyframes drawLine { to { stroke-dashoffset: 0; } }
+
   #daily {
     display: none;
     background: #07253B;
@@ -1043,6 +1166,8 @@ tailwind.config = {
       transition-duration:0.01ms !important;
     }
     .reveal { opacity: 1; transform: none; transition: none; }
+    .wave-layer { animation: none !important; }
+    .chart-line { stroke-dashoffset: 0 !important; animation: none !important; }
   }
   @media (max-height:640px) {
     #joinPage .navbar { padding:12px var(--gutter); }
@@ -1077,6 +1202,7 @@ tailwind.config = {
       </a>
       <div class="hidden md:flex gap-7">
         <a href="#data"      class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="观测数据" data-en="Data">观测数据</a>
+        <a href="#learn"     class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="学习" data-en="Learn">学习</a>
         <a href="#community" class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="社区" data-en="Community">社区</a>
         <a href="#action"    class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="行动路径" data-en="Action">行动路径</a>
         <a href="#pledge"    class="nav-a text-[13px] text-white/60 hover:text-white" data-zh="参与记录" data-en="Pledge">参与记录</a>
@@ -1106,6 +1232,7 @@ tailwind.config = {
   <div id="mobilePanel" class="mobile-panel absolute inset-x-0 top-0 z-20 h-0 opacity-0 bg-ink-950/97 backdrop-blur-xl">
     <div class="flex h-full flex-col justify-center px-8 pt-20">
       <a href="#data"      class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a>
+      <a href="#learn"     class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="学习" data-en="Learn">学习</a>
       <a href="#community" class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="社区" data-en="Community">社区</a>
       <a href="#action"    class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a>
       <a href="#pledge"    class="mobile-link block text-[28px] font-medium text-white/90 hover:text-ink-500 mb-6 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a>
@@ -1256,9 +1383,9 @@ tailwind.config = {
           查阅观测数据
           <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <a href="#community"
+        <a href="#learn"
            class="inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
-           data-zh="进入社区" data-en="Enter community">进入社区</a>
+           data-zh="进入学习" data-en="Start learning">进入学习</a>
         <button data-open-join
                 class="join-btn inline-flex items-center rounded-md border border-white/18 px-6 py-3 text-[13.5px] font-medium text-white/85 hover:bg-white/[0.06] transition-colors"
                 data-zh="直接参与" data-en="Take part">直接参与</button>
@@ -1400,6 +1527,371 @@ tailwind.config = {
         </span>
       </a>
     </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ 学习 ══════════════════════ -->
+<section id="learn" class="relative border-t hairline" style="background:linear-gradient(180deg,#062033 0%,#041724 100%)">
+  <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
+
+    <div class="reveal max-w-2xl mb-14 md:mb-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-6 h-px bg-ink-500"></span>
+        <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="学习" data-en="Learn">学习</span>
+      </div>
+      <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
+          data-zh="从原始评估报告中摘取的文献内容"
+          data-en="Excerpts drawn from the primary assessment reports">
+        从原始评估报告中摘取的文献内容
+      </h2>
+      <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
+         data-zh="以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每一条都标注了报告名称、发布年份与具体章节。我们只做压缩转述，不添加解释，也不引用情景预测。完整内容、不确定性区间与置信度评级请以原始报告为准。"
+         data-en="The entries below are taken from published IPCC, UNEP and FAO material. Each cites the report, year and specific chapter. We compress and restate; we do not interpret, and we do not cite scenario projections. For full context, uncertainty ranges and confidence ratings, consult the original reports.">
+        以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每一条都标注了报告名称、发布年份与具体章节。我们只做压缩转述，不添加解释，也不引用情景预测。完整内容、不确定性区间与置信度评级请以原始报告为准。
+      </p>
+    </div>
+
+    <!-- 动态示意 -->
+    <div class="reveal learn-figure">
+      <div class="learn-figure__head">
+        <span class="expand-label__text" data-zh="动态示意 · 海洋分层" data-en="Animated schematic · Ocean stratification">动态示意 · 海洋分层</span>
+        <span class="font-mono text-[9.5px] tracking-[0.14em] text-white/25 uppercase">Inline SVG · no external assets</span>
+      </div>
+      <svg viewBox="0 0 800 200" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="lwGradA" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#67C1E8" stop-opacity="0.30"/>
+            <stop offset="100%" stop-color="#67C1E8" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="lwGradB" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#247BA0" stop-opacity="0.50"/>
+            <stop offset="100%" stop-color="#247BA0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g class="wave-layer wave-layer--b">
+          <path d="M0 86 Q100 56 200 86 T400 86 T600 86 T800 86 T1000 86 T1200 86 T1400 86 T1600 86 L1600 200 L0 200 Z" fill="url(#lwGradA)"/>
+        </g>
+        <g class="wave-layer wave-layer--a">
+          <path d="M0 112 Q100 88 200 112 T400 112 T600 112 T800 112 T1000 112 T1200 112 T1400 112 T1600 112 L1600 200 L0 200 Z" fill="url(#lwGradB)"/>
+        </g>
+      </svg>
+      <p class="learn-note"
+         data-zh="示意图 · 非按比例 · 用于说明表层暖水层与深层冷水之间的分层结构。IPCC 指出，升温会增强水体分层，进而抑制上下层之间的热量、氧气与营养盐交换。"
+         data-en="Schematic · not to scale · illustrates stratification between warm surface water and cold deep water. IPCC notes that warming strengthens stratification, which suppresses exchange of heat, oxygen and nutrients between layers.">
+        示意图 · 非按比例 · 用于说明表层暖水层与深层冷水之间的分层结构。IPCC 指出，升温会增强水体分层，进而抑制上下层之间的热量、氧气与营养盐交换。
+      </p>
+    </div>
+
+    <!-- 文献摘录卡片 -->
+    <div class="learn-grid">
+
+      <!-- 01 海洋热含量 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.2.2 / Ch.9</div>
+        <h3 class="learn-card__title" data-zh="海洋热含量持续上升，且升温速率加快" data-en="Ocean heat content keeps rising, and the rate is accelerating">海洋热含量持续上升，且升温速率加快</h3>
+        <p class="learn-card__body"
+           data-zh="IPCC 第六次评估报告第一工作组指出：自 1971 年以来，海洋毫无疑问已经变暖，且人类影响是主要驱动因素。报告评估认为，海洋吸收了气候系统中约 91% 的过剩能量（1971–2018 年），并明确指出自 1993 年以来海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。"
+           data-en="The IPCC Sixth Assessment Report (Working Group I) states that the global ocean has warmed unequivocally since 1971, with human influence as the main driver. It assesses that the ocean absorbed about 91% of the excess energy in the climate system over 1971–2018, and states explicitly that the rate of ocean warming has more than doubled since 1993. The upper 2000 m holds the vast majority of the absorbed heat.">
+          IPCC 第六次评估报告第一工作组指出：自 1971 年以来，海洋毫无疑问已经变暖，且人类影响是主要驱动因素。报告评估认为，海洋吸收了气候系统中约 91% 的过剩能量（1971–2018 年），并明确指出自 1993 年以来海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 170" aria-hidden="true">
+            <defs>
+              <linearGradient id="lwHeatFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#67C1E8" stop-opacity="0.26"/>
+                <stop offset="100%" stop-color="#67C1E8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <line x1="22" y1="40" x2="382" y2="40"/>
+              <line x1="22" y1="80" x2="382" y2="80"/>
+              <line x1="22" y1="120" x2="382" y2="120"/>
+            </g>
+            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <path d="M22 144 C90 142 150 134 212 116 C272 96 322 64 382 30 L382 146 L22 146 Z" fill="url(#lwHeatFill)"/>
+            <path class="chart-line" pathLength="100"
+                  d="M22 144 C90 142 150 134 212 116 C272 96 322 64 382 30"
+                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:#67C1E8"></i><span data-zh="累积海洋热含量（示意图，非原始数据）" data-en="Cumulative ocean heat content (schematic, not raw data)">累积海洋热含量（示意图，非原始数据）</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 海平面 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.4.1 / Ch.9</div>
+        <h3 class="learn-card__title" data-zh="全球平均海平面上升速率显著加快" data-en="Global mean sea level rise has accelerated markedly">全球平均海平面上升速率显著加快</h3>
+        <p class="learn-card__body"
+           data-zh="报告给出：1901 至 2018 年间，全球平均海平面上升了 0.20 米（不确定性区间 0.15–0.25 米）。分段平均速率分别为：1901–1971 年约 1.3 毫米/年，1971–2006 年约 1.9 毫米/年，2006–2018 年约 3.7 毫米/年。报告将热膨胀、冰川质量损失与冰盖质量损失列为三个主要贡献项。"
+           data-en="The report gives a global mean sea level rise of 0.20 m (likely range 0.15–0.25 m) between 1901 and 2018. Average rates by period were roughly 1.3 mm/yr over 1901–1971, 1.9 mm/yr over 1971–2006, and 3.7 mm/yr over 2006–2018. Thermal expansion, glacier mass loss and ice-sheet mass loss are identified as the three principal contributors.">
+          报告给出：1901 至 2018 年间，全球平均海平面上升了 0.20 米（不确定性区间 0.15–0.25 米）。分段平均速率分别为：1901–1971 年约 1.3 毫米/年，1971–2006 年约 1.9 毫米/年，2006–2018 年约 3.7 毫米/年。报告将热膨胀、冰川质量损失与冰盖质量损失列为三个主要贡献项。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 170" aria-hidden="true">
+            <defs>
+              <linearGradient id="lwSlFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#A8DBF0" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#A8DBF0" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <line x1="22" y1="40" x2="382" y2="40"/>
+              <line x1="22" y1="80" x2="382" y2="80"/>
+              <line x1="22" y1="120" x2="382" y2="120"/>
+            </g>
+            <line x1="22" y1="150" x2="382" y2="150" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <line x1="22" y1="22" x2="22" y2="150" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <path d="M22 147 C110 145 200 138 270 122 C320 110 355 98 382 86 L382 150 L22 150 Z" fill="url(#lwSlFill)"/>
+            <path class="chart-line" pathLength="100"
+                  d="M22 147 C110 145 200 138 270 122 C320 110 355 98 382 86"
+                  fill="none" stroke="#A8DBF0" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:#A8DBF0"></i><span data-zh="相对 1900 年的累计上升（示意图）" data-en="Cumulative rise relative to 1900 (schematic)">相对 1900 年的累计上升（示意图）</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 海洋酸化 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · AR6 WGI · 2021 · SPM A.2.4 / Ch.5</div>
+        <h3 class="learn-card__title" data-zh="表层海水 pH 值持续下降" data-en="Surface-ocean pH continues to decline">表层海水 pH 值持续下降</h3>
+        <p class="learn-card__body"
+           data-zh="报告指出：海洋已经吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位。由于 pH 是对数尺度，该变化相当于氢离子浓度上升约 30%。报告同时说明，海洋酸化是一个与升温不同的独立过程，其影响时间尺度以数千年计。"
+           data-en="The report states that the ocean has taken up 20–30% of anthropogenic CO₂ emissions (about a quarter). Ocean surface pH has decreased by 0.1 units since pre-industrial times. Because pH is logarithmic, that shift corresponds to roughly a 30% increase in hydrogen-ion concentration. The report also notes that acidification is a process distinct from warming, with effects on millennial timescales.">
+          报告指出：海洋已经吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位。由于 pH 是对数尺度，该变化相当于氢离子浓度上升约 30%。报告同时说明，海洋酸化是一个与升温不同的独立过程，其影响时间尺度以数千年计。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 170" aria-hidden="true">
+            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <line x1="22" y1="40" x2="382" y2="40"/>
+              <line x1="22" y1="80" x2="382" y2="80"/>
+              <line x1="22" y1="120" x2="382" y2="120"/>
+            </g>
+            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <path class="chart-line" pathLength="100"
+                  d="M22 46 C120 54 220 84 382 126"
+                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="22" cy="46" r="3" fill="#67C1E8"/>
+            <circle cx="382" cy="126" r="3" fill="#67C1E8"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:#67C1E8"></i><span data-zh="表层 pH 变化方向（纵轴向下为下降）" data-en="Surface pH direction (downward = decline)">表层 pH 变化方向（纵轴向下为下降）</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 溶解氧 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · SROCC · 2019 · Ch.5 / SPM A.2</div>
+        <h3 class="learn-card__title" data-zh="海洋溶解氧持续减少" data-en="Ocean dissolved oxygen is declining">海洋溶解氧持续减少</h3>
+        <p class="learn-card__body"
+           data-zh="IPCC《海洋与冰冻圈特别报告》评估认为，自 1970 年代以来，全球海洋的溶解氧储量已经下降，开放大洋的下降幅度估计在 1% 至 2% 之间（部分估计区间可达 0.5%–3.3%），同时低氧区（缺氧区）的范围有所扩大。机制上，升温降低氧气的溶解度，并增强水体分层，从而抑制富氧表层水向深层的输送。溶解氧下降会压缩大型中上层鱼类的可用栖息空间。"
+           data-en="The IPCC Special Report on the Ocean and Cryosphere assesses that global ocean oxygen inventory has declined since the 1970s, with an estimated decrease of 1–2% in the open ocean (some estimates span 0.5–3.3%), alongside an expansion of low-oxygen zones. Mechanistically, warming lowers oxygen solubility and strengthens stratification, suppressing the transport of oxygen-rich surface water to depth. The decline compresses the habitat available to large pelagic fish.">
+          IPCC《海洋与冰冻圈特别报告》评估认为，自 1970 年代以来，全球海洋的溶解氧储量已经下降，开放大洋的下降幅度估计在 1% 至 2% 之间（部分估计区间可达 0.5%–3.3%），同时低氧区（缺氧区）的范围有所扩大。机制上，升温降低氧气的溶解度，并增强水体分层，从而抑制富氧表层水向深层的输送。溶解氧下降会压缩大型中上层鱼类的可用栖息空间。
+        </p>
+      </article>
+
+      <!-- 05 海冰 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · SROCC · 2019 · SPM A.2 / Ch.3</div>
+        <h3 class="learn-card__title" data-zh="北极海冰范围持续缩减" data-en="Arctic sea-ice extent keeps shrinking">北极海冰范围持续缩减</h3>
+        <p class="learn-card__body"
+           data-zh="该特别报告给出：1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8%（±2.3%）的速率下降。报告同时指出，北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。海冰减少与海洋表层升温、上层水体结构改变相互关联。"
+           data-en="The Special Report states that Arctic September sea-ice extent declined at a rate of 12.8% (±2.3%) per decade between 1979 and 2018. It also notes that Arctic surface air temperature has increased at more than twice the global average — a phenomenon known as Arctic amplification. Sea-ice loss is linked to surface ocean warming and changes in upper-ocean structure.">
+          该特别报告给出：1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8%（±2.3%）的速率下降。报告同时指出，北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。海冰减少与海洋表层升温、上层水体结构改变相互关联。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 170" aria-hidden="true">
+            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <line x1="22" y1="40" x2="382" y2="40"/>
+              <line x1="22" y1="80" x2="382" y2="80"/>
+              <line x1="22" y1="120" x2="382" y2="120"/>
+            </g>
+            <line x1="22" y1="146" x2="382" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <line x1="22" y1="22" x2="22" y2="146" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <path class="chart-line" pathLength="100"
+                  d="M22 40 C110 48 200 76 280 100 C330 116 360 124 382 130"
+                  fill="none" stroke="#67C1E8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:#67C1E8"></i><span data-zh="9 月海冰范围趋势（示意图）" data-en="September sea-ice extent trend (schematic)">9 月海冰范围趋势（示意图）</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 06 珊瑚礁 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · SR1.5 · 2018 · Ch.3 / GCRMN · 2021</div>
+        <h3 class="learn-card__title" data-zh="珊瑚礁对升温高度敏感" data-en="Coral reefs are highly sensitive to warming">珊瑚礁对升温高度敏感</h3>
+        <p class="learn-card__body"
+           data-zh="IPCC《全球升温 1.5°C 特别报告》评估认为，在全球升温 1.5°C 的情境下，珊瑚礁将减少 70% 至 90%；在升温 2°C 的情境下，减少幅度超过 99%。两者之间存在显著差异。此外，全球珊瑚礁监测网络（GCRMN）《世界珊瑚礁状况：2020》报告记录到，2009 至 2018 年间全球硬珊瑚覆盖度下降了约 14%。珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。"
+           data-en="The IPCC Special Report on Global Warming of 1.5°C assesses that at 1.5°C of global warming, coral reefs would decline by 70–90%; at 2°C, the decline would exceed 99%. The difference between the two is substantial. Separately, the Global Coral Reef Monitoring Network's Status of Coral Reefs of the World: 2020 records an approximately 14% decline in global hard-coral cover between 2009 and 2018. Reefs cover less than 1% of the seafloor yet support roughly a quarter of marine species.">
+          IPCC《全球升温 1.5°C 特别报告》评估认为，在全球升温 1.5°C 的情境下，珊瑚礁将减少 70% 至 90%；在升温 2°C 的情境下，减少幅度超过 99%。两者之间存在显著差异。此外，全球珊瑚礁监测网络（GCRMN）《世界珊瑚礁状况：2020》报告记录到，2009 至 2018 年间全球硬珊瑚覆盖度下降了约 14%。珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 150" aria-hidden="true">
+            <line x1="22" y1="130" x2="382" y2="130" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <rect x="70" y="34" width="66" height="96" fill="rgba(103,193,232,.22)" stroke="rgba(103,193,232,.5)" stroke-width="1"/>
+            <rect x="230" y="48" width="66" height="82" fill="rgba(103,193,232,.10)" stroke="rgba(103,193,232,.35)" stroke-width="1"/>
+            <line x1="70" y1="34" x2="300" y2="34" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="3 4"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:rgba(103,193,232,.6)"></i><span data-zh="2009 年基准水平" data-en="2009 baseline level">2009 年基准水平</span></span>
+            <span><i style="background:rgba(103,193,232,.3)"></i><span data-zh="2018 年水平 · 下降约 14%" data-en="2018 level · ~14% lower">2018 年水平 · 下降约 14%</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 塑料 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">UNEP · From Pollution to Solution · 2021</div>
+        <h3 class="learn-card__title" data-zh="进入海洋的塑料量仍在增长" data-en="Plastic inflow to the ocean is still rising">进入海洋的塑料量仍在增长</h3>
+        <p class="learn-card__body"
+           data-zh="联合国环境规划署的全球评估报告估算，每年约有 800 万至 1200 万吨塑料进入海洋。报告同时指出，在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。报告明确将源头减量、循环设计列为优先于末端清理的干预方向，并强调海洋塑料污染的主要来源是陆源排放与渔具。"
+           data-en="UNEP's global assessment estimates that roughly 8–12 million tonnes of plastic enter the ocean each year. It further notes that without systemic upstream intervention, the quantity reaching water bodies could approach three times current levels by 2040. The report explicitly places source reduction and circular design ahead of end-of-pipe cleanup, and identifies land-based discharge and fishing gear as the principal sources of marine plastic pollution.">
+          联合国环境规划署的全球评估报告估算，每年约有 800 万至 1200 万吨塑料进入海洋。报告同时指出，在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。报告明确将源头减量、循环设计列为优先于末端清理的干预方向，并强调海洋塑料污染的主要来源是陆源排放与渔具。
+        </p>
+      </article>
+
+      <!-- 08 渔业种群 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">FAO · SOFIA 2022 · Part I</div>
+        <h3 class="learn-card__title" data-zh="三分之一以上的鱼类种群处于不可持续捕捞水平" data-en="Over a third of fish stocks are fished unsustainably">三分之一以上的鱼类种群处于不可持续捕捞水平</h3>
+        <p class="learn-card__body"
+           data-zh="联合国粮农组织《2022 年世界渔业和水产养殖状况》报告显示：2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于生物学不可持续水平。该比例自 1974 年的约 90% 起持续下降。报告同时说明，该统计以具备正式种群评估数据的种群为基础，未纳入缺乏评估数据的大量种群。"
+           data-en="FAO's The State of World Fisheries and Aquaculture 2022 reports that in 2019, of the marine fish stocks with assessment data, about 64.6% were harvested within biologically sustainable levels and 35.4% at biologically unsustainable levels. The sustainable share has declined continuously from roughly 90% in 1974. FAO notes that the statistic is based on stocks with formal assessment data and does not cover the many stocks lacking such assessments.">
+          联合国粮农组织《2022 年世界渔业和水产养殖状况》报告显示：2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于生物学不可持续水平。该比例自 1974 年的约 90% 起持续下降。报告同时说明，该统计以具备正式种群评估数据的种群为基础，未纳入缺乏评估数据的大量种群。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 46" aria-hidden="true">
+            <rect x="0" y="10" width="256" height="26" rx="3" fill="rgba(103,193,232,.28)" stroke="rgba(103,193,232,.55)" stroke-width="1"/>
+            <rect x="262" y="10" width="138" height="26" rx="3" fill="rgba(255,138,138,.16)" stroke="rgba(255,138,138,.45)" stroke-width="1"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:rgba(103,193,232,.75)"></i><span data-zh="可持续水平内 · 64.6%" data-en="Within sustainable levels · 64.6%">可持续水平内 · 64.6%</span></span>
+            <span><i style="background:rgba(255,138,138,.6)"></i><span data-zh="不可持续水平 · 35.4%" data-en="Unsustainable · 35.4%">不可持续水平 · 35.4%</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 09 水产养殖 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">FAO · SOFIA 2022 · Part I</div>
+        <h3 class="learn-card__title" data-zh="水产养殖产量首次超过捕捞渔业" data-en="Aquaculture output overtook capture fisheries">水产养殖产量首次超过捕捞渔业</h3>
+        <p class="learn-card__body"
+           data-zh="该报告统计显示，2020 年全球水产养殖产量约为 1.226 亿吨，捕捞渔业产量约为 0.901 亿吨，水产养殖首次超过捕捞渔业。粮农组织将这一变化描述为全球水生食物生产结构的转折点。报告同时指出，全球水生食物消费量的增长主要由水产养殖提供，而捕捞渔业的产量自 1980 年代末以来基本持平。"
+           data-en="The report records that in 2020 global aquaculture production reached about 122.6 million tonnes, while capture fisheries produced about 90.1 million tonnes — the first time aquaculture exceeded capture. FAO describes this as a turning point in the structure of global aquatic food production. It adds that growth in aquatic food consumption has been supplied mainly by aquaculture, while capture fishery production has been broadly flat since the late 1980s.">
+          该报告统计显示，2020 年全球水产养殖产量约为 1.226 亿吨，捕捞渔业产量约为 0.901 亿吨，水产养殖首次超过捕捞渔业。粮农组织将这一变化描述为全球水生食物生产结构的转折点。报告同时指出，全球水生食物消费量的增长主要由水产养殖提供，而捕捞渔业的产量自 1980 年代末以来基本持平。
+        </p>
+        <div class="learn-card__fig">
+          <svg viewBox="0 0 400 150" aria-hidden="true">
+            <line x1="22" y1="126" x2="382" y2="126" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            <rect x="80" y="22" width="70" height="104" fill="rgba(103,193,232,.24)" stroke="rgba(103,193,232,.5)" stroke-width="1"/>
+            <rect x="250" y="50" width="70" height="76" fill="rgba(168,219,240,.12)" stroke="rgba(168,219,240,.35)" stroke-width="1"/>
+          </svg>
+          <div class="learn-chart-legend">
+            <span><i style="background:rgba(103,193,232,.6)"></i><span data-zh="水产养殖 · 122.6 Mt" data-en="Aquaculture · 122.6 Mt">水产养殖 · 122.6 Mt</span></span>
+            <span><i style="background:rgba(168,219,240,.4)"></i><span data-zh="捕捞渔业 · 90.1 Mt" data-en="Capture fisheries · 90.1 Mt">捕捞渔业 · 90.1 Mt</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 深海 -->
+      <article class="reveal learn-card">
+        <div class="learn-card__src">IPCC · SROCC · 2019 · Ch.5 / UNEP</div>
+        <h3 class="learn-card__title" data-zh="深海生态系统的恢复时间尺度以数十年计" data-en="Deep-sea recovery is measured in decades">深海生态系统的恢复时间尺度以数十年计</h3>
+        <p class="learn-card__body"
+           data-zh="IPCC 与 UNEP 的相关评估均指出，深海是地球上面积最大的生物栖息环境之一，而人类对其认知仍然有限。深海生物普遍具有代谢速率低、生长缓慢、繁殖周期长的特征，因此受扰动后的恢复时间尺度可达数十年至数百年。此外，两个机构都指出，深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。"
+           data-en="Assessments by both IPCC and UNEP note that the deep sea is among the largest habitats on Earth, and that scientific knowledge of it remains limited. Deep-sea organisms generally have low metabolic rates, slow growth and long reproductive cycles, so recovery from disturbance can take decades to centuries. Both bodies also note that emerging pressures such as deep-sea mining still lack adequate scientific assessment, with substantial knowledge gaps regarding their potential impacts.">
+          IPCC 与 UNEP 的相关评估均指出，深海是地球上面积最大的生物栖息环境之一，而人类对其认知仍然有限。深海生物普遍具有代谢速率低、生长缓慢、繁殖周期长的特征，因此受扰动后的恢复时间尺度可达数十年至数百年。此外，两个机构都指出，深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。
+        </p>
+      </article>
+
+    </div>
+
+    <!-- 文献清单 -->
+    <div class="reveal mt-20">
+      <div class="expand-label">
+        <span class="expand-label__line"></span>
+        <span class="expand-label__text" data-zh="引用文献清单" data-en="Cited source list">引用文献清单</span>
+      </div>
+
+      <div class="stat-table-wrap" style="margin-bottom:0">
+        <table class="stat-table">
+          <thead>
+            <tr>
+              <th data-zh="机构" data-en="Body">机构</th>
+              <th data-zh="文献全名" data-en="Full title">文献全名</th>
+              <th data-zh="年份" data-en="Year">年份</th>
+              <th data-zh="摘录位置" data-en="Excerpt location">摘录位置</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IPCC</td>
+              <td data-zh="气候变化 2021：自然科学基础。第一工作组第六次评估报告" data-en="Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report">气候变化 2021：自然科学基础。第一工作组第六次评估报告</td>
+              <td class="val">2021</td>
+              <td class="src">SPM A.2.2 / A.2.4 / A.4.1 · Ch.5 · Ch.9</td>
+            </tr>
+            <tr>
+              <td>IPCC</td>
+              <td data-zh="IPCC 关于海洋与冰冻圈的特别报告" data-en="IPCC Special Report on the Ocean and Cryosphere in a Changing Climate">IPCC 关于海洋与冰冻圈的特别报告</td>
+              <td class="val">2019</td>
+              <td class="src">SPM A.2 · Ch.3 · Ch.5</td>
+            </tr>
+            <tr>
+              <td>IPCC</td>
+              <td data-zh="全球升温 1.5°C 特别报告" data-en="Special Report on Global Warming of 1.5°C">全球升温 1.5°C 特别报告</td>
+              <td class="val">2018</td>
+              <td class="src">Ch.3 · Ch.5</td>
+            </tr>
+            <tr>
+              <td>UNEP</td>
+              <td data-zh="从污染到解决方案：海洋垃圾与塑料污染的全球评估" data-en="From Pollution to Solution: A global assessment of marine litter and plastic pollution">从污染到解决方案：海洋垃圾与塑料污染的全球评估</td>
+              <td class="val">2021</td>
+              <td class="src">Executive Summary · Ch.2</td>
+            </tr>
+            <tr>
+              <td>FAO</td>
+              <td data-zh="2022 年世界渔业和水产养殖状况" data-en="The State of World Fisheries and Aquaculture 2022">2022 年世界渔业和水产养殖状况</td>
+              <td class="val">2022</td>
+              <td class="src">Part I · Status of stocks</td>
+            </tr>
+            <tr>
+              <td>GCRMN</td>
+              <td data-zh="世界珊瑚礁状况：2020" data-en="Status of Coral Reefs of the World: 2020">世界珊瑚礁状况：2020</td>
+              <td class="val">2021</td>
+              <td class="src">Ch.1 · Global findings</td>
+            </tr>
+            <tr>
+              <td>Borrelle et al.</td>
+              <td data-zh="评估国家以下层级行动对减少塑料污染的作用" data-en="Evaluating scenarios toward zero plastic pollution">评估国家以下层级行动对减少塑料污染的作用</td>
+              <td class="val">2020</td>
+              <td class="src"><a href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer">Science · Vol 369</a></td>
+            </tr>
+            <tr>
+              <td>Myers &amp; Worm</td>
+              <td data-zh="大西洋大型掠食性鱼类的快速枯竭" data-en="Rapid worldwide depletion of predatory fish communities">大西洋大型掠食性鱼类的快速枯竭</td>
+              <td class="val">2003</td>
+              <td class="src"><a href="https://www.nature.com/articles/nature01610" target="_blank" rel="noopener noreferrer">Nature · Vol 423</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="learn-disclaimer"
+         data-zh="以上摘要均为压缩转述，不构成对原始报告结论的替代。IPCC 报告中的多数结论带有明确的不确定性区间与置信度评级（如「极可能」「很可能」），此处未逐条标注；如需引用具体数值，请以原始报告中的表述为准。"
+         data-en="These summaries are condensed restatements and do not substitute for the original reports. Most IPCC conclusions carry explicit uncertainty ranges and confidence ratings (e.g. 'virtually certain', 'very likely'), which are not reproduced here. For citable figures, refer to the wording of the original reports.">
+        以上摘要均为压缩转述，不构成对原始报告结论的替代。IPCC 报告中的多数结论带有明确的不确定性区间与置信度评级（如「极可能」「很可能」），此处未逐条标注；如需引用具体数值，请以原始报告中的表述为准。
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -1971,6 +2463,7 @@ tailwind.config = {
         <p class="font-mono text-[10px] tracking-[0.18em] text-white/25 uppercase mb-5" data-zh="导航" data-en="Navigate">导航</p>
         <ul class="space-y-2.5 text-[13px] text-white/45">
           <li><a href="#data"      class="hover:text-ink-500 transition-colors" data-zh="观测数据" data-en="Data">观测数据</a></li>
+          <li><a href="#learn"     class="hover:text-ink-500 transition-colors" data-zh="学习" data-en="Learn">学习</a></li>
           <li><a href="#community" class="hover:text-ink-500 transition-colors" data-zh="社区与数据源" data-en="Community & sources">社区与数据源</a></li>
           <li><a href="#action"    class="hover:text-ink-500 transition-colors" data-zh="行动路径" data-en="Action">行动路径</a></li>
           <li><a href="#pledge"    class="hover:text-ink-500 transition-colors" data-zh="参与记录" data-en="Pledge">参与记录</a></li>
