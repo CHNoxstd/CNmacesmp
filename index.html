@@ -35,7 +35,7 @@ tailwind.config = {
     background-color: #041724;
     font-feature-settings: "tnum" 1;
   }
-  body.join-open { overflow: hidden; }
+  body.join-open, body.chapter-open { overflow: hidden; }
   .tnum { font-variant-numeric: tabular-nums; }
 
   @keyframes rise {
@@ -66,39 +66,7 @@ tailwind.config = {
 
   .hairline { border-color: rgba(255,255,255,.08); }
 
-  .check-row {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    cursor: pointer;
-    transition: opacity .3s ease;
-  }
-  .check-row:last-child { border-bottom: none; }
-  .check-box {
-    flex: none; width: 18px; height: 18px; margin-top: 2px;
-    border: 1px solid rgba(255,255,255,.28);
-    border-radius: 3px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .22s ease;
-  }
-  .check-box svg {
-    width: 11px; height: 11px; opacity: 0;
-    transition: opacity .22s ease;
-    stroke: #041724; stroke-width: 3;
-  }
-  .check-row.done .check-box { background: #67C1E8; border-color: #67C1E8; }
-  .check-row.done .check-box svg { opacity: 1; }
-  .check-row.done .check-label {
-    color: rgba(255,255,255,.42);
-    text-decoration: line-through;
-    text-decoration-color: rgba(255,255,255,.25);
-  }
-  .check-row:hover .check-box { border-color: rgba(103,193,232,.6); }
-
-  .lang-btn { transition: all .2s ease; }
-  .lang-btn.active { background: rgba(255,255,255,.9); color: #041724; }
-  .lang-btn:not(.active):hover { background: rgba(255,255,255,.08); }
-
+  /* ══════════ 导航 ══════════ */
   .nav-a { position: relative; transition: color .25s ease; }
   .nav-a::after {
     content: ""; position: absolute; left: 0; bottom: -4px;
@@ -107,13 +75,14 @@ tailwind.config = {
   }
   .nav-a:hover::after { width: 100%; }
 
+  .lang-btn { transition: all .2s ease; }
+  .lang-btn.active { background: rgba(255,255,255,.9); color: #041724; }
+  .lang-btn:not(.active):hover { background: rgba(255,255,255,.08); }
+
   .mobile-panel {
     transition: height .55s cubic-bezier(.16,1,.3,1), opacity .35s ease;
     overflow: hidden;
   }
-
-  ::selection { background: #67C1E8; color: #041724; }
-
   .join-btn {
     max-width: 180px;
     overflow: hidden;
@@ -121,6 +90,9 @@ tailwind.config = {
     white-space: nowrap;
   }
 
+  ::selection { background: #67C1E8; color: #041724; }
+
+  /* ══════════ 数据卡片 ══════════ */
   .data-card {
     display: block;
     text-decoration: none;
@@ -163,6 +135,7 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
+  /* ══════════ 社区卡片 ══════════ */
   .comm-card {
     display: flex;
     flex-direction: column;
@@ -248,11 +221,7 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .45s cubic-bezier(.16,1,.3,1);
   }
-  .comm-toggle.open .comm-toggle__icon {
-    transform: rotate(180deg);
-  }
-  #learnRefresh .comm-toggle__icon { transition: transform .6s cubic-bezier(.16,1,.3,1); }
-  #learnRefresh:hover .comm-toggle__icon { transform: rotate(180deg); }
+  .comm-toggle.open .comm-toggle__icon { transform: rotate(180deg); }
 
   .community-expand {
     display: grid;
@@ -286,6 +255,7 @@ tailwind.config = {
     color: #67C1E8;
   }
 
+  /* ══════════ 图库 ══════════ */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -294,7 +264,6 @@ tailwind.config = {
   }
   @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
-
   .gallery-item {
     position: relative;
     overflow: hidden;
@@ -304,8 +273,7 @@ tailwind.config = {
   }
   .gallery-item img {
     width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
+    object-fit: cover; display: block;
     transition: transform .9s cubic-bezier(.16,1,.3,1);
   }
   .gallery-item:hover img { transform: scale(1.05); }
@@ -315,12 +283,12 @@ tailwind.config = {
     padding: 32px 14px 12px;
     background: linear-gradient(to top, rgba(4,23,36,.92), transparent);
     font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .1em;
+    font-size: 10px; letter-spacing: .1em;
     color: rgba(255,255,255,.72);
     line-height: 1.5;
   }
 
+  /* ══════════ 数据表 ══════════ */
   .stat-table-wrap {
     margin-bottom: 72px;
     overflow-x: auto;
@@ -338,8 +306,7 @@ tailwind.config = {
     text-align: left;
     padding: 18px 20px;
     font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .16em;
+    font-size: 10px; letter-spacing: .16em;
     text-transform: uppercase;
     color: rgba(255,255,255,.4);
     border-bottom: 1px solid rgba(255,255,255,.1);
@@ -362,8 +329,7 @@ tailwind.config = {
   }
   .stat-table .src {
     font-family: 'Geist Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: .05em;
+    font-size: 10.5px; letter-spacing: .05em;
     color: rgba(255,255,255,.4);
     white-space: nowrap;
   }
@@ -373,18 +339,15 @@ tailwind.config = {
     border-bottom: 1px solid rgba(103,193,232,.3);
     transition: color .25s ease, border-color .25s ease;
   }
-  .stat-table .src a:hover {
-    color: #67C1E8;
-    border-color: #67C1E8;
-  }
+  .stat-table .src a:hover { color: #67C1E8; border-color: #67C1E8; }
 
+  /* ══════════ 门户 ══════════ */
   .portal-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
   @media (max-width: 640px) { .portal-list { grid-template-columns: 1fr; } }
-
   .portal-item {
     display: flex;
     align-items: center;
@@ -398,10 +361,7 @@ tailwind.config = {
     color: inherit;
     transition: border-color .25s ease, background .25s ease;
   }
-  .portal-item:hover {
-    border-color: rgba(103,193,232,.4);
-    background: rgba(103,193,232,.05);
-  }
+  .portal-item:hover { border-color: rgba(103,193,232,.4); background: rgba(103,193,232,.05); }
   .portal-item__info { min-width: 0; }
   .portal-item__name {
     font-size: 13.5px;
@@ -411,8 +371,7 @@ tailwind.config = {
   }
   .portal-item__url {
     font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .08em;
+    font-size: 10px; letter-spacing: .08em;
     color: rgba(255,255,255,.35);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -421,130 +380,346 @@ tailwind.config = {
   .portal-item__arrow {
     flex: none;
     width: 14px; height: 14px;
-    stroke: rgba(103,193,232,.65);
-    stroke-width: 1.6;
+    stroke: rgba(103,193,232,.65); stroke-width: 1.6;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
   }
-  .portal-item:hover .portal-item__arrow {
-    transform: translate(2px, -2px);
-    stroke: #67C1E8;
+  .portal-item:hover .portal-item__arrow { transform: translate(2px, -2px); stroke: #67C1E8; }
+
+  /* ══════════ 学习板块 · 章节 ══════════ */
+  .chapter-tab {
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 6px;
+    background: transparent;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    cursor: pointer;
+    transition: all .25s ease;
+  }
+  .chapter-tab:hover { border-color: rgba(103,193,232,.5); color: rgba(255,255,255,.85); }
+  .chapter-tab.active {
+    border-color: #67C1E8;
+    background: rgba(103,193,232,.1);
+    color: #67C1E8;
   }
 
-  /* ══════════ 学习板块 ══════════ */
-  .learn-figure {
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-    background: rgba(255,255,255,.02);
-    overflow: hidden;
-  }
-  .learn-figure__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding: 18px 24px;
-    border-bottom: 1px solid rgba(255,255,255,.07);
-  }
-  .wave-svg { display: block; width: 100%; height: 200px; }
-  @media (max-width: 640px) { .wave-svg { height: 140px; } }
-  .wave-layer { will-change: transform; }
-  .wave-layer--a { animation: waveDrift 22s linear infinite; }
-  .wave-layer--b { animation: waveDrift 34s linear infinite reverse; }
-  @keyframes waveDrift {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-800px); }
-  }
-
-  .learn-grid {
+  .chapter-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 24px;
+    gap: 16px;
   }
-  @media (min-width: 1024px) {
-    .learn-grid { grid-template-columns: repeat(2, 1fr); }
-  }
+  @media (min-width: 768px) { .chapter-grid { grid-template-columns: repeat(2, 1fr); } }
 
-  .learn-card {
+  .chapter-card {
     display: flex;
-    flex-direction: column;
-    padding: 28px 26px;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 10px;
-    transition: border-color .3s ease, background .3s ease;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+    transition: border-color .3s ease, background .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
   }
-  .learn-card:hover {
-    border-color: rgba(103,193,232,.28);
-    background: rgba(103,193,232,.035);
+  .chapter-card:hover {
+    border-color: rgba(103,193,232,.35);
+    background: rgba(103,193,232,.04);
+    transform: translateY(-2px);
   }
-  .learn-card__src {
+  .chapter-card__thumb {
+    flex: none;
+    width: 130px;
+    background: #0B3A57;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 520px) {
+    .chapter-card { flex-direction: column; }
+    .chapter-card__thumb { width: 100%; height: 110px; }
+  }
+  .chapter-card__thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    opacity: .82;
+    transition: transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .chapter-card:hover .chapter-card__thumb img { transform: scale(1.06); }
+  .chapter-card__body {
+    flex: 1; padding: 20px 22px;
+    display: flex; flex-direction: column;
+    justify-content: center; min-width: 0;
+  }
+  .chapter-card__num {
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: .14em;
+    font-size: 9.5px; letter-spacing: .16em;
     text-transform: uppercase;
-    color: rgba(103,193,232,.72);
-    margin-bottom: 16px;
+    color: rgba(103,193,232,.7);
+    margin-bottom: 8px;
   }
-  .learn-card__title {
-    font-size: 16.5px;
-    font-weight: 500;
-    color: #fff;
-    letter-spacing: -0.01em;
-    line-height: 1.42;
-    margin-bottom: 14px;
+  .chapter-card__title {
+    font-size: 15px; font-weight: 500; color: #fff;
+    letter-spacing: -0.01em; line-height: 1.4;
+    margin-bottom: 6px;
   }
-  .learn-card__body {
-    flex: 1 1 auto;
-    font-size: 13.5px;
-    line-height: 1.9;
-    color: rgba(255,255,255,.6);
+  .chapter-card__desc {
+    font-size: 12.5px; line-height: 1.65;
+    color: rgba(255,255,255,.45);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .learn-card__fig {
-    margin-top: 22px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,.07);
-  }
-  .learn-card__fig svg { display: block; width: 100%; height: auto; }
-
-  .learn-chart-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 18px;
+  .chapter-card__arrow {
     margin-top: 12px;
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: .1em;
-    color: rgba(255,255,255,.4);
+    font-size: 9.5px; letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(103,193,232,.6);
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: color .25s ease;
   }
-  .learn-chart-legend > span {
-    display: inline-flex; align-items: center; gap: 7px;
-  }
-  .learn-chart-legend i {
-    width: 10px; height: 2px; border-radius: 1px;
-    display: inline-block; flex: none;
-  }
-
-  .learn-note {
-    padding: 0 24px 22px;
-    font-size: 12.5px;
-    line-height: 1.8;
-    color: rgba(255,255,255,.38);
+  .chapter-card:hover .chapter-card__arrow { color: #67C1E8; }
+  .chapter-card__arrow svg {
+    width: 10px; height: 10px;
+    stroke: currentColor; stroke-width: 1.6;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  .learn-disclaimer {
-    margin-top: 56px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,.08);
-    font-size: 12.5px;
-    line-height: 1.9;
+  /* ══════════ 章节详情页 ══════════ */
+  #chapterPage {
+    position: fixed; inset: 0; z-index: 190;
+    background: #041724;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0; pointer-events: none;
+    transition: opacity .45s cubic-bezier(.16,1,.3,1);
+  }
+  #chapterPage.active { opacity: 1; pointer-events: auto; }
+
+  .chap-nav {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 16px clamp(20px,5vw,72px);
+    background: rgba(4,23,36,.75);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .chap-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 14px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 6px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    transition: color .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .chap-back:hover {
+    color: #fff;
+    border-color: rgba(103,193,232,.6);
+    background: rgba(103,193,232,.06);
+  }
+  .chap-back svg {
+    width: 12px; height: 12px;
+    stroke: currentColor; stroke-width: 1.8;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .chap-nav__label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase;
     color: rgba(255,255,255,.35);
-    max-width: 760px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
+  .chap-hero {
+    position: relative;
+    height: 52vh; min-height: 340px;
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .chap-hero img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .chap-hero__scrim {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(4,23,36,.55) 0%, rgba(4,23,36,.35) 40%, rgba(4,23,36,.96) 100%),
+      linear-gradient(90deg, rgba(4,23,36,.5) 0%, transparent 60%);
+  }
+  .chap-hero__inner {
+    position: relative; z-index: 2;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 clamp(20px,5vw,72px) 48px;
+  }
+  .chap-hero__tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: #67C1E8;
+    padding: 6px 10px;
+    border: 1px solid rgba(103,193,232,.35);
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .chap-hero__title {
+    font-size: clamp(26px,4vw,44px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .chap-hero__sub {
+    font-size: 15px; line-height: 1.7;
+    color: rgba(255,255,255,.6);
+    max-width: 640px;
+  }
+
+  .chap-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px clamp(20px,5vw,72px) 40px;
+  }
+
+  .chap-lead {
+    font-size: 16px; line-height: 1.95;
+    color: rgba(255,255,255,.72);
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 48px;
+  }
+  .chap-lead p + p { margin-top: 20px; }
+
+  .chap-section { margin-bottom: 52px; }
+  .chap-section__h {
+    display: flex; align-items: baseline; gap: 14px;
+    margin-bottom: 18px;
+  }
+  .chap-section__num {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; letter-spacing: .14em;
+    color: #67C1E8;
+    flex: none;
+  }
+  .chap-section__t {
+    font-size: 19px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #fff;
+    line-height: 1.4;
+  }
+  .chap-section__p {
+    font-size: 14.5px; line-height: 2;
+    color: rgba(255,255,255,.62);
+    padding-left: calc(11px + 14px);
+  }
+  .chap-section__p + .chap-section__p { margin-top: 16px; }
+
+  .chap-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 40px 0 52px;
+  }
+  @media (min-width: 640px) { .chap-stats { grid-template-columns: repeat(3, 1fr); } }
+  .chap-stat { padding: 22px 20px; background: rgba(255,255,255,.02); }
+  .chap-stat__v {
+    font-family: 'Geist Mono', monospace;
+    font-size: 20px; font-weight: 500;
+    color: #67C1E8;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .chap-stat__l { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.5); }
+
+  .chap-quote {
+    margin: 40px 0;
+    padding: 22px 26px;
+    border-left: 2px solid #67C1E8;
+    background: rgba(103,193,232,.04);
+    border-radius: 0 8px 8px 0;
+    font-size: 14.5px; line-height: 1.9;
+    color: rgba(255,255,255,.7);
+    font-style: italic;
+  }
+  .chap-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 11.5px;
+    font-style: normal;
+    font-family: 'Geist Mono', monospace;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.35);
+  }
+
+  .chap-cite {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .chap-cite__h {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    margin-bottom: 16px;
+  }
+  .chap-cite ul { list-style: none; }
+  .chap-cite li {
+    font-size: 12.5px; line-height: 1.8;
+    color: rgba(255,255,255,.45);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .chap-cite li:last-child { border-bottom: none; }
+
+  .chap-foot {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px clamp(20px,5vw,72px) 80px;
+  }
+  .chap-foot__btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 8px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    transition: color .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .chap-foot__btn:hover {
+    color: #fff;
+    border-color: rgba(103,193,232,.6);
+    background: rgba(103,193,232,.08);
+  }
+  .chap-foot__btn svg {
+    width: 12px; height: 12px;
+    stroke: currentColor; stroke-width: 1.8;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* ══════════ 每日行动 ══════════ */
   #daily {
     display: none;
     background: #07253B;
@@ -579,14 +754,8 @@ tailwind.config = {
     display: flex; align-items: flex-start; gap: 20px;
     transition: background .3s ease, border-color .3s ease;
   }
-  .daily-card:hover {
-    background: rgba(255,255,255,.05);
-    border-color: rgba(255,255,255,.16);
-  }
-  .daily-card.done {
-    border-color: rgba(103,193,232,.4);
-    background: rgba(103,193,232,.05);
-  }
+  .daily-card:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16); }
+  .daily-card.done { border-color: rgba(103,193,232,.4); background: rgba(103,193,232,.05); }
   @media (min-width: 768px) { .daily-card { padding: 36px; } }
   .daily-card__check {
     flex: none; width: 26px; height: 26px;
@@ -598,9 +767,7 @@ tailwind.config = {
     margin-top: 2px;
   }
   .daily-card__check:hover { border-color: rgba(103,193,232,.7); }
-  .daily-card.done .daily-card__check {
-    background: #67C1E8; border-color: #67C1E8;
-  }
+  .daily-card.done .daily-card__check { background: #67C1E8; border-color: #67C1E8; }
   .daily-card__check svg {
     width: 14px; height: 14px;
     stroke: #041724; stroke-width: 3; fill: none;
@@ -683,7 +850,37 @@ tailwind.config = {
   }
   .daily-logout:hover { color: rgba(255,255,255,.7); }
 
-  /* ECHOID 页 */
+  /* ══════════ 承诺清单 ══════════ */
+  .check-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    cursor: pointer;
+    transition: opacity .3s ease;
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-box {
+    flex: none; width: 18px; height: 18px; margin-top: 2px;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .22s ease;
+  }
+  .check-box svg {
+    width: 11px; height: 11px; opacity: 0;
+    transition: opacity .22s ease;
+    stroke: #041724; stroke-width: 3;
+  }
+  .check-row.done .check-box { background: #67C1E8; border-color: #67C1E8; }
+  .check-row.done .check-box svg { opacity: 1; }
+  .check-row.done .check-label {
+    color: rgba(255,255,255,.42);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,255,255,.25);
+  }
+  .check-row:hover .check-box { border-color: rgba(103,193,232,.6); }
+
+  /* ══════════ ECHOID 页 ══════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
     --text-dimmer: rgba(255,255,255,0.42);
@@ -757,9 +954,7 @@ tailwind.config = {
     display: flex; align-items: center;
     gap: clamp(24px, 3.2vw, 62px);
   }
-  #joinPage .nav__links {
-    display: flex; gap: clamp(20px, 2.8vw, 56px);
-  }
+  #joinPage .nav__links { display: flex; gap: clamp(20px, 2.8vw, 56px); }
   #joinPage .nav__links a {
     font-family: var(--font-mono);
     font-weight: 400;
@@ -799,15 +994,9 @@ tailwind.config = {
   #joinPage .hamburger__bar:nth-child(1) { top:16px; }
   #joinPage .hamburger__bar:nth-child(2) { top:22px; }
   #joinPage .hamburger__bar:nth-child(3) { top:28px; }
-  #joinPage .hamburger.active .hamburger__bar:nth-child(1) {
-    transform: translateX(-50%) rotate(45deg); top:22px;
-  }
-  #joinPage .hamburger.active .hamburger__bar:nth-child(2) {
-    opacity:0; transform: translateX(-50%) scaleX(0);
-  }
-  #joinPage .hamburger.active .hamburger__bar:nth-child(3) {
-    transform: translateX(-50%) rotate(-45deg); top:22px;
-  }
+  #joinPage .hamburger.active .hamburger__bar:nth-child(1) { transform: translateX(-50%) rotate(45deg); top:22px; }
+  #joinPage .hamburger.active .hamburger__bar:nth-child(2) { opacity:0; transform: translateX(-50%) scaleX(0); }
+  #joinPage .hamburger.active .hamburger__bar:nth-child(3) { transform: translateX(-50%) rotate(-45deg); top:22px; }
   @media (max-width:900px) {
     #joinPage .nav__cluster { display:none; }
     #joinPage .hamburger { display:block; }
@@ -837,9 +1026,7 @@ tailwind.config = {
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium);
     cursor: pointer;
   }
-  #joinPage .mobile-menu.open .mobile-menu__item {
-    opacity:1; transform:translateY(0);
-  }
+  #joinPage .mobile-menu.open .mobile-menu__item { opacity:1; transform:translateY(0); }
   #joinPage .mobile-menu__cta {
     font-family:var(--font-mono); font-weight:400;
     letter-spacing:0.22em; text-transform:uppercase;
@@ -851,9 +1038,7 @@ tailwind.config = {
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium), background .25s ease;
   }
   #joinPage .mobile-menu__cta:hover { background: var(--fill-ghost); }
-  #joinPage .mobile-menu.open .mobile-menu__cta {
-    opacity:1; transform:translateY(0);
-  }
+  #joinPage .mobile-menu.open .mobile-menu__cta { opacity:1; transform:translateY(0); }
   #joinPage .hero__body {
     display:flex; align-items:center; justify-content:flex-end;
     padding-inline:var(--gutter); min-height:0; overflow-y:auto;
@@ -880,9 +1065,7 @@ tailwind.config = {
     letter-spacing:0.03em; line-height:0.95;
     margin-top:clamp(28px,3vw,52px);
   }
-  @media (max-width:380px) {
-    #joinPage .panel h1 { font-size:clamp(44px,15vw,64px); }
-  }
+  @media (max-width:380px) { #joinPage .panel h1 { font-size:clamp(44px,15vw,64px); } }
   #joinPage .tagline {
     font-family:var(--font-mono); font-weight:300;
     text-transform:uppercase;
@@ -910,10 +1093,7 @@ tailwind.config = {
     transition:border-color 0.25s ease;
   }
   #joinPage .email-input::placeholder { color:var(--text-dim); }
-  #joinPage .email-input:focus {
-    outline:none;
-    border-color:rgba(255,255,255,0.85);
-  }
+  #joinPage .email-input:focus { outline:none; border-color:rgba(255,255,255,0.85); }
   #joinPage .email-input:focus::placeholder { color:var(--text-dimmer); }
   #joinPage .email-input.is-error { border-color: rgba(255,120,120,0.85); }
   #joinPage .join-error {
@@ -927,11 +1107,7 @@ tailwind.config = {
     transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
     margin-top: 0;
   }
-  #joinPage .join-error.show {
-    max-height: 40px;
-    opacity: 1;
-    margin-top: 4px;
-  }
+  #joinPage .join-error.show { max-height: 40px; opacity: 1; margin-top: 4px; }
   #joinPage .btn--ghost,
   #joinPage .btn--solid {
     width:100%; border-radius:0; border:none;
@@ -943,12 +1119,8 @@ tailwind.config = {
     cursor:pointer;
     transition:background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
   }
-  #joinPage .btn--ghost {
-    background:var(--fill-ghost); color:var(--text-dimmer);
-  }
-  #joinPage .btn--ghost:hover {
-    background:rgba(255,255,255,0.09); color:#fff;
-  }
+  #joinPage .btn--ghost { background:var(--fill-ghost); color:var(--text-dimmer); }
+  #joinPage .btn--ghost:hover { background:rgba(255,255,255,0.09); color:#fff; }
   #joinPage .btn--solid { background:var(--fill-solid); color:#fff; }
   #joinPage .btn--solid:hover { background:rgba(255,255,255,0.17); }
   #joinPage .btn--ghost:disabled,
@@ -976,11 +1148,7 @@ tailwind.config = {
     transition: max-height 0.5s var(--ease-premium), opacity 0.35s ease, margin-top 0.35s ease;
     margin-top: 0;
   }
-  #joinPage .invite-panel.open {
-    max-height: 220px;
-    opacity: 1;
-    margin-top: 18px;
-  }
+  #joinPage .invite-panel.open { max-height: 220px; opacity: 1; margin-top: 18px; }
   #joinPage .invite-row { display: flex; gap: 10px; }
   #joinPage .invite-input {
     flex: 1;
@@ -994,10 +1162,7 @@ tailwind.config = {
     transition: border-color 0.25s ease;
   }
   #joinPage .invite-input::placeholder { color: var(--text-dim); }
-  #joinPage .invite-input:focus {
-    outline: none;
-    border-color: rgba(255,255,255,0.85);
-  }
+  #joinPage .invite-input:focus { outline: none; border-color: rgba(255,255,255,0.85); }
   #joinPage .invite-submit {
     border: 1px solid var(--line-strong);
     background: transparent;
@@ -1011,10 +1176,7 @@ tailwind.config = {
     transition: background 0.25s ease, border-color 0.25s ease;
     white-space: nowrap;
   }
-  #joinPage .invite-submit:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.5);
-  }
+  #joinPage .invite-submit:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
   #joinPage .legal-footer {
     border-top:1px solid var(--line);
     padding:clamp(18px,1.7vw,30px) var(--gutter);
@@ -1033,10 +1195,7 @@ tailwind.config = {
     cursor: pointer;
   }
   #joinPage .legal-footer a:hover { color:var(--text-dim); }
-  #joinPage :focus-visible {
-    outline:1px solid rgba(255,255,255,0.7);
-    outline-offset:3px;
-  }
+  #joinPage :focus-visible { outline:1px solid rgba(255,255,255,0.7); outline-offset:3px; }
   #joinPage .join-back {
     position: fixed;
     left: clamp(16px, 2.4vw, 34px);
@@ -1059,11 +1218,7 @@ tailwind.config = {
                 color .25s ease, border-color .25s ease, background .25s ease;
   }
   #joinPage.active .join-back { opacity: 1; transform: translateY(0); }
-  #joinPage .join-back:hover {
-    color: #fff;
-    border-color: rgba(255,255,255,0.5);
-    background: rgba(0,0,0,0.55);
-  }
+  #joinPage .join-back:hover { color: #fff; border-color: rgba(255,255,255,0.5); background: rgba(0,0,0,0.55); }
   #joinPage .join-back svg {
     width: 12px; height: 12px;
     stroke: currentColor; stroke-width: 1.8;
@@ -1084,10 +1239,7 @@ tailwind.config = {
     pointer-events: none;
     transition: opacity 0.4s var(--ease-premium);
   }
-  #joinPage .join-info.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  #joinPage .join-info.open { opacity: 1; pointer-events: auto; }
   #joinPage .join-info-close {
     position: absolute;
     top: clamp(20px,2.4vw,34px);
@@ -1106,10 +1258,7 @@ tailwind.config = {
     cursor: pointer;
     transition: color 0.25s ease, border-color 0.25s ease;
   }
-  #joinPage .join-info-close:hover {
-    color: #fff;
-    border-color: rgba(255,255,255,0.6);
-  }
+  #joinPage .join-info-close:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
   #joinPage .join-info-close svg {
     width: 12px; height: 12px;
     stroke: currentColor; stroke-width: 1.8;
@@ -1122,10 +1271,7 @@ tailwind.config = {
     transform: translateY(16px);
     transition: opacity 0.5s ease 0.1s, transform 0.6s var(--ease-premium) 0.1s;
   }
-  #joinPage .join-info.open .join-info-inner {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  #joinPage .join-info.open .join-info-inner { opacity: 1; transform: translateY(0); }
   #joinPage .join-info-tag {
     display: block;
     font-family: var(--font-mono);
@@ -1159,7 +1305,7 @@ tailwind.config = {
       transition-duration:0.01ms !important;
     }
     .reveal { opacity: 1; transform: none; transition: none; }
-    .wave-layer { animation: none !important; }
+    #chapterPage, .chapter-card, .chapter-card__thumb img { transition: none !important; }
   }
   @media (max-height:640px) {
     #joinPage .navbar { padding:12px var(--gutter); }
@@ -1248,119 +1394,6 @@ tailwind.config = {
       <h1 id="heroTitle"
           class="rise-2 text-[30px] leading-[1.16] sm:text-[44px] sm:leading-[1.14] md:text-[58px] md:leading-[1.1] font-medium tracking-[-0.02em] text-white max-w-[17em]"
           data-zh="" data-en=""></h1>
-
-      <script>
-      (function () {
-        var HERO_LINES = [
-          ["海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。","The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited."],
-          ["海洋的比热容约为大气的四倍，这是它调节地球气候的物理基础。","The ocean's heat capacity is roughly four times that of the atmosphere — the physical basis of its role in regulating climate."],
-          ["全球约 90% 的海洋热量增加发生在 1990 年之后——这个过程正在加速。","Roughly 90% of ocean heat gain has occurred since 1990 — and the process is accelerating."],
-          ["海洋热浪的发生频率在过去四十年中增加了一倍以上。","The frequency of marine heatwaves has more than doubled over the past four decades."],
-          ["北极海冰面积在近四十年中每十年减少约 13%。","Arctic sea-ice extent has declined by roughly 13% per decade over the past forty years."],
-          ["过去三十年，海平面上升速率比二十世纪平均水平快了约一倍。","Over the past thirty years, sea-level rise has been roughly twice as fast as the twentieth-century average."],
-          ["全球海平面在 1901 至 2018 年间上升了约 0.20 米。","Global sea level rose by roughly 0.20 metres between 1901 and 2018."],
-          ["海洋上层 700 米储存了绝大部分被吸收的过剩热量。","The upper 700 metres of the ocean store the vast majority of absorbed excess heat."],
-          ["北大西洋经向翻转环流的强度，处于近千年来的最弱水平。","The strength of the Atlantic Meridional Overturning Circulation is at its weakest in nearly a millennium."],
-          ["海洋升温不是均匀的——某些区域的速度是全球平均值的数倍。","Ocean warming is not uniform — some regions are warming at several times the global average."],
-          ["人类活动排放的二氧化碳中，约四分之一最终溶入海洋。","Roughly a quarter of anthropogenic CO₂ emissions eventually dissolve into the ocean."],
-          ["工业革命以来，表层海水 pH 值下降约 0.1 个单位，相当于氢离子浓度上升约 30%。","Since the industrial revolution, surface-ocean pH has fallen by about 0.1 units — equivalent to a roughly 30% rise in hydrogen-ion concentration."],
-          ["当前海洋酸化的速率，是过去 3 亿年来最快的。","The current rate of ocean acidification is the fastest in 300 million years."],
-          ["海洋吸收了工业革命以来人类排放二氧化碳的约 30%。","The ocean has absorbed roughly 30% of anthropogenic CO₂ emissions since the industrial revolution."],
-          ["海洋中的碳储量约为大气中的 50 倍。","The ocean stores roughly 50 times more carbon than the atmosphere."],
-          ["海洋每年吸收约 20 至 30 亿吨二氧化碳，这个数字正在改变海水化学。","The ocean absorbs roughly 2–3 billion tonnes of CO₂ each year — a figure that is altering seawater chemistry."],
-          ["酸化对贝类、珊瑚等钙化生物的影响最为直接——它们的壳与骨骼在更酸的水中更难形成。","Acidification hits calcifying organisms — shellfish, corals — most directly: their shells and skeletons form less readily in more acidic water."],
-          ["如果排放趋势不变，到 2100 年海洋 pH 值可能再下降 0.3 至 0.4 个单位。","Under unchanged emission trends, ocean pH could fall a further 0.3–0.4 units by 2100."],
-          ["海洋酸化是一个与温度无关的独立过程，它的影响会持续数千年。","Ocean acidification is a process independent of temperature, and its effects will persist for millennia."],
-          ["二氧化碳溶入海水后形成的碳酸，正在改变整个海洋的化学平衡。","Carbonic acid formed when CO₂ dissolves in seawater is shifting the entire chemical balance of the ocean."],
-          ["每年约有 1100 万吨塑料进入海洋，其中约 80% 来自陆源。","Roughly 11 million tonnes of plastic enter the ocean each year, about 80% of it from land-based sources."],
-          ["海洋塑料垃圾中，约 94% 沉入海底，而非漂浮在海面。","About 94% of ocean plastic sinks to the seafloor rather than floating at the surface."],
-          ["海洋中塑料颗粒的总数量估计超过 5 万亿个。","The total number of plastic particles in the ocean is estimated at over 5 trillion."],
-          ["全球约 70% 的海洋塑料污染来自十条河流。","Roughly 70% of ocean plastic pollution originates from just ten rivers."],
-          ["海洋中约 90% 的塑料碎片小于 5 毫米——它们几乎无法被清理。","About 90% of plastic fragments in the ocean are smaller than 5 mm — effectively impossible to remove."],
-          ["微塑料已在地球最深处——马里亚纳海沟中被检出。","Microplastics have been detected in the Mariana Trench — the deepest point on Earth."],
-          ["塑料污染已影响到超过 1,400 种海洋生物。","Plastic pollution has affected more than 1,400 marine species."],
-          ["海洋中的塑料需要数百年才能分解，部分类型无法降解。","Plastic in the ocean takes centuries to break down; some types never degrade."],
-          ["每年约有 100 万只海鸟因塑料污染死亡。","Roughly one million seabirds die each year from plastic pollution."],
-          ["微塑料已被发现存在于 90% 以上的海鸟体内。","Microplastics have been found in over 90% of seabirds."],
-          ["全球商业鱼类种群中，约 35.4% 处于生物学不可持续的捕捞水平。","About 35.4% of global commercial fish stocks are harvested at biologically unsustainable levels."],
-          ["大型鱼类种群自 1950 年代以来减少了约 90%。","Large fish populations have declined by roughly 90% since the 1950s."],
-          ["全球鲨鱼和鳐鱼种群自 1970 年以来减少了约 71%。","Global shark and ray populations have declined by about 71% since 1970."],
-          ["全球约三分之一的渔业资源已被过度捕捞。","Roughly one-third of global fish stocks are overfished."],
-          ["全球约 90% 的渔业资源处于充分开发或过度开发状态。","About 90% of global fish stocks are fully or over-exploited."],
-          ["全球约 30 亿人依赖海洋作为主要蛋白质来源。","Roughly three billion people depend on the ocean as their primary source of protein."],
-          ["全球海龟种群数量在过去一个世纪中下降了约 80%。","Global sea-turtle populations have declined by roughly 80% over the past century."],
-          ["全球鲸类种群在工业捕鲸时代减少了约 90%。","Global whale populations fell by roughly 90% during the industrial whaling era."],
-          ["全球约 90% 的海洋生物生活在阳光照射不到的深海。","About 90% of marine life lives in the deep ocean, beyond the reach of sunlight."],
-          ["海洋中约 90% 的物种尚未被科学描述。","Roughly 90% of marine species have not yet been scientifically described."],
-          ["2009 至 2018 年间，全球硬珊瑚覆盖度下降了约 14%。","Global hard-coral cover declined by about 14% between 2009 and 2018."],
-          ["珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。","Coral reefs cover less than 1% of the seafloor but support roughly a quarter of marine species."],
-          ["全球约 60% 的珊瑚礁正面临局部灭绝风险。","About 60% of the world's coral reefs face a risk of local extinction."],
-          ["全球约 50% 的珊瑚礁已经死亡或严重退化。","Roughly half of the world's coral reefs are already dead or severely degraded."],
-          ["全球红树林在过去五十年中减少了约三分之一。","Global mangrove cover has declined by roughly one-third over the past fifty years."],
-          ["全球海草床的覆盖面积每年减少约 7%。","Global seagrass meadows are shrinking by about 7% per year."],
-          ["全球约 40% 的沿海湿地已经消失。","About 40% of coastal wetlands have already disappeared."],
-          ["全球约 60% 的红树林、海草床和珊瑚礁已经退化。","Roughly 60% of mangroves, seagrass beds and coral reefs are degraded."],
-          ["珊瑚白化是海洋升温最直观的信号之一。","Coral bleaching is one of the most direct signals of ocean warming."],
-          ["全球约 25% 的海洋物种，在生命周期的某个阶段依赖珊瑚礁。","About a quarter of marine species depend on coral reefs at some point in their life cycle."],
-          ["海洋覆盖了地球表面的 71%，但人类详细测绘过的海底不足四分之一。","The ocean covers 71% of Earth's surface, yet less than a quarter of the seafloor has been mapped in detail."],
-          ["深海约占海洋体积的 90%，其中大部分区域从未被直接观测。","The deep sea accounts for roughly 90% of ocean volume, most of it never directly observed."],
-          ["海洋中已知的物种约 24 万种，估计实际存在 70 万至 100 万种。","About 240,000 marine species are known; an estimated 700,000 to 1,000,000 may exist."],
-          ["海洋的平均深度约 3,682 米，最深处超过 11,000 米。","The ocean averages about 3,682 metres deep; its deepest point exceeds 11,000 metres."],
-          ["人类对深海的了解，少于对月球表面的了解。","We know less about the deep sea than about the surface of the Moon."],
-          ["深海生态系统的新陈代谢极慢，一次扰动可能需要数百年才能恢复。","Deep-sea ecosystems metabolise extremely slowly; a single disturbance may take centuries to recover."],
-          ["深海热液喷口周围存在不依赖阳光的生态系统。","Ecosystems independent of sunlight exist around deep-sea hydrothermal vents."],
-          ["海洋中约 90% 的体积处于黑暗、高压、低温的环境中。","Roughly 90% of the ocean's volume is dark, high-pressure and near-freezing."],
-          ["深海采矿的潜在影响，目前仍缺乏充分的科学评估。","The potential impacts of deep-sea mining still lack adequate scientific assessment."],
-          ["海洋中的生物量，约 90% 由微生物构成。","About 90% of the ocean's biomass consists of microorganisms."],
-          ["海洋浮游植物贡献了地球约一半的氧气产量。","Marine phytoplankton produce roughly half of Earth's oxygen."],
-          ["海洋中的溶解氧在过去五十年中减少了约 2%。","Dissolved oxygen in the ocean has declined by about 2% over the past fifty years."],
-          ["过去五十年，海洋缺氧区面积扩大了约四倍。","Over the past fifty years, ocean dead zones have expanded roughly fourfold."],
-          ["全球超过 800 个沿海区域存在富营养化和缺氧问题。","More than 800 coastal areas worldwide suffer from eutrophication and hypoxia."],
-          ["海洋承担着地球系统中最大的碳汇功能。","The ocean is the largest carbon sink in the Earth system."],
-          ["海洋吸收了地球系统中约 93% 由温室气体引起的额外热量。","The ocean has absorbed about 93% of the extra heat trapped by greenhouse gases."],
-          ["海洋的碳循环与气候系统之间存在复杂的反馈机制。","Complex feedbacks link the ocean's carbon cycle to the climate system."],
-          ["海洋中的浮游植物每年固定约 50 亿吨碳。","Marine phytoplankton fix roughly 5 billion tonnes of carbon each year."],
-          ["海洋的氧气循环与碳循环紧密耦合，任何扰动都可能产生连锁效应。","Ocean oxygen and carbon cycles are tightly coupled; any disturbance can cascade."],
-          ["海洋中的溶解氧下降，正在压缩大型鱼类的生存空间。","Declining dissolved oxygen is shrinking the habitat available to large fish."],
-          ["全球约 40% 的海洋受到人类活动的强烈影响。","About 40% of the ocean is strongly affected by human activity."],
-          ["全球约 60% 的海洋生态系统已经退化或被不可持续地利用。","Roughly 60% of marine ecosystems are degraded or used unsustainably."],
-          ["海洋中的噪音污染在过去五十年中增加了约 30 倍。","Noise pollution in the ocean has increased roughly thirtyfold over the past fifty years."],
-          ["海洋中的塑料污染每年造成约 130 亿美元的经济损失。","Marine plastic pollution causes roughly $13 billion in economic damage each year."],
-          ["海洋每年为全球经济贡献约 1.5 万亿美元的生态系统服务价值。","The ocean contributes roughly $1.5 trillion a year in ecosystem services to the global economy."],
-          ["全球约 30% 的海洋保护区，实际保护效果不足。","About 30% of marine protected areas provide inadequate protection in practice."],
-          ["全球约 80% 的海洋污染来自陆地活动。","Roughly 80% of marine pollution originates from land-based activities."],
-          ["全球约 60% 的海洋生态系统服务正在退化。","About 60% of marine ecosystem services are in decline."],
-          ["海洋中的塑料污染中，约 46% 来自渔具。","About 46% of ocean plastic pollution comes from fishing gear."],
-          ["全球约 90% 的海洋鱼类资源已被完全或过度开发。","Roughly 90% of global marine fish stocks are fully or over-exploited."],
-          ["海洋酸化恢复的时间尺度是数千年，而非数十年。","The recovery timescale for ocean acidification is millennia, not decades."],
-          ["深海生态系统的恢复速度，远慢于浅海生态系统。","Deep-sea ecosystems recover far more slowly than shallow-water ones."],
-          ["珊瑚礁一旦大面积死亡，自然恢复需要数十年甚至数百年。","Once a coral reef dies en masse, natural recovery takes decades or centuries."],
-          ["海洋中的塑料不会消失，只会分解成更小的碎片。","Plastic in the ocean does not disappear — it only breaks into smaller fragments."],
-          ["海洋升温的惯性意味着，即使排放停止，升温仍会持续一段时间。","The inertia of ocean warming means temperatures will keep rising for a time even if emissions stop."],
-          ["海洋中的碳一旦溶解，其影响将持续数百年。","Once carbon dissolves into the ocean, its effects persist for centuries."],
-          ["海洋生态系统的退化，往往在越过临界点后难以逆转。","Marine ecosystem degradation often becomes irreversible once a tipping point is crossed."],
-          ["海洋中的氧气含量下降，是一个缓慢但持续的过程。","The decline in ocean oxygen is slow but persistent."],
-          ["海洋污染的影响具有累积性，短期清理无法抵消长期排放。","Marine pollution accumulates; short-term clean-ups cannot offset long-term discharge."],
-          ["海洋的恢复能力存在上限，超过这个上限，系统会转向新的稳定状态。","The ocean's resilience has limits; beyond them, the system shifts to a new steady state."],
-          ["海洋覆盖地球表面的 71%，但人类对它的了解远少于对陆地的了解。","The ocean covers 71% of Earth's surface, yet we know far less about it than about land."],
-          ["海洋的复杂性意味着，任何单一措施都难以解决全部问题。","The ocean's complexity means no single measure can solve everything."],
-          ["海洋保护的有效性，取决于对具体数据的持续追踪，而非笼统的口号。","Effective marine protection depends on sustained tracking of specific data, not broad slogans."],
-          ["海洋议题中最容易被忽略的，往往是那些缺乏即时视觉冲击的长期变化。","The most overlooked marine issues are often the long-term changes that lack immediate visual impact."],
-          ["海洋科学的进步，依赖于长期、连续、可复核的观测数据。","Progress in marine science depends on long-term, continuous, verifiable observation."],
-          ["海洋中的每一个数字，都来自具体的研究机构、年份与方法。","Every figure about the ocean comes from a specific institution, year and method."],
-          ["海洋保护不需要宏大的承诺，而需要可核查的行动。","Marine protection does not require grand promises — it requires verifiable action."],
-          ["海洋的现状是已知的，它的未来取决于当下的选择。","The ocean's present is known; its future depends on choices made now."],
-          ["海洋不属于任何一代人，但它承受着每一代人的影响。","The ocean belongs to no single generation, yet bears the impact of every one."],
-          ["海洋已经给出了足够多的信号。剩下的问题是：我们是否在听。","The ocean has given enough signals. The remaining question is whether we are listening."]
-        ];
-        var idx = Math.floor(Math.random() * HERO_LINES.length);
-        var chosen = HERO_LINES[idx];
-        var h1 = document.getElementById('heroTitle');
-        h1.dataset.zh = chosen[0];
-        h1.dataset.en = chosen[1];
-        h1.textContent = chosen[0];
-      })();
-      </script>
 
       <p class="rise-3 mt-8 max-w-xl text-[13.5px] sm:text-[14.5px] leading-[1.85] text-white/55"
          data-zh="以下六项指标来自政府间气候变化专门委员会（IPCC）、联合国环境规划署（UNEP）、联合国粮农组织（FAO）以及经过同行评审的期刊文献。数据均为公开可查，我们只陈述已知事实，不作夸大预测。"
@@ -1523,8 +1556,8 @@ tailwind.config = {
 </section>
 
 
-<!-- ══════════════════════ 学习 ══════════════════════ -->
-<section id="learn" class="relative border-t hairline" style="background:linear-gradient(180deg,#062033 0%,#041724 100%)">
+<!-- ══════════════════════ 学习 · 章节列表 ══════════════════════ -->
+<section id="learn" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
 
     <div class="reveal max-w-2xl mb-14 md:mb-20">
@@ -1533,169 +1566,25 @@ tailwind.config = {
         <span class="font-mono text-[10px] tracking-[0.22em] text-ink-500 uppercase" data-zh="学习" data-en="Learn">学习</span>
       </div>
       <h2 class="text-[26px] md:text-[34px] font-medium tracking-[-0.015em] leading-[1.25] text-white"
-          data-zh="从原始评估报告中摘取的文献内容"
-          data-en="Excerpts drawn from the primary assessment reports">
-        从原始评估报告中摘取的文献内容
+          data-zh="IPCC 评估报告 · 章节导读"
+          data-en="IPCC Assessment Reports · Chapter Guide">
+        IPCC 评估报告 · 章节导读
       </h2>
       <p class="mt-5 text-[14px] leading-[1.85] text-white/50 max-w-xl"
-         data-zh="以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每条标注报告名称、年份与章节。每次打开页面从 120 条文献池中随机抽取 9 条展示，同一天内保持一致。我们只做压缩转述，不添加解释，也不引用情景预测。"
-         data-en="The entries below are taken from published IPCC, UNEP and FAO material. Each cites report, year and chapter. Nine of 120 entries are drawn at random on each visit and remain stable within the same day. We compress and restate; we do not interpret, and we do not cite scenario projections.">
-        以下条目摘取自 IPCC、UNEP 与 FAO 的公开发布物，每条标注报告名称、年份与章节。每次打开页面从 120 条文献池中随机抽取 9 条展示，同一天内保持一致。我们只做压缩转述，不添加解释，也不引用情景预测。
+         data-zh="以下章节按照 IPCC 第六次评估报告（AR6）三个工作组以及《海洋与冰冻圈特别报告》（SROCC）的原始结构编排。点击任意章节，进入独立阅读页。"
+         data-en="The chapters below follow the structure of the IPCC Sixth Assessment Report (AR6) and the Special Report on the Ocean and Cryosphere (SROCC). Click any chapter to open its dedicated reading page.">
+        以下章节按照 IPCC 第六次评估报告（AR6）三个工作组以及《海洋与冰冻圈特别报告》（SROCC）的原始结构编排。点击任意章节，进入独立阅读页。
       </p>
     </div>
 
-    <!-- 动态示意 -->
-    <div class="reveal learn-figure">
-      <div class="learn-figure__head">
-        <span class="expand-label__text" data-zh="动态示意 · 海洋分层" data-en="Animated schematic · Ocean stratification">动态示意 · 海洋分层</span>
-        <span class="font-mono text-[9.5px] tracking-[0.14em] text-white/25 uppercase">Inline SVG · no external assets</span>
-      </div>
-      <svg viewBox="0 0 800 200" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="lwGradA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#67C1E8" stop-opacity="0.30"/>
-            <stop offset="100%" stop-color="#67C1E8" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="lwGradB" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#247BA0" stop-opacity="0.50"/>
-            <stop offset="100%" stop-color="#247BA0" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <g class="wave-layer wave-layer--b">
-          <path d="M0 86 Q100 56 200 86 T400 86 T600 86 T800 86 T1000 86 T1200 86 T1400 86 T1600 86 L1600 200 L0 200 Z" fill="url(#lwGradA)"/>
-        </g>
-        <g class="wave-layer wave-layer--a">
-          <path d="M0 112 Q100 88 200 112 T400 112 T600 112 T800 112 T1000 112 T1200 112 T1400 112 T1600 112 L1600 200 L0 200 Z" fill="url(#lwGradB)"/>
-        </g>
-      </svg>
-      <p class="learn-note"
-         data-zh="示意图 · 非按比例 · 用于说明表层暖水层与深层冷水之间的分层结构。IPCC 指出，升温会增强水体分层，进而抑制上下层之间的热量、氧气与营养盐交换。"
-         data-en="Schematic · not to scale · illustrates stratification between warm surface water and cold deep water. IPCC notes that warming strengthens stratification, which suppresses exchange of heat, oxygen and nutrients between layers.">
-        示意图 · 非按比例 · 用于说明表层暖水层与深层冷水之间的分层结构。IPCC 指出，升温会增强水体分层，进而抑制上下层之间的热量、氧气与营养盐交换。
-      </p>
+    <div class="reveal flex flex-wrap gap-3 mb-12">
+      <button class="chapter-tab active" data-group="wgi">WGI · 自然科学基础</button>
+      <button class="chapter-tab" data-group="wgii">WGII · 影响与适应</button>
+      <button class="chapter-tab" data-group="wgiii">WGIII · 减缓</button>
+      <button class="chapter-tab" data-group="srocc">SROCC · 海洋与冰冻圈</button>
     </div>
 
-    <!-- 换一批按钮 -->
-    <div class="reveal flex items-center justify-between flex-wrap gap-4 mb-6">
-      <div class="flex items-center gap-3">
-        <span class="expand-label__line"></span>
-        <span class="expand-label__text" data-zh="今日文献摘录" data-en="Today's excerpts">今日文献摘录</span>
-      </div>
-      <button class="comm-toggle" id="learnRefresh" type="button">
-        <span data-zh="换一批" data-en="Refresh">换一批</span>
-        <svg class="comm-toggle__icon" viewBox="0 0 12 12"><path d="M2 6a4 4 0 016.6-3M10 6a4 4 0 01-6.6 3"/></svg>
-      </button>
-    </div>
-
-    <!-- 动态卡片容器 -->
-    <div class="learn-grid" id="learnGrid"></div>
-
-    <!-- 文献清单 -->
-    <div class="reveal mt-20">
-      <div class="expand-label">
-        <span class="expand-label__line"></span>
-        <span class="expand-label__text" data-zh="引用文献清单" data-en="Cited source list">引用文献清单</span>
-      </div>
-
-      <div class="stat-table-wrap" style="margin-bottom:0">
-        <table class="stat-table">
-          <thead>
-            <tr>
-              <th data-zh="机构" data-en="Body">机构</th>
-              <th data-zh="文献全名" data-en="Full title">文献全名</th>
-              <th data-zh="年份" data-en="Year">年份</th>
-              <th data-zh="摘录位置" data-en="Excerpt location">摘录位置</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>IPCC</td>
-              <td data-zh="气候变化 2021：自然科学基础。第一工作组第六次评估报告" data-en="Climate Change 2021: The Physical Science Basis. Working Group I contribution to AR6">气候变化 2021：自然科学基础。第一工作组第六次评估报告</td>
-              <td class="val">2021</td>
-              <td class="src">SPM A.1 · A.2 · A.3 · A.4 · A.5 · Ch.2 · Ch.3 · Ch.5 · Ch.8 · Ch.9 · Ch.11 · Ch.12</td>
-            </tr>
-            <tr>
-              <td>IPCC</td>
-              <td data-zh="气候变化 2022：影响、适应和脆弱性。第二工作组第六次评估报告" data-en="Climate Change 2022: Impacts, Adaptation and Vulnerability. Working Group II contribution to AR6">气候变化 2022：影响、适应和脆弱性。第二工作组第六次评估报告</td>
-              <td class="val">2022</td>
-              <td class="src">SPM B.1–B.4 · Ch.3 · Ch.5 · Ch.13 · Ch.14 · Ch.15</td>
-            </tr>
-            <tr>
-              <td>IPCC</td>
-              <td data-zh="气候变化 2022：减缓气候变化。第三工作组第六次评估报告" data-en="Climate Change 2022: Mitigation of Climate Change. Working Group III contribution to AR6">气候变化 2022：减缓气候变化。第三工作组第六次评估报告</td>
-              <td class="val">2022</td>
-              <td class="src">SPM · Ch.5 · Ch.7 · Ch.8 · Ch.10 · Ch.11 · Ch.12</td>
-            </tr>
-            <tr>
-              <td>IPCC</td>
-              <td data-zh="IPCC 关于海洋与冰冻圈的特别报告" data-en="IPCC Special Report on the Ocean and Cryosphere in a Changing Climate">IPCC 关于海洋与冰冻圈的特别报告</td>
-              <td class="val">2019</td>
-              <td class="src">SPM A · Ch.3 · Ch.4 · Ch.5</td>
-            </tr>
-            <tr>
-              <td>IPCC</td>
-              <td data-zh="全球升温 1.5°C 特别报告" data-en="Special Report on Global Warming of 1.5°C">全球升温 1.5°C 特别报告</td>
-              <td class="val">2018</td>
-              <td class="src">SPM · Ch.3 · Ch.5</td>
-            </tr>
-            <tr>
-              <td>UNEP</td>
-              <td data-zh="从污染到解决方案：海洋垃圾与塑料污染的全球评估" data-en="From Pollution to Solution: A global assessment of marine litter and plastic pollution">从污染到解决方案：海洋垃圾与塑料污染的全球评估</td>
-              <td class="val">2021</td>
-              <td class="src">Executive Summary · Ch.2 · Ch.4 · Ch.7</td>
-            </tr>
-            <tr>
-              <td>UNEP</td>
-              <td data-zh="全球环境展望第六版（GEO-6）" data-en="Global Environment Outlook 6 (GEO-6)">全球环境展望第六版（GEO-6）</td>
-              <td class="val">2019</td>
-              <td class="src">Ch.4 · Ch.7 · Ch.8 · Ch.9</td>
-            </tr>
-            <tr>
-              <td>UNEP</td>
-              <td data-zh="排放差距报告 2023" data-en="Emissions Gap Report 2023">排放差距报告 2023</td>
-              <td class="val">2023</td>
-              <td class="src">Executive Summary · Ch.2 · Ch.4</td>
-            </tr>
-            <tr>
-              <td>FAO</td>
-              <td data-zh="2022 年世界渔业和水产养殖状况（SOFIA）" data-en="The State of World Fisheries and Aquaculture 2022 (SOFIA)">2022 年世界渔业和水产养殖状况（SOFIA）</td>
-              <td class="val">2022</td>
-              <td class="src">Part I · Part III · Part IV</td>
-            </tr>
-            <tr>
-              <td>GCRMN</td>
-              <td data-zh="世界珊瑚礁状况：2020" data-en="Status of Coral Reefs of the World: 2020">世界珊瑚礁状况：2020</td>
-              <td class="val">2021</td>
-              <td class="src">Ch.1 · Global findings</td>
-            </tr>
-            <tr>
-              <td>IUCN</td>
-              <td data-zh="IUCN 濒危物种红色名录" data-en="The IUCN Red List of Threatened Species">IUCN 濒危物种红色名录</td>
-              <td class="val">2023</td>
-              <td class="src">Marine species assessments</td>
-            </tr>
-            <tr>
-              <td>Borrelle et al.</td>
-              <td data-zh="评估国家以下层级行动对减少塑料污染的作用" data-en="Evaluating scenarios toward zero plastic pollution">评估国家以下层级行动对减少塑料污染的作用</td>
-              <td class="val">2020</td>
-              <td class="src"><a href="https://www.science.org/doi/10.1126/science.aba9475" target="_blank" rel="noopener noreferrer">Science · Vol 369</a></td>
-            </tr>
-            <tr>
-              <td>Myers &amp; Worm</td>
-              <td data-zh="大西洋大型掠食性鱼类的快速枯竭" data-en="Rapid worldwide depletion of predatory fish communities">大西洋大型掠食性鱼类的快速枯竭</td>
-              <td class="val">2003</td>
-              <td class="src"><a href="https://www.nature.com/articles/nature01610" target="_blank" rel="noopener noreferrer">Nature · Vol 423</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="learn-disclaimer"
-         data-zh="以上摘要均为压缩转述，不构成对原始报告结论的替代。IPCC 报告中的多数结论带有明确的不确定性区间与置信度评级（如「极可能」「很可能」），此处未逐条标注；如需引用具体数值，请以原始报告中的表述为准。"
-         data-en="These summaries are condensed restatements and do not substitute for the original reports. Most IPCC conclusions carry explicit uncertainty ranges and confidence ratings (e.g. 'virtually certain', 'very likely'), which are not reproduced here. For citable figures, refer to the wording of the original reports.">
-        以上摘要均为压缩转述，不构成对原始报告结论的替代。IPCC 报告中的多数结论带有明确的不确定性区间与置信度评级（如「极可能」「很可能」），此处未逐条标注；如需引用具体数值，请以原始报告中的表述为准。
-      </p>
-    </div>
+    <div class="chapter-grid" id="chapterGrid"></div>
 
   </div>
 </section>
@@ -1848,42 +1737,8 @@ tailwind.config = {
       </a>
     </div>
 
-    <!-- 展开区域 -->
     <div class="community-expand" id="communityExpand" aria-hidden="true">
       <div class="community-expand__inner">
-
-        <div class="expand-label">
-          <span class="expand-label__line"></span>
-          <span class="expand-label__text" data-zh="图像档案" data-en="Visual archive">图像档案</span>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1518877593221-1f28583780b4?w=800&q=75&auto=format&fit=crop" alt="Sea turtle in open water" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="海龟 · 塑料污染的直接受害物种" data-en="Sea turtle · directly affected by plastic pollution">海龟 · 塑料污染的直接受害物种</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=75&auto=format&fit=crop" alt="Coral reef" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="珊瑚礁 · 全球硬珊瑚覆盖度十年下降 14%" data-en="Coral reefs · 14% hard-coral loss over a decade">珊瑚礁 · 全球硬珊瑚覆盖度十年下降 14%</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&q=75&auto=format&fit=crop" alt="Ocean surface" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="海洋表层 · 吸收全球约 90% 的过剩热量" data-en="Ocean surface · absorbs roughly 90% of excess heat">海洋表层 · 吸收全球约 90% 的过剩热量</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=800&q=75&auto=format&fit=crop" alt="Whale tail" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="鲸类 · 工业捕鲸后种群恢复缓慢" data-en="Whales · slow recovery after industrial whaling">鲸类 · 工业捕鲸后种群恢复缓慢</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=800&q=75&auto=format&fit=crop" alt="Humpback whale" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="座头鲸 · 大型鱼类种群自 1950 年代减少约 90%" data-en="Humpback · large fish stocks down ~90% since the 1950s">座头鲸 · 大型鱼类种群自 1950 年代减少约 90%</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=800&q=75&auto=format&fit=crop" alt="Deep ocean" loading="lazy" />
-            <div class="gallery-item__caption" data-zh="深海 · 海洋约 90% 的体积处于黑暗与高压中" data-en="Deep sea · roughly 90% of ocean volume in darkness">深海 · 海洋约 90% 的体积处于黑暗与高压中</div>
-          </div>
-        </div>
-
         <div class="expand-label">
           <span class="expand-label__line"></span>
           <span class="expand-label__text" data-zh="关键统计" data-en="Key statistics">关键统计</span>
@@ -1959,7 +1814,6 @@ tailwind.config = {
             </div>
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
-
           <a class="portal-item" href="https://www.fao.org/fishery/statistics/en" target="_blank" rel="noopener noreferrer">
             <div class="portal-item__info">
               <div class="portal-item__name">FAO Fisheries &amp; Aquaculture Statistics</div>
@@ -1967,7 +1821,6 @@ tailwind.config = {
             </div>
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
-
           <a class="portal-item" href="https://marine.copernicus.eu/access-data" target="_blank" rel="noopener noreferrer">
             <div class="portal-item__info">
               <div class="portal-item__name">Copernicus Marine Data Access</div>
@@ -1975,7 +1828,6 @@ tailwind.config = {
             </div>
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
-
           <a class="portal-item" href="https://www.ncei.noaa.gov/" target="_blank" rel="noopener noreferrer">
             <div class="portal-item__info">
               <div class="portal-item__name">NOAA National Centers for Environmental Information</div>
@@ -1983,7 +1835,6 @@ tailwind.config = {
             </div>
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
-
           <a class="portal-item" href="https://gcrmn.net/data/" target="_blank" rel="noopener noreferrer">
             <div class="portal-item__info">
               <div class="portal-item__name">GCRMN Coral Reef Data</div>
@@ -1991,7 +1842,6 @@ tailwind.config = {
             </div>
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
-
           <a class="portal-item" href="https://www.iucnredlist.org/search" target="_blank" rel="noopener noreferrer">
             <div class="portal-item__info">
               <div class="portal-item__name">IUCN Red List Species Search</div>
@@ -2000,7 +1850,6 @@ tailwind.config = {
             <svg class="portal-item__arrow" viewBox="0 0 18 18"><path d="M6 5h8v8M14 5L4 14"/></svg>
           </a>
         </div>
-
       </div>
     </div>
 
@@ -2284,6 +2133,37 @@ tailwind.config = {
 </footer>
 
 
+<!-- ══════════════════════ 章节详情页 ══════════════════════ -->
+<div id="chapterPage" aria-hidden="true">
+  <nav class="chap-nav">
+    <button class="chap-back" data-chap-close>
+      <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
+      <span data-zh="返回" data-en="Back">返回</span>
+    </button>
+    <span class="chap-nav__label" id="chapNavLabel"></span>
+  </nav>
+
+  <header class="chap-hero">
+    <img id="chapHeroImg" alt="" />
+    <div class="chap-hero__scrim"></div>
+    <div class="chap-hero__inner">
+      <span class="chap-hero__tag" id="chapHeroTag"></span>
+      <h1 class="chap-hero__title" id="chapHeroTitle"></h1>
+      <p class="chap-hero__sub" id="chapHeroSub"></p>
+    </div>
+  </header>
+
+  <main class="chap-body" id="chapBody"></main>
+
+  <footer class="chap-foot">
+    <button class="chap-foot__btn" data-chap-close>
+      <svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>
+      <span data-zh="返回章节列表" data-en="Back to chapters">返回章节列表</span>
+    </button>
+  </footer>
+</div>
+
+
 <!-- ══════════════════════ ECHOID 加入页 ══════════════════════ -->
 <div id="joinPage" aria-hidden="true">
   <section class="hero">
@@ -2394,7 +2274,73 @@ function dateKey(d) {
 function todayKey() { return dateKey(new Date()); }
 
 /* ══════════════════════════════════════════════════════════
-   1. 每日任务池
+   1. Hero 随机文案
+   ══════════════════════════════════════════════════════════ */
+(function () {
+  var HERO_LINES = [
+    ["海洋已经吸收了地球约 90% 的过剩热量。它仍在继续吸收，但吸收能力并非没有上限。","The ocean has absorbed roughly 90% of Earth's excess heat. It continues to absorb — but that capacity is not unlimited."],
+    ["海洋的比热容约为大气的四倍，这是它调节地球气候的物理基础。","The ocean's heat capacity is roughly four times that of the atmosphere — the physical basis of its role in regulating climate."],
+    ["全球约 90% 的海洋热量增加发生在 1990 年之后——这个过程正在加速。","Roughly 90% of ocean heat gain has occurred since 1990 — and the process is accelerating."],
+    ["海洋热浪的发生频率在过去四十年中增加了一倍以上。","The frequency of marine heatwaves has more than doubled over the past four decades."],
+    ["北极海冰面积在近四十年中每十年减少约 13%。","Arctic sea-ice extent has declined by roughly 13% per decade over the past forty years."],
+    ["过去三十年，海平面上升速率比二十世纪平均水平快了约一倍。","Over the past thirty years, sea-level rise has been roughly twice as fast as the twentieth-century average."],
+    ["全球海平面在 1901 至 2018 年间上升了约 0.20 米。","Global sea level rose by roughly 0.20 metres between 1901 and 2018."],
+    ["海洋上层 700 米储存了绝大部分被吸收的过剩热量。","The upper 700 metres of the ocean store the vast majority of absorbed excess heat."],
+    ["海洋升温不是均匀的——某些区域的速度是全球平均值的数倍。","Ocean warming is not uniform — some regions are warming at several times the global average."],
+    ["人类活动排放的二氧化碳中，约四分之一最终溶入海洋。","Roughly a quarter of anthropogenic CO₂ emissions eventually dissolve into the ocean."],
+    ["工业革命以来，表层海水 pH 值下降约 0.1 个单位，相当于氢离子浓度上升约 30%。","Since the industrial revolution, surface-ocean pH has fallen by about 0.1 units — equivalent to a roughly 30% rise in hydrogen-ion concentration."],
+    ["海洋吸收了工业革命以来人类排放二氧化碳的约 30%。","The ocean has absorbed roughly 30% of anthropogenic CO₂ emissions since the industrial revolution."],
+    ["海洋中的碳储量约为大气中的 50 倍。","The ocean stores roughly 50 times more carbon than the atmosphere."],
+    ["每年约有 1100 万吨塑料进入海洋，其中约 80% 来自陆源。","Roughly 11 million tonnes of plastic enter the ocean each year, about 80% of it from land-based sources."],
+    ["海洋中塑料颗粒的总数量估计超过 5 万亿个。","The total number of plastic particles in the ocean is estimated at over 5 trillion."],
+    ["全球约 70% 的海洋塑料污染来自十条河流。","Roughly 70% of ocean plastic pollution originates from just ten rivers."],
+    ["海洋中约 90% 的塑料碎片小于 5 毫米——它们几乎无法被清理。","About 90% of plastic fragments in the ocean are smaller than 5 mm — effectively impossible to remove."],
+    ["微塑料已在地球最深处——马里亚纳海沟中被检出。","Microplastics have been detected in the Mariana Trench — the deepest point on Earth."],
+    ["塑料污染已影响到超过 1,400 种海洋生物。","Plastic pollution has affected more than 1,400 marine species."],
+    ["每年约有 100 万只海鸟因塑料污染死亡。","Roughly one million seabirds die each year from plastic pollution."],
+    ["全球商业鱼类种群中，约 35.4% 处于生物学不可持续的捕捞水平。","About 35.4% of global commercial fish stocks are harvested at biologically unsustainable levels."],
+    ["大型鱼类种群自 1950 年代以来减少了约 90%。","Large fish populations have declined by roughly 90% since the 1950s."],
+    ["全球鲨鱼和鳐鱼种群自 1970 年以来减少了约 71%。","Global shark and ray populations have declined by about 71% since 1970."],
+    ["全球约三分之一以上的鱼类种群已被过度捕捞。","Roughly one-third or more of global fish stocks are overfished."],
+    ["全球约 30 亿人依赖海洋作为主要蛋白质来源。","Roughly three billion people depend on the ocean as their primary source of protein."],
+    ["全球鲸类种群在工业捕鲸时代减少了约 90%。","Global whale populations fell by roughly 90% during the industrial whaling era."],
+    ["全球约 90% 的海洋生物生活在阳光照射不到的深海。","About 90% of marine life lives in the deep ocean, beyond the reach of sunlight."],
+    ["海洋中约 90% 的物种尚未被科学描述。","Roughly 90% of marine species have not yet been scientifically described."],
+    ["2009 至 2018 年间，全球硬珊瑚覆盖度下降了约 14%。","Global hard-coral cover declined by about 14% between 2009 and 2018."],
+    ["珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。","Coral reefs cover less than 1% of the seafloor but support roughly a quarter of marine species."],
+    ["全球约 50% 的珊瑚礁已经死亡或严重退化。","Roughly half of the world's coral reefs are already dead or severely degraded."],
+    ["全球红树林在过去五十年中减少了约三分之一。","Global mangrove cover has declined by roughly one-third over the past fifty years."],
+    ["全球海草床的覆盖面积每年减少约 7%。","Global seagrass meadows are shrinking by about 7% per year."],
+    ["全球约 40% 的沿海湿地已经消失。","About 40% of coastal wetlands have already disappeared."],
+    ["海洋覆盖了地球表面的 71%，但人类详细测绘过的海底不足四分之一。","The ocean covers 71% of Earth's surface, yet less than a quarter of the seafloor has been mapped in detail."],
+    ["深海约占海洋体积的 90%，其中大部分区域从未被直接观测。","The deep sea accounts for roughly 90% of ocean volume, most of it never directly observed."],
+    ["人类对深海的了解，少于对月球表面的了解。","We know less about the deep sea than about the surface of the Moon."],
+    ["海洋浮游植物贡献了地球约一半的氧气产量。","Marine phytoplankton produce roughly half of Earth's oxygen."],
+    ["海洋中的溶解氧在过去五十年中减少了约 2%。","Dissolved oxygen in the ocean has declined by about 2% over the past fifty years."],
+    ["过去五十年，海洋缺氧区面积扩大了约四倍。","Over the past fifty years, ocean dead zones have expanded roughly fourfold."],
+    ["海洋吸收了地球系统中约 93% 由温室气体引起的额外热量。","The ocean has absorbed about 93% of the extra heat trapped by greenhouse gases."],
+    ["全球约 40% 的海洋受到人类活动的强烈影响。","About 40% of the ocean is strongly affected by human activity."],
+    ["全球约 60% 的海洋生态系统已经退化或被不可持续地利用。","Roughly 60% of marine ecosystems are degraded or used unsustainably."],
+    ["海洋中的噪音污染在过去五十年中增加了约 30 倍。","Noise pollution in the ocean has increased roughly thirtyfold over the past fifty years."],
+    ["全球约 90% 的海洋鱼类资源已被完全或过度开发。","Roughly 90% of global marine fish stocks are fully or over-exploited."],
+    ["海洋酸化恢复的时间尺度是数千年，而非数十年。","The recovery timescale for ocean acidification is millennia, not decades."],
+    ["珊瑚礁一旦大面积死亡，自然恢复需要数十年甚至数百年。","Once a coral reef dies en masse, natural recovery takes decades or centuries."],
+    ["海洋升温的惯性意味着，即使排放停止，升温仍会持续一段时间。","The inertia of ocean warming means temperatures will keep rising for a time even if emissions stop."],
+    ["海洋的现状是已知的，它的未来取决于当下的选择。","The ocean's present is known; its future depends on choices made now."],
+    ["海洋已经给出了足够多的信号。剩下的问题是：我们是否在听。","The ocean has given enough signals. The remaining question is whether we are listening."]
+  ];
+  var idx = Math.floor(Math.random() * HERO_LINES.length);
+  var chosen = HERO_LINES[idx];
+  var h1 = document.getElementById('heroTitle');
+  if (h1) {
+    h1.dataset.zh = chosen[0];
+    h1.dataset.en = chosen[1];
+    h1.textContent = chosen[0];
+  }
+})();
+
+/* ══════════════════════════════════════════════════════════
+   2. 每日任务池
    ══════════════════════════════════════════════════════════ */
 var DAILY_ACTIONS = [
   { zh: '自带购物袋和水杯出门。今天拒绝任意一次一次性塑料袋。', en: 'Bring your own bag and bottle. Decline one single-use plastic bag today.', noteZh: '陆源塑料是海洋塑料污染的主要来源，占比约 80%。', noteEn: 'Land-based plastic accounts for roughly 80% of ocean plastic pollution.' },
@@ -2412,17 +2358,10 @@ var DAILY_ACTIONS = [
   { zh: '避免使用含微塑料的个人护理品（磨砂、去角质类）。', en: 'Avoid personal-care products containing microbeads today.', noteZh: '微塑料一旦进入水体，几乎无法回收。', noteEn: 'Once microplastics enter water, they are effectively impossible to remove.' },
   { zh: '今天买咖啡时使用自己的杯子。', en: 'Bring your own cup for coffee today.', noteZh: '一次性咖啡杯的防水内衬多数不可回收。', noteEn: 'Most disposable coffee cups have non-recyclable waterproof linings.' },
   { zh: '查阅一个本地海岸或河流的清理活动信息。', en: 'Look up one local coastal or river clean-up programme.', noteZh: '有组织的净滩比个人清理更安全也更有效。', noteEn: 'Organised clean-ups are safer and more effective than solo efforts.' },
-  { zh: '今天出门前，检查随身物品中是否有可减少的一次性塑料。', en: 'Before leaving, check whether any single-use plastic can be avoided.', noteZh: '最好的塑料管理，是从源头减少使用。', noteEn: 'The best plastic management starts at the source.' },
   { zh: '在社交媒体上分享一次与海洋相关的可信来源信息。', en: 'Share one credible marine source on social media today.', noteZh: '信息可溯是海洋议题传播的基本要求。', noteEn: 'Traceable sourcing is the minimum standard for marine discourse.' },
   { zh: '今天做一次对个人年度用电量的粗略估算。', en: 'Make a rough estimate of your annual electricity use today.', noteZh: '可核查的减碳行动，从量化开始。', noteEn: 'Verifiable carbon action begins with measurement.' },
   { zh: '今天拒绝一次不必要的纸质或塑料包装。', en: 'Decline one unnecessary paper or plastic package today.', noteZh: '包装材料在海洋垃圾中占相当比例。', noteEn: 'Packaging accounts for a significant share of marine debris.' },
   { zh: '选择一次本地产食材，缩短食物的运输距离。', en: 'Choose locally sourced food once today to shorten transport distance.', noteZh: '缩短供应链可显著降低碳排放。', noteEn: 'Shorter supply chains substantially cut emissions.' },
-  { zh: '今天关闭待机状态的电器电源。', en: 'Switch off standby power on one appliance today.', noteZh: '待机能耗在家庭总用电中占比不可忽略。', noteEn: 'Standby power is a non-trivial share of household electricity use.' },
-  { zh: '今天选择一次不使用一次性雨伞套或塑料袋。', en: 'Avoid one single-use umbrella cover or plastic bag today.', noteZh: '小雨具塑料多不可降解。', noteEn: 'Most rain-gear plastic does not degrade.' },
-  { zh: '在购买一件合成纤维衣物前，考虑其长期使用频率。', en: 'Before buying a synthetic garment, consider how often you will actually wear it.', noteZh: '每件衣物都对应一段能耗与微塑料排放。', noteEn: 'Every garment carries embedded energy use and microplastic release.' },
-  { zh: '今天做一次简短的户外观察，记录身边的自然变化。', en: 'Spend a few minutes outdoors observing changes in your surroundings.', noteZh: '观察是理解长期变化的第一步。', noteEn: 'Observation is the first step to understanding long-term change.' },
-  { zh: '查阅一份可信的海洋科学报告或数据摘要。', en: 'Read one credible marine science report or data summary today.', noteZh: '信息源越可查，传播越有效。', noteEn: 'The more traceable the source, the more effective the sharing.' },
-  { zh: '今天减少一次不必要的纸张打印。', en: 'Skip one unnecessary paper print today.', noteZh: '造纸过程消耗水、能源并产生排放。', noteEn: 'Paper production consumes water, energy and emits carbon.' },
   { zh: '向身边的人说明一次海洋酸化与二氧化碳排放的关系。', en: 'Explain once to someone how ocean acidification links to CO₂ emissions.', noteZh: '海洋吸收了人类排放二氧化碳的约四分之一。', noteEn: 'The ocean absorbs roughly a quarter of anthropogenic CO₂ emissions.' },
   { zh: '今天主动选择一次不打包的外卖或自备餐盒。', en: 'Choose once today to skip takeaway packaging or bring your own container.', noteZh: '外卖包装是城市塑料废弃物的主要来源。', noteEn: 'Takeaway packaging is a major source of urban plastic waste.' },
   { zh: '今天记录一条自己观察到的环境变化。', en: 'Note one environmental change you observed today.', noteZh: '个体记录是长期监测的补充。', noteEn: 'Individual records supplement long-term monitoring.' },
@@ -2435,46 +2374,21 @@ function getTodayAction() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   2. ECHOID 信息内容
+   3. ECHOID 信息内容
    ══════════════════════════════════════════════════════════ */
 var INFO_CONTENT = {
-  story: {
-    tag: '[ STORY ]',
-    title: 'Story',
-    text: 'ECHOID began with a single question: can a voice carry an identity across networks without relying on a central authority? The answer is a signature, not a database. Every ECHOID is derived locally, verified remotely, and never stored as a credential anywhere on the network.'
-  },
-  platforms: {
-    tag: '[ PLATFORMS ]',
-    title: 'Platforms',
-    text: 'ECHOID runs across E network nodes. Your identity is portable, verifiable and does not depend on any single platform remaining online. If one node goes down, the signature still verifies against the others. There is no master server and no single point of failure.'
-  },
-  identity: {
-    tag: '[ IDENTITY ]',
-    title: 'Identity',
-    text: 'An ECHOID is derived from three inputs: your email address, an optional invite key, and a device-bound signature. No password is stored. No biometric data leaves your device. The resulting identifier is unique to you, but it cannot be used to reconstruct any of those three inputs.'
-  },
-  contact: {
-    tag: '[ CONTACT ]',
-    title: 'Contact',
-    text: 'For partnership enquiries, write to join@echoid.net. For press, press@echoid.net. For security disclosures, security@echoid.net. We read everything, but we cannot respond to every message individually.'
-  },
-  privacy: {
-    tag: '[ PRIVACY NOTICE ]',
-    title: 'Privacy Notice',
-    text: 'ECHOID stores your email address locally on your device. No usage analytics, no tracking pixels, no third-party scripts. Your participation records never leave your browser unless you explicitly export them. This page itself sets no cookies.'
-  },
-  contract: {
-    tag: '[ SERVICE CONTRACT ]',
-    title: 'Service Contract',
-    text: 'ECHOID is provided as-is, without warranty. The network does not custody assets, does not hold personal data on behalf of users, and does not mediate disputes between parties. You retain full control of your identifier at all times.'
-  }
+  story: { tag: '[ STORY ]', title: 'Story', text: 'ECHOID began with a single question: can a voice carry an identity across networks without relying on a central authority? The answer is a signature, not a database. Every ECHOID is derived locally, verified remotely, and never stored as a credential anywhere on the network.' },
+  platforms: { tag: '[ PLATFORMS ]', title: 'Platforms', text: 'ECHOID runs across E network nodes. Your identity is portable, verifiable and does not depend on any single platform remaining online. If one node goes down, the signature still verifies against the others.' },
+  identity: { tag: '[ IDENTITY ]', title: 'Identity', text: 'An ECHOID is derived from three inputs: your email address, an optional invite key, and a device-bound signature. No password is stored. No biometric data leaves your device.' },
+  contact: { tag: '[ CONTACT ]', title: 'Contact', text: 'For partnership enquiries, write to join@echoid.net. For press, press@echoid.net. For security disclosures, security@echoid.net.' },
+  privacy: { tag: '[ PRIVACY NOTICE ]', title: 'Privacy Notice', text: 'ECHOID stores your email address locally on your device. No usage analytics, no tracking pixels, no third-party scripts. Your participation records never leave your browser unless you explicitly export them.' },
+  contract: { tag: '[ SERVICE CONTRACT ]', title: 'Service Contract', text: 'ECHOID is provided as-is, without warranty. The network does not custody assets, does not hold personal data on behalf of users, and does not mediate disputes between parties.' }
 };
 
 /* ══════════════════════════════════════════════════════════
-   3. DOM 缓存
+   4. DOM 缓存
    ══════════════════════════════════════════════════════════ */
 var $heroVideo    = document.getElementById('heroVideo');
-var $heroTitle    = document.getElementById('heroTitle');
 var $menuBtn      = document.getElementById('menuBtn');
 var $mobilePanel  = document.getElementById('mobilePanel');
 var $iconMenu     = document.getElementById('iconMenu');
@@ -2513,7 +2427,6 @@ var $progBar      = document.getElementById('progBar');
 var $progMsg      = document.getElementById('progMsg');
 var $communityToggle = document.getElementById('communityToggle');
 var $communityExpand = document.getElementById('communityExpand');
-var $communityToggleText = document.getElementById('communityToggleText');
 
 var joinBtns      = Array.prototype.slice.call(document.querySelectorAll('[data-open-join]'));
 var joinCloseBtns = Array.prototype.slice.call(document.querySelectorAll('[data-close-join]'));
@@ -2522,7 +2435,7 @@ var i18nNodes     = Array.prototype.slice.call(document.querySelectorAll('[data-
 var checkRows     = Array.prototype.slice.call(document.querySelectorAll('.check-row'));
 
 /* ══════════════════════════════════════════════════════════
-   4. 状态
+   5. 状态
    ══════════════════════════════════════════════════════════ */
 var currentLang = 'zh';
 var menuOpen = false;
@@ -2536,7 +2449,7 @@ var errorTimer = null;
 var inviteErrorTimer = null;
 
 /* ══════════════════════════════════════════════════════════
-   5. 用户名
+   6. 用户名与 Join 按钮
    ══════════════════════════════════════════════════════════ */
 function getUserName(user) {
   if (!user || !user.email) return '';
@@ -2559,7 +2472,7 @@ function updateJoinButtons() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   6. 今日行动
+   7. 今日行动
    ══════════════════════════════════════════════════════════ */
 function renderDaily() {
   if (!currentUser) return;
@@ -2609,18 +2522,25 @@ function toggleDaily() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   7. 登录 / 登出
+   8. 登录 / 登出
    ══════════════════════════════════════════════════════════ */
 function setUser(email) {
-  var t = String(email || '').trim();
-  if (!t || t.indexOf('@') === -1) return false;
-  currentUser = { email: t, joinedAt: Date.now() };
-  safeStore(USER_KEY, currentUser);
-  $daily.classList.add('visible');
-  $daily.setAttribute('aria-hidden', 'false');
-  updateJoinButtons();
-  renderDaily();
-  return true;
+  try {
+    var t = String(email || '').trim();
+    if (!t || t.indexOf('@') === -1) return false;
+    currentUser = { email: t, joinedAt: Date.now() };
+    safeStore(USER_KEY, currentUser);
+    if ($daily) {
+      $daily.classList.add('visible');
+      $daily.setAttribute('aria-hidden', 'false');
+    }
+    updateJoinButtons();
+    renderDaily();
+    return true;
+  } catch (err) {
+    console.error('[join] setUser failed:', err);
+    return false;
+  }
 }
 
 function logoutUser() {
@@ -2632,7 +2552,7 @@ function logoutUser() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   8. 错误提示
+   9. 错误提示
    ══════════════════════════════════════════════════════════ */
 function showJoinError(msg) {
   $joinError.textContent = msg;
@@ -2658,15 +2578,10 @@ function showInviteError(msg) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   9. ECHOID 页开关
+   10. ECHOID 页开关
    ══════════════════════════════════════════════════════════ */
 function openJoin() {
   if (menuOpen) setMenu(false);
-  if (currentUser) {
-    var el = document.getElementById('daily');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
   joinScrollY = window.scrollY || window.pageYOffset || 0;
   document.body.classList.add('join-open');
   $joinPage.classList.add('active');
@@ -2681,6 +2596,12 @@ function openJoin() {
   $joinVideo.muted = true;
   var p = $joinVideo.play();
   if (p && p.catch) p.catch(function(){});
+
+  if (currentUser && currentUser.email) {
+    $joinEmail.value = currentUser.email;
+  } else {
+    $joinEmail.value = '';
+  }
   setTimeout(function () { if ($joinEmail) $joinEmail.focus(); }, 320);
 }
 
@@ -2695,7 +2616,7 @@ function closeJoin() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   10. 信息层
+   11. 信息层
    ══════════════════════════════════════════════════════════ */
 function openJoinInfo(key) {
   var c = INFO_CONTENT[key];
@@ -2712,7 +2633,7 @@ function closeJoinInfo() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   11. 主页面移动菜单
+   12. 主页面移动菜单
    ══════════════════════════════════════════════════════════ */
 function setMenu(state) {
   menuOpen = state;
@@ -2733,7 +2654,7 @@ function setMenu(state) {
 $mobilePanel.style.pointerEvents = 'none';
 
 /* ══════════════════════════════════════════════════════════
-   12. ECHOID 汉堡菜单
+   13. ECHOID 汉堡菜单
    ══════════════════════════════════════════════════════════ */
 var $joinHamburger = $joinPage.querySelector('.hamburger');
 var $joinMobileMenu = document.getElementById('joinMobileMenu');
@@ -2759,7 +2680,7 @@ function toggleJoinMenu() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   13. 语言切换
+   14. 语言切换
    ══════════════════════════════════════════════════════════ */
 function applyLang(lang) {
   currentLang = lang;
@@ -2779,7 +2700,7 @@ function applyLang(lang) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   14. 承诺清单
+   15. 承诺清单
    ══════════════════════════════════════════════════════════ */
 function renderPledgeRows() {
   checkRows.forEach(function (row) {
@@ -2798,7 +2719,7 @@ function updateProgress() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   15. 滚动揭示
+   16. 滚动揭示
    ══════════════════════════════════════════════════════════ */
 function initReveal() {
   var els = document.querySelectorAll('.reveal');
@@ -2818,7 +2739,7 @@ function initReveal() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   16. 社区展开
+   17. 社区展开
    ══════════════════════════════════════════════════════════ */
 function toggleCommunity() {
   communityOpen = !communityOpen;
@@ -2835,16 +2756,13 @@ function toggleCommunity() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   17. 事件绑定
+   18. 事件绑定
    ══════════════════════════════════════════════════════════ */
-
-/* 主页面移动菜单 */
 $menuBtn.addEventListener('click', function () { setMenu(!menuOpen); });
 document.querySelectorAll('.mobile-link').forEach(function (l) {
   l.addEventListener('click', function () { setMenu(false); });
 });
 
-/* 打开/关闭 ECHOID 页 */
 joinBtns.forEach(function (btn) {
   btn.addEventListener('click', function (e) { e.preventDefault(); openJoin(); });
 });
@@ -2861,7 +2779,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-/* ECHOID 汉堡菜单 */
 $joinHamburger.addEventListener('click', toggleJoinMenu);
 $joinMobileMenu.addEventListener('click', function (e) {
   if (e.target === $joinMobileMenu) toggleJoinMenu();
@@ -2876,7 +2793,6 @@ joinMq.addEventListener('change', function () {
   if (joinMq.matches && $joinHamburger.classList.contains('active')) toggleJoinMenu();
 });
 
-/* ECHOID 导航 → 信息层 */
 document.querySelectorAll('#joinPage [data-info]').forEach(function (el) {
   el.addEventListener('click', function (e) {
     e.preventDefault();
@@ -2886,7 +2802,6 @@ document.querySelectorAll('#joinPage [data-info]').forEach(function (el) {
 });
 $joinInfoClose.addEventListener('click', closeJoinInfo);
 
-/* Join up → 聚焦邮箱 */
 function focusEmail() {
   if ($joinHamburger.classList.contains('active')) toggleJoinMenu();
   if ($joinEmail) $joinEmail.focus();
@@ -2897,18 +2812,28 @@ $joinMobileCta.addEventListener('click', focusEmail);
 
 /* 表单提交 */
 function handleJoinSubmit(e) {
-  if (e) e.preventDefault();
-  var val = ($joinEmail.value || '').trim();
+  if (e && e.preventDefault) e.preventDefault();
+  if (e && e.stopPropagation) e.stopPropagation();
+
+  var val = '';
+  try {
+    val = ($joinEmail.value || '').trim();
+  } catch (err) {
+    console.error('[join] read email failed:', err);
+    return false;
+  }
 
   if (!val) {
     showJoinError('请输入邮箱地址 · Enter your email address');
-    $joinEmail.focus();
-    return;
+    if ($joinEmail) $joinEmail.focus();
+    return false;
   }
-  if (val.indexOf('@') === -1 || val.indexOf('.') === -1 || val.length < 5) {
+
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(val)) {
     showJoinError('邮箱格式不正确 · Invalid email address');
-    $joinEmail.focus();
-    return;
+    if ($joinEmail) $joinEmail.focus();
+    return false;
   }
 
   clearJoinError();
@@ -2916,8 +2841,23 @@ function handleJoinSubmit(e) {
   $joinSubmit.disabled = true;
   $joinSubmit.style.color = 'rgba(255,255,255,0.85)';
 
+  var saved = false;
+  try {
+    saved = setUser(val);
+  } catch (err) {
+    console.error('[join] setUser error:', err);
+    saved = false;
+  }
+
+  if (!saved) {
+    showJoinError('保存失败，请重试 · Save failed, try again');
+    $joinSubmit.textContent = 'Proceed using email';
+    $joinSubmit.disabled = false;
+    $joinSubmit.style.color = '';
+    return false;
+  }
+
   setTimeout(function () {
-    setUser(val);
     closeJoin();
     setTimeout(function () {
       $joinSubmit.textContent = 'Proceed using email';
@@ -2925,17 +2865,24 @@ function handleJoinSubmit(e) {
       $joinSubmit.style.color = '';
       $joinEmail.value = '';
     }, 420);
-  }, 480);
+
+    var el = document.getElementById('daily');
+    if (el) {
+      setTimeout(function () {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+    }
+  }, 420);
+
+  return false;
 }
 $joinForm.addEventListener('submit', handleJoinSubmit);
 $joinAccess.addEventListener('click', handleJoinSubmit);
 
-/* 邮箱输入时清除错误 */
 $joinEmail.addEventListener('input', function () {
   if ($joinError.classList.contains('show')) clearJoinError();
 });
 
-/* 邀请码面板 */
 $joinInviteToggle.addEventListener('click', function () {
   var isOpen = $joinInvitePanel.classList.contains('open');
   if (isOpen) {
@@ -2948,16 +2895,8 @@ $joinInviteToggle.addEventListener('click', function () {
 
 $joinInviteSubmit.addEventListener('click', function () {
   var key = ($joinInviteInput.value || '').trim();
-  if (!key) {
-    showInviteError('请输入邀请码 · Enter an invite key');
-    $joinInviteInput.focus();
-    return;
-  }
-  if (key.length < 6) {
-    showInviteError('邀请码长度不足 · Key too short');
-    $joinInviteInput.focus();
-    return;
-  }
+  if (!key) { showInviteError('请输入邀请码 · Enter an invite key'); $joinInviteInput.focus(); return; }
+  if (key.length < 6) { showInviteError('邀请码长度不足 · Key too short'); $joinInviteInput.focus(); return; }
   showInviteError('邀请码验证中 · Verifying…');
   setTimeout(function () {
     showInviteError('邀请码无效，请联系邀请人 · Invalid key');
@@ -2965,30 +2904,23 @@ $joinInviteSubmit.addEventListener('click', function () {
 });
 
 $joinInviteInput.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    $joinInviteSubmit.click();
-  }
+  if (e.key === 'Enter') { e.preventDefault(); $joinInviteSubmit.click(); }
 });
 
-/* 今日行动打卡 */
 $dailyCheck.addEventListener('click', toggleDaily);
 $dailyCheck.addEventListener('keydown', function (e) {
   if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleDaily(); }
 });
 
-/* 登出 */
 $dailyLogout.addEventListener('click', function () {
   logoutUser();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* 语言 */
 langBtns.forEach(function (btn) {
   btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
 });
 
-/* 承诺清单 */
 checkRows.forEach(function (row) {
   row.addEventListener('click', function () {
     var k = row.dataset.key;
@@ -2999,11 +2931,10 @@ checkRows.forEach(function (row) {
   });
 });
 
-/* 社区展开 */
 $communityToggle.addEventListener('click', toggleCommunity);
 
 /* ══════════════════════════════════════════════════════════
-   18. 初始化
+   19. 初始化
    ══════════════════════════════════════════════════════════ */
 function init() {
   initReveal();
@@ -3032,236 +2963,708 @@ document.addEventListener('visibilitychange', function () {
     }
   }
 }, { passive: true });
-</script>
 
 
-<script>
 /* ══════════════════════════════════════════════════════════
-   学习板块 · 120 条文献摘录池 · 每次随机 9 条
+   20. 学习板块 · IPCC 章节数据
+   ══════════════════════════════════════════════════════════ */
+var CHAPTERS = {
+  wgi: [
+    {
+      id: 'wgi-ch9',
+      num: 'Ch.9',
+      title: '海洋、冰冻圈与海平面变化',
+      titleEn: 'Ocean, Cryosphere and Sea Level Change',
+      group: 'WGI',
+      source: 'IPCC AR6 WGI · 2021',
+      img: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估海洋、冰冻圈与海平面的观测变化与未来预估。报告判定：人类影响导致海洋变暖这一结论是「明确无疑」（virtually certain）。',
+      summaryEn: 'This chapter assesses observed and projected changes in the ocean, cryosphere and sea level. It concludes that human influence has warmed the ocean — a finding rated virtually certain.',
+      lead: [
+        '海洋吸收了气候系统中绝大部分的过剩能量，这一事实构成了理解全球变暖的物理基础。自 1971 年以来，海洋变暖毫无疑问，人类影响是主要驱动因素。',
+        '本章同时处理冰冻圈与海平面的变化。海平面上升并非单一过程，而是热膨胀、冰川质量损失与冰盖质量损失三者叠加的结果。报告强调，部分变化在多数情景下不可逆。'
+      ],
+      leadEn: [
+        'The ocean absorbs the vast majority of excess energy in the climate system — a fact that underpins any understanding of global warming. Since 1971, ocean warming has been unequivocal, with human influence as the main driver.',
+        'The chapter also covers the cryosphere and sea level. Sea-level rise is not a single process but the sum of thermal expansion, glacier mass loss and ice-sheet mass loss. The report stresses that some changes are irreversible under most scenarios.'
+      ],
+      sections: [
+        {
+          n: '9.1', t: '海洋热含量',
+          tEn: 'Ocean Heat Content',
+          p: ['1971 至 2018 年间，海洋吸收了气候系统中约 91% 的过剩能量。海洋热含量在 0–2000 米层的增加速率，在 2006–2018 年间约为每十年 0.35 × 10²² 焦耳。',
+              '报告指出，自 1993 年以来海洋变暖速率至少翻了一倍。上层 700 米储存了绝大部分被吸收的热量，其热含量变化是衡量全球变暖最直接的指标之一。'],
+          pEn: ['Over 1971–2018, the ocean absorbed about 91% of excess energy in the climate system. Ocean heat content in the 0–2000 m layer increased at roughly 0.35 × 10²² J per decade over 2006–2018.',
+                'The report states that the rate of ocean warming has more than doubled since 1993. The upper 700 m stores the vast majority of absorbed heat, and its heat content change is among the most direct indicators of global warming.']
+        },
+        {
+          n: '9.2', t: '海洋热浪与生态影响',
+          tEn: 'Marine Heatwaves and Ecological Impacts',
+          p: ['自 20 世纪 80 年代以来，海洋热浪的发生频率大约翻了一倍，且单次事件的持续时间与强度均有所增加。这一变化被判定与人为气候变暖相关，置信度为「极可能」（very likely）。',
+              '海洋热浪与珊瑚白化、物种分布迁移、渔业产量波动以及水产养殖损失之间存在直接关联。报告指出，这一联系在近十年中已被越来越多地量化。'],
+          pEn: ['The frequency of marine heatwaves has approximately doubled since the 1980s, with increases in both duration and intensity. The change is assessed as very likely linked to anthropogenic warming.',
+                'Marine heatwaves are directly linked to coral bleaching, shifts in species distribution, fishery yield fluctuations and aquaculture losses. The report notes that this linkage has been increasingly quantified over the past decade.']
+        },
+        {
+          n: '9.3', t: '溶解氧与水体分层',
+          tEn: 'Dissolved Oxygen and Stratification',
+          p: ['自 1970 年代以来，全球海洋的溶解氧储量下降了约 1% 至 2%，低氧区的范围有所扩大。',
+              '机制上，升温降低氧气的溶解度，并增强水体分层，从而抑制富氧表层水向深层的输送。分层增强同时抑制了热量、氧气与营养盐的垂向交换。'],
+          pEn: ['Global ocean oxygen inventory has declined by roughly 1–2% since the 1970s, with an expansion of low-oxygen zones.',
+                'Mechanistically, warming lowers oxygen solubility and strengthens stratification, suppressing the transport of oxygen-rich surface water to depth. Enhanced stratification also suppresses vertical exchange of heat, oxygen and nutrients.']
+        },
+        {
+          n: '9.4', t: '海平面上升',
+          tEn: 'Sea Level Rise',
+          p: ['1901 至 2018 年间，全球平均海平面上升了 0.20 米（区间 0.15–0.25 米）。2006–2018 年间的平均速率约为每年 3.7 毫米，明显高于 1901–1971 年间的每年约 1.3 毫米。',
+              '报告将热膨胀、冰川质量损失与冰盖质量损失列为三个主要贡献项。区域海平面上升并不均匀，部分区域高于全球平均，另一些则相对较低。'],
+          pEn: ['Global mean sea level rose by 0.20 m (likely range 0.15–0.25 m) over 1901–2018. The average rate over 2006–2018 was about 3.7 mm per year, markedly higher than the ~1.3 mm per year of 1901–1971.',
+                'Thermal expansion, glacier mass loss and ice-sheet mass loss are identified as the three principal contributors. Regional sea-level rise is not uniform.']
+        },
+        {
+          n: '9.5', t: '冰冻圈变化',
+          tEn: 'Cryosphere Change',
+          p: ['1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8% 的速率下降。南极与格陵兰冰盖的冰量损失在近数十年间加速。北半球春季积雪范围与多年冻土范围均持续缩减。',
+              '报告判定，其中部分变化在多数情景下不可逆，其时间尺度从数十年至数千年不等。北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。'],
+          pEn: ['Arctic September sea-ice extent declined at about 12.8% per decade between 1979 and 2018. Mass loss from the Antarctic and Greenland ice sheets has accelerated in recent decades. Northern Hemisphere spring snow cover and permafrost extent have both continued to shrink.',
+                'Some of these changes are assessed as irreversible under most scenarios, on timescales from decades to millennia. Arctic surface air temperature has risen at more than twice the global average — a phenomenon known as Arctic amplification.']
+        }
+      ],
+      stats: [
+        { v: '~91%', l: '海洋吸收的过剩能量占比（1971–2018）', lEn: 'Share of excess energy absorbed by the ocean (1971–2018)' },
+        { v: '0.20 m', l: '1901–2018 全球平均海平面上升', lEn: 'Global mean sea level rise, 1901–2018' },
+        { v: '3.7 mm/yr', l: '2006–2018 海平面上升速率', lEn: 'Sea-level rise rate, 2006–2018' },
+        { v: '12.8%', l: '北极 9 月海冰每十年下降幅度', lEn: 'Arctic September sea-ice decline per decade' },
+        { v: '−1~2%', l: '1970 年代以来全球海洋溶解氧下降', lEn: 'Global ocean oxygen decline since the 1970s' },
+        { v: '×2', l: '1993 年以来海洋变暖速率变化', lEn: 'Change in ocean warming rate since 1993' }
+      ],
+      quote: '人类影响导致大气、海洋和陆地变暖，这一点是明确无疑的。',
+      quoteEn: 'It is unequivocal that human influence has warmed the atmosphere, ocean and land.',
+      quoteCite: 'IPCC AR6 WGI · SPM A.1',
+      cite: [
+        'IPCC, 2021: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report. Cambridge University Press.',
+        'Chapter 9: Ocean, Cryosphere and Sea Level Change.',
+        'Summary for Policymakers, Sections A.1, A.2, A.4, A.5.'
+      ]
+    },
+    {
+      id: 'wgi-ch5',
+      num: 'Ch.5',
+      title: '全球碳及其他生物地球化学循环',
+      titleEn: 'Global Carbon and Other Biogeochemical Cycles',
+      group: 'WGI',
+      source: 'IPCC AR6 WGI · 2021',
+      img: 'https://images.unsplash.com/photo-1439405326854-014607f694d7?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估全球碳循环、海洋酸化与其他生物地球化学循环的观测与预估。海洋在碳循环中扮演核心角色，但其吸收能力正随酸化与升温发生变化。',
+      summaryEn: 'This chapter assesses the global carbon cycle, ocean acidification and other biogeochemical cycles. The ocean plays a central role, but its uptake capacity is changing with acidification and warming.',
+      lead: [
+        '碳循环是连接人类排放与气候响应的核心环节。海洋与陆地共同吸收了约 56% 的人为二氧化碳排放，其余留存在大气中。',
+        '海洋吸收二氧化碳的过程本身正在改变海水化学。表层 pH 值自工业化前时期以来下降约 0.1 个单位，相当于氢离子浓度上升约 30%。'
+      ],
+      leadEn: [
+        'The carbon cycle links anthropogenic emissions to the climate response. Together, the ocean and land absorb about 56% of anthropogenic CO₂ emissions, with the remainder retained in the atmosphere.',
+        'The very process of oceanic CO₂ uptake is altering seawater chemistry. Surface pH has fallen by about 0.1 units since pre-industrial times — equivalent to roughly a 30% rise in hydrogen-ion concentration.'
+      ],
+      sections: [
+        {
+          n: '5.1', t: '人为碳的源汇分配',
+          tEn: 'Partitioning of Anthropogenic Carbon',
+          p: ['2009 至 2018 年间，海洋年均吸收的碳量约为 2.5 ± 0.6 亿吨碳，占人为排放量的约 23%。陆地碳汇约占 31%，大气留存约占 44%。',
+              '报告指出，海洋碳汇的效率会随海洋酸化和升温发生改变，其未来走向取决于排放路径。'],
+          pEn: ['Over 2009–2018, the ocean took up roughly 2.5 ± 0.6 billion tonnes of carbon per year, about 23% of anthropogenic emissions. The land sink accounts for about 31%, and atmospheric retention about 44%.',
+                'The report notes that carbon-sink efficiency changes with ocean acidification and warming, and that its future depends on the emission pathway.']
+        },
+        {
+          n: '5.2', t: '海洋酸化',
+          tEn: 'Ocean Acidification',
+          p: ['自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位。由于 pH 是对数尺度，该变化相当于氢离子浓度上升约 30%。',
+              '报告说明，海洋酸化是一个与温度无关的独立过程，其影响时间尺度以数千年计。当前海洋酸化的速率，是过去 3 亿年来最快的。'],
+          pEn: ['Ocean surface pH has decreased by 0.1 units since pre-industrial times. Because pH is logarithmic, that shift corresponds to roughly a 30% increase in hydrogen-ion concentration.',
+                'The report states that acidification is a process independent of temperature, with effects on millennial timescales. The current rate of ocean acidification is the fastest in 300 million years.']
+        },
+        {
+          n: '5.3', t: '海洋碳储量',
+          tEn: 'Ocean Carbon Storage',
+          p: ['海洋中的碳储量约为大气中的 50 倍。这一庞大的储库对气候系统的稳定性有决定性作用。',
+              '海洋中的浮游植物每年固定约 50 亿吨碳，构成生物泵的核心部分，将表层碳输送至深海。'],
+          pEn: ['The ocean stores roughly 50 times more carbon than the atmosphere — a store with decisive influence on climate-system stability.',
+                'Marine phytoplankton fix roughly 5 billion tonnes of carbon each year, forming the core of the biological pump that transports surface carbon into the deep ocean.']
+        },
+        {
+          n: '5.4', t: '剩余碳预算',
+          tEn: 'Remaining Carbon Budget',
+          p: ['报告引入「剩余碳预算」概念，指在给定升温目标下人类还可排放的二氧化碳总量。这一概念将累积排放与升温峰值直接关联。',
+              '剩余碳预算的估算存在不确定性，主要来自气候系统反馈、非二氧化碳温室气体以及碳汇效率的变化。'],
+          pEn: ['The report introduces the concept of a remaining carbon budget — the total CO₂ humanity can still emit for a given warming target. This links cumulative emissions directly to peak warming.',
+                'Estimates of the remaining budget carry uncertainties, mainly from climate-system feedbacks, non-CO₂ greenhouse gases and changes in carbon-sink efficiency.']
+        }
+      ],
+      stats: [
+        { v: '~25%', l: '海洋吸收的人为 CO₂ 排放占比', lEn: 'Share of anthropogenic CO₂ absorbed by the ocean' },
+        { v: '−0.1', l: '工业化前以来表层 pH 下降幅度', lEn: 'Surface pH decline since pre-industrial times' },
+        { v: '+30%', l: '对应的氢离子浓度上升幅度', lEn: 'Corresponding rise in hydrogen-ion concentration' },
+        { v: '×50', l: '海洋碳储量相对大气', lEn: 'Ocean carbon storage relative to atmosphere' },
+        { v: '5 Gt C', l: '浮游植物每年固定的碳量', lEn: 'Carbon fixed annually by phytoplankton' },
+        { v: '23%', l: '2009–2018 年均海洋碳汇占比', lEn: 'Average ocean carbon sink share, 2009–2018' }
+      ],
+      quote: '海洋酸化是一个与温度无关的独立过程，其影响将持续数千年。',
+      quoteEn: 'Ocean acidification is a process independent of temperature, and its effects will persist for millennia.',
+      quoteCite: 'IPCC AR6 WGI · Ch.5',
+      cite: [
+        'IPCC, 2021: Climate Change 2021: The Physical Science Basis. WG I contribution to AR6.',
+        'Chapter 5: Global Carbon and Other Biogeochemical Cycles and Feedbacks.',
+        'Summary for Policymakers, Section A.2.4.'
+      ]
+    }
+  ],
+
+  wgii: [
+    {
+      id: 'wgii-ch3',
+      num: 'Ch.3',
+      title: '海洋与沿海生态系统',
+      titleEn: 'Ocean and Coastal Ecosystems and Their Services',
+      group: 'WGII',
+      source: 'IPCC AR6 WGII · 2022',
+      img: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估海洋与沿海生态系统在气候变化下的脆弱性、适应能力与适应上限。红树林、海草床、珊瑚礁与沿海湿地是核心评估对象。',
+      summaryEn: 'This chapter assesses the vulnerability, adaptive capacity and adaptation limits of ocean and coastal ecosystems. Mangroves, seagrass beds, coral reefs and coastal wetlands are the core subjects.',
+      lead: [
+        '沿海生态系统为人类社会提供防护、育幼、碳汇与生计等多重功能。这些功能正面临升温、海平面上升、酸化、污染与开发的复合压力。',
+        '报告指出，适应措施的效果存在明确上限，且该上限随升温幅度上升而下降。部分生态系统的损失已经不可逆。'
+      ],
+      leadEn: [
+        'Coastal ecosystems provide multiple functions — protection, nurseries, carbon storage and livelihoods. These functions face compound pressures from warming, sea-level rise, acidification, pollution and development.',
+        'The report notes clear limits to adaptation, and those limits decline as warming increases. Some ecosystem losses are already irreversible.'
+      ],
+      sections: [
+        {
+          n: '3.1', t: '珊瑚礁',
+          tEn: 'Coral Reefs',
+          p: ['珊瑚礁覆盖海底不到 1%，却支撑着约四分之一的海洋物种。它们同时是对升温最敏感的生态系统之一。',
+              '报告评估认为，在全球升温 1.5°C 情境下，珊瑚礁将减少 70% 至 90%；在 2°C 情境下，减少幅度超过 99%。两者之间存在显著差异。'],
+          pEn: ['Coral reefs cover less than 1% of the seafloor yet support roughly a quarter of marine species. They are also among the most sensitive ecosystems to warming.',
+                'The report assesses that at 1.5°C of warming, coral reefs would decline by 70–90%; at 2°C, by more than 99%. The difference between the two is substantial.']
+        },
+        {
+          n: '3.2', t: '红树林、海草床与盐沼',
+          tEn: 'Mangroves, Seagrass Beds and Salt Marshes',
+          p: ['红树林为沿海社区提供防护、碳汇与育幼场功能，但其全球覆盖在过去五十年中减少约三分之一。',
+              '海草床是重要的蓝色碳汇与育幼场，全球覆盖面积每年减少约 7%。盐沼同样面临海平面上升与沿海开发的双重压力。'],
+          pEn: ['Mangroves provide coastal protection, carbon storage and nursery habitat, yet global cover has declined by roughly one-third over the past fifty years.',
+                'Seagrass meadows are important blue-carbon stores and nurseries; global cover is shrinking by about 7% per year. Salt marshes face combined pressure from sea-level rise and coastal development.']
+        },
+        {
+          n: '3.3', t: '沿海湿地与海平面上升',
+          tEn: 'Coastal Wetlands and Sea-Level Rise',
+          p: ['全球约 40% 的沿海湿地已经消失。海平面上升速率加快正在压缩湿地向内陆迁移的空间，尤其在沿海开发密集的区域。',
+              '报告指出，湿地生态系统的适应能力取决于沉积物供给、潮汐范围与人为干预的程度。'],
+          pEn: ['About 40% of coastal wetlands have already disappeared. Accelerating sea-level rise is compressing the space available for wetlands to migrate inland, especially in densely developed coastal areas.',
+                'Wetland adaptive capacity depends on sediment supply, tidal range and the degree of human intervention.']
+        },
+        {
+          n: '3.4', t: '适应上限与不可逆损失',
+          tEn: 'Adaptation Limits and Irreversible Losses',
+          p: ['报告明确指出，适应措施的效果存在上限，且该上限随升温幅度上升而下降。基于生态系统的适应（如红树林修复、珊瑚礁恢复）可提供多重效益，但难以完全抵消升温压力。',
+              '部分生态系统的损失已经不可逆。即使全球升温立即停止，也需要数十年至数千年才能部分恢复。'],
+          pEn: ['The report states clearly that adaptation measures have limits, and those limits decline as warming increases. Ecosystem-based adaptation — mangrove restoration, reef recovery — delivers multiple benefits but cannot fully offset warming pressure.',
+                'Some ecosystem losses are already irreversible. Even if warming stopped immediately, partial recovery would take decades to millennia.']
+        }
+      ],
+      stats: [
+        { v: '70–90%', l: '1.5°C 情境下珊瑚礁预计减少幅度', lEn: 'Projected coral reef decline at 1.5°C' },
+        { v: '>99%', l: '2°C 情境下珊瑚礁预计减少幅度', lEn: 'Projected coral reef decline at 2°C' },
+        { v: '−1/3', l: '红树林过去五十年全球覆盖减少', lEn: 'Global mangrove cover decline over 50 years' },
+        { v: '−7%/yr', l: '海草床全球覆盖年减少速率', lEn: 'Annual decline in global seagrass cover' },
+        { v: '~40%', l: '已消失的沿海湿地比例', lEn: 'Share of coastal wetlands already lost' },
+        { v: '~25%', l: '依赖珊瑚礁的海洋物种比例', lEn: 'Share of marine species dependent on reefs' }
+      ],
+      quote: '适应措施存在明确上限，且该上限随升温幅度上升而下降。',
+      quoteEn: 'Adaptation measures have clear limits, and those limits decline as warming increases.',
+      quoteCite: 'IPCC AR6 WGII · SPM B.3',
+      cite: [
+        'IPCC, 2022: Climate Change 2022: Impacts, Adaptation and Vulnerability. WG II contribution to AR6.',
+        'Chapter 3: Ocean and Coastal Ecosystems and Their Services.',
+        'Summary for Policymakers, Sections B.1–B.4.'
+      ]
+    },
+    {
+      id: 'wgii-ch13',
+      num: 'Ch.13',
+      title: '海洋生物多样性与生态系统服务',
+      titleEn: 'Marine Biodiversity and Ecosystem Services',
+      group: 'WGII',
+      source: 'IPCC AR6 WGII · 2022',
+      img: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估海洋生物多样性在气候变化下的变化趋势、物种分布迁移、海洋保护区的有效性以及生态系统服务的退化。',
+      summaryEn: 'This chapter assesses trends in marine biodiversity under climate change, shifts in species distribution, the effectiveness of marine protected areas, and the degradation of ecosystem services.',
+      lead: [
+        '海洋生物多样性正面临升温、酸化、污染与过度开发的复合压力。物种分布向极地方向迁移的趋势已被广泛观测到。',
+        '报告指出，海洋保护区的有效性取决于执法、监测与社区参与。仅设而不管的保护区，实际保护效果有限。'
+      ],
+      leadEn: [
+        'Marine biodiversity faces compound pressures from warming, acidification, pollution and over-exploitation. Poleward shifts in species distribution are widely observed.',
+        'The report notes that the effectiveness of marine protected areas depends on enforcement, monitoring and community participation. Designation alone yields limited protection.'
+      ],
+      sections: [
+        {
+          n: '13.1', t: '物种分布迁移',
+          tEn: 'Shifts in Species Distribution',
+          p: ['升温推动鱼类与其他海洋物种向极地方向与更深水域迁移。这一变化给热带与低纬度渔业带来更大压力，因为这些区域的物种可迁移空间有限。',
+              '报告指出，物种迁移会改变渔场的可达性与渔业社区的生计结构。'],
+          pEn: ['Warming drives fish and other marine species poleward and into deeper water. This places greater pressure on tropical and low-latitude fisheries, where species have limited space to migrate.',
+                'Such shifts alter the accessibility of fishing grounds and the livelihood structure of fishing communities.']
+        },
+        {
+          n: '13.2', t: '海洋保护区的有效性',
+          tEn: 'Effectiveness of Marine Protected Areas',
+          p: ['全球海洋保护区覆盖率已有所提升，但报告指出，多数保护区位于远离人类活动的区域，对高强度利用海域的保护有限。',
+              '有效的保护区通常具备明确的管理目标、持续的监测、充足的执法能力与当地社区参与。'],
+          pEn: ['Global MPA coverage has increased, but the report notes that many protected areas are located far from human activity, providing limited protection for heavily used waters.',
+                'Effective MPAs typically have clear management objectives, sustained monitoring, adequate enforcement capacity and local community participation.']
+        },
+        {
+          n: '13.3', t: '生态系统服务的退化',
+          tEn: 'Degradation of Ecosystem Services',
+          p: ['全球约 60% 的海洋生态系统服务正在退化。这一趋势直接影响沿海社区的食物安全、生计、文化与防护功能。',
+              '报告强调，海洋生态系统服务的退化往往是缓慢且累积的，其影响可能在小尺度上不易察觉，但在大尺度上具有决定性。'],
+          pEn: ['About 60% of marine ecosystem services are in decline. This trend directly affects food security, livelihoods, culture and protection for coastal communities.',
+                'The report stresses that degradation of marine ecosystem services is often slow and cumulative — hard to perceive at small scales, decisive at large ones.']
+        }
+      ],
+      stats: [
+        { v: '~60%', l: '正在退化的海洋生态系统服务占比', lEn: 'Share of marine ecosystem services in decline' },
+        { v: 'Poleward', l: '物种分布迁移的主要方向', lEn: 'Dominant direction of species distribution shifts' },
+        { v: '~30%', l: '实际保护效果不足的 MPA 比例估计', lEn: 'Estimated share of MPAs with inadequate protection' },
+        { v: '1,400+', l: '受塑料污染影响的海洋物种数', lEn: 'Marine species affected by plastic pollution' }
+      ],
+      quote: '海洋生态系统服务的退化往往是缓慢且累积的，在小尺度上不易察觉，在大尺度上具有决定性。',
+      quoteEn: 'Degradation of marine ecosystem services is often slow and cumulative — hard to perceive at small scales, decisive at large ones.',
+      quoteCite: 'IPCC AR6 WGII · Ch.13',
+      cite: [
+        'IPCC, 2022: Climate Change 2022: Impacts, Adaptation and Vulnerability. WG II contribution to AR6.',
+        'Chapter 13: Marine Biodiversity and Ecosystem Services.',
+        'Cross-Chapter Paper 6: Polar Regions.'
+      ]
+    }
+  ],
+
+  wgiii: [
+    {
+      id: 'wgiii-ch12',
+      num: 'Ch.12',
+      title: '跨部门视角与海洋减缓',
+      titleEn: 'Cross-Sectoral Perspectives and Ocean Mitigation',
+      group: 'WGIII',
+      source: 'IPCC AR6 WGIII · 2022',
+      img: 'https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估海洋在减缓路径中的角色与限制，包括海洋可再生能源、蓝色碳汇、海洋地球工程以及航运脱碳。',
+      summaryEn: 'This chapter assesses the role and limits of the ocean in mitigation pathways: marine renewables, blue carbon, ocean geoengineering and shipping decarbonisation.',
+      lead: [
+        '海洋相关的减缓方案包括海洋可再生能源、航运脱碳、蓝色碳汇以及海洋地球工程。报告对每一类方案都给出了潜力与限制的评估。',
+        '报告明确强调：减排的优先方向应是能源系统转型，而非依赖海洋的额外吸收能力。'
+      ],
+      leadEn: [
+        'Ocean-related mitigation options include marine renewable energy, shipping decarbonisation, blue carbon and ocean geoengineering. The report assesses both potential and limits for each.',
+        'The report states explicitly that the priority should be transformation of energy systems, not reliance on additional ocean uptake.'
+      ],
+      sections: [
+        {
+          n: '12.1', t: '蓝色碳汇的潜力与限制',
+          tEn: 'Potential and Limits of Blue Carbon',
+          p: ['红树林、海草床与盐沼的碳汇潜力相对有限，且测量困难。报告指出，不应以依赖蓝碳替代能源转型。',
+              '蓝色碳汇的额外性、永久性与泄漏风险都需要严格的核算方法。'],
+          pEn: ['The mitigation potential of mangroves, seagrass and salt marshes is relatively limited and difficult to measure. The report stresses that blue carbon should not substitute for energy transition.',
+                'Additionality, permanence and leakage risks in blue carbon require rigorous accounting methods.']
+        },
+        {
+          n: '12.2', t: '海洋地球工程',
+          tEn: 'Ocean Geoengineering',
+          p: ['海洋碱化、海洋施肥等地球工程方案存在显著的知识空白、生态风险与治理挑战。报告不建议依赖其作为主要减排手段。',
+              '这些方案的影响往往难以在小规模试验中充分评估，规模化部署可能带来不可预见的生态后果。'],
+          pEn: ['Ocean alkalinisation, fertilisation and similar schemes carry substantial knowledge gaps, ecological risks and governance challenges. The report does not endorse reliance on them as a primary mitigation route.',
+                'Their impacts are often difficult to assess fully at small scale, and large-scale deployment may bring unforeseen ecological consequences.']
+        },
+        {
+          n: '12.3', t: '航运脱碳',
+          tEn: 'Shipping Decarbonisation',
+          p: ['国际航运的碳排放占全球总量的约 2%–3%。脱碳路径包括替代燃料、能效提升与运营优化。',
+              '报告指出，航运脱碳需要国际协调机制、燃料基础设施投资与需求侧管理的协同推进。'],
+          pEn: ['International shipping accounts for roughly 2–3% of global emissions. Pathways include alternative fuels, efficiency gains and operational optimisation.',
+                'Shipping decarbonisation requires coordinated international mechanisms, investment in fuel infrastructure, and demand-side management.']
+        },
+        {
+          n: '12.4', t: '海洋可再生能源',
+          tEn: 'Marine Renewable Energy',
+          p: ['海上风电、潮汐能、波浪能等海洋可再生能源具有可观的减排潜力，但其规模化部署受到成本、并网与生态影响的限制。',
+              '报告指出，海上风电的技术成熟度相对较高，潮汐能与波浪能仍处于早期阶段。'],
+          pEn: ['Offshore wind, tidal and wave energy hold substantial mitigation potential, but scale-up is limited by cost, grid integration and ecological impacts.',
+                'Offshore wind is relatively mature; tidal and wave energy remain at earlier stages.']
+        }
+      ],
+      stats: [
+        { v: '2–3%', l: '国际航运碳排放占全球比例', lEn: 'Share of global emissions from international shipping' },
+        { v: '~43%', l: '2030 年前需减排幅度（相对 2019，1.5°C 路径）', lEn: 'Required emission reduction by 2030 vs 2019 (1.5°C pathway)' },
+        { v: 'Limited', l: '蓝色碳汇的评估潜力', lEn: 'Assessed blue carbon potential' },
+        { v: 'High risk', l: '海洋地球工程的评估风险等级', lEn: 'Assessed risk level of ocean geoengineering' }
+      ],
+      quote: '减排的优先方向应是能源系统转型，而非依赖海洋的额外吸收能力。',
+      quoteEn: 'The priority should be transformation of energy systems, not reliance on additional ocean uptake.',
+      quoteCite: 'IPCC AR6 WGIII · Ch.12',
+      cite: [
+        'IPCC, 2022: Climate Change 2022: Mitigation of Climate Change. WG III contribution to AR6.',
+        'Chapter 12: Cross-Sectoral Perspectives.',
+        'Chapter 7: Agriculture, Forestry and Other Land Uses; Chapter 10: Transport.'
+      ]
+    }
+  ],
+
+  srocc: [
+    {
+      id: 'srocc-ch5',
+      num: 'Ch.5',
+      title: '变化的海洋与海洋生态系统',
+      titleEn: 'Changing Ocean, Marine Ecosystems and Dependent Communities',
+      group: 'SROCC',
+      source: 'IPCC SROCC · 2019',
+      img: 'https://images.unsplash.com/photo-1439405326854-014607f694d7?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估海洋热浪、珊瑚礁、鱼类种群迁移、海洋缺氧与酸化，以及依赖海洋的社区的生计影响。',
+      summaryEn: 'This chapter assesses marine heatwaves, coral reefs, fish stock shifts, ocean hypoxia and acidification, and the livelihood impacts on ocean-dependent communities.',
+      lead: [
+        '《海洋与冰冻圈特别报告》是 IPCC 首次将海洋作为一个整体系统进行专门评估。本章聚焦海洋物理与生态变化的相互关联。',
+        '报告指出，海洋变化的速度与幅度在近数十年中已超出历史变率范围，其影响跨越生态、经济与社会维度。'
+      ],
+      leadEn: [
+        'The Special Report on the Ocean and Cryosphere was the IPCC\'s first dedicated assessment of the ocean as an integrated system. This chapter focuses on the interlinkages between physical and ecological change.',
+        'The report notes that the pace and magnitude of ocean change over recent decades exceed the range of historical variability, with impacts spanning ecological, economic and social dimensions.'
+      ],
+      sections: [
+        {
+          n: '5.1', t: '海洋热浪',
+          tEn: 'Marine Heatwaves',
+          p: ['海洋热浪的频率与持续时间增加，对珊瑚礁、海草床与渔业种群构成直接压力。',
+              '报告指出，大范围白化事件在近数十年中出现的频率明显上升，其恢复间隔正在缩短。'],
+          pEn: ['Marine heatwaves have increased in frequency and duration, placing direct pressure on coral reefs, seagrass beds and fishery stocks.',
+                'Large-scale bleaching events have become markedly more frequent in recent decades, with shortening recovery intervals.']
+        },
+        {
+          n: '5.2', t: '鱼类种群与渔业',
+          tEn: 'Fish Stocks and Fisheries',
+          p: ['升温推动鱼类种群向极地方向与更深水域迁移，热带与低纬度渔业承受的压力最大。',
+              '报告指出，最大可持续产量（MSY）的估算需要在气候变化的背景下重新评估，因为种群分布与生产力正在发生系统性变化。'],
+          pEn: ['Warming drives fish stocks poleward and into deeper water, with tropical and low-latitude fisheries facing the greatest pressure.',
+                'Maximum Sustainable Yield (MSY) estimates need reassessment under climate change, as stock distribution and productivity are shifting systematically.']
+        },
+        {
+          n: '5.3', t: '海洋缺氧与酸化',
+          tEn: 'Ocean Hypoxia and Acidification',
+          p: ['溶解氧下降压缩大型中上层鱼类的可用栖息空间，同时扩大低氧区的范围。',
+              '海洋酸化直接影响贝类、珊瑚等钙化生物，其壳与骨骼在更酸的水中更难形成。'],
+          pEn: ['Declining dissolved oxygen compresses habitat for large pelagic fish and expands the extent of low-oxygen zones.',
+                'Ocean acidification directly affects calcifying organisms such as shellfish and corals: their shells and skeletons form less readily in more acidic water.']
+        },
+        {
+          n: '5.4', t: '深海采矿与海洋噪音',
+          tEn: 'Deep-Sea Mining and Ocean Noise',
+          p: ['深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。',
+              '航运、勘探与其他人类活动产生的海洋噪音在过去五十年显著增加，对鲸类等声敏感物种构成直接干扰。'],
+          pEn: ['Emerging pressures such as deep-sea mining still lack adequate scientific assessment, with substantial knowledge gaps regarding their potential impacts.',
+                'Ocean noise from shipping, exploration and other human activities has increased substantially over fifty years, directly disturbing sound-sensitive species such as whales.']
+        }
+      ],
+      stats: [
+        { v: '×2', l: '1980 年代以来海洋热浪频率变化', lEn: 'Change in marine heatwave frequency since the 1980s' },
+        { v: '70–90%', l: '1.5°C 情境下珊瑚礁预计减少', lEn: 'Projected coral reef decline at 1.5°C' },
+        { v: '−1~2%', l: '1970 年代以来全球海洋溶解氧下降', lEn: 'Global ocean oxygen decline since the 1970s' },
+        { v: '−0.1', l: '工业化前以来表层 pH 下降', lEn: 'Surface pH decline since pre-industrial times' },
+        { v: '×30', l: '过去五十年海洋噪音增加倍数', lEn: 'Increase in ocean noise over fifty years' }
+      ],
+      quote: '升温推动鱼类种群向极地方向与更深水域迁移，热带与低纬度渔业承受的压力最大。',
+      quoteEn: 'Warming drives fish stocks poleward and into deeper water, with tropical and low-latitude fisheries facing the greatest pressure.',
+      quoteCite: 'IPCC SROCC · Ch.5',
+      cite: [
+        'IPCC, 2019: Special Report on the Ocean and Cryosphere in a Changing Climate.',
+        'Chapter 5: Changing Ocean, Marine Ecosystems and Dependent Communities.',
+        'Summary for Policymakers, Sections A.2–A.7.'
+      ]
+    },
+    {
+      id: 'srocc-ch3',
+      num: 'Ch.3',
+      title: '极地海洋与冰冻圈',
+      titleEn: 'Polar Oceans and Cryosphere',
+      group: 'SROCC',
+      source: 'IPCC SROCC · 2019',
+      img: 'https://images.unsplash.com/photo-1518877593221-1f28583780b4?w=1200&q=75&auto=format&fit=crop',
+      summary: '本章评估北极与南极地区的海洋与冰冻圈变化，包括海冰减少、冻土融化、沿岸侵蚀与极地社区的适应空间。',
+      summaryEn: 'This chapter assesses polar ocean and cryosphere change, including sea-ice loss, permafrost thaw, coastal erosion and the adaptation space of polar communities.',
+      lead: [
+        '极地是全球变化最迅速的区域之一。北极地表气温的上升速率约为全球平均水平的两倍以上，这一现象被称为北极放大效应。',
+        '极地变化的影响不仅限于当地生态系统与社区，也通过海平面上升、碳反馈与大气环流对全球产生作用。'
+      ],
+      leadEn: [
+        'The polar regions are among the fastest-changing areas on Earth. Arctic surface air temperature has risen at more than twice the global average — a phenomenon known as Arctic amplification.',
+        'Polar change affects not only local ecosystems and communities but also the globe, through sea-level rise, carbon feedbacks and atmospheric circulation.'
+      ],
+      sections: [
+        {
+          n: '3.1', t: '海冰减少与生态影响',
+          tEn: 'Sea-Ice Loss and Ecological Impacts',
+          p: ['1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8% 的速率下降。海冰减少直接影响依赖冰面的物种，如海豹、北极熊与部分海鸟。',
+              '海冰变化同时改变初级生产力格局，影响整个北极食物网的季节节律。'],
+          pEn: ['Arctic September sea-ice extent declined at about 12.8% per decade between 1979 and 2018. Sea-ice loss directly affects ice-dependent species such as seals, polar bears and certain seabirds.',
+                'Sea-ice change also alters patterns of primary productivity, affecting the seasonal rhythm of the entire Arctic food web.']
+        },
+        {
+          n: '3.2', t: '多年冻土与沿岸侵蚀',
+          tEn: 'Permafrost and Coastal Erosion',
+          p: ['北极多年冻土温度上升，活动层加深。冻土融化会释放二氧化碳与甲烷，构成额外气候反馈。',
+              '北极沿岸冻土侵蚀加速，直接影响沿岸社区的基础设施与居住安全。'],
+          pEn: ['Arctic permafrost is warming and the active layer is deepening. Thaw releases CO₂ and methane, constituting an additional climate feedback.',
+                'Accelerated Arctic coastal permafrost erosion directly threatens coastal community infrastructure and habitation.']
+        },
+        {
+          n: '3.3', t: '极地社区与原住民',
+          tEn: 'Polar Communities and Indigenous Peoples',
+          p: ['北极与南极周边的原住民社区对冰冻圈变化高度依赖与敏感，其适应空间受到地理与制度的双重限制。',
+              '报告强调，极地社区的知识体系在理解与应对变化中具有独特价值，应被纳入评估与决策过程。'],
+          pEn: ['Indigenous communities in and around the Arctic and Antarctic are highly dependent on and sensitive to cryosphere change, with adaptation space limited geographically and institutionally.',
+                'The report stresses that polar community knowledge systems have unique value in understanding and responding to change, and should be included in assessment and decision-making.']
+        },
+        {
+          n: '3.4', t: '极地航运与治理',
+          tEn: 'Polar Shipping and Governance',
+          p: ['海冰减少使北极航道通航期延长，同时也带来油污风险、生态扰动与治理挑战。',
+              '报告指出，极地航运的治理框架需要与生态保护、原住民权利与应急响应能力协同设计。'],
+          pEn: ['Sea-ice loss extends the Arctic navigation season, bringing oil-spill risk, ecological disturbance and governance challenges.',
+                'Polar shipping governance frameworks need to be designed in coordination with ecological protection, indigenous rights and emergency-response capacity.']
+        }
+      ],
+      stats: [
+        { v: '12.8%', l: '北极 9 月海冰每十年下降幅度', lEn: 'Arctic September sea-ice decline per decade' },
+        { v: '×2+', l: '北极升温相对全球平均的倍数', lEn: 'Arctic warming relative to global average' },
+        { v: 'CO₂ / CH₄', l: '冻土融化释放的主要温室气体', lEn: 'Main greenhouse gases released by permafrost thaw' },
+        { v: 'Limited', l: '极地社区的适应空间评估', lEn: 'Assessed adaptation space for polar communities' }
+      ],
+      quote: '极地社区的知识体系在理解与应对变化中具有独特价值。',
+      quoteEn: 'Polar community knowledge systems have unique value in understanding and responding to change.',
+      quoteCite: 'IPCC SROCC · Ch.3',
+      cite: [
+        'IPCC, 2019: Special Report on the Ocean and Cryosphere in a Changing Climate.',
+        'Chapter 3: Polar Regions.',
+        'Summary for Policymakers, Sections A.1–A.6.'
+      ]
+    }
+  ]
+};
+
+/* ══════════════════════════════════════════════════════════
+   21. 学习板块 · 章节列表与详情页
    ══════════════════════════════════════════════════════════ */
 (function () {
-  var LEARN_POOL = [
-  /* ═══ IPCC AR6 WGI · 2021 ═══ */
-  {s:'IPCC AR6 WGI · 2021 · SPM A.1.1',z:['全球表面温度','自工业化前时期（1850–1900）以来，全球表面温度已上升约 1.1°C。人类影响被判定为「明确无疑」（unequivocal）。'],e:['Global surface temperature','Global surface temperature has risen by about 1.1°C since 1850–1900. Human influence is assessed as unequivocal.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.2.2',z:['海洋热含量','自 1971 年以来海洋变暖毫无疑问，人类影响是主要驱动因素。海洋吸收了气候系统中约 91% 的过剩能量（1971–2018）。'],e:['Ocean heat content','Ocean warming since 1971 is unequivocal, with human influence as the main driver. The ocean absorbed about 91% of excess energy in the climate system (1971–2018).']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.2.2',z:['海洋变暖速率翻倍','自 1993 年以来，海洋变暖速率至少翻了一倍。上层 2000 米储存了绝大部分被吸收的热量。'],e:['Ocean warming rate has doubled','The rate of ocean warming has more than doubled since 1993. The upper 2000 m stores the vast majority of the absorbed heat.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.3.2',z:['海洋热浪','自 20 世纪 80 年代以来，海洋热浪的发生频率大约翻了一倍，单次事件的持续时间与强度均有所增加。'],e:['Marine heatwaves','The frequency of marine heatwaves has approximately doubled since the 1980s, with increases in both duration and intensity.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋分层增强','升温增强上层水体的分层，抑制上下层之间的热量、氧气与营养盐交换。'],e:['Stratification strengthening','Warming strengthens upper-ocean stratification, suppressing exchange of heat, oxygen and nutrients between layers.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.2.4',z:['海洋酸化','自工业化前时期以来，海洋表层 pH 值下降了 0.1 个单位，相当于氢离子浓度上升约 30%。'],e:['Ocean acidification','Ocean surface pH has declined by 0.1 units since pre-industrial times, equivalent to roughly a 30% rise in hydrogen-ion concentration.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.2.4',z:['海洋碳汇','海洋吸收了 20% 至 30% 的人为二氧化碳排放（约 25%）。吸收过程本身正在改变海水化学。'],e:['Ocean carbon sink','The ocean has absorbed 20–30% of anthropogenic CO₂ emissions (about a quarter). The absorption itself is altering seawater chemistry.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.4.1',z:['全球平均海平面','1901 至 2018 年间全球平均海平面上升 0.20 米（区间 0.15–0.25 米）。'],e:['Global mean sea level','Global mean sea level rose 0.20 m over 1901–2018 (likely range 0.15–0.25 m).']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.4.1',z:['海平面上升速率','2006 至 2018 年间速率约 3.7 毫米/年，明显高于 1901–1971 年间的约 1.3 毫米/年。'],e:['Sea-level rise rate','The rate over 2006–2018 was about 3.7 mm/yr, markedly higher than the ~1.3 mm/yr of 1901–1971.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.5.1',z:['北极海冰','1979 至 2018 年间，北极 9 月海冰范围以约每十年 12.8% 的速率下降。'],e:['Arctic sea ice','Arctic September sea-ice extent declined at about 12.8% per decade between 1979 and 2018.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.5.2',z:['北半球积雪','北半球春季积雪范围自 20 世纪中期以来持续减少，这一趋势在评估中被判定为「极可能」。'],e:['Northern Hemisphere snow','Northern Hemisphere spring snow cover has declined since the mid-20th century, a trend rated very likely.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM A.5.3',z:['多年冻土','北极多年冻土温度上升，活动层厚度增加，冻土范围有所缩减。'],e:['Permafrost','Arctic permafrost temperatures have risen, active-layer thickness has increased, and permafrost extent has contracted.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['大西洋经向翻转环流','AMOC 在 21 世纪预计将减弱；评估认为在 2100 年前发生突然崩溃的可能性为「低」。'],e:['Atlantic overturning','AMOC is projected to weaken over the 21st century; an abrupt collapse before 2100 is assessed as unlikely.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['深海升温','深海变暖是持续且缓慢的过程，深层海水的升温速率低于表层，但其惯性更大。'],e:['Deep-ocean warming','Deep-ocean warming is slow and persistent; deep water warms at lower rates than the surface but with greater inertia.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋盐度变化','海洋表层盐度格局正在改变：高盐区更咸，低盐区更淡，这一趋势与蒸发和降水的变化一致。'],e:['Ocean salinity shifts','Surface salinity patterns are shifting: salty regions are becoming saltier and fresh regions fresher, consistent with changes in evaporation and precipitation.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.5',z:['海洋碳储量','海洋中的碳储量约为大气中的 50 倍。这一庞大的储库对气候系统的稳定性有决定性作用。'],e:['Ocean carbon storage','The ocean stores roughly 50 times more carbon than the atmosphere — a store with decisive influence on climate-system stability.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['极端降水','全球陆地上强降水事件的频率与强度自 1950 年代以来有所增加，这一趋势在多数区域被评估为「很可能」。'],e:['Extreme precipitation','Heavy precipitation events over land have increased in frequency and intensity since the 1950s, a trend assessed as likely across most regions.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['热带气旋','自 1979 年以来，全球强热带气旋（3–5 级）的比例有所上升，这一趋势被评估为「可能」。'],e:['Tropical cyclones','The proportion of intense tropical cyclones (Categories 3–5) has increased since 1979, a trend assessed as likely.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['农业与生态干旱','全球范围内农业与生态干旱的频率与强度有所增加，其中地中海、西亚与南美部分区域尤为显著。'],e:['Agricultural and ecological drought','Agricultural and ecological droughts have increased in frequency and intensity, notably in the Mediterranean, West Asia and parts of South America.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.11',z:['复合事件','热浪与干旱、极端降水与风暴潮等复合事件的发生概率有所上升，其影响大于单一事件之和。'],e:['Compound events','The probability of compound events — heat with drought, extreme rainfall with storm surge — has increased, with impacts exceeding the sum of individual hazards.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['区域海平面','海平面上升并非均匀：部分区域上升速率高于全球平均，另一些区域则相对较低。'],e:['Regional sea level','Sea-level rise is not uniform: some regions rise faster than the global mean, while others rise more slowly.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['沿海洪水','极端海平面事件（由风暴潮与海平面上升叠加驱动）的频率在多数沿海区域有所增加。'],e:['Coastal flooding','The frequency of extreme sea-level events (driven by storm surge combined with mean rise) has increased across most coastal regions.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.12',z:['河口盐度入侵','海平面上升与取水变化共同导致部分河口盐水入侵加剧，影响淡水供给与农业灌溉。'],e:['Estuarine salt intrusion','Sea-level rise together with water abstraction intensifies saltwater intrusion in some estuaries, affecting freshwater supply and irrigation.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.3',z:['沿岸上升流','沿岸上升流系统对风场变化高度敏感。上升流改变会直接影响营养盐供应与渔业生产力。'],e:['Coastal upwelling','Coastal upwelling systems are highly sensitive to wind changes. Shifts in upwelling directly affect nutrient supply and fishery productivity.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.3',z:['有害藻华','升温、富营养化与水体分层变化共同推动有害藻华事件在全球沿海区域更频繁地出现。'],e:['Harmful algal blooms','Warming, eutrophication and altered stratification together drive more frequent harmful algal blooms across coastal regions worldwide.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.2',z:['海洋观测系统','长期、连续、可复核的观测数据是理解海洋变化的唯一可靠基础。卫星、浮标与船测构成互补的观测体系。'],e:['Ocean observing systems','Long-term, continuous, verifiable observation is the only reliable basis for understanding ocean change. Satellites, floats and ship-based surveys form a complementary system.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['上层海洋储热','海洋上层 700 米储存了绝大部分被吸收的过剩热量，其热含量变化是衡量全球变暖最直接的指标之一。'],e:['Upper-ocean heat storage','The upper 700 m of the ocean stores the vast majority of absorbed excess heat; its heat content change is among the most direct indicators of global warming.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋热膨胀','热膨胀是 20 世纪海平面上升的重要贡献项之一，其速率与海洋热含量直接相关。'],e:['Thermal expansion','Thermal expansion is a major contributor to 20th-century sea-level rise, its rate directly tied to ocean heat content.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋与气候反馈','海洋与气候系统之间存在复杂的反馈机制，包括碳循环、云反馈与水汽反馈。'],e:['Ocean–climate feedbacks','Complex feedbacks link the ocean and climate system, including carbon-cycle, cloud and water-vapour feedbacks.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋观测的不确定性','深海与极地区域的观测覆盖仍然有限，这给部分结论带来明确的不确定性区间。'],e:['Observational uncertainty','Observational coverage remains limited in the deep ocean and polar regions, introducing explicit uncertainty ranges into some conclusions.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.8',z:['水循环加剧','全球水循环正在加剧：湿润区域更湿，干旱区域更干，极端事件的强度普遍上升。'],e:['Intensified water cycle','The global water cycle is intensifying: wet regions become wetter, dry regions drier, and extreme events generally stronger.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋热浪与生态','海洋热浪与珊瑚白化、物种迁移、渔业产量波动以及水产养殖损失之间存在直接关联。'],e:['Marine heatwaves and ecosystems','Marine heatwaves are directly linked to coral bleaching, species shifts, fishery yield fluctuations and aquaculture losses.']},
-
-  /* ═══ IPCC AR6 WGII · 2022 ═══ */
-  {s:'IPCC AR6 WGII · 2022 · SPM B.1',z:['珊瑚礁','珊瑚礁是全球生物多样性最丰富的生态系统之一，同时是对升温最敏感的生态系统之一。'],e:['Coral reefs','Coral reefs are among the most biodiverse ecosystems on Earth and also among the most sensitive to warming.']},
-  {s:'IPCC AR6 WGII · 2022 · SPM B.2',z:['红树林','红树林为沿海社区提供防护、碳汇与育幼场功能，但其全球覆盖在过去五十年减少约三分之一。'],e:['Mangroves','Mangroves provide coastal protection, carbon storage and nursery habitat, yet global cover has declined by roughly one-third over fifty years.']},
-  {s:'IPCC AR6 WGII · 2022 · SPM B.3',z:['沿海湿地','沿海湿地面临升温、海平面上升、污染与开发的复合压力，其防护功能正在被削弱。'],e:['Coastal wetlands','Coastal wetlands face compound pressures from warming, sea-level rise, pollution and development; their protective functions are being weakened.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['海草床','海草床是重要的蓝色碳汇与育幼场，全球覆盖面积每年减少约 7%。'],e:['Seagrass meadows','Seagrass meadows are important blue-carbon stores and nurseries; global cover is shrinking by about 7% per year.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业与粮食安全','渔业种群的可持续性直接关系到数亿人的粮食安全与生计。升温与酸化对渔业生产力构成直接压力。'],e:['Fisheries and food security','The sustainability of fish stocks bears directly on the food security and livelihoods of hundreds of millions. Warming and acidification impose direct pressure on fishery productivity.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['沿海社区','沿海社区面临海平面上升、极端事件与生态系统退化的复合风险，适应能力存在明确上限。'],e:['Coastal communities','Coastal communities face compound risks from sea-level rise, extreme events and ecosystem degradation, with clear limits to adaptive capacity.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['小岛屿国家','小岛屿发展中国家对海平面上升与珊瑚礁退化高度脆弱，其适应空间受到地理与资源的双重限制。'],e:['Small island states','Small island developing states are highly vulnerable to sea-level rise and reef degradation, with adaptation space limited by both geography and resources.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['海洋保护区','海洋保护区是重要的保护工具，但其有效性取决于执法、监测与社区参与；仅设而不管的保护区保护效果有限。'],e:['Marine protected areas','MPAs are important conservation tools, but effectiveness depends on enforcement, monitoring and community participation; designation alone yields limited protection.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['适应上限','适应措施的效果存在明确上限，且该上限随升温幅度上升而下降。部分损失将不可逆。'],e:['Adaptation limits','Adaptation measures have clear limits, and those limits decline as warming increases. Some losses will be irreversible.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.3',z:['基于生态系统的适应','红树林修复、珊瑚礁恢复与湿地重建等基于生态系统的适应措施可提供多重效益，但难以完全抵消升温压力。'],e:['Ecosystem-based adaptation','Mangrove restoration, reef recovery and wetland reconstruction provide multiple benefits, but cannot fully offset warming pressure.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业经济','渔业价值链为全球数百万人提供就业。种群退化将直接影响沿海经济与社区稳定。'],e:['Fishery economies','Fishery value chains employ millions worldwide. Stock degradation directly affects coastal economies and community stability.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.13',z:['海洋生物多样性','海洋生物多样性正面临升温、酸化、污染与过度开发的复合压力。物种分布向极地方向迁移的趋势已被广泛观测到。'],e:['Marine biodiversity','Marine biodiversity faces compound pressures from warming, acidification, pollution and over-exploitation. Poleward shifts in species distribution are widely observed.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.14',z:['极地生态系统','极地生态系统对变化高度敏感。海冰减少直接影响依赖冰面的物种，如海豹、北极熊与部分海鸟。'],e:['Polar ecosystems','Polar ecosystems are highly sensitive to change. Sea-ice loss directly affects ice-dependent species such as seals, polar bears and certain seabirds.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.15',z:['深海生态系统','深海是地球上面积最大的生物栖息环境之一。深海生物代谢慢、生长慢，受扰动后恢复时间尺度可达数十年至数百年。'],e:['Deep-sea ecosystems','The deep sea is among the largest habitats on Earth. Deep-sea organisms metabolise and grow slowly; recovery from disturbance takes decades to centuries.']},
-  {s:'IPCC AR6 WGII · 2022 · SPM B.4',z:['生态系统的碳汇能力','升温与土地利用变化正在削弱陆地和海洋生态系统作为碳汇的能力，这一变化构成额外的气候反馈。'],e:['Ecosystem carbon sink capacity','Warming and land-use change are weakening the ability of terrestrial and marine ecosystems to act as carbon sinks — an additional climate feedback.']},
-  {s:'IPCC AR6 WGII · 2022 · Ch.5',z:['渔业种群的迁移','升温推动鱼类种群向极地方向与更深水域迁移，这一变化给热带与低纬度渔业带来更大压力。'],e:['Fish stock shifts','Warming drives fish stocks poleward and into deeper water, placing additional pressure on tropical and low-latitude fisheries.']},
-
-  /* ═══ IPCC AR6 WGIII · 2022 ═══ */
-  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['海洋可再生能源','海上风电、潮汐能、波浪能等海洋可再生能源具有可观的减排潜力，但其规模化部署受到成本、并网与生态影响的限制。'],e:['Marine renewables','Offshore wind, tidal and wave energy hold substantial mitigation potential, but scale-up is limited by cost, grid integration and ecological impacts.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.10',z:['航运脱碳','国际航运的碳排放占全球总量的约 2%–3%。脱碳路径包括替代燃料、能效提升与运营优化。'],e:['Shipping decarbonisation','International shipping accounts for roughly 2–3% of global emissions. Pathways include alternative fuels, efficiency gains and operational optimisation.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['蓝色碳汇','红树林、海草床与盐沼的碳汇潜力相对有限，且测量困难。报告强调不应以依赖蓝碳替代能源转型。'],e:['Blue carbon','The mitigation potential of mangroves, seagrass and salt marshes is relatively limited and difficult to measure. The report stresses that blue carbon should not substitute for energy transition.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.12',z:['海洋地球工程','海洋碱化、海洋施肥等地球工程方案存在显著的知识空白、生态风险与治理挑战，报告不建议依赖其作为主要减排手段。'],e:['Ocean geoengineering','Ocean alkalinisation, fertilisation and similar schemes carry substantial knowledge gaps, ecological risks and governance challenges; the report does not endorse reliance on them as a primary mitigation route.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.12',z:['碳捕集与封存','碳捕集与封存（CCS）在部分工业部门具有作用，但其规模部署面临成本、地质条件与基础设施限制。'],e:['Carbon capture and storage','CCS has a role in some industrial sectors, but large-scale deployment faces cost, geological and infrastructure constraints.']},
-  {s:'IPCC AR6 WGIII · 2022 · SPM',z:['能源系统转型','报告明确指出，能源系统转型是减排的首要方向。若以 2019 年为基准，2030 年前全球温室气体排放需减少约 43% 才能与 1.5°C 路径一致。'],e:['Energy system transformation','The report identifies energy-system transformation as the priority. Relative to 2019, global GHG emissions must fall by roughly 43% by 2030 to align with a 1.5°C pathway.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.5',z:['需求侧减排','需求侧措施（出行方式、饮食结构、建筑用能）具有可观的减排潜力，且往往带来健康与福祉的协同效益。'],e:['Demand-side mitigation','Demand-side measures (mobility, diet, building energy) hold substantial mitigation potential and often deliver health and well-being co-benefits.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.8',z:['城市减排','城市是排放的主要来源之一，同时也是减排行动的关键节点。城市层面的政策创新对全球减排路径有显著影响。'],e:['Urban mitigation','Cities are among the main sources of emissions and also key nodes for action. Urban-level policy innovation materially affects global mitigation pathways.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.11',z:['工业脱碳','重工业（钢铁、水泥、化工）脱碳难度较大，需要技术、政策与需求侧三方面协同推进。'],e:['Industrial decarbonisation','Heavy industry (steel, cement, chemicals) is hard to abate and requires coordinated technological, policy and demand-side action.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.10',z:['交通减排','交通部门的减排路径包括电动化、公共交通优先、需求管理以及可持续燃料。'],e:['Transport mitigation','Transport decarbonisation pathways include electrification, prioritising public transit, demand management and sustainable fuels.']},
-  {s:'IPCC AR6 WGIII · 2022 · Ch.7',z:['农业与土地利用','农业、林业与其他土地利用（AFOLU）部门既可以是排放源，也可以是碳汇；其净效应取决于管理方式。'],e:['AFOLU','Agriculture, forestry and other land use can be either a source or a sink; the net effect depends on management.']},
-  {s:'IPCC AR6 WGIII · 2022 · SPM',z:['减排与可持续发展','减排路径与联合国可持续发展目标之间存在协同与权衡。设计良好的政策可以同时推进气候目标与社会目标。'],e:['Mitigation and SDGs','Mitigation pathways interact with the SDGs through both synergies and trade-offs. Well-designed policy can advance climate and social goals together.']},
-
-  /* ═══ IPCC SROCC · 2019 ═══ */
-  {s:'IPCC SROCC · 2019 · SPM A.1',z:['海平面上升情景','报告给出了不同排放情景下的海平面上升区间。在高排放情景下，2100 年全球平均海平面上升可能超过 1 米。'],e:['Sea-level scenarios','The report provides sea-level rise ranges under different emission scenarios. Under high-emission pathways, global mean sea level could rise above 1 m by 2100.']},
-  {s:'IPCC SROCC · 2019 · SPM A.2',z:['冰盖不稳定性','南极与格陵兰冰盖的冰量损失在近数十年间加速。冰架不稳定性的机制仍是评估中不确定性最大的部分之一。'],e:['Ice-sheet instability','Mass loss from the Antarctic and Greenland ice sheets has accelerated in recent decades. Ice-shelf instability remains among the largest sources of uncertainty in the assessment.']},
-  {s:'IPCC SROCC · 2019 · Ch.3',z:['北极放大效应','北极地表气温的上升速率约为全球平均的两倍以上，这一现象被称为北极放大。'],e:['Arctic amplification','Arctic surface air temperature has increased at more than twice the global average — a phenomenon known as Arctic amplification.']},
-  {s:'IPCC SROCC · 2019 · Ch.3',z:['北极多年冻土','北极多年冻土温度上升，活动层加深。冻土融化会释放二氧化碳与甲烷，构成额外气候反馈。'],e:['Arctic permafrost','Arctic permafrost is warming and the active layer is deepening. Thaw releases CO₂ and methane, constituting an additional climate feedback.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋热浪与生态','海洋热浪的频率与持续时间增加，对珊瑚礁、海草床与渔业种群构成直接压力。'],e:['Marine heatwaves and ecology','Marine heatwaves have increased in frequency and duration, placing direct pressure on coral reefs, seagrass beds and fishery stocks.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['珊瑚礁与升温','在升温 1.5°C 情境下珊瑚礁预计减少 70%–90%；在 2°C 情境下减少超过 99%。'],e:['Coral reefs and warming','At 1.5°C of warming, coral reefs are projected to decline by 70–90%; at 2°C, by more than 99%.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['鱼类种群迁移','升温推动鱼类种群向极地方向与更深水域迁移，热带与低纬度渔业承受的压力最大。'],e:['Fish stock shifts','Warming drives fish stocks poleward and into deeper water, with tropical and low-latitude fisheries facing the greatest pressure.']},
-  {s:'IPCC SROCC · 2019 · Ch.3',z:['海冰生态','海冰减少直接影响依赖冰面的物种（海豹、北极熊、部分海鸟），同时改变初级生产力格局。'],e:['Sea-ice ecology','Sea-ice loss directly affects ice-dependent species (seals, polar bears, certain seabirds) and alters patterns of primary productivity.']},
-  {s:'IPCC SROCC · 2019 · Ch.3',z:['沿岸冻土侵蚀','北极沿岸冻土侵蚀加速，直接影响沿岸社区的基础设施与居住安全。'],e:['Coastal permafrost erosion','Accelerated Arctic coastal permafrost erosion directly threatens coastal community infrastructure and habitation.']},
-  {s:'IPCC SROCC · 2019 · SPM A.5',z:['极地社区','北极与南极周边的原住民社区对冰冻圈变化高度依赖与敏感，其适应空间受到地理与制度的双重限制。'],e:['Polar communities','Indigenous communities in and around the Arctic and Antarctic are highly dependent on and sensitive to cryosphere change, with adaptation space limited geographically and institutionally.']},
-  {s:'IPCC SROCC · 2019 · Ch.4',z:['高山水资源','山地冰川退缩改变了径流的时间分布，对下游灌溉、水电与饮用水供给构成压力。'],e:['High-mountain water','Glacier retreat alters the timing of runoff, placing pressure on downstream irrigation, hydropower and drinking-water supply.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['酸化与贝类','海洋酸化直接影响贝类、珊瑚等钙化生物，其壳与骨骼在更酸的水中更难形成。'],e:['Acidification and shellfish','Ocean acidification directly affects calcifying organisms such as shellfish and corals: their shells and skeletons form less readily in more acidic water.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋缺氧','溶解氧下降压缩大型中上层鱼类的可用栖息空间，同时扩大低氧区的范围。'],e:['Ocean hypoxia','Declining dissolved oxygen compresses habitat for large pelagic fish and expands the extent of low-oxygen zones.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['深海采矿','深海采矿等新型压力来源目前仍缺乏充分的科学评估，其潜在影响存在显著的知识空白。'],e:['Deep-sea mining','Emerging pressures such as deep-sea mining still lack adequate scientific assessment, with substantial knowledge gaps regarding their potential impacts.']},
-  {s:'IPCC SROCC · 2019 · Ch.5',z:['海洋噪音','航运、勘探与其他人类活动产生的海洋噪音在过去五十年显著增加，对鲸类等声敏感物种构成直接干扰。'],e:['Ocean noise','Ocean noise from shipping, exploration and other human activities has increased substantially over fifty years, directly disturbing sound-sensitive species such as whales.']},
-  {s:'IPCC SROCC · 2019 · Ch.3',z:['极地航运','海冰减少使北极航道通航期延长，同时也带来油污风险、生态扰动与治理挑战。'],e:['Polar shipping','Sea-ice loss extends the Arctic navigation season, bringing oil-spill risk, ecological disturbance and governance challenges.']},
-
-  /* ═══ IPCC SR1.5 · 2018 ═══ */
-  {s:'IPCC SR1.5 · 2018 · SPM',z:['1.5°C 与 2°C 的差异','1.5°C 与 2°C 升温之间存在显著差异：珊瑚礁、海冰、粮食安全与极端事件的影响均有明确不同。'],e:['Difference between 1.5°C and 2°C','There is a marked difference between 1.5°C and 2°C of warming: impacts on coral reefs, sea ice, food security and extreme events all differ substantially.']},
-  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 海平面','即使升温稳定在 1.5°C，海平面仍将在本世纪及之后继续上升。这一过程具有显著惯性。'],e:['1.5°C sea level','Even if warming stabilises at 1.5°C, sea level will continue to rise through this century and beyond. The process has substantial inertia.']},
-  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 北极海冰','在 1.5°C 情境下，北极夏季无冰的概率显著低于 2°C 情境。'],e:['1.5°C Arctic sea ice','Under 1.5°C, the probability of an ice-free Arctic summer is markedly lower than under 2°C.']},
-  {s:'IPCC SR1.5 · 2018 · Ch.3',z:['1.5°C 海洋生态','升温 1.5°C 情境下，海洋生态系统仍将承受显著压力，但损失幅度低于 2°C 情景。'],e:['1.5°C marine ecosystems','At 1.5°C, marine ecosystems still face substantial pressure, but losses are lower than under 2°C.']},
-  {s:'IPCC SR1.5 · 2018 · Ch.5',z:['1.5°C 粮食安全','升温 1.5°C 情境下，粮食安全风险上升，但低于 2°C 情景。热带与亚热带区域受影响最为显著。'],e:['1.5°C food security','At 1.5°C, food-security risks rise, but less than under 2°C. Tropical and subtropical regions are most affected.']},
-
-  /* ═══ UNEP ═══ */
-  {s:'UNEP · From Pollution to Solution · 2021',z:['海洋塑料污染','每年约有 800 万至 1200 万吨塑料进入海洋。报告强调陆源排放与渔具是主要来源。'],e:['Marine plastic pollution','About 8–12 million tonnes of plastic enter the ocean each year. The report identifies land-based discharge and fishing gear as the principal sources.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料增长情景','在缺乏系统性上游干预的情况下，到 2040 年进入水体的塑料量可能接近当前水平的三倍。'],e:['Plastic growth scenario','Without systemic upstream intervention, the quantity of plastic reaching water bodies could approach three times current levels by 2040.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['微塑料','微塑料已在全球海洋、淡水、土壤与生物体内被广泛检出，包括马里亚纳海沟等深海区域。'],e:['Microplastics','Microplastics have been widely detected across marine, freshwater and soil environments and within organisms, including deep-sea regions such as the Mariana Trench.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['沿海富营养化','来自农业径流与城市污水的氮、磷过量输入是沿海富营养化的主要驱动因素。'],e:['Coastal eutrophication','Excessive nitrogen and phosphorus inputs from agricultural runoff and urban wastewater are the principal drivers of coastal eutrophication.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['缺氧区扩散','全球沿海缺氧区（dead zones）的数量自 1960 年代以来显著增加，目前已记录到 400 余处。'],e:['Dead zone expansion','The number of coastal dead zones has increased substantially since the 1960s, with over 400 now documented.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['海洋垃圾与生物','海洋垃圾与塑料污染已影响到超过 1,400 种海洋生物，包括误食、缠绕与栖息地破坏。'],e:['Marine litter and wildlife','Marine litter and plastic pollution affect more than 1,400 marine species through ingestion, entanglement and habitat degradation.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['珊瑚礁与 UNEP','珊瑚礁退化将直接影响依赖其生存的海洋物种与沿海社区的生计。UNEP 将其列为优先关注的生态系统之一。'],e:['Coral reefs and UNEP','Reef degradation directly affects the marine species and coastal community livelihoods that depend on them. UNEP identifies reefs as a priority ecosystem of concern.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋保护区','全球海洋保护区覆盖率已有所提升，但多数保护区位于远离人类活动的区域，对高强度利用海域的保护有限。'],e:['Marine protected areas','Global MPA coverage has increased, but many protected areas are located far from human activity, providing limited protection for heavily used waters.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['化学污染','持久性有机污染物、重金属与内分泌干扰物在海洋环境中持续存在，部分物质具有生物累积性。'],e:['Chemical pollution','Persistent organic pollutants, heavy metals and endocrine disruptors persist in the marine environment, some of them bioaccumulating.']},
-  {s:'UNEP · Emissions Gap Report · 2023',z:['排放差距','全面落实当前无条件承诺预计本世纪升温约 2.9°C；包含有条件承诺约为 2.5°C。'],e:['Emissions gap','Full implementation of current unconditional pledges puts warming at about 2.9°C this century; including conditional pledges, about 2.5°C.']},
-  {s:'UNEP · Emissions Gap Report · 2023',z:['甲烷减排','甲烷是最具快速减缓潜力的温室气体。报告强调甲烷减排对短期升温速率有显著影响。'],e:['Methane reduction','Methane offers among the fastest mitigation potential of any greenhouse gas. The report stresses its significant effect on short-term warming rates.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['资源效率','资源开采与加工约占全球温室气体排放的一半，是气候变化、生物多样性丧失与污染的共同驱动因素。'],e:['Resource efficiency','Resource extraction and processing account for roughly half of global GHG emissions and are a shared driver of climate change, biodiversity loss and pollution.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['氮循环','人类活动已经显著改变了全球氮循环，活性氮的过量输入对水体、土壤与大气均构成压力。'],e:['Nitrogen cycle','Human activity has substantially altered the global nitrogen cycle; excess reactive nitrogen imposes pressure on water, soil and atmosphere.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.4',z:['磷循环','磷矿是有限的不可再生资源，其开采、使用与流失同时构成了资源安全与水环境问题。'],e:['Phosphorus cycle','Phosphate rock is a finite, non-renewable resource; its extraction, use and loss raise both resource-security and water-quality concerns.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料回收率','全球塑料回收率不足 10%。绝大多数塑料最终进入填埋场、焚烧或环境中。'],e:['Plastic recycling rate','Global plastic recycling rates remain below 10%. The vast majority of plastic ends up in landfill, incineration or the environment.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['塑料生命周期','塑料污染是一个贯穿全生命周期的系统性问题：从化石原料开采、生产、消费到废弃，每个环节都产生排放与污染。'],e:['Plastic life cycle','Plastic pollution is a systemic, whole-life-cycle problem: fossil feedstock extraction, production, consumption and disposal each generate emissions and pollution.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.8',z:['循环经济','循环经济路径通过减少材料消耗、延长产品寿命与提升回收率，可同时降低排放与污染。'],e:['Circular economy','Circular-economy pathways reduce emissions and pollution simultaneously by cutting material use, extending product life and raising recycling rates.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.9',z:['海洋治理','有效的海洋治理需要跨部门协调、跨辖区合作以及科学、政策与社区之间的持续对话。'],e:['Ocean governance','Effective ocean governance requires cross-sectoral coordination, cross-jurisdictional cooperation and continuous dialogue between science, policy and communities.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.9',z:['蓝色经济','蓝色经济强调在海洋资源利用与生态保护之间取得平衡。其可持续性取决于对生态阈值的尊重。'],e:['Blue economy','The blue economy emphasises balance between marine resource use and ecological protection. Its sustainability depends on respecting ecological thresholds.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋噪音','航运、勘探与军事活动产生的海洋噪音对鲸类等声敏感物种构成直接干扰，影响其觅食、迁徙与繁殖。'],e:['Ocean noise','Ocean noise from shipping, exploration and military activity directly disturbs sound-sensitive species such as whales, affecting foraging, migration and reproduction.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋酸化与 UNEP','海洋酸化是一个与温度无关的独立过程，其影响时间尺度以数千年计。UNEP 将其列为优先关注的海洋问题之一。'],e:['Acidification and UNEP','Ocean acidification is a process independent of temperature, with effects on millennial timescales. UNEP identifies it as a priority marine issue.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['沿海生态系统服务','红树林、海草床、盐沼与珊瑚礁共同提供防护、育幼、碳汇与旅游等多重生态系统服务。'],e:['Coastal ecosystem services','Mangroves, seagrass beds, salt marshes and coral reefs together provide multiple ecosystem services: protection, nurseries, carbon storage and tourism.']},
-
-  /* ═══ FAO SOFIA ═══ */
-  {s:'FAO · SOFIA 2022 · Part I',z:['鱼类种群状态','2019 年，在有评估数据的海洋鱼类种群中，约 64.6% 在生物学可持续水平内被捕捞，35.4% 处于不可持续水平。'],e:['Fish stock status','In 2019, of marine fish stocks with assessment data, about 64.6% were harvested within biologically sustainable levels and 35.4% were not.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['可持续比例下降','处于可持续水平的种群比例自 1974 年的约 90% 起持续下降。'],e:['Decline in sustainable share','The share of sustainably fished stocks has declined continuously from roughly 90% in 1974.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['MSY 评估','最大可持续产量（MSY）是全球渔业管理中的核心参考点。多数区域的评估显示实际捕捞量已接近或超过 MSY。'],e:['MSY assessment','Maximum Sustainable Yield (MSY) is a core reference point in global fisheries management. Assessments in most regions show catches at or above MSY.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['水产养殖产量','2020 年全球水产养殖产量约 1.226 亿吨，捕捞渔业约 0.901 亿吨，前者首次超过后者。'],e:['Aquaculture output','In 2020 global aquaculture production reached about 122.6 million tonnes, while capture fisheries produced about 90.1 million tonnes — the first time aquaculture exceeded capture.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['渔业就业','2020 年渔业和水产养殖初级部门雇用约 5,850 万人，其中约 21% 为女性。'],e:['Fishery employment','In 2020 the primary fisheries and aquaculture sector employed about 58.5 million people, of whom about 21% were women.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['渔业贸易','渔业与水产养殖产品是全球贸易量最大的食品类别之一，其贸易额每年超过 1,500 亿美元。'],e:['Fishery trade','Fishery and aquaculture products are among the most traded food categories globally, with annual trade exceeding $150 billion.']},
-  {s:'FAO · SOFIA 2022 · Part III',z:['IUU 捕捞','非法、不报告和不受管制（IUU）捕捞每年造成约 110 至 260 亿美元的经济损失。'],e:['IUU fishing','Illegal, unreported and unregulated (IUU) fishing causes an estimated $11–26 billion in economic losses each year.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['小型渔业','小型渔业为全球数亿人提供生计与营养，但在政策与统计中常被低估。'],e:['Small-scale fisheries','Small-scale fisheries support the livelihoods and nutrition of hundreds of millions, yet are often underestimated in policy and statistics.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业补贴','部分渔业补贴被评估为加剧过度捕捞。报告强调补贴改革是提升渔业可持续性的关键政策工具之一。'],e:['Fishery subsidies','Some fishery subsidies are assessed as contributing to overfishing. The report stresses subsidy reform as a key policy tool for sustainability.']},
-  {s:'FAO · SOFIA 2022 · Part III',z:['港口国措施','港口国措施协定（PSMA）是应对 IUU 捕捞的关键国际工具之一，目前已有 70 余个国家加入。'],e:['Port State Measures','The Port State Measures Agreement (PSMA) is a key international tool against IUU fishing, with more than 70 parties now acceded.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['水生食物消费','全球水生食物人均消费量自 1960 年代以来增长了一倍以上，增长主要由水产养殖提供。'],e:['Aquatic food consumption','Global per-capita consumption of aquatic foods has more than doubled since the 1960s, with growth supplied mainly by aquaculture.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['鱼类营养','水生食物为全球约 30 亿人提供了至少 20% 的人均动物蛋白摄入量，同时提供重要的微量营养素。'],e:['Fish nutrition','Aquatic foods provide at least 20% of average per-capita animal protein intake for roughly 3 billion people, along with key micronutrients.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业碳排放','渔业部门的燃料消耗与碳排放强度因捕捞方式与船型差异较大，部分捕捞方式具有显著的减排空间。'],e:['Fishery carbon emissions','Fuel use and carbon intensity in the fisheries sector vary widely by gear type and vessel size; some gear types have substantial mitigation potential.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['渔船能效','提升渔船能效、优化航行与作业方式，可在不减少产量的情况下显著降低排放。'],e:['Vessel efficiency','Improving vessel efficiency and optimising operations can substantially reduce emissions without reducing catch.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['渔业废弃物','渔业废弃渔具（ALDFG）是海洋塑料污染的重要来源之一，其占海洋塑料污染的比例估计约为 46%。'],e:['Fishing gear waste','Abandoned, lost or discarded fishing gear (ALDFG) is a major source of marine plastic pollution, estimated at about 46% of ocean plastic pollution.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['兼捕','兼捕（bycatch）指非目标物种被意外捕获，包括海龟、海鸟、鲸类与幼鱼。兼捕是许多受威胁物种的主要威胁之一。'],e:['Bycatch','Bycatch refers to non-target species caught incidentally, including sea turtles, seabirds, cetaceans and juveniles. It is a major threat to many at-risk species.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['生态系统与渔业','基于生态系统的渔业管理（EBFM）强调同时考虑目标物种、非目标物种与栖息地。这一方法正被越来越多的区域渔业组织采纳。'],e:['Ecosystems and fisheries','Ecosystem-based fisheries management (EBFM) considers target species, non-target species and habitat simultaneously. The approach is being adopted by a growing number of regional fishery bodies.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['气候变化与渔业','升温、酸化与溶解氧下降正在改变鱼类种群分布与生产力，给渔业管理带来新的不确定性。'],e:['Climate change and fisheries','Warming, acidification and declining dissolved oxygen are shifting fish stock distribution and productivity, introducing new uncertainty for fisheries management.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['鱼类疾病','水产养殖中的疾病暴发与抗微生物药物使用是行业可持续性的重要关注点，需要生物安全与监管的协同应对。'],e:['Fish disease','Disease outbreaks and antimicrobial use in aquaculture are important sustainability concerns, requiring coordinated biosecurity and regulatory responses.']},
-  {s:'FAO · SOFIA 2022 · Part IV',z:['养殖可持续性','水产养殖的可持续性取决于饲料来源、水质管理、生物安全与生态影响等多方面因素。'],e:['Aquaculture sustainability','Aquaculture sustainability depends on feed sourcing, water-quality management, biosecurity and ecological impact, among other factors.']},
-
-  /* ═══ GCRMN & 其他 ═══ */
-  {s:'GCRMN · Status of Coral Reefs · 2021',z:['全球珊瑚礁','2009 至 2018 年间全球硬珊瑚覆盖度下降约 14%。南亚、亚太与西印度洋区域的下降尤为显著。'],e:['Global coral reefs','Global hard-coral cover declined by about 14% between 2009 and 2018. Declines were particularly marked in South Asia, the Asia-Pacific and the Western Indian Ocean.']},
-  {s:'GCRMN · Status of Coral Reefs · 2021',z:['珊瑚白化事件','珊瑚白化是海洋升温最直观的信号之一。大范围白化事件在近数十年中出现的频率明显上升。'],e:['Bleaching events','Coral bleaching is one of the most direct signals of ocean warming. Large-scale bleaching events have become markedly more frequent in recent decades.']},
-  {s:'GCRMN · Status of Coral Reefs · 2021',z:['珊瑚恢复','珊瑚礁一旦大面积死亡，自然恢复需要数十年甚至数百年。恢复速度取决于幼体补充、水质与干扰频率。'],e:['Reef recovery','Once a coral reef dies en masse, natural recovery takes decades or centuries. Recovery speed depends on larval supply, water quality and disturbance frequency.']},
-  {s:'IUCN Red List',z:['海洋物种','IUCN 红色名录为海洋物种提供了保护等级评估。鲨鱼、鳐鱼、海龟与部分珊瑚是受威胁程度较高的类群。'],e:['Marine species','The IUCN Red List provides conservation-status assessments for marine species. Sharks, rays, sea turtles and several coral groups are among the more threatened taxa.']},
-  {s:'Myers & Worm · Nature · 2003',z:['大型鱼类枯竭','大型掠食性鱼类种群自 1950 年代以来减少约 90%。这一发现显著改变了学界对海洋渔业资源状态的理解。'],e:['Large fish depletion','Large predatory fish populations have declined by roughly 90% since the 1950s — a finding that substantially reshaped scientific understanding of marine fishery resources.']},
-  {s:'Borrelle et al. · Science · 2020',z:['塑料减排路径','模型显示，仅靠回收与清理无法解决问题。要显著降低海洋塑料流入量，必须系统性减少原生塑料生产与消费。'],e:['Plastic mitigation pathways','Models show that recycling and clean-up alone cannot solve the problem. To substantially cut ocean plastic inflow, primary plastic production and consumption must be reduced systemically.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.9',z:['海洋观测的长期性','海洋科学的进步依赖于长期、连续、可复核的观测数据。单个年份的异常不能构成趋势判断。'],e:['Long-term observation','Progress in marine science depends on long-term, continuous, verifiable observation. A single year\'s anomaly does not constitute a trend.']},
-  {s:'UNEP · GEO-6 · 2019 · Ch.7',z:['海洋生态系统退化','全球约 60% 的海洋生态系统已经退化或被不可持续地利用。这一比例是评估海洋健康状况的核心指标之一。'],e:['Marine ecosystem degradation','Roughly 60% of marine ecosystems are degraded or used unsustainably — one of the core indicators for assessing ocean health.']},
-  {s:'IPCC AR6 WGI · 2021 · SPM',z:['人类影响的确定性','报告明确指出：人类活动导致大气、海洋和陆地变暖这一结论是「明确无疑」的。'],e:['Certainty of human influence','The report states unequivocally that human influence has warmed the atmosphere, ocean and land.']},
-  {s:'UNEP · From Pollution to Solution · 2021',z:['问题的尺度','报告明确指出：塑料污染是一个系统性、全生命周期的问题，其解决需要从生产、消费到废弃的全链条干预。'],e:['Scale of the problem','The report states unequivocally that plastic pollution is a systemic, whole-life-cycle problem, requiring intervention across production, consumption and disposal.']},
-  {s:'IPCC AR6 WGII · 2022 · SPM',z:['不可逆损失','报告指出：部分生态系统的损失已经不可逆，即使全球升温立即停止，也需数十年至数千年才能部分恢复。'],e:['Irreversible losses','The report notes that some ecosystem losses are already irreversible; even if warming stopped immediately, partial recovery would take decades to millennia.']},
-  {s:'FAO · SOFIA 2022 · Part I',z:['粮食安全','水生食物为全球约 30 亿人提供至少 20% 的动物蛋白摄入。渔业种群的可持续性直接关系到这一供给的稳定性。'],e:['Food security','Aquatic foods supply at least 20% of animal protein intake for about 3 billion people. The sustainability of fish stocks bears directly on the stability of that supply.']},
-  {s:'IPCC AR6 WGI · 2021 · Ch.2',z:['不确定性表述','IPCC 结论通常附带不确定性区间与置信度评级（如「很可能」「极可能」「明确无疑」）。引用具体数值时应保留这些限定。'],e:['Uncertainty language','IPCC conclusions typically carry uncertainty ranges and confidence ratings (e.g. likely, very likely, unequivocal). Citing specific numbers should preserve these qualifications.']}
-  ];
-
-  var GRID = document.getElementById('learnGrid');
-  var REFRESH = document.getElementById('learnRefresh');
+  var GRID = document.getElementById('chapterGrid');
   if (!GRID) return;
 
-  /* 用日期做种子，保证同一天渲染结果一致 */
-  function daySeed() {
-    var d = new Date();
-    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-  }
-  function makeRng(seed) {
-    var s = seed % 2147483647;
-    if (s <= 0) s += 2147483646;
-    return function () { s = s * 16807 % 2147483647; return (s - 1) / 2147483646; };
-  }
-  function pickN(arr, n, rng) {
-    var copy = arr.slice();
-    for (var i = copy.length - 1; i > 0; i--) {
-      var j = Math.floor(rng() * (i + 1));
-      var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
-    }
-    return copy.slice(0, n);
+  var TABS = document.querySelectorAll('.chapter-tab');
+  var currentGroup = 'wgi';
+  var currentChapterId = null;
+
+  function lang() {
+    var btn = document.querySelector('.lang-btn.active');
+    return (btn && btn.dataset.lang === 'en') ? 'en' : 'zh';
   }
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function currentLang() {
-    var btn = document.querySelector('.lang-btn.active');
-    return (btn && btn.dataset.lang === 'en') ? 'en' : 'zh';
-  }
-
-  function cardHtml(item, lang) {
-    var L = (lang === 'en') ? item.e : item.z;
+  function cardHtml(ch, l) {
+    var title = (l === 'en') ? ch.titleEn : ch.title;
+    var desc  = (l === 'en') ? ch.summaryEn : ch.summary;
     return ''
-      + '<article class="reveal learn-card on">'
-      +   '<div class="learn-card__src">' + esc(item.s) + '</div>'
-      +   '<h3 class="learn-card__title" data-zh="' + esc(item.z[0]) + '" data-en="' + esc(item.e[0]) + '">' + esc(L[0]) + '</h3>'
-      +   '<p class="learn-card__body" data-zh="' + esc(item.z[1]) + '" data-en="' + esc(item.e[1]) + '">' + esc(L[1]) + '</p>'
-      + '</article>';
+      + '<button class="chapter-card reveal on" type="button" data-chapter="' + ch.id + '">'
+      +   '<div class="chapter-card__thumb">'
+      +     '<img src="' + ch.img + '" alt="' + esc(title) + '" loading="lazy" />'
+      +   '</div>'
+      +   '<div class="chapter-card__body">'
+      +     '<div class="chapter-card__num">' + ch.num + '</div>'
+      +     '<div class="chapter-card__title" data-zh="' + esc(ch.title) + '" data-en="' + esc(ch.titleEn) + '">' + esc(title) + '</div>'
+      +     '<div class="chapter-card__desc" data-zh="' + esc(ch.summary) + '" data-en="' + esc(ch.summaryEn) + '">' + esc(desc) + '</div>'
+      +     '<span class="chapter-card__arrow">'
+      +       '<span data-zh="阅读章节" data-en="Read chapter">阅读章节</span>'
+      +       '<svg viewBox="0 0 12 12"><path d="M4 3h5v5M9 3L3 9"/></svg>'
+      +     '</span>'
+      +   '</div>'
+      + '</button>';
   }
 
-  function renderLearn(forceReshuffle) {
-    var lang = currentLang();
-    var seed = daySeed() + (forceReshuffle ? Math.floor(Math.random() * 99999) : 0);
-    var rng = makeRng(seed);
-    var picked = pickN(LEARN_POOL, 9, rng);
+  function renderChapters(group) {
+    currentGroup = group;
+    var list = CHAPTERS[group] || [];
+    var l = lang();
     var html = '';
-    for (var i = 0; i < picked.length; i++) html += cardHtml(picked[i], lang);
+    for (var i = 0; i < list.length; i++) html += cardHtml(list[i], l);
     GRID.innerHTML = html;
-  }
 
-  /* 初始化渲染 */
-  renderLearn(false);
-
-  /* 换一批：随机洗牌 */
-  if (REFRESH) {
-    REFRESH.addEventListener('click', function () {
-      renderLearn(true);
+    GRID.querySelectorAll('.chapter-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        openChapter(card.dataset.chapter);
+      });
     });
   }
 
-  /* 语言切换时同步重绘卡片 */
-  document.querySelectorAll('.lang-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      setTimeout(function () { renderLearn(false); }, 30);
+  TABS.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      TABS.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      renderChapters(tab.dataset.group);
     });
   });
 
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setTimeout(function () {
+        renderChapters(currentGroup);
+        if (currentChapterId) renderChapterContent(currentChapterId);
+      }, 30);
+    });
+  });
+
+  /* ── 章节详情页 ── */
+  var $page = document.getElementById('chapterPage');
+  var $navLabel = document.getElementById('chapNavLabel');
+  var $heroImg = document.getElementById('chapHeroImg');
+  var $heroTag = document.getElementById('chapHeroTag');
+  var $heroTitle = document.getElementById('chapHeroTitle');
+  var $heroSub = document.getElementById('chapHeroSub');
+  var $body = document.getElementById('chapBody');
+
+  function findChapter(id) {
+    for (var g in CHAPTERS) {
+      if (!CHAPTERS.hasOwnProperty(g)) continue;
+      for (var i = 0; i < CHAPTERS[g].length; i++) {
+        if (CHAPTERS[g][i].id === id) return CHAPTERS[g][i];
+      }
+    }
+    return null;
+  }
+
+  function renderChapterContent(id) {
+    var ch = findChapter(id);
+    if (!ch) return;
+    var l = lang();
+
+    $navLabel.textContent = ch.group + ' · ' + ch.num + ' · ' + ch.source;
+    $heroImg.src = ch.img;
+    $heroImg.alt = (l === 'en') ? ch.titleEn : ch.title;
+    $heroTag.textContent = ch.source;
+    $heroTitle.textContent = (l === 'en') ? ch.titleEn : ch.title;
+    $heroSub.textContent = (l === 'en') ? ch.summaryEn : ch.summary;
+
+    var html = '';
+
+    var lead = (l === 'en') ? ch.leadEn : ch.lead;
+    if (lead && lead.length) {
+      html += '<section class="chap-lead">';
+      for (var i = 0; i < lead.length; i++) html += '<p>' + esc(lead[i]) + '</p>';
+      html += '</section>';
+    }
+
+    if (ch.stats && ch.stats.length) {
+      html += '<div class="chap-stats">';
+      for (var s = 0; s < ch.stats.length; s++) {
+        var st = ch.stats[s];
+        html += '<div class="chap-stat">'
+             +    '<div class="chap-stat__v">' + esc(st.v) + '</div>'
+             +    '<div class="chap-stat__l">' + esc((l === 'en') ? st.lEn : st.l) + '</div>'
+             +  '</div>';
+      }
+      html += '</div>';
+    }
+
+    for (var k = 0; k < ch.sections.length; k++) {
+      var sec = ch.sections[k];
+      var title = (l === 'en') ? sec.tEn : sec.t;
+      var paras = (l === 'en') ? sec.pEn : sec.p;
+      html += '<section class="chap-section">'
+           +    '<div class="chap-section__h">'
+           +      '<span class="chap-section__num">' + sec.n + '</span>'
+           +      '<h2 class="chap-section__t">' + esc(title) + '</h2>'
+           +    '</div>';
+      for (var p = 0; p < paras.length; p++) {
+        html += '<p class="chap-section__p">' + esc(paras[p]) + '</p>';
+      }
+      html += '</section>';
+
+      if (k === 1 && ch.quote) {
+        html += '<blockquote class="chap-quote">'
+             +    '「' + esc((l === 'en') ? ch.quoteEn : ch.quote) + '」'
+             +    '<cite>' + esc(ch.quoteCite) + '</cite>'
+             +  '</blockquote>';
+      }
+    }
+
+    if (ch.cite && ch.cite.length) {
+      html += '<div class="chap-cite">'
+           +    '<div class="chap-cite__h">' + ((l === 'en') ? 'Sources' : '引用来源') + '</div>'
+           +    '<ul>';
+      for (var c = 0; c < ch.cite.length; c++) {
+        html += '<li>' + esc(ch.cite[c]) + '</li>';
+      }
+      html += '</ul></div>';
+    }
+
+    $body.innerHTML = html;
+  }
+
+  function openChapter(id) {
+    var ch = findChapter(id);
+    if (!ch) return;
+    currentChapterId = id;
+    renderChapterContent(id);
+    $page.classList.add('active');
+    $page.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('chapter-open');
+    $page.scrollTop = 0;
+    if (history.replaceState) history.replaceState(null, '', '#chapter/' + id);
+    else location.hash = 'chapter/' + id;
+  }
+
+  function closeChapter() {
+    currentChapterId = null;
+    $page.classList.remove('active');
+    $page.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('chapter-open');
+    if (history.replaceState) history.replaceState(null, '', '#learn');
+    else location.hash = 'learn';
+    var el = document.getElementById('learn');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('[data-chap-close]').forEach(function (btn) {
+    btn.addEventListener('click', closeChapter);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $page.classList.contains('active')) closeChapter();
+  });
+
+  function handleHash() {
+    var h = location.hash || '';
+    var m = h.match(/^#chapter\/(.+)$/);
+    if (m) {
+      if (findChapter(m[1])) openChapter(m[1]);
+    } else if ($page.classList.contains('active') && !currentChapterId) {
+      $page.classList.remove('active');
+      $page.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('chapter-open');
+    }
+  }
+  window.addEventListener('hashchange', handleHash);
+
+  renderChapters('wgi');
+  if (location.hash && location.hash.indexOf('#chapter/') === 0) {
+    handleHash();
+  }
 })();
 </script>
 
