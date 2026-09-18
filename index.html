@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@300;400;500&family=Sora:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -66,7 +67,6 @@ tailwind.config = {
 
   .hairline { border-color: rgba(255,255,255,.08); }
 
-  /* ══════════ 导航 ══════════ */
   .nav-a { position: relative; transition: color .25s ease; }
   .nav-a::after {
     content: ""; position: absolute; left: 0; bottom: -4px;
@@ -92,41 +92,27 @@ tailwind.config = {
 
   ::selection { background: #67C1E8; color: #041724; }
 
-  /* ══════════ 数据卡片 ══════════ */
   .data-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+    display: block; text-decoration: none; color: inherit;
     border-top: 1px solid rgba(255,255,255,.08);
     padding: 32px 0;
     transition: border-color .3s ease, padding-left .3s cubic-bezier(.2,.8,.2,1);
     position: relative;
   }
   .data-card::before {
-    content: "";
-    position: absolute;
+    content: ""; position: absolute;
     left: 0; top: 32px; bottom: 32px;
-    width: 1px; background: #67C1E8;
-    opacity: 0;
+    width: 1px; background: #67C1E8; opacity: 0;
     transition: opacity .3s ease;
   }
-  .data-card:hover {
-    border-color: rgba(103,193,232,.35);
-    padding-left: 16px;
-  }
+  .data-card:hover { border-color: rgba(103,193,232,.35); padding-left: 16px; }
   .data-card:hover::before { opacity: 1; }
   .data-card__ext {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    display: inline-flex; align-items: center; gap: 5px;
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(103,193,232,.7);
-    margin-top: 14px;
-    opacity: .6;
-    transition: opacity .25s ease;
+    font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(103,193,232,.7); margin-top: 14px;
+    opacity: .6; transition: opacity .25s ease;
   }
   .data-card:hover .data-card__ext { opacity: 1; }
   .data-card__ext svg {
@@ -135,19 +121,13 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  /* ══════════ 社区卡片 ══════════ */
   .comm-card {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: flex; flex-direction: column; gap: 14px;
     padding: 28px 26px;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
+    border-radius: 10px; text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
     transition: border-color .3s ease, background .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
   }
   .comm-card:hover {
@@ -155,28 +135,16 @@ tailwind.config = {
     background: rgba(103,193,232,.05);
     transform: translateY(-2px);
   }
-  .comm-card__head {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px;
-  }
-  .comm-card__name {
-    font-size: 16px; font-weight: 500; color: #fff;
-    letter-spacing: -0.01em;
-  }
+  .comm-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .comm-card__name { font-size: 16px; font-weight: 500; color: #fff; letter-spacing: -0.01em; }
   .comm-card__arrow {
     flex: none; width: 18px; height: 18px;
     stroke: rgba(103,193,232,.7); stroke-width: 1.6;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
   }
-  .comm-card:hover .comm-card__arrow {
-    transform: translate(2px, -2px);
-    stroke: #67C1E8;
-  }
-  .comm-card__desc {
-    font-size: 13px; line-height: 1.7;
-    color: rgba(255,255,255,.5);
-  }
+  .comm-card:hover .comm-card__arrow { transform: translate(2px, -2px); stroke: #67C1E8; }
+  .comm-card__desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,.5); }
   .comm-card__tag {
     font-family: 'Geist Mono', monospace;
     font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
@@ -184,37 +152,22 @@ tailwind.config = {
   }
 
   .comm-head-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 64px;
-    flex-wrap: wrap;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; margin-bottom: 64px; flex-wrap: wrap;
   }
   @media (min-width: 768px) { .comm-head-row { margin-bottom: 80px; } }
 
   .comm-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.18);
-    border-radius: 8px;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 20px; background: transparent;
+    border: 1px solid rgba(255,255,255,.18); border-radius: 8px;
     font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.75);
-    cursor: pointer;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.75); cursor: pointer;
     transition: border-color .25s ease, background .25s ease, color .25s ease;
     flex: none;
   }
-  .comm-toggle:hover {
-    border-color: rgba(103,193,232,.55);
-    background: rgba(103,193,232,.06);
-    color: #fff;
-  }
+  .comm-toggle:hover { border-color: rgba(103,193,232,.55); background: rgba(103,193,232,.06); color: #fff; }
   .comm-toggle__icon {
     width: 12px; height: 12px;
     stroke: currentColor; stroke-width: 1.8;
@@ -224,206 +177,108 @@ tailwind.config = {
   .comm-toggle.open .comm-toggle__icon { transform: rotate(180deg); }
 
   .community-expand {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    margin-top: 0;
-    transition: grid-template-rows .75s cubic-bezier(.16,1,.3,1),
-                opacity .5s ease,
-                margin-top .55s cubic-bezier(.16,1,.3,1);
+    display: grid; grid-template-rows: 0fr; opacity: 0; margin-top: 0;
+    transition: grid-template-rows .75s cubic-bezier(.16,1,.3,1), opacity .5s ease, margin-top .55s cubic-bezier(.16,1,.3,1);
     overflow: hidden;
   }
-  .community-expand.open {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    margin-top: 72px;
-  }
+  .community-expand.open { grid-template-rows: 1fr; opacity: 1; margin-top: 72px; }
   .community-expand__inner { min-height: 0; }
 
-  .expand-label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+  .expand-label { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .expand-label__line { width: 24px; height: 1px; background: #67C1E8; }
   .expand-label__text {
     font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
     color: #67C1E8;
   }
 
-  /* ══════════ 图库 ══════════ */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 72px;
-  }
-  @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .gallery-grid { grid-template-columns: 1fr; } }
-  .gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 4 / 3;
-    background: #0B3A57;
-  }
-  .gallery-item img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform .9s cubic-bezier(.16,1,.3,1);
-  }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-item__caption {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 32px 14px 12px;
-    background: linear-gradient(to top, rgba(4,23,36,.92), transparent);
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px; letter-spacing: .1em;
-    color: rgba(255,255,255,.72);
-    line-height: 1.5;
-  }
-
-  /* ══════════ 数据表 ══════════ */
   .stat-table-wrap {
-    margin-bottom: 72px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
+    margin-bottom: 72px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(255,255,255,.08); border-radius: 10px;
   }
-  .stat-table {
-    width: 100%;
-    min-width: 640px;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
+  .stat-table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px; }
   .stat-table thead th {
-    text-align: left;
-    padding: 18px 20px;
+    text-align: left; padding: 18px 20px;
     font-family: 'Geist Mono', monospace;
-    font-size: 10px; letter-spacing: .16em;
-    text-transform: uppercase;
+    font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
     color: rgba(255,255,255,.4);
     border-bottom: 1px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.02);
-    white-space: nowrap;
+    background: rgba(255,255,255,.02); white-space: nowrap;
   }
   .stat-table tbody td {
     padding: 16px 20px;
     border-bottom: 1px solid rgba(255,255,255,.06);
-    color: rgba(255,255,255,.75);
-    vertical-align: top;
+    color: rgba(255,255,255,.75); vertical-align: top;
   }
   .stat-table tbody tr:last-child td { border-bottom: none; }
   .stat-table tbody tr:hover td { background: rgba(103,193,232,.04); }
   .stat-table .val {
-    font-family: 'Geist Mono', monospace;
-    color: #67C1E8;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+    font-family: 'Geist Mono', monospace; color: #67C1E8;
+    white-space: nowrap; font-variant-numeric: tabular-nums;
   }
   .stat-table .src {
     font-family: 'Geist Mono', monospace;
     font-size: 10.5px; letter-spacing: .05em;
-    color: rgba(255,255,255,.4);
-    white-space: nowrap;
+    color: rgba(255,255,255,.4); white-space: nowrap;
   }
   .stat-table .src a {
-    color: rgba(103,193,232,.75);
-    text-decoration: none;
+    color: rgba(103,193,232,.75); text-decoration: none;
     border-bottom: 1px solid rgba(103,193,232,.3);
     transition: color .25s ease, border-color .25s ease;
   }
   .stat-table .src a:hover { color: #67C1E8; border-color: #67C1E8; }
 
-  /* ══════════ 门户 ══════════ */
-  .portal-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .portal-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
   @media (max-width: 640px) { .portal-list { grid-template-columns: 1fr; } }
   .portal-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 14px; padding: 16px 20px;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
+    border-radius: 8px; text-decoration: none; color: inherit;
     transition: border-color .25s ease, background .25s ease;
   }
   .portal-item:hover { border-color: rgba(103,193,232,.4); background: rgba(103,193,232,.05); }
   .portal-item__info { min-width: 0; }
   .portal-item__name {
-    font-size: 13.5px;
-    color: rgba(255,255,255,.88);
-    font-weight: 500;
-    margin-bottom: 2px;
+    font-size: 13.5px; color: rgba(255,255,255,.88);
+    font-weight: 500; margin-bottom: 2px;
   }
   .portal-item__url {
     font-family: 'Geist Mono', monospace;
     font-size: 10px; letter-spacing: .08em;
     color: rgba(255,255,255,.35);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .portal-item__arrow {
-    flex: none;
-    width: 14px; height: 14px;
+    flex: none; width: 14px; height: 14px;
     stroke: rgba(103,193,232,.65); stroke-width: 1.6;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .3s cubic-bezier(.2,.8,.2,1), stroke .25s ease;
   }
   .portal-item:hover .portal-item__arrow { transform: translate(2px, -2px); stroke: #67C1E8; }
 
-  /* ══════════ 学习板块 · 章节 ══════════ */
   .chapter-tab {
     padding: 10px 18px;
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,.14); border-radius: 6px;
     background: transparent;
     font-family: 'Geist Mono', monospace;
-    font-size: 10px; letter-spacing: .14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.5);
-    cursor: pointer;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(255,255,255,.5); cursor: pointer;
     transition: all .25s ease;
   }
   .chapter-tab:hover { border-color: rgba(103,193,232,.5); color: rgba(255,255,255,.85); }
-  .chapter-tab.active {
-    border-color: #67C1E8;
-    background: rgba(103,193,232,.1);
-    color: #67C1E8;
-  }
+  .chapter-tab.active { border-color: #67C1E8; background: rgba(103,193,232,.1); color: #67C1E8; }
 
-  .chapter-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  .chapter-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
   @media (min-width: 768px) { .chapter-grid { grid-template-columns: repeat(2, 1fr); } }
 
   .chapter-card {
     display: flex;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    text-align: left;
-    padding: 0;
-    font-family: inherit;
-    color: inherit;
+    border-radius: 10px; overflow: hidden; cursor: pointer;
+    text-align: left; padding: 0; font-family: inherit; color: inherit;
     transition: border-color .3s ease, background .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
   }
   .chapter-card:hover {
@@ -432,53 +287,41 @@ tailwind.config = {
     transform: translateY(-2px);
   }
   .chapter-card__thumb {
-    flex: none;
-    width: 130px;
-    background: #0B3A57;
-    position: relative;
-    overflow: hidden;
+    flex: none; width: 130px; background: #0B3A57;
+    position: relative; overflow: hidden;
   }
   @media (max-width: 520px) {
     .chapter-card { flex-direction: column; }
     .chapter-card__thumb { width: 100%; height: 110px; }
   }
   .chapter-card__thumb img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: cover; display: block;
     opacity: .82;
     transition: transform .7s cubic-bezier(.16,1,.3,1);
   }
   .chapter-card:hover .chapter-card__thumb img { transform: scale(1.06); }
   .chapter-card__body {
     flex: 1; padding: 20px 22px;
-    display: flex; flex-direction: column;
-    justify-content: center; min-width: 0;
+    display: flex; flex-direction: column; justify-content: center; min-width: 0;
   }
   .chapter-card__num {
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px; letter-spacing: .16em;
-    text-transform: uppercase;
-    color: rgba(103,193,232,.7);
-    margin-bottom: 8px;
+    font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(103,193,232,.7); margin-bottom: 8px;
   }
   .chapter-card__title {
     font-size: 15px; font-weight: 500; color: #fff;
-    letter-spacing: -0.01em; line-height: 1.4;
-    margin-bottom: 6px;
+    letter-spacing: -0.01em; line-height: 1.4; margin-bottom: 6px;
   }
   .chapter-card__desc {
     font-size: 12.5px; line-height: 1.65;
     color: rgba(255,255,255,.45);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
   .chapter-card__arrow {
     margin-top: 12px;
     font-family: 'Geist Mono', monospace;
-    font-size: 9.5px; letter-spacing: .12em;
-    text-transform: uppercase;
+    font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
     color: rgba(103,193,232,.6);
     display: inline-flex; align-items: center; gap: 5px;
     transition: color .25s ease;
@@ -490,11 +333,9 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  /* ══════════ 章节详情页 ══════════ */
   #chapterPage {
     position: fixed; inset: 0; z-index: 190;
-    background: #041724;
-    overflow-y: auto;
+    background: #041724; overflow-y: auto;
     overscroll-behavior: contain;
     opacity: 0; pointer-events: none;
     transition: opacity .45s cubic-bezier(.16,1,.3,1);
@@ -512,21 +353,14 @@ tailwind.config = {
   }
   .chap-back {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 14px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.16);
-    border-radius: 6px;
+    padding: 9px 14px; background: transparent;
+    border: 1px solid rgba(255,255,255,.16); border-radius: 6px;
     font-family: 'Geist Mono', monospace;
     font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-    color: rgba(255,255,255,.7);
-    cursor: pointer;
+    color: rgba(255,255,255,.7); cursor: pointer;
     transition: color .25s ease, border-color .25s ease, background .25s ease;
   }
-  .chap-back:hover {
-    color: #fff;
-    border-color: rgba(103,193,232,.6);
-    background: rgba(103,193,232,.06);
-  }
+  .chap-back:hover { color: #fff; border-color: rgba(103,193,232,.6); background: rgba(103,193,232,.06); }
   .chap-back svg {
     width: 12px; height: 12px;
     stroke: currentColor; stroke-width: 1.8;
@@ -534,25 +368,18 @@ tailwind.config = {
   }
   .chap-nav__label {
     font-family: 'Geist Mono', monospace;
-    font-size: 10px; letter-spacing: .18em;
-    text-transform: uppercase;
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
     color: rgba(255,255,255,.35);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
 
   .chap-hero {
-    position: relative;
-    height: 52vh; min-height: 340px;
-    overflow: hidden;
-    display: flex; align-items: flex-end;
+    position: relative; height: 52vh; min-height: 340px;
+    overflow: hidden; display: flex; align-items: flex-end;
   }
   .chap-hero img {
     position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
+    width: 100%; height: 100%; object-fit: cover; z-index: 0;
   }
   .chap-hero__scrim {
     position: absolute; inset: 0; z-index: 1;
@@ -561,170 +388,109 @@ tailwind.config = {
       linear-gradient(90deg, rgba(4,23,36,.5) 0%, transparent 60%);
   }
   .chap-hero__inner {
-    position: relative; z-index: 2;
-    width: 100%;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 clamp(20px,5vw,72px) 48px;
+    position: relative; z-index: 2; width: 100%; max-width: 860px;
+    margin: 0 auto; padding: 0 clamp(20px,5vw,72px) 48px;
   }
   .chap-hero__tag {
     display: inline-block;
     font-family: 'Geist Mono', monospace;
     font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-    color: #67C1E8;
-    padding: 6px 10px;
-    border: 1px solid rgba(103,193,232,.35);
-    border-radius: 4px;
+    color: #67C1E8; padding: 6px 10px;
+    border: 1px solid rgba(103,193,232,.35); border-radius: 4px;
     margin-bottom: 20px;
   }
   .chap-hero__title {
-    font-size: clamp(26px,4vw,44px);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    color: #fff;
+    font-size: clamp(26px,4vw,44px); font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.2; color: #fff;
     margin-bottom: 14px;
   }
-  .chap-hero__sub {
-    font-size: 15px; line-height: 1.7;
-    color: rgba(255,255,255,.6);
-    max-width: 640px;
-  }
+  .chap-hero__sub { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.6); max-width: 640px; }
 
-  .chap-body {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 64px clamp(20px,5vw,72px) 40px;
-  }
-
+  .chap-body { max-width: 860px; margin: 0 auto; padding: 64px clamp(20px,5vw,72px) 40px; }
   .chap-lead {
-    font-size: 16px; line-height: 1.95;
-    color: rgba(255,255,255,.72);
+    font-size: 16px; line-height: 1.95; color: rgba(255,255,255,.72);
     padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    margin-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 48px;
   }
   .chap-lead p + p { margin-top: 20px; }
 
   .chap-section { margin-bottom: 52px; }
-  .chap-section__h {
-    display: flex; align-items: baseline; gap: 14px;
-    margin-bottom: 18px;
-  }
+  .chap-section__h { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
   .chap-section__num {
     font-family: 'Geist Mono', monospace;
-    font-size: 11px; letter-spacing: .14em;
-    color: #67C1E8;
-    flex: none;
+    font-size: 11px; letter-spacing: .14em; color: #67C1E8; flex: none;
   }
   .chap-section__t {
-    font-size: 19px; font-weight: 500;
-    letter-spacing: -0.01em;
-    color: #fff;
-    line-height: 1.4;
+    font-size: 19px; font-weight: 500; letter-spacing: -0.01em;
+    color: #fff; line-height: 1.4;
   }
   .chap-section__p {
-    font-size: 14.5px; line-height: 2;
-    color: rgba(255,255,255,.62);
+    font-size: 14.5px; line-height: 2; color: rgba(255,255,255,.62);
     padding-left: calc(11px + 14px);
   }
   .chap-section__p + .chap-section__p { margin-top: 16px; }
 
   .chap-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 40px 0 52px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 10px;
+    overflow: hidden; margin: 40px 0 52px;
   }
   @media (min-width: 640px) { .chap-stats { grid-template-columns: repeat(3, 1fr); } }
   .chap-stat { padding: 22px 20px; background: rgba(255,255,255,.02); }
   .chap-stat__v {
     font-family: 'Geist Mono', monospace;
-    font-size: 20px; font-weight: 500;
-    color: #67C1E8;
-    letter-spacing: -0.01em;
-    margin-bottom: 8px;
+    font-size: 20px; font-weight: 500; color: #67C1E8;
+    letter-spacing: -0.01em; margin-bottom: 8px;
   }
   .chap-stat__l { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.5); }
 
   .chap-quote {
-    margin: 40px 0;
-    padding: 22px 26px;
+    margin: 40px 0; padding: 22px 26px;
     border-left: 2px solid #67C1E8;
     background: rgba(103,193,232,.04);
     border-radius: 0 8px 8px 0;
-    font-size: 14.5px; line-height: 1.9;
-    color: rgba(255,255,255,.7);
+    font-size: 14.5px; line-height: 1.9; color: rgba(255,255,255,.7);
     font-style: italic;
   }
   .chap-quote cite {
-    display: block;
-    margin-top: 12px;
-    font-size: 11.5px;
-    font-style: normal;
-    font-family: 'Geist Mono', monospace;
-    letter-spacing: .1em;
+    display: block; margin-top: 12px; font-size: 11.5px; font-style: normal;
+    font-family: 'Geist Mono', monospace; letter-spacing: .1em;
     color: rgba(255,255,255,.35);
   }
 
-  .chap-cite {
-    margin-top: 56px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
+  .chap-cite { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.08); }
   .chap-cite__h {
     font-family: 'Geist Mono', monospace;
     font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
-    color: rgba(255,255,255,.35);
-    margin-bottom: 16px;
+    color: rgba(255,255,255,.35); margin-bottom: 16px;
   }
   .chap-cite ul { list-style: none; }
   .chap-cite li {
-    font-size: 12.5px; line-height: 1.8;
-    color: rgba(255,255,255,.45);
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,.45);
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.05);
   }
   .chap-cite li:last-child { border-bottom: none; }
 
-  .chap-foot {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 20px clamp(20px,5vw,72px) 80px;
-  }
+  .chap-foot { max-width: 860px; margin: 0 auto; padding: 20px clamp(20px,5vw,72px) 80px; }
   .chap-foot__btn {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 14px 22px;
     background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.14); border-radius: 8px;
     font-family: 'Geist Mono', monospace;
     font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-    color: rgba(255,255,255,.7);
-    cursor: pointer;
+    color: rgba(255,255,255,.7); cursor: pointer;
     transition: color .25s ease, border-color .25s ease, background .25s ease;
   }
-  .chap-foot__btn:hover {
-    color: #fff;
-    border-color: rgba(103,193,232,.6);
-    background: rgba(103,193,232,.08);
-  }
+  .chap-foot__btn:hover { color: #fff; border-color: rgba(103,193,232,.6); background: rgba(103,193,232,.08); }
   .chap-foot__btn svg {
     width: 12px; height: 12px;
     stroke: currentColor; stroke-width: 1.8;
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  /* ══════════ 每日行动 ══════════ */
-  #daily {
-    display: none;
-    background: #07253B;
-    border-top: 1px solid rgba(255,255,255,.08);
-  }
+  #daily { display: none; background: #07253B; border-top: 1px solid rgba(255,255,255,.08); }
   #daily.visible { display: block; }
   .daily-wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
   @media (min-width: 768px) { .daily-wrap { padding: 0 48px; } }
@@ -748,10 +514,8 @@ tailwind.config = {
   }
   .daily-card {
     background: rgba(255,255,255,.03);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 12px;
-    padding: 28px;
-    display: flex; align-items: flex-start; gap: 20px;
+    border: 1px solid rgba(255,255,255,.1); border-radius: 12px;
+    padding: 28px; display: flex; align-items: flex-start; gap: 20px;
     transition: background .3s ease, border-color .3s ease;
   }
   .daily-card:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16); }
@@ -759,11 +523,9 @@ tailwind.config = {
   @media (min-width: 768px) { .daily-card { padding: 36px; } }
   .daily-card__check {
     flex: none; width: 26px; height: 26px;
-    border: 1px solid rgba(255,255,255,.3);
-    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: all .25s cubic-bezier(.2,.8,.2,1);
+    cursor: pointer; transition: all .25s cubic-bezier(.2,.8,.2,1);
     margin-top: 2px;
   }
   .daily-card__check:hover { border-color: rgba(103,193,232,.7); }
@@ -781,38 +543,23 @@ tailwind.config = {
     font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
     color: rgba(255,255,255,.35); margin-bottom: 10px;
   }
-  .daily-card__action {
-    font-size: 17px; font-weight: 400; line-height: 1.5; color: #fff;
-    transition: color .25s ease;
-  }
+  .daily-card__action { font-size: 17px; font-weight: 400; line-height: 1.5; color: #fff; transition: color .25s ease; }
   @media (min-width: 768px) { .daily-card__action { font-size: 19px; } }
   .daily-card.done .daily-card__action {
     color: rgba(255,255,255,.45);
     text-decoration: line-through;
     text-decoration-color: rgba(255,255,255,.25);
   }
-  .daily-card__note {
-    margin-top: 12px;
-    font-size: 13px; line-height: 1.7;
-    color: rgba(255,255,255,.42);
-  }
+  .daily-card__note { margin-top: 12px; font-size: 13px; line-height: 1.7; color: rgba(255,255,255,.42); }
   .daily-streak { margin-top: 36px; }
-  .daily-streak__head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 16px;
-  }
+  .daily-streak__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
   .daily-streak__label {
     font-family: 'Geist Mono', monospace;
     font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
     color: rgba(255,255,255,.3);
   }
-  .daily-streak__count {
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px; color: #67C1E8;
-  }
-  .daily-week {
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
-  }
+  .daily-streak__count { font-family: 'Geist Mono', monospace; font-size: 13px; color: #67C1E8; }
+  .daily-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
   .daily-day {
     aspect-ratio: 1; border-radius: 8px;
     border: 1px solid rgba(255,255,255,.08);
@@ -821,14 +568,8 @@ tailwind.config = {
     align-items: center; justify-content: center; gap: 4px;
     transition: all .25s ease;
   }
-  .daily-day.filled {
-    background: rgba(103,193,232,.14);
-    border-color: rgba(103,193,232,.35);
-  }
-  .daily-day.today {
-    border-color: rgba(103,193,232,.6);
-    box-shadow: 0 0 0 1px rgba(103,193,232,.2);
-  }
+  .daily-day.filled { background: rgba(103,193,232,.14); border-color: rgba(103,193,232,.35); }
+  .daily-day.today { border-color: rgba(103,193,232,.6); box-shadow: 0 0 0 1px rgba(103,193,232,.2); }
   .daily-day__dow {
     font-family: 'Geist Mono', monospace;
     font-size: 9px; letter-spacing: .08em;
@@ -850,19 +591,16 @@ tailwind.config = {
   }
   .daily-logout:hover { color: rgba(255,255,255,.7); }
 
-  /* ══════════ 承诺清单 ══════════ */
   .check-row {
     display: flex; align-items: flex-start; gap: 14px;
     padding: 18px 0;
     border-bottom: 1px solid rgba(255,255,255,.07);
-    cursor: pointer;
-    transition: opacity .3s ease;
+    cursor: pointer; transition: opacity .3s ease;
   }
   .check-row:last-child { border-bottom: none; }
   .check-box {
     flex: none; width: 18px; height: 18px; margin-top: 2px;
-    border: 1px solid rgba(255,255,255,.28);
-    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,.28); border-radius: 3px;
     display: flex; align-items: center; justify-content: center;
     transition: all .22s ease;
   }
@@ -880,7 +618,6 @@ tailwind.config = {
   }
   .check-row:hover .check-box { border-color: rgba(103,193,232,.6); }
 
-  /* ══════════ ECHOID 页 ══════════ */
   #joinPage {
     --text-dim: rgba(255,255,255,0.62);
     --text-dimmer: rgba(255,255,255,0.42);
@@ -909,8 +646,7 @@ tailwind.config = {
   #joinPage .hero {
     position: relative; width: 100%;
     height: 100vh; height: 100svh; min-height: 640px;
-    overflow: hidden;
-    display: grid; grid-template-rows: auto 1fr auto;
+    overflow: hidden; display: grid; grid-template-rows: auto 1fr auto;
     isolation: isolate;
   }
   #joinPage .hero__media {
@@ -919,10 +655,7 @@ tailwind.config = {
     background-image: url("https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_132328_5f9029c8-218f-4489-82b6-29ff2849920e.png");
     background-size: cover; background-position: center;
   }
-  #joinPage .hero__media video {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: center;
-  }
+  #joinPage .hero__media video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
   #joinPage .hero__scrim { position: absolute; inset: 0; z-index: 0; }
   @media (min-width:721px) {
     #joinPage .hero__scrim {
@@ -938,36 +671,27 @@ tailwind.config = {
   }
   #joinPage .navbar {
     display: flex; justify-content: space-between; align-items: center;
-    gap: 32px;
-    padding: clamp(20px, 2.4vw, 34px) var(--gutter);
+    gap: 32px; padding: clamp(20px, 2.4vw, 34px) var(--gutter);
     z-index: 60; position: relative;
   }
   #joinPage .logo {
-    font-family: var(--font-display);
-    font-weight: 200;
+    font-family: var(--font-display); font-weight: 200;
     font-size: clamp(20px, 1.75vw, 30px);
-    letter-spacing: 0.16em; color: #fff;
-    text-decoration: none; line-height: 1;
-    cursor: pointer;
+    letter-spacing: 0.16em; color: #fff; text-decoration: none;
+    line-height: 1; cursor: pointer;
   }
-  #joinPage .nav__cluster {
-    display: flex; align-items: center;
-    gap: clamp(24px, 3.2vw, 62px);
-  }
+  #joinPage .nav__cluster { display: flex; align-items: center; gap: clamp(24px, 3.2vw, 62px); }
   #joinPage .nav__links { display: flex; gap: clamp(20px, 2.8vw, 56px); }
   #joinPage .nav__links a {
-    font-family: var(--font-mono);
-    font-weight: 400;
+    font-family: var(--font-mono); font-weight: 400;
     font-size: clamp(11px, 0.78vw, 14px);
     letter-spacing: 0.18em; text-transform: uppercase;
     color: #fff; text-decoration: none;
-    transition: color 0.25s ease;
-    cursor: pointer;
+    transition: color 0.25s ease; cursor: pointer;
   }
   #joinPage .nav__links a:hover { color: var(--text-dim); }
   #joinPage .nav__cta {
-    font-family: var(--font-mono);
-    font-weight: 400;
+    font-family: var(--font-mono); font-weight: 400;
     font-size: clamp(11px, 0.78vw, 14px);
     letter-spacing: 0.18em; text-transform: uppercase;
     color: #fff; text-decoration: none;
@@ -976,18 +700,14 @@ tailwind.config = {
     transition: background 0.25s ease, border-color 0.25s ease;
     cursor: pointer;
   }
-  #joinPage .nav__cta:hover {
-    background-color: var(--fill-ghost);
-    border-color: rgba(255,255,255,0.5);
-  }
+  #joinPage .nav__cta:hover { background-color: var(--fill-ghost); border-color: rgba(255,255,255,0.5); }
   #joinPage .hamburger {
     display: none; width: 44px; height: 44px;
     position: relative; cursor: pointer;
     background: transparent; border: none;
   }
   #joinPage .hamburger__bar {
-    position: absolute; left: 50%;
-    transform: translateX(-50%);
+    position: absolute; left: 50%; transform: translateX(-50%);
     width: 22px; height: 1px; background-color: #fff;
     transition: transform 0.45s var(--ease-premium), opacity 0.25s ease;
   }
@@ -1007,16 +727,12 @@ tailwind.config = {
     backdrop-filter: blur(28px) saturate(140%);
     -webkit-backdrop-filter: blur(28px) saturate(140%);
     display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    gap:32px;
+    align-items:center; justify-content:center; gap:32px;
     clip-path: circle(3% at calc(100% - 42px) 42px);
     opacity:0; pointer-events:none;
     transition: clip-path 0.7s var(--ease-premium), opacity 0.45s ease;
   }
-  #joinPage .mobile-menu.open {
-    clip-path: circle(150% at calc(100% - 42px) 42px);
-    opacity:1; pointer-events:auto;
-  }
+  #joinPage .mobile-menu.open { clip-path: circle(150% at calc(100% - 42px) 42px); opacity:1; pointer-events:auto; }
   #joinPage .mobile-menu__item {
     font-family:var(--font-mono); font-weight:400;
     font-size:clamp(20px,5.5vw,28px);
@@ -1031,8 +747,7 @@ tailwind.config = {
     font-family:var(--font-mono); font-weight:400;
     letter-spacing:0.22em; text-transform:uppercase;
     color:#fff; text-decoration:none;
-    padding:16px 40px;
-    border:1px solid var(--line-strong);
+    padding:16px 40px; border:1px solid var(--line-strong);
     background: transparent; cursor: pointer;
     opacity:0; transform:translateY(16px);
     transition:opacity 0.4s ease, transform 0.5s var(--ease-premium), background .25s ease;
@@ -1059,8 +774,7 @@ tailwind.config = {
     line-height:1;
   }
   #joinPage .panel h1 {
-    font-family:var(--font-display);
-    font-weight:200;
+    font-family:var(--font-display); font-weight:200;
     font-size:clamp(54px,6.2vw,118px);
     letter-spacing:0.03em; line-height:0.95;
     margin-top:clamp(28px,3vw,52px);
@@ -1071,23 +785,18 @@ tailwind.config = {
     text-transform:uppercase;
     font-size:clamp(11px,0.94vw,17px);
     letter-spacing:0.14em; color:var(--text-dim);
-    margin-top:clamp(14px,1.4vw,24px);
-    line-height:1.4;
+    margin-top:clamp(14px,1.4vw,24px); line-height:1.4;
   }
   #joinPage .signup-form {
     margin-top:clamp(38px,4.6vw,82px);
     display:flex; flex-direction:column;
     gap:clamp(14px,1.3vw,22px); width:100%;
   }
-  #joinPage .visually-hidden {
-    position:absolute; width:1px; height:1px;
-    overflow:hidden; clip:rect(0,0,0,0);
-  }
+  #joinPage .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
   #joinPage .email-input {
     background:transparent; border:none;
     border-bottom:1px solid var(--line-strong);
-    border-radius:0;
-    padding:0 2px clamp(12px,1.1vw,18px);
+    border-radius:0; padding:0 2px clamp(12px,1.1vw,18px);
     font-family:var(--font-display); font-weight:300;
     font-size:clamp(16px,0.95vw,18px); color:#fff;
     transition:border-color 0.25s ease;
@@ -1098,12 +807,9 @@ tailwind.config = {
   #joinPage .email-input.is-error { border-color: rgba(255,120,120,0.85); }
   #joinPage .join-error {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: 11px; letter-spacing: 0.1em;
     color: rgba(255,140,140,0.95);
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
+    max-height: 0; overflow: hidden; opacity: 0;
     transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
     margin-top: 0;
   }
@@ -1113,8 +819,7 @@ tailwind.config = {
     width:100%; border-radius:0; border:none;
     padding:clamp(17px,1.6vw,27px) 20px;
     font-family:var(--font-mono); font-weight:400;
-    text-transform:uppercase;
-    letter-spacing:0.22em;
+    text-transform:uppercase; letter-spacing:0.22em;
     font-size:clamp(11px,0.78vw,14px);
     cursor:pointer;
     transition:background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
@@ -1126,55 +831,41 @@ tailwind.config = {
   #joinPage .btn--ghost:disabled,
   #joinPage .btn--solid:disabled { cursor: default; opacity: 0.7; }
   #joinPage .referral-link {
-    align-self:center;
-    margin-top:clamp(26px,2.6vw,46px);
+    align-self:center; margin-top:clamp(26px,2.6vw,46px);
     font-family:var(--font-mono); font-weight:400;
     text-transform:uppercase;
     font-size:clamp(11px,0.74vw,14px);
     letter-spacing:0.18em; color:#fff;
-    text-decoration:underline;
-    text-underline-offset:4px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+    text-decoration:underline; text-underline-offset:4px;
+    background: transparent; border: none; cursor: pointer;
     transition:color 0.25s ease;
   }
   #joinPage .referral-link:hover { color:var(--text-dim); }
   #joinPage .invite-panel {
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
+    width: 100%; max-height: 0; overflow: hidden; opacity: 0;
     transition: max-height 0.5s var(--ease-premium), opacity 0.35s ease, margin-top 0.35s ease;
     margin-top: 0;
   }
   #joinPage .invite-panel.open { max-height: 220px; opacity: 1; margin-top: 18px; }
   #joinPage .invite-row { display: flex; gap: 10px; }
   #joinPage .invite-input {
-    flex: 1;
-    background: transparent;
+    flex: 1; background: transparent;
     border: 1px solid var(--line-strong);
     padding: 14px 16px;
     font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: #fff;
-    transition: border-color 0.25s ease;
+    font-size: 12px; letter-spacing: 0.06em;
+    color: #fff; transition: border-color 0.25s ease;
   }
   #joinPage .invite-input::placeholder { color: var(--text-dim); }
   #joinPage .invite-input:focus { outline: none; border-color: rgba(255,255,255,0.85); }
   #joinPage .invite-submit {
     border: 1px solid var(--line-strong);
-    background: transparent;
-    color: #fff;
+    background: transparent; color: #fff;
     padding: 14px 22px;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    cursor: pointer;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; white-space: nowrap;
     transition: background 0.25s ease, border-color 0.25s ease;
-    white-space: nowrap;
   }
   #joinPage .invite-submit:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
   #joinPage .legal-footer {
@@ -1189,10 +880,8 @@ tailwind.config = {
   }
   #joinPage .legal-footer a {
     color:#fff; text-decoration:underline;
-    text-underline-offset:3px;
-    text-decoration-thickness:1px;
-    transition:color 0.25s ease;
-    cursor: pointer;
+    text-underline-offset:3px; text-decoration-thickness:1px;
+    transition:color 0.25s ease; cursor: pointer;
   }
   #joinPage .legal-footer a:hover { color:var(--text-dim); }
   #joinPage :focus-visible { outline:1px solid rgba(255,255,255,0.7); outline-offset:3px; }
@@ -1207,12 +896,9 @@ tailwind.config = {
     border: 1px solid rgba(255,255,255,0.18);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 11px; letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    cursor: pointer;
+    font-family: var(--font-mono); font-weight: 400;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); cursor: pointer;
     opacity: 0; transform: translateY(8px);
     transition: opacity .4s ease .25s, transform .5s var(--ease-premium) .25s,
                 color .25s ease, border-color .25s ease, background .25s ease;
@@ -1225,18 +911,13 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
   #joinPage .join-info {
-    position: absolute;
-    inset: 0;
-    z-index: 90;
+    position: absolute; inset: 0; z-index: 90;
     background: rgba(0,0,0,0.94);
     backdrop-filter: blur(24px) saturate(140%);
     -webkit-backdrop-filter: blur(24px) saturate(140%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     padding: 80px clamp(24px,6vw,80px);
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.4s var(--ease-premium);
   }
   #joinPage .join-info.open { opacity: 1; pointer-events: auto; }
@@ -1244,18 +925,12 @@ tailwind.config = {
     position: absolute;
     top: clamp(20px,2.4vw,34px);
     left: clamp(20px,5vw,100px);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: transparent;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 14px; background: transparent;
     border: 1px solid var(--line-strong);
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    cursor: pointer;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); cursor: pointer;
     transition: color 0.25s ease, border-color 0.25s ease;
   }
   #joinPage .join-info-close:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
@@ -1265,37 +940,310 @@ tailwind.config = {
     fill: none; stroke-linecap: round; stroke-linejoin: round;
   }
   #joinPage .join-info-inner {
-    max-width: 640px;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(16px);
+    max-width: 640px; width: 100%;
+    opacity: 0; transform: translateY(16px);
     transition: opacity 0.5s ease 0.1s, transform 0.6s var(--ease-premium) 0.1s;
   }
   #joinPage .join-info.open .join-info-inner { opacity: 1; transform: translateY(0); }
   #joinPage .join-info-tag {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 20px;
+    display: block; font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 20px;
   }
   #joinPage .join-info-title {
-    font-family: var(--font-display);
-    font-weight: 200;
+    font-family: var(--font-display); font-weight: 200;
     font-size: clamp(32px,4vw,54px);
-    letter-spacing: 0.02em;
-    line-height: 1.1;
-    color: #fff;
+    letter-spacing: 0.02em; line-height: 1.1; color: #fff;
     margin-bottom: 24px;
   }
   #joinPage .join-info-text {
-    font-family: var(--font-display);
-    font-weight: 300;
+    font-family: var(--font-display); font-weight: 300;
     font-size: clamp(14px,1.05vw,17px);
-    line-height: 1.8;
-    color: rgba(255,255,255,0.68);
+    line-height: 1.8; color: rgba(255,255,255,0.68);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     排队页 · OceanPulse Queue Gate
+     ══════════════════════════════════════════════════════════ */
+  #queuePage{
+    --q-ink:#111417;
+    --q-muted:#6b7178;
+    --q-pad:clamp(20px, 2.2vw, 34px);
+    --q-ease-out:cubic-bezier(.16,1,.3,1);
+    --q-stagger:72ms;
+    --q-radius-card:26px;
+    --q-nature:url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260831_224622_4eeb9d43-9e46-4483-9530-1eb4ef4c942d.png&w=1920&q=85");
+
+    position:fixed; inset:0; z-index:400;
+    background:#fff; color:var(--q-ink);
+    font-family:"Plus Jakarta Sans", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    opacity:1; pointer-events:auto;
+    transition:opacity .5s ease;
+    overflow:hidden;
+  }
+  #queuePage.is-leaving{ opacity:0; pointer-events:none; }
+  #queuePage *,#queuePage *::before,#queuePage *::after{ box-sizing:border-box; }
+  #queuePage img,#queuePage video{ display:block; max-width:100%; }
+
+  #queuePage .q-hero{
+    position:relative;
+    height:100vh; height:100svh; min-height:600px; width:100%;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,0.92fr);
+    gap:clamp(16px,2.4vw,40px);
+    padding:var(--q-pad);
+    padding-left:max(var(--q-pad), env(safe-area-inset-left));
+    padding-right:max(var(--q-pad), env(safe-area-inset-right));
+    overflow:hidden;
+  }
+  #queuePage .q-left{
+    position:relative; order:1;
+    display:flex; flex-direction:column;
+    min-width:0; padding-left:clamp(4px,1.6vw,28px);
+  }
+  #queuePage .q-nav{
+    display:flex; align-items:center;
+    gap:clamp(20px,3.4vw,58px);
+    padding-top:clamp(4px,0.6vw,10px);
+  }
+  #queuePage .q-brand{
+    display:flex; align-items:center;
+    text-decoration:none; color:inherit;
+    flex:0 0 auto; min-width:0;
+  }
+  #queuePage .q-brand__name{
+    font-weight:700; letter-spacing:.06em;
+    font-size:clamp(14px,1.15vw,19px);
+    text-transform:uppercase; white-space:nowrap;
+  }
+  #queuePage .q-nav__links{
+    display:flex; align-items:center;
+    gap:clamp(16px,2.3vw,42px);
+    margin:0 auto 0 clamp(10px,2vw,44px);
+    padding:0; list-style:none;
+  }
+  #queuePage .q-nav__links a{
+    text-decoration:none; color:var(--q-ink);
+    font-size:clamp(14px,1.02vw,17px); font-weight:500;
+    opacity:.88; transition:opacity .2s ease;
+  }
+  #queuePage .q-nav__links a:hover{ opacity:1; }
+
+  #queuePage .q-content{
+    margin-top:auto;
+    padding:clamp(24px,4vh,60px) 0;
+    max-width:820px;
+  }
+  #queuePage .q-title{
+    margin:0; font-weight:600;
+    letter-spacing:-.022em; line-height:1.1;
+    font-size:clamp(2.15rem,3.85vw,4.1rem);
+  }
+  #queuePage .q-line{ display:block; }
+  #queuePage .q-hl{
+    display:inline-block; color:#fff;
+    padding:.06em .2em .14em; margin:0 .04em;
+    border-radius:16px;
+    background-image:var(--q-nature);
+    background-size:cover; background-position:56% 14%;
+    background-repeat:no-repeat;
+    -webkit-box-decoration-break:clone;
+    box-decoration-break:clone;
+  }
+  #queuePage .q-text{
+    margin:clamp(22px,3.2vh,42px) 0 0;
+    max-width:47ch; color:var(--q-muted);
+    font-size:clamp(14px,1.02vw,17px); line-height:1.95;
+  }
+  #queuePage .q-cta{
+    display:inline-flex; align-items:center;
+    gap:clamp(14px,1.5vw,24px);
+    margin-top:clamp(28px,5vh,66px);
+    text-decoration:none; color:inherit; cursor:default;
+  }
+  #queuePage .q-cta__label{
+    font-size:clamp(15px,1.1vw,19px); font-weight:500;
+  }
+  #queuePage .q-ring{
+    width:clamp(44px,3.6vw,58px);
+    height:clamp(44px,3.6vw,58px);
+    flex:0 0 auto; display:block;
+  }
+  #queuePage .q-ring svg{ width:100%; height:100%; display:block; }
+  #queuePage .q-ring .ring-bg{ fill:none; stroke:rgba(17,20,23,.18); stroke-width:2; }
+  #queuePage .q-ring .ring-fg{
+    fill:none; stroke:var(--q-ink); stroke-width:2; stroke-linecap:round;
+    transform:rotate(-90deg); transform-origin:50% 50%;
+    transition:stroke-dashoffset .35s linear;
+  }
+
+  #queuePage .q-media{
+    position:relative; order:2; isolation:isolate;
+    border-radius:var(--q-radius-card);
+    overflow:hidden; background:#0b2a3a; min-width:0;
+  }
+  #queuePage .q-video{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover;
+  }
+  #queuePage .q-media::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,0) 38%);
+    pointer-events:none;
+  }
+  #queuePage .q-marker{ position:absolute; z-index:3; --dot-r:17px; }
+  #queuePage .q-marker__dot{
+    position:absolute;
+    left:calc(var(--dot-r) * -1); top:calc(var(--dot-r) * -1);
+    width:calc(var(--dot-r) * 2); height:calc(var(--dot-r) * 2);
+    border:4px solid #fff; border-radius:50%;
+    box-shadow:0 2px 12px rgba(0,0,0,.28);
+  }
+  #queuePage .q-marker__line{
+    position:absolute; left:0; top:-1.5px;
+    width:60px; height:3px;
+    background:#fff; border-radius:2px;
+    transform-origin:0 50%;
+    transform:rotate(212deg);
+    clip-path:inset(0 0 0 var(--dot-r));
+  }
+  #queuePage .q-marker__label{
+    position:absolute; right:50px; bottom:28px;
+    white-space:nowrap;
+    background:#fff; color:var(--q-ink);
+    font-size:clamp(13px,.95vw,16px); font-weight:500;
+    padding:.62em 1.05em; border-radius:999px;
+    box-shadow:0 6px 20px rgba(0,0,0,.16);
+  }
+  #queuePage .q-marker--right .q-marker__line{ transform:rotate(-32deg); }
+  #queuePage .q-marker--right .q-marker__label{ right:auto; left:50px; }
+
+  #queuePage .q-socials{
+    position:absolute; right:0; bottom:0; z-index:3;
+    display:flex; align-items:center;
+    gap:clamp(18px,2.2vw,38px);
+    background:#fff;
+    padding:clamp(14px,1.5vw,24px) clamp(20px,2.2vw,38px);
+    border-top-left-radius:36px;
+    border-bottom-right-radius:var(--q-radius-card);
+  }
+  #queuePage .q-socials a{
+    color:var(--q-ink); display:grid; place-items:center;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  #queuePage .q-socials a:hover{ opacity:.65; transform:translateY(-2px); }
+  #queuePage .q-socials svg{ width:clamp(20px,1.5vw,26px); height:clamp(20px,1.5vw,26px); }
+  #queuePage .q-socials--mobile{ display:none; }
+
+  @keyframes q-fade-up{
+    from{ opacity:0; transform:translate3d(0,18px,0); }
+    to{ opacity:1; transform:translate3d(0,0,0); }
+  }
+  @keyframes q-media-in{
+    from{ opacity:0; transform:translate3d(28px,0,0); }
+    to{ opacity:1; transform:translate3d(0,0,0); }
+  }
+  @keyframes q-video-in{
+    from{ opacity:0; transform:scale(1.06); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  @keyframes q-pop-in{
+    from{ opacity:0; transform:scale(.72); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  @keyframes q-draw-line{
+    from{ opacity:0; transform:rotate(212deg) scaleX(0); }
+    to{ opacity:1; transform:rotate(212deg) scaleX(1); }
+  }
+  @keyframes q-draw-line-right{
+    from{ opacity:0; transform:rotate(-32deg) scaleX(0); }
+    to{ opacity:1; transform:rotate(-32deg) scaleX(1); }
+  }
+  #queuePage .q-anim{
+    animation:q-fade-up .82s var(--q-ease-out) backwards;
+    animation-delay:calc(var(--d, 0) * var(--q-stagger));
+  }
+  #queuePage .q-media.q-anim{ animation-name:q-media-in; animation-duration:1.05s; }
+  #queuePage .q-video.q-anim{ animation-name:q-video-in; animation-duration:1.35s; }
+  #queuePage .q-marker__dot.q-anim{ animation-name:q-pop-in; animation-duration:.62s; }
+  #queuePage .q-marker__label.q-anim{ animation-duration:.7s; }
+  #queuePage .q-marker__line.q-anim{ animation-name:q-draw-line; animation-duration:.55s; }
+  #queuePage .q-marker--right .q-marker__line.q-anim{ animation-name:q-draw-line-right; }
+
+  @media (max-width:1024px){
+    #queuePage .q-hero{ grid-template-columns:minmax(0,1fr) minmax(0,0.78fr); }
+    #queuePage .q-nav__links{ display:none; }
+    #queuePage .q-marker--water{ left:46%; top:24%; }
+    #queuePage .q-marker--reef{ left:50%; top:60%; }
+    #queuePage .q-marker__line{ width:44px; }
+    #queuePage .q-marker{ --dot-r:13px; }
+    #queuePage .q-marker__dot{ border-width:3px; }
+    #queuePage .q-marker__label{ font-size:12px; right:36px; bottom:22px; }
+    #queuePage .q-marker--right .q-marker__label{ right:auto; left:36px; }
+  }
+  @media (max-width:900px){
+    #queuePage .q-hero{ grid-template-columns:minmax(0,1fr) minmax(0,0.62fr); }
+    #queuePage .q-text{ max-width:42ch; }
+    #queuePage .q-marker--water{ left:40%; top:22%; }
+    #queuePage .q-marker--reef{ left:44%; top:62%; }
+  }
+  @media (max-width:768px){
+    #queuePage{ --q-pad:20px; }
+    #queuePage .q-hero{ display:block; padding:0; color:#fff; }
+    #queuePage .q-media{ position:absolute; inset:0; border-radius:0; }
+    #queuePage .q-media::after{
+      background:linear-gradient(180deg,
+        rgba(4,18,28,.74) 0%,
+        rgba(4,18,28,.5) 42%,
+        rgba(4,18,28,.88) 100%);
+    }
+    #queuePage .q-marker,
+    #queuePage .q-socials{ display:none; }
+    #queuePage .q-left{
+      height:100%; padding:var(--q-pad);
+      padding-top:max(var(--q-pad), env(safe-area-inset-top));
+      padding-bottom:max(var(--q-pad), env(safe-area-inset-bottom));
+      color:#fff;
+    }
+    #queuePage .q-content{ padding:clamp(20px,3vh,40px) 0; }
+    #queuePage .q-title{ font-size:clamp(2rem,9.2vw,3rem); line-height:1.14; }
+    #queuePage .q-hl{ border-radius:12px; }
+    #queuePage .q-text{ color:rgba(255,255,255,.82); max-width:38ch; line-height:1.75; font-size:15px; }
+    #queuePage .q-cta{ color:#fff; margin-top:32px; }
+    #queuePage .q-ring .ring-bg{ stroke:rgba(255,255,255,.22); }
+    #queuePage .q-ring .ring-fg{ stroke:#fff; }
+    #queuePage .q-socials--mobile{
+      display:flex; position:static; background:transparent;
+      padding:0; margin-top:34px; gap:26px; border-radius:0; z-index:auto;
+    }
+    #queuePage .q-socials--mobile a{ color:#fff; }
+    #queuePage .q-socials--mobile svg{ width:22px; height:22px; }
+  }
+  @media (max-width:420px){
+    #queuePage .q-title{ font-size:clamp(1.8rem,8.6vw,2.4rem); }
+    #queuePage .q-text{ font-size:14px; line-height:1.7; }
+    #queuePage .q-cta{ margin-top:26px; }
+    #queuePage .q-socials--mobile{ margin-top:26px; }
+  }
+  @media (max-width:360px){
+    #queuePage{ --q-pad:16px; }
+    #queuePage .q-brand__name{ font-size:13px; letter-spacing:.05em; }
+    #queuePage .q-text{ max-width:none; }
+  }
+  @media (max-height:620px){
+    #queuePage .q-hero{ min-height:0; }
+  }
+  @media (max-width:1024px) and (orientation:landscape) and (max-height:540px){
+    #queuePage .q-content{ padding:10px 0; margin-top:auto; }
+    #queuePage .q-title{ font-size:clamp(1.5rem,6.2vh,2.1rem); line-height:1.12; }
+    #queuePage .q-text{ font-size:13px; line-height:1.6; max-width:56ch; margin-top:12px; }
+    #queuePage .q-cta{ margin-top:16px; gap:12px; }
+    #queuePage .q-ring{ width:38px; height:38px; }
+    #queuePage .q-cta__label{ font-size:14px; }
+    #queuePage .q-socials--mobile{ margin-top:16px; gap:22px; }
+    #queuePage .q-socials--mobile svg{ width:18px; height:18px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1320,6 +1268,95 @@ tailwind.config = {
 </head>
 
 <body class="text-white font-sans antialiased">
+
+<!-- ══════════════════════ 排队页 ══════════════════════ -->
+<div id="queuePage" aria-hidden="false">
+  <section class="q-hero">
+
+    <div class="q-media q-anim" style="--d:0">
+      <video class="q-video q-anim" style="--d:1"
+             autoplay muted loop playsinline preload="auto"
+             poster="https://images.higgs.ai/?default=1&amp;output=webp&amp;url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260831_224622_4eeb9d43-9e46-4483-9530-1eb4ef4c942d.png&amp;w=1920&amp;q=85">
+        <source type="video/mp4"
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260831_231820_baf1d009-9cc2-4f94-a720-b04a94a8eab4.mp4">
+      </video>
+
+      <div class="q-marker q-marker--water" style="left:56%; top:26%;">
+        <span class="q-marker__line q-anim" style="--d:14"></span>
+        <span class="q-marker__dot q-anim" style="--d:13"></span>
+        <span class="q-marker__label q-anim" style="--d:15">No One Ahead</span>
+      </div>
+
+      <div class="q-marker q-marker--reef q-marker--right" style="left:59%; top:59%;">
+        <span class="q-marker__line q-anim" style="--d:17"></span>
+        <span class="q-marker__dot q-anim" style="--d:16"></span>
+        <span class="q-marker__label q-anim" style="--d:18">You're Next</span>
+      </div>
+
+      <div class="q-socials q-anim" style="--d:19">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.47-.13-2.44 0-4.11 1.49-4.11 4.23v2.36H7.45v3.22h2.77V21h3.28z"/></svg>
+        </a>
+        <a href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.53 3h3.16l-6.9 7.89L21.99 21h-6.36l-4.98-6.51L4.95 21H1.78l7.39-8.44L1.5 3h6.52l4.5 5.95L17.53 3zm-1.11 16.14h1.75L7.67 4.76H5.79l10.63 14.38z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="q-left">
+      <nav class="q-nav" aria-label="Queue status">
+        <a class="q-brand" href="#">
+          <span class="q-brand__name q-anim" style="--d:2">OceanPulse</span>
+        </a>
+        <ul class="q-nav__links">
+          <li class="q-anim" style="--d:4"><a href="#">Queue</a></li>
+          <li class="q-anim" style="--d:5"><a href="#">Status</a></li>
+          <li class="q-anim" style="--d:6"><a href="#">Help</a></li>
+          <li class="q-anim" style="--d:7"><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="q-content">
+        <h1 class="q-title">
+          <span class="q-line q-anim" style="--d:9">You're in the <span class="q-hl">Queue,</span></span>
+          <span class="q-line q-anim" style="--d:10">Please Hold On</span>
+        </h1>
+
+        <p class="q-text q-anim" style="--d:11">
+          There is currently no one ahead of you in the queue. We are preparing your access to the Blue Guardian observation file — you will be taken there automatically in a moment. No action is needed.
+        </p>
+
+        <div class="q-cta q-anim" style="--d:12">
+          <span class="q-cta__label" id="qLabel">Please wait…</span>
+          <span class="q-ring">
+            <svg viewBox="0 0 44 44" aria-hidden="true">
+              <circle class="ring-bg" cx="22" cy="22" r="19"></circle>
+              <circle class="ring-fg" id="qRing" cx="22" cy="22" r="19"
+                      stroke-dasharray="119.38" stroke-dashoffset="119.38"></circle>
+            </svg>
+          </span>
+        </div>
+
+        <div class="q-socials q-socials--mobile">
+          <a class="q-anim" style="--d:14" href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8.25h2.77l.41-3.22H13.5V7.47c0-.93.26-1.57 1.6-1.57h1.7V3.02c-.3-.04-1.3-.13-2.47-.13-2.44 0-4.11 1.49-4.11 4.23v2.36H7.45v3.22h2.77V21h3.28z"/></svg>
+          </a>
+          <a class="q-anim" style="--d:15" href="#" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.53 3h3.16l-6.9 7.89L21.99 21h-6.36l-4.98-6.51L4.95 21H1.78l7.39-8.44L1.5 3h6.52l4.5 5.95L17.53 3zm-1.11 16.14h1.75L7.67 4.76H5.79l10.63 14.38z"/></svg>
+          </a>
+          <a class="q-anim" style="--d:16" href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
 
 <!-- ══════════════════════ 主页面 ══════════════════════ -->
 <section id="home" class="relative min-h-screen w-full overflow-hidden">
@@ -1556,10 +1593,9 @@ tailwind.config = {
 </section>
 
 
-<!-- ══════════════════════ 学习 · 章节列表 ══════════════════════ -->
+<!-- ══════════════════════ 学习 ══════════════════════ -->
 <section id="learn" class="relative bg-ink-950 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="reveal max-w-2xl mb-14 md:mb-20">
       <div class="flex items-center gap-3 mb-6">
         <span class="w-6 h-px bg-ink-500"></span>
@@ -1585,7 +1621,6 @@ tailwind.config = {
     </div>
 
     <div class="chapter-grid" id="chapterGrid"></div>
-
   </div>
 </section>
 
@@ -1593,7 +1628,6 @@ tailwind.config = {
 <!-- ══════════════════════ 社区 ══════════════════════ -->
 <section id="community" class="relative bg-ink-900 border-t hairline">
   <div class="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-24 md:py-32">
-
     <div class="comm-head-row">
       <div class="reveal max-w-2xl">
         <div class="flex items-center gap-3 mb-6">
@@ -1852,7 +1886,6 @@ tailwind.config = {
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -2252,7 +2285,9 @@ tailwind.config = {
   </div>
 </div>
 
-
+<!-- ══════════════════════════════════════════════════════════
+     📌 第二部分从这里开始 —— 接着粘贴 <script>...</script>
+     ══════════════════════════════════════════════════════════ -->
 <script>
 /* ══════════════════════════════════════════════════════════
    0. 常量与工具
@@ -2431,7 +2466,6 @@ var $communityExpand = document.getElementById('communityExpand');
 var joinBtns      = Array.prototype.slice.call(document.querySelectorAll('[data-open-join]'));
 var joinCloseBtns = Array.prototype.slice.call(document.querySelectorAll('[data-close-join]'));
 var langBtns      = Array.prototype.slice.call(document.querySelectorAll('.lang-btn'));
-var i18nNodes     = Array.prototype.slice.call(document.querySelectorAll('[data-zh][data-en]'));
 var checkRows     = Array.prototype.slice.call(document.querySelectorAll('.check-row'));
 
 /* ══════════════════════════════════════════════════════════
@@ -2690,7 +2724,7 @@ function applyLang(lang) {
     if (!active) b.classList.add('text-white/60');
     else b.classList.remove('text-white/60');
   });
-  i18nNodes.forEach(function (el) {
+  document.querySelectorAll('[data-zh][data-en]').forEach(function (el) {
     var txt = el.dataset[lang];
     if (typeof txt === 'string' && txt.length) el.textContent = txt;
   });
@@ -2810,7 +2844,6 @@ function focusEmail() {
 $joinNavCta.addEventListener('click', focusEmail);
 $joinMobileCta.addEventListener('click', focusEmail);
 
-/* 表单提交 */
 function handleJoinSubmit(e) {
   if (e && e.preventDefault) e.preventDefault();
   if (e && e.stopPropagation) e.stopPropagation();
@@ -2963,7 +2996,6 @@ document.addEventListener('visibilitychange', function () {
     }
   }
 }, { passive: true });
-
 
 /* ══════════════════════════════════════════════════════════
    20. 学习板块 · IPCC 章节数据
@@ -3529,7 +3561,6 @@ var CHAPTERS = {
     });
   });
 
-  /* ── 章节详情页 ── */
   var $page = document.getElementById('chapterPage');
   var $navLabel = document.getElementById('chapNavLabel');
   var $heroImg = document.getElementById('chapHeroImg');
@@ -3665,6 +3696,78 @@ var CHAPTERS = {
   if (location.hash && location.hash.indexOf('#chapter/') === 0) {
     handleHash();
   }
+})();
+
+/* ══════════════════════════════════════════════════════════
+   22. 排队页 · Queue Gate
+   ─────────────────────────────────────────────────────────
+   · 页面加载 → 显示排队页（覆盖层）
+   · 随机 0~20 秒倒计时
+   · 到 0 → 排队页淡出 → 露出主页面
+   ══════════════════════════════════════════════════════════ */
+(function () {
+  var $q = document.getElementById('queuePage');
+  if (!$q) return;
+
+  var MAX_WAIT   = 20;    // ← 改这里：最长等待秒数（随机 0 ~ MAX_WAIT）
+  var LABEL_LEAD = 600;   // 显示「Entering now…」后额外停留多久才淡出（毫秒）
+
+  var $label = document.getElementById('qLabel');
+  var $ring  = document.getElementById('qRing');
+  var RING_LEN = 119.38;  // 2π × 19
+
+  // 锁滚动，防止排队期间用户滚到主页面
+  document.body.classList.add('join-open');
+
+  // 随机总时长（含 0）
+  var total = Math.floor(Math.random() * (MAX_WAIT + 1));
+  var remaining = total;
+
+  function paint() {
+    if ($label) {
+      $label.textContent = remaining > 0
+        ? 'Entering in ' + remaining + 's'
+        : 'Entering now…';
+    }
+    if ($ring) {
+      var p = total === 0 ? 1 : (total - remaining) / total;
+      $ring.setAttribute('stroke-dashoffset', String(RING_LEN * (1 - p)));
+    }
+  }
+
+  function dismiss() {
+    $q.classList.add('is-leaving');
+    $q.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('join-open');
+
+    // 淡出后再从 DOM 中移除，释放视频资源
+    setTimeout(function () {
+      if ($q && $q.parentNode) {
+        var vid = $q.querySelector('video');
+        if (vid) { try { vid.pause(); } catch (e) {} }
+        $q.parentNode.removeChild($q);
+      }
+    }, 700);
+  }
+
+  paint();
+
+  if (total === 0) {
+    setTimeout(dismiss, LABEL_LEAD);
+    return;
+  }
+
+  var timer = setInterval(function () {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(timer);
+      remaining = 0;
+      paint();
+      setTimeout(dismiss, LABEL_LEAD);
+      return;
+    }
+    paint();
+  }, 1000);
 })();
 </script>
 
